@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
-// import Landing from './Landing';
+import Landing from './Landing';
 // import About from './About';
 // import Projects from './Projects';
 // import Skills from './Skills';
@@ -13,6 +13,7 @@ export default class App extends Component {
     return (
       <div className="app">
         <Header />
+        <Landing />
         {/* <Landing />
         <About />
         <Projects />
