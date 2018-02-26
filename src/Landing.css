@@ -12,6 +12,7 @@
   background-size: cover;
   opacity: 0.9;
   text-shadow: 2px 2px 4px black;
+  font-weight: bold;
 }
 .landing-name {
   min-width: 500px;

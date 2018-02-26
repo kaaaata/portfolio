@@ -1,0 +1,31 @@
+.about {
+  width: 100%;
+  display: flex;
+  background-color: rgb(240, 240, 250); 
+}
+.about-blurb {
+  max-width: 700px;
+  text-align: center;
+  font-size: 24px;
+  padding: 25px 0 20px 0;
+  line-height: 1.5em;
+  border-bottom: 1px solid black;
+}
+.about-content {
+  display: flex;
+  flex-direction: column;
+}
+.about-content-image {
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  margin: 50px;
+  background-image: url('assets/cat.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: 1px solid black;
+}
+.about-content-text {
+  padding: 25px 100px 25px 25px;
+}
