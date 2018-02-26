@@ -1,7 +1,7 @@
 .about {
   width: 100%;
   display: flex;
-  background-color: rgb(240, 240, 250); 
+  background-color: rgb(230, 230, 250); 
 }
 .about-blurb {
   max-width: 700px;
