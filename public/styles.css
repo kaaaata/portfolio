@@ -1,0 +1,17 @@
+/* START RESET */
+body {
+	margin: 0;
+	padding: 0;
+}
+.app {
+	font-family: 'Nunito', sans-serif;
+	cursor: default;
+	min-width: 500px;
+}
+a {
+	width: 100%;
+	text-decoration: none;
+	cursor: default;
+	color: black;
+}
+/* END RESET */
