@@ -5,12 +5,10 @@
   background-color: rgb(230, 230, 250); 
 }
 .about-blurb {
-  min-width: 500px;
-  max-width: 700px;
+  width: 700px;
   text-align: center;
-  font-size: 24px;
+  font-size: 30px;
   padding: 25px 0 20px 0;
-  line-height: 1.5em;
   border-bottom: 1px solid black;
 }
 .about-content {
@@ -29,5 +27,6 @@
   border: 1px solid black;
 }
 .about-content-text {
+  font-size: 20px;
   padding: 25px 100px 25px 25px;
 }

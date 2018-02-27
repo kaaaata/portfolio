@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import './Skills.css';
+const _ = require('lodash');
 
 export default class Skills extends Component {
   constructor() {
     super();
     this.state = {
-      skills: [
-        [
-          { skill: 'HTML', image: 'html.png', specs: ['HTML5'] },
-          { skill: 'CSS', image: 'css.png', specs: ['CSS3'] },
-          { skill: 'JavaScript', image: 'js.png', specs: ['ES7', 'NodeJS', 'JSX'] },
-        ],
-        [
-          { skill: 'React', image: 'react.png', specs: ['React 16', 'React Router 4'] },
-          { skill: 'SQL', image: 'react.png', specs: ['PostgreSQL'] },
-          { skill: 'Git', image: 'react.png', specs: ['GitHub', 'Git Command Line'] },
-        ],
-      ],
+      skills: _.chunk([
+        { skill: 'HTML', image: 'html.png', specs: ['HTML5'] },
+        { skill: 'CSS', image: 'css.png', specs: ['CSS3'] },
+        { skill: 'JavaScript', image: 'js.png', specs: ['ES7', 'Node/ExpressJS', 'JSX'] },
+        { skill: 'React', image: 'react.png', specs: ['React 16', 'React Router 4'] },
+        { skill: 'SQL', image: 'sql.png', specs: ['PostgreSQL'] },
+        { skill: 'Git', image: 'git.png', specs: ['GitHub', 'Git Command Line'] },
+      ], 3),
     };
   }
 
