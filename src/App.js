@@ -5,7 +5,7 @@ import Landing from './Landing';
 import About from './About';
 import Projects from './Projects';
 import Skills from './Skills';
-// import Contact from './Contact';
+import Contact from './Contact';
 // import Footer from './Footer';
 import './App.css';
 
@@ -22,12 +22,7 @@ export default class App extends Component {
         <About ref="about" />
         <Projects ref="projects" />
         <Skills ref="skills" />
-        {/* <Landing />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
-        <Footer /> */}
+        <Contact ref="contact" />
       </div>
     );
   }
