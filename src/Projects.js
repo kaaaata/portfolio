@@ -24,7 +24,7 @@ export default class Projects extends Component {
           tools: ['JavaScript', 'ExpressJS', 'Mocha', 'New Relic', 'Siege', 'Lo-Dash'],
           blurb: 'This project is a clone of Uber\'s backend matching microservice API.' },
         { name: 'PORTFOLIO', image: 'portfolio.png', shade: 'purple',
-          github: 'https://github.com/kaaaata/portfolio', url: 'https://www.kaaaata.com',
+          github: 'https://github.com/kaaaata/portfolio', url: 'http://www.kaaaata.com',
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Lo-Dash'],
           blurb: 'This website!' },
         { name: 'XELP', image: 'xelp.png', shade: 'orange',
@@ -42,19 +42,27 @@ export default class Projects extends Component {
           <div key={index} className="projects-row">
             {two.map((project, index) => (
               <div key={index} className="project">
-                <div key={index} className="project-background" style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }} />
-                <div className="project-foreground-color" style={{ backgroundColor: project.shade }}>
+                <div
+                  key={index}
+                  className="project-background"
+                  style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
+                />
+                <div
+                  className="project-foreground-color"
+                  onClick={() => window.open(project.url ? project.url : project.github, '_blank')}
+                  style={{ backgroundColor: project.shade }}
+                >
                   <div className="project-name">{project.name}</div>
                 </div>                
                 <div className="project-blurb">
                   <div>
                     {project.blurb}<br />&nbsp;
-                    <a href={project.github}>
+                    <a href={project.github} target="_blank">
                       <span className="project-link"><u>GitHub</u></span>
                     </a>
                     {project.url &&
                       <span>&nbsp;|&nbsp; 
-                        <a href={project.url}>
+                        <a href={project.url} target="_blank">
                           <span className="project-link"><u>Website</u></span>
                         </a>
                       </span>
