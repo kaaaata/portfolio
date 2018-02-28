@@ -51,7 +51,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0.6;
+  opacity: 0.4;
   transition: all 0.5s ease-in-out;
 }
 .project-foreground-color:hover {
@@ -85,8 +85,12 @@
   background-color: rgb(230, 230, 250);
   border-radius: 15px;
   padding: 5px;
+  margin-top: 2px;
+}
+.project-link {
+  font-weight: bold;
 }
 .project-link:hover {
-  font-weight: bold;
+  text-shadow: 0.25px 0.25px 0 grey;
   cursor: pointer;
 }
