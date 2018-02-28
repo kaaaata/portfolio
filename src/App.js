@@ -6,12 +6,17 @@ import About from './About';
 import Projects from './Projects';
 import Skills from './Skills';
 import Contact from './Contact';
-// import Footer from './Footer';
+import Footer from './Footer';
 import './App.css';
 
 export default class App extends Component {
   scrollToRef(ref) {
-    scrollToComponent(this.refs[ref], { offset: 0, align: 'middle', duration: 1500, ease: 'outQuart' });
+    scrollToComponent(this.refs[ref], {
+      offset: ref === 'skills' ? 100 : -50,
+      align: 'middle',
+      duration: ref === 'home' ? 2500 : 1500,
+      ease: 'outQuart'
+    });
   }
 
   render() {
@@ -23,6 +28,7 @@ export default class App extends Component {
         <Projects ref="projects" />
         <Skills ref="skills" />
         <Contact ref="contact" />
+        <Footer />
       </div>
     );
   }

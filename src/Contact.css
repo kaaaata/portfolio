@@ -1,5 +1,5 @@
 .contact {
-  height: 500px;
+  height: 250px;
   background-color: rgb(240, 240, 250);
   display: flex;
   flex-direction: column;
@@ -29,15 +29,16 @@ textarea {
 }
 .send {
   height: 75px;
-  width: 125px;
+  width: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
+  font-size: 20px;
   border-radius: 15px;
   border: 1px solid rgb(150, 150, 250);
   background-color: rgb(220, 220, 250);
   margin: 25px;
+  text-align: center;
 }
 .send:hover {
   background-color: rgb(230, 230, 250);
