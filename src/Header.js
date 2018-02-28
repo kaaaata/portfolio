@@ -22,7 +22,7 @@ export default class Header extends Component {
               { image: 'dota.png', url: 'https://www.dotabuff.com/players/125258124' },
             ].map((media, index) => (
               <div key={index}>
-                <a href={media.url}>
+                <a href={media.url} target="_blank">
                   <div className="header-media-icon" style={{ backgroundImage: `url(${require(`./assets/${media.image}`)})` }} />
                 </a>
               </div>
