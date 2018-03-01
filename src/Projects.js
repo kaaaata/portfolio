@@ -6,7 +6,7 @@ export default class Projects extends Component {
   constructor() {
     super();
     this.state = {
-      projects: _.chunk([
+      projects: [
         { name: 'THE HAPPINESS PROJECT', image: 'thp.png', shade: 'yellow',
           github: 'https://github.com/kaaaata/the-happiness-project', url: 'https://the-happiness-project.herokuapp.com',
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Lo-Dash'],
@@ -31,14 +31,22 @@ export default class Projects extends Component {
           github: 'https://github.com/kaaaata/yelp1', url: null,
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Travis CI', 'Lo-Dash'],
           blurb: 'Xelp is a fullstack Yelp clone I built with a group of four. I designed the search feature, front-end and back-end.'}
-      ], 3),
+      ],
+      projectsPerRow: window.innerWidth >= 1100 ? 3 : (window.innerWidth >= 700 ? 2 : 1),
     };
   }
+
+  componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.setState({ projectsPerRow: window.innerWidth >= 1100 ? 3 : (window.innerWidth >= 700 ? 2 : 1) });
+    });
+  }
+
   render() {
     return (
       <div className="projects">
         <div className="project-title">PROJECTS</div>
-        {this.state.projects.map((two, index) => (
+        {_.chunk(this.state.projects, this.state.projectsPerRow).map((two, index) => (
           <div key={index} className="projects-row">
             {two.map((project, index) => (
               <div key={index} className="project">
