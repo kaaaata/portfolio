@@ -46,15 +46,17 @@ export default class Projects extends Component {
     return (
       <div className="projects">
         <div className="project-title">PROJECTS</div>
-        {_.chunk(this.state.projects, this.state.projectsPerRow).map((two, index) => (
+        {_.chunk(this.state.projects, this.state.projectsPerRow).map((row, index) => (
           <div key={index} className="projects-row">
-            {two.map((project, index) => (
+            {row.map((project, index) => (
               <div key={index} className="project">
+
                 <div
                   key={index}
                   className="project-background"
                   style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
                 />
+                
                 <div
                   className="project-foreground-color"
                   onClick={() => window.open(project.url ? project.url : project.github, '_blank')}
@@ -62,6 +64,7 @@ export default class Projects extends Component {
                 >
                   <div className="project-name">{project.name}</div>
                 </div>                
+
                 <div className="project-blurb">
                   <div>
                     {project.blurb}<br />&nbsp;
@@ -77,13 +80,14 @@ export default class Projects extends Component {
                     }
                   </div>
                   <div className="project-tools">
-                  {project.tools.map((tool, index) => (
-                    <div key={index} className="project-tool">
-                      {tool}
-                    </div>
-                  ))}
+                    {project.tools.map((tool, index) => (
+                      <div key={index} className="project-tool">
+                        {tool}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                </div>
+                
               </div>
             ))}
           </div>
