@@ -12,8 +12,8 @@ import './App.css';
 export default class App extends Component {
   scrollToRef(ref) {
     scrollToComponent(this.refs[ref], {
-      offset: ref === 'skills' ? 100 : -50,
-      align: 'middle',
+      offset: -50, // height of header
+      align: 'top',
       duration: ref === 'home' ? 2500 : 1500,
       ease: 'outQuart'
     });
