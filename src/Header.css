@@ -30,6 +30,11 @@
   color: white;
   text-shadow: 1px 1px 1px black;
 }
+@media screen and (max-width: 650px) {
+  .header-scroller {
+    font-size: 12px;
+  }
+}
 .header-right {
   display: flex;
   justify-content: flex-end;
