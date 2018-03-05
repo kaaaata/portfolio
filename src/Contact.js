@@ -24,7 +24,7 @@ export default class Contact extends Component {
           <div><textarea value={this.state.message} onChange={(e) => this.setState({ message: e.target.value })} rows="4" cols="50" placeholder="Write me something.... Let me know if you want to work on a project together!" /></div> */}
           <div className="send">
             <a href="mailto:catherinehan714@gmail.com">
-              <div>Shoot me an email!</div>
+              <div>Send me an email!</div>
             </a>
           </div>
         </div>
