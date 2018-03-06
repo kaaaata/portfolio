@@ -47,13 +47,15 @@ export default class Projects extends Component {
               style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
             />
             
-            <div
-              className="foreground"
-              onClick={() => window.open(project.url ? project.url : project.github, '_blank')}
-              style={{ backgroundColor: project.shade }}
-            >
-              <div className="name">{project.name}</div>
-            </div>                
+            
+            <a href={project.url ? project.url : project.github} target="_blank">
+              <div
+                className="foreground"
+                style={{ backgroundColor: project.shade }}
+              >
+                <div className="name">{project.name}</div>
+              </div>                
+            </a>
 
             <div className="blurb">
               <div>
