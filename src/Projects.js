@@ -24,12 +24,12 @@ export default class Projects extends Component {
           blurb: 'Quikker is a backend clone of Uber\'s matching microservice API.' },
         { name: 'PORTFOLIO', image: 'portfolio.png', shade: 'purple',
           github: 'https://github.com/kaaaata/portfolio', url: 'http://www.kaaaata.com',
-          tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Lo-Dash'],
+          tools: ['HTML', 'CSS', 'Sass', 'JavaScript', 'React', 'Lo-Dash'],
           blurb: 'This website!' },
         { name: 'XELP', image: 'xelp.png', shade: 'orange',
           github: 'https://github.com/kaaaata/yelp1', url: null,
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Travis CI', 'Lo-Dash'],
-          blurb: 'Xelp is a fullstack Yelp clone. I worked on the search feature.'}
+          blurb: 'Xelp is a fullstack Yelp clone. I developed the search feature.'}
       ],
     };
   }
