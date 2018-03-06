@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Skills.css';
-const _ = require('lodash');
 
 export default class Skills extends Component {
   constructor() {
@@ -17,36 +16,25 @@ export default class Skills extends Component {
         { skill: 'Visual Basic', image: 'vba.png', specs: ['VBA for Excel'] },
         { skill: 'R', image: 'r.png', specs: ['Multivariate Statistics', 'Time Series'] },
       ],
-      skillsPerRow: 3,
     };
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.setState({ skillsPerRow: window.innerWidth >= 950 ? 3 : (window.innerWidth >= 625 ? 2 : 1) });
-    });
   }
 
   render() {
     return (
       <div className="skills">
         <div className="skills-title">SKILLS</div>
-        {_.chunk(this.state.skills, this.state.skillsPerRow).map((three, index) => (
-          <div key={index} className="skills-row">
-            {three.map((skill, index) => (
-              <div key={index} className="skill">
-                <div className="skill-left">
-                  <div className="skill-image" style={{ backgroundImage: `url(${require(`./assets/skills/${skill.image}`)})` }} />
-                </div>
-                <div className="skill-right">
-                  <div className="skill-specs">
-                    {skill.specs.map((spec, index) => (
-                      <div key={index} className="skill-spec">{spec}</div>
-                    ))}
-                  </div>
-                </div>
+        {this.state.skills.map((skill, index) => (
+          <div key={index} className="skill">
+            <div className="skill-left">
+              <div className="skill-image" style={{ backgroundImage: `url(${require(`./assets/skills/${skill.image}`)})` }} />
+            </div>
+            <div className="skill-right">
+              <div className="skill-specs">
+                {skill.specs.map((spec, index) => (
+                  <div key={index} className="skill-spec">{spec}</div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         ))}
       </div>
