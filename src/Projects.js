@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Projects.css';
-const _ = require('lodash');
 
 export default class Projects extends Component {
   constructor() {
@@ -32,60 +31,48 @@ export default class Projects extends Component {
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Travis CI', 'Lo-Dash'],
           blurb: 'Xelp is a fullstack Yelp clone. I worked on the search feature.'}
       ],
-      projectsPerRow: window.innerWidth >= 1100 ? 3 : (window.innerWidth >= 700 ? 2 : 1),
     };
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", () => {
-      this.setState({ projectsPerRow: window.innerWidth >= 1100 ? 3 : (window.innerWidth >= 700 ? 2 : 1) });
-    });
   }
 
   render() {
     return (
       <div className="projects">
         <div className="project-title">PROJECTS</div>
-        {_.chunk(this.state.projects, this.state.projectsPerRow).map((row, index) => (
-          <div key={index} className="projects-row">
-            {row.map((project, index) => (
-              <div key={index} className="project">
+        {this.state.projects.map((project, index) => (
+          <div key={index} className="project">
 
-                <div
-                  key={index}
-                  className="project-background"
-                  style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
-                />
-                
-                <div
-                  className="project-foreground-color"
-                  onClick={() => window.open(project.url ? project.url : project.github, '_blank')}
-                  style={{ backgroundColor: project.shade }}
-                >
-                  <div className="project-name">{project.name}</div>
-                </div>                
+            <div
+              key={index}
+              className="project-background"
+              style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
+            />
+            
+            <div
+              className="project-foreground-color"
+              onClick={() => window.open(project.url ? project.url : project.github, '_blank')}
+              style={{ backgroundColor: project.shade }}
+            >
+              <div className="project-name">{project.name}</div>
+            </div>                
 
-                <div className="project-blurb">
-                  <div>
-                    {project.blurb}<br />&nbsp;
-                    <a href={project.github} target="_blank">
-                      <span className="project-link"><u>GitHub</u></span>
-                    </a>
-                  </div>
-                  <div className="project-tools">
-                    {project.tools.map((tool, index) => (
-                      <div key={index} className="project-tool">
-                        {tool}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
+            <div className="project-blurb">
+              <div>
+                {project.blurb}<br />&nbsp;
+                <a href={project.github} target="_blank">
+                  <span className="project-link"><u>GitHub</u></span>
+                </a>
               </div>
-            ))}
+              <div className="project-tools">
+                {project.tools.map((tool, index) => (
+                  <div key={index} className="project-tool">
+                    {tool}
+                  </div>
+                ))}
+              </div>
+            </div>
+            
           </div>
         ))}
-
       </div>
     );
   }
