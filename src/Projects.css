@@ -2,90 +2,77 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: rgb(240, 240, 250);
-  padding-bottom: 20px;
-}
-.project-title {
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  padding: 25px 0 15px 0;
-}
-.project {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 350px;
-  height: 350px;
-  margin: 0 25px 10px 25px;
-  /* border: solid red; */
-}
-.project-background {
-  position: absolute;
-  width: 350px;
-  height: 200px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 350px 200px;
-  border-radius: 20px;
-  opacity: 0.5;
-  transition: all 0.5s ease-in-out;
-}
-.project-background:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-.project-foreground-color {
-  position: absolute;
-  width: 350px;
-  height: 200px;
-  border-radius: 20px;
-  color: white;
-  text-shadow: 1px 1px 1px black;
-  font-size: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.4;
-  transition: all 0.5s ease-in-out;
-}
-.project-foreground-color:hover {
-  opacity: 0;
-  cursor: pointer;
-}
-.project-name {
-  background: transparent;
-  text-align: center;
-}
-.project-blurb {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-  text-align: center;
-  margin-top: 200px;
-  padding: 10px;
-  line-height: 20px;
-  /* border: solid green; */
-}
-.project-tools {
-  width: 300px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  /* border: solid black; */
-}
-.project-tool {
-  border: 1px solid rgb(200, 200, 250);
-  background-color: rgb(230, 230, 250);
-  border-radius: 15px;
-  padding: 5px;
-  margin-top: 2px;
-}
-.project-link {
-  font-weight: bold;
-}
-.project-link:hover {
-  text-shadow: 0.25px 0.25px 0 grey;
-  cursor: pointer;
-}
+  background-color: #f0f0fa;
+  padding-bottom: 20px; }
+  .projects .title {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    padding: 25px 0 15px 0; }
+  .projects .project {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    margin: 0 25px 10px 25px;
+    /* border: solid red */ }
+    .projects .project .background {
+      position: absolute;
+      width: 350px;
+      height: 200px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 350px 200px;
+      border-radius: 20px;
+      opacity: 0.5;
+      transition: all 0.5s ease-in-out; }
+      .projects .project .background:hover {
+        opacity: 1;
+        cursor: pointer; }
+    .projects .project .foreground {
+      position: absolute;
+      width: 350px;
+      height: 200px;
+      border-radius: 20px;
+      color: white;
+      text-shadow: 1px 1px 1px black;
+      font-size: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.4;
+      transition: all 0.5s ease-in-out; }
+      .projects .project .foreground:hover {
+        opacity: 0;
+        cursor: pointer; }
+      .projects .project .foreground .name {
+        background: transparent;
+        text-align: center; }
+    .projects .project .blurb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 400px;
+      text-align: center;
+      margin-top: 200px;
+      padding: 10px;
+      line-height: 20px;
+      /* border: solid green */ }
+      .projects .project .blurb .link {
+        font-weight: bold; }
+        .projects .project .blurb .link:hover {
+          text-shadow: 0.25px 0.25px 0 grey;
+          cursor: pointer; }
+      .projects .project .blurb .tools {
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        /* border: solid black */ }
+        .projects .project .blurb .tools .tool {
+          border: 1px solid #c8c8fa;
+          background-color: lavender;
+          border-radius: 15px;
+          padding: 5px;
+          margin-top: 2px; }

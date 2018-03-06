@@ -37,34 +37,34 @@ export default class Projects extends Component {
   render() {
     return (
       <div className="projects">
-        <div className="project-title">PROJECTS</div>
+        <div className="title">PROJECTS</div>
         {this.state.projects.map((project, index) => (
           <div key={index} className="project">
 
             <div
               key={index}
-              className="project-background"
+              className="background"
               style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
             />
             
             <div
-              className="project-foreground-color"
+              className="foreground"
               onClick={() => window.open(project.url ? project.url : project.github, '_blank')}
               style={{ backgroundColor: project.shade }}
             >
-              <div className="project-name">{project.name}</div>
+              <div className="name">{project.name}</div>
             </div>                
 
-            <div className="project-blurb">
+            <div className="blurb">
               <div>
                 {project.blurb}<br />&nbsp;
                 <a href={project.github} target="_blank">
-                  <span className="project-link"><u>GitHub</u></span>
+                  <span className="link"><u>GitHub</u></span>
                 </a>
               </div>
-              <div className="project-tools">
+              <div className="tools">
                 {project.tools.map((tool, index) => (
-                  <div key={index} className="project-tool">
+                  <div key={index} className="tool">
                     {tool}
                   </div>
                 ))}
