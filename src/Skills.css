@@ -3,7 +3,8 @@
   flex-wrap: wrap;
   justify-content: center;
   background-color: #f5f5fa;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  max-width: 1500px; }
   .skills .title {
     width: 100%;
     text-align: center;
