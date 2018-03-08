@@ -23,20 +23,22 @@ export default class Skills extends Component {
     return (
       <div className="skills">
         <div className="title">SKILLS</div>
-        {this.state.skills.map((skill, index) => (
-          <div key={index} className="skill">
-            <div className="left">
-              <div className="image" style={{ backgroundImage: `url(${require(`./assets/skills/${skill.image}`)})` }} />
-            </div>
-            <div className="right">
-              <div className="specs">
-                {skill.specs.map((spec, index) => (
-                  <div key={index} className="spec">{spec}</div>
-                ))}
+        <div className="container">
+          {this.state.skills.map((skill, index) => (
+            <div key={index} className="skill">
+              <div className="left">
+                <div className="image" style={{ backgroundImage: `url(${require(`./assets/skills/${skill.image}`)})` }} />
+              </div>
+              <div className="right">
+                <div className="specs">
+                  {skill.specs.map((spec, index) => (
+                    <div key={index} className="spec">{spec}</div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }

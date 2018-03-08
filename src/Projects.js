@@ -38,43 +38,45 @@ export default class Projects extends Component {
     return (
       <div className="projects">
         <div className="title">PROJECTS</div>
-        {this.state.projects.map((project, index) => (
-          <div key={index} className="project">
+        <div className="container">
+          {this.state.projects.map((project, index) => (
+            <div key={index} className="project">
 
-            <div
-              key={index}
-              className="background"
-              style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
-            />
-            
-            
-            <a href={project.url ? project.url : project.github} target="_blank">
               <div
-                className="foreground"
-                style={{ backgroundColor: project.shade }}
-              >
-                <div className="name">{project.name}</div>
-              </div>                
-            </a>
+                key={index}
+                className="background"
+                style={{ backgroundImage: `url(${require(`./assets/projects/${project.image}`)})` }}
+              />
+              
+              
+              <a href={project.url ? project.url : project.github} target="_blank">
+                <div
+                  className="foreground"
+                  style={{ backgroundColor: project.shade }}
+                >
+                  <div className="name">{project.name}</div>
+                </div>                
+              </a>
 
-            <div className="blurb">
-              <div>
-                {project.blurb}<br />&nbsp;
-                <a href={project.github} target="_blank">
-                  <span className="link"><u>GitHub</u></span>
-                </a>
+              <div className="blurb">
+                <div>
+                  {project.blurb}<br />&nbsp;
+                  <a href={project.github} target="_blank">
+                    <span className="link"><u>GitHub</u></span>
+                  </a>
+                </div>
+                <div className="tools">
+                  {project.tools.map((tool, index) => (
+                    <div key={index} className="tool">
+                      {tool}
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="tools">
-                {project.tools.map((tool, index) => (
-                  <div key={index} className="tool">
-                    {tool}
-                  </div>
-                ))}
-              </div>
+              
             </div>
-            
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }
