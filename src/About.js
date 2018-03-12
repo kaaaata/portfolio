@@ -8,10 +8,10 @@ export default class About extends Component {
         <div><div className="image" /></div>
         <div className="content">
           <div className="blurb">
-            Hi, my name is Catherine, and I build web apps with JavaScript.
+            Hi, my name is Catherine, and I build full stack web apps.
           </div>
           <div className="text">
-            Originally a Finance major, I was introduced to coding with Python and Excel VBA scripting. I was immediately drawn in, fascinated by how code could automate boring tasks, and create cool small programs. The area that I fell most deeply in love with, though, was front end web development. Now, I'm focusing my energy on becoming the best front end engineer I can be, learning new skills and working on projects daily.
+            Originally a Finance major, I was introduced to coding with scripting in Python and Excel VBA. I was immediately drawn in, fascinated by how code could automate work, and bring ideas to life on the screen. The area that I fell most deeply in love with, though, was front end web development. Now, I'm focusing my energy on becoming the best front end engineer I can be, learning new skills and working on projects daily.
           </div>
         </div>
       </div>
