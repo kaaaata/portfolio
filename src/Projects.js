@@ -7,7 +7,7 @@ export default class Projects extends Component {
     this.state = {
       projects: [
         { name: 'THE HAPPINESS PROJECT', image: 'thp.png', shade: 'yellow',
-          github: 'https://github.com/kaaaata/the-happiness-project', url: 'https://the-happiness-project.herokuapp.com',
+          github: 'https://github.com/kaaaata/the-happiness-project', url: null,
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Lo-Dash'],
           blurb: 'The Happiness Project shares stories of what makes people happy. Under construction.' },
         { name: 'JELLY', image: 'jelly.png', shade: 'blue',
