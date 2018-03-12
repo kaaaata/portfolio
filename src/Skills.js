@@ -9,7 +9,7 @@ export default class Skills extends Component {
         { skill: 'HTML', image: 'html.png', specs: ['HTML5'] },
         { skill: 'CSS', image: 'css.png', specs: ['CSS3', 'Sass'] },
         { skill: 'JavaScript', image: 'js.png', specs: ['ES7', 'Node/ExpressJS', 'Mocha'] },
-        { skill: 'React', image: 'react.png', specs: ['React 16', 'React Router 4'] },
+        { skill: 'React', image: 'react.png', specs: ['React 16', 'React-Redux', 'React Router 4'] },
         { skill: 'SQL', image: 'sql.png', specs: ['PostgreSQL'] },
         { skill: 'Git', image: 'git.png', specs: ['GitHub', 'Git Command Line'] },
         { skill: 'Python', image: 'python.png', specs: ['Python 3.X', 'Python 2.X'] },
