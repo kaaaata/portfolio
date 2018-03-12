@@ -10,13 +10,13 @@
     background-position: center;
     background-size: cover; }
     .landing .background.low {
-      background-image: url("assets/skyline_low.png");
+      background-image: url("../assets/skyline_low.png");
       z-index: 0; }
     .landing .background.med {
-      background-image: url("assets/skyline_med.png");
+      background-image: url("../assets/skyline_med.png");
       z-index: 1; }
     .landing .background.high {
-      background-image: url("assets/skyline_high.png");
+      background-image: url("../assets/skyline_high.png");
       z-index: 2; }
   .landing .content {
     position: absolute;

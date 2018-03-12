@@ -8,7 +8,7 @@
     height: 250px;
     width: 250px;
     margin: 50px;
-    background-image: url("assets/cat.png");
+    background-image: url("../assets/cat.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

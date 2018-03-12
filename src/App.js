@@ -7,7 +7,7 @@ import Projects from './Projects';
 import Skills from './Skills';
 import Contact from './Contact';
 import Footer from './Footer';
-import './App.css';
+import './styles/App.css';
 
 export default class App extends Component {
   scrollToRef(ref) {
