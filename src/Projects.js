@@ -8,7 +8,7 @@ export default class Projects extends Component {
       projects: [
         { name: 'DAY LOGGER', image: 'day.png', shade: 'yellow',
           github: 'https://github.com/kaaaata/day-logger', url: null,
-          tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Sass'],
+          tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Sass', 'PostgreSQL', 'ExpressJS'],
           blurb: 'A simple app to log what you did each day, tracking happiness and productivity. Under construction.' },
         { name: 'JELLY', image: 'jelly.png', shade: 'blue',
           github: 'https://github.com/kaaaata/jelly', url: 'https://jellyfishapp.herokuapp.com/',
