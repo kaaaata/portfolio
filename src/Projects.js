@@ -19,7 +19,7 @@ export default class Projects extends Component {
           tools: ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NodeJS'],
           blurb: 'Play against the AI in this Big 2 clone. Multiplayer coming soon.' },
         { name: 'QUIKKER', image: 'uber.jpg', shade: 'black',
-          github: 'https://github.com/kaaaata/thesis', url: null,
+          github: 'https://github.com/kaaaata/quikker', url: null,
           tools: ['JavaScript', 'NodeJS', 'Mocha', 'New Relic', 'Siege'],
           blurb: 'Quikker is a backend clone of Uber\'s matching microservice API.' },
         { name: 'PORTFOLIO', image: 'portfolio.png', shade: 'purple',
@@ -27,7 +27,7 @@ export default class Projects extends Component {
           tools: ['HTML', 'CSS', 'Sass', 'JavaScript', 'React'],
           blurb: 'This website!' },
         { name: 'XELP', image: 'xelp.png', shade: 'orange',
-          github: 'https://github.com/kaaaata/yelp1', url: null,
+          github: 'https://github.com/kaaaata/xelp', url: null,
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Travis CI'],
           blurb: 'Xelp is a fullstack Yelp clone. I developed the search feature.'}
       ],
