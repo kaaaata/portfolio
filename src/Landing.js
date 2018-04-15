@@ -11,7 +11,7 @@ export default class Landing extends Component {
         <div className="content">      
           <br /><br /><br /><br /><br />
           <div className="name">CATHERINE HAN</div>
-          <div className="title">FRONT END ENGINEER</div>
+          <div className="title">FULLSTACK ENGINEER</div>
         </div>
       </div>
     );
