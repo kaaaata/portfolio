@@ -6,10 +6,10 @@ export default class Projects extends Component {
     super();
     this.state = {
       projects: [
-        { name: 'DAY LOGGER', image: 'day.png', shade: 'yellow',
-          github: 'https://github.com/kaaaata/day-logger', url: null,
+        { name: 'DAY LOGGER', image: 'day.png', shade: 'pink',
+          github: 'https://github.com/kaaaata/day-logger', url: 'https://day-logger.herokuapp.com/',
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Sass', 'PostgreSQL', 'NodeJS'],
-          blurb: 'A simple app to log what you did each day, tracking happiness and productivity. Under construction.' },
+          blurb: 'A simple app to track your daily happiness and productivity.' },
         { name: 'JELLY', image: 'jelly.png', shade: 'blue',
           github: 'https://github.com/kaaaata/jelly', url: 'https://jellyfishapp.herokuapp.com/',
           tools: ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'NodeJS'],
@@ -23,7 +23,7 @@ export default class Projects extends Component {
           tools: ['JavaScript', 'NodeJS', 'Mocha', 'New Relic', 'Siege'],
           blurb: 'Quikker is a backend clone of Uber\'s matching microservice API.' },
         { name: 'PORTFOLIO', image: 'portfolio.png', shade: 'purple',
-          github: 'https://github.com/kaaaata/portfolio', url: 'http://www.kaaaata.com',
+          github: 'https://github.com/kaaaata/portfolio', url: null,
           tools: ['HTML', 'CSS', 'Sass', 'JavaScript', 'React'],
           blurb: 'This website!' },
         { name: 'XELP', image: 'xelp.png', shade: 'orange',
