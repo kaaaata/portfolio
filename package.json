@@ -1,6 +1,6 @@
 {
-  "name": "portfolio",
-  "version": "0.1.0",
+  "name": "cat-portfolio",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "lodash": "^4.17.5",
@@ -8,6 +8,9 @@
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
     "react-scroll-to-component": "^1.0.2"
+  },
+  "engines": {
+    "node" : ">=8.10.0"
   },
   "scripts": {
     "sass-dev": "sass --watch src:src/styles --sourcemap=none",
