@@ -4,12 +4,15 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 // import * as actions from './redux/actions';
 // import store from './redux/store';
-import styled from 'styled-components';
+
+import { LineBreak } from './StyledComponents';
+import { Header, Selfie, Blurb } from './Home';
+import { Feature, Projects, Project } from './Projects';
 
 import './styles/App.css';
 
 const mapStateToProps = (state) => ({
-  // games: state.default.games,
+  projects: state.default.projects,
 });
 const mapDispatchToProps = (dispatch) => ({
   //
@@ -17,24 +20,32 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App extends Component {
   render() {
+    const { projects } = this.props;
 
     return (
       <main className="app">
-        Cat Site
-        <div className="filter" />
-        {/* <Switch>
+        <Header />
+        <LineBreak />
+        <Switch>
           <Route
             exact path="/"
-            render={() => <Home />}
+            render={() => <React.Fragment>
+              <Selfie /><LineBreak />
+              <Blurb /><LineBreak />
+              <Feature project={projects[0]} />
+              <Projects projects={projects.slice(1)} />
+            </React.Fragment>}
           />
-          {games.map((game, index) => (
+          {projects.map(project => (
             <Route
-              key={index}
-              exact path={`/${game.id}`}
-              render={() => <Game {...game} />}
+              key={project.name}
+              exact path={`/${project.route}`}
+              render={() => <React.Fragment>
+                <Project project={project} />
+              </React.Fragment>}
             />
           ))}
-        </Switch> */}
+        </Switch>
       </main>
     );
   }

@@ -11,19 +11,37 @@ button
   cursor: pointer
   outline: none
   border: none
-.link
-  cursor: pointer
+
+// h1, h2, p from (with some personalizations):
+// http://www.mrmcguire.com/10-useful-google-font-combinations-for-your-next-site/
+h1
+  font-family: 'Fjalla One', sans-serif
+  font-weight: normal
+  text-transform: uppercase
+  line-height: 46px
+  font-size: 45px
+  letter-spacing: 6px
+  margin: 0 0 23px 0
+h2
+  font-family: 'Cantarell', sans-serif
+  font-weight: 700
+  font-size: 30px
+  line-height: 23px
+  text-transform: uppercase
+  letter-spacing: -1px
+  margin: 0 0 23px 0
+p
+  font-family: 'Cantarell', sans-serif
+  font-size: 15px
+  line-height: 25px
+  margin: 0 0 23px 0
+  color: grey
+//
+
 .app
-  position: fixed
-  font-family: 'Noto Sans', sans-serif
-  cursor: default
-  width: 100%
-  height: 100%
-  .filter
-    position: fixed
-    width: 100%
-    height: 100%
-    // background-image: url('../assets/felt.jpg')
-    background-size: cover
-    opacity: 0.5
-    z-index: -1
+  font-family: 'Nunito Sans', sans-serif
+  min-width: 270px
+  margin: 0 25px
+  @media screen and (min-width: 500px)
+    margin: 0 50px
+  

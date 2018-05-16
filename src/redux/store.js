@@ -1,11 +1,8 @@
 import { createStore, combineReducers } from 'redux';
+import projects from './projects';
 
 const initialState = {
-  // player: {
-  //   name: '',
-  // },
-  // game: {},
-  // games: [],
+  projects,
 };
 
 const reducers = {
