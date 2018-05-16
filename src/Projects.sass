@@ -1,24 +1,37 @@
-.feature
-  margin-bottom: 100px
+.slideshow
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 85vw
+  height: 60vw
+  margin: 0 auto 50px auto
+  z-index: -1
+  background-color: rgba(0, 0, 0, 0.05)
+  &.mini
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 80vw
+    height: 55vw
+    max-width: 600px
+    max-height: 450px
+    margin: 0 auto 50px auto
+    z-index: -1
+    background-color: rgba(0, 0, 0, 0.05)
+    @media screen and (min-width: 750px)
+      width: 45vw
+      height: 30vw
   .pic
-    min-width: 250px
-    max-width: 900px
-    height: 250px
-    margin: 0 auto 50px auto
+    width: 85%
+    height: 85%
     background-size: cover
-    background-position: center center
-    @media screen and (min-width: 500px)
-      height: 375px
-    @media screen and (min-width: 700px)
-      height: 500px
-  .pic-mini
-    min-width: 250px
-    max-width: 450px
-    height: 250px
-    margin: 0 auto 50px auto
-    background-size: cover
-    @media screen and (min-width: 500px)
-      height: 300px
+    background-position: center left
+    transition: all 0.75s ease-out
+  
+.feature
+  margin-bottom: 25px
   .info
     max-width: 600px
     margin: auto
@@ -26,11 +39,23 @@
     .blurb
       text-align: left
 
+.project
+  .info
+    max-width: 600px
+    margin: auto
+    text-align: left
+
 .projects
   display: flex
-  flex-wrap: wrap
-  margin: 0 -15px
+  justify-content: center
+  flex-direction: column
+  @media screen and (min-width: 750px)
+    margin: 0 -15px
+    flex-direction: row
   .project-mini
-    max-width: 400px
     flex-grow: 1
-    margin: 0 15px
+    @media screen and (min-width: 750px)
+      margin: 0 15px
+      flex-direction: row
+  
+      

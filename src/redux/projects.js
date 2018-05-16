@@ -5,21 +5,21 @@ const projects = [
     github: 'https://github.com/kaaaata/big-2',
     url: null,
     route: 'big2',
-    blurb: 'This is an online client I built for the popular Asian card game Big 2, also known as Deuces. It features live 1v1, 1vAI, and AIvAI gameplay. The AI code utilizes a few machine learning algorithms. This project was inspired by my friends, who I grew up playing Big 2 with, and live chess websites such as chess.com and lichess.com.',
+    blurb: 'This is an online client I built for the popular Asian card game Big 2, also known as Deuces. It features live 1v1, 1vAI, and AIvAI gameplay. The AI logic utilizes a fusion of minimax, reinforcement learning optimized parameters, and hard coded logic. This project was inspired by my friends, with whom I grew up playing Big 2 with, and live chess websites such as chess.com and lichess.com.',
     features: [
       'Live 1v1, 1vAI, and AIvAI gameplay',
       'Reinforcement learning script to train AI by playing it against itself (currently 350 games/sec)',
       'Minimax algorithm to determine AI\'s best move',
     ],
-    stack: [
+    technologies: [
       'React/Redux frontend',
       'Django API',
       'Python backend (card logic, AI, and machine learning code)',
       'Sass'
     ],
-    demo: {
+    details: {
       'what': 'Gameplay Lifecycle',
-      'description': 'In a 1v1 game, how do the React Client, the Django API, and the Python scripts work together? The following pointers walk through the entire lifecycle of a 1v1 game between P1 and P2, detailing the events that happen when a game is created, joined, played, and abandoned.',
+      'description': 'In a 1v1 game, how do the React Client, the Django API, and the Python scripts work together? The following walks through the entire lifecycle of a 1v1 game between P1 and P2, detailing what happens when a game is created, joined, played, and abandoned.',
       'pointers': [
         {
           event: 'P1 makes a new game',
@@ -79,12 +79,12 @@ const projects = [
       'Create your own profile of commands and access it from any computer',
       'Import and export entire profiles of commmands in JSON format',
     ],
-    stack: [
+    technologies: [
       'React frontend',
       'Node/Express.js API',
       'Postgres database',
     ],
-    demo: {
+    details: {
     },
     nextSteps: [
       'More animations',
@@ -103,12 +103,12 @@ const projects = [
       'Create your own profile of commands and access it from any computer',
       'Import and export entire profiles of commmands in JSON format',
     ],
-    stack: [
+    technologies: [
       'React frontend',
       'Node/Express.js API',
       'Postgres database',
     ],
-    demo: {
+    details: {
     },
     nextSteps: [
       'More animations',
