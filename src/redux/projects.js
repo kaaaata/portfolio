@@ -90,6 +90,30 @@ const projects = [
       'More animations',
     ],
   },
+  {
+    name: 'Jelly2',
+    images: ['jelly1.png', 'jelly2.png', 'jelly3.png'],
+    github: 'https://github.com/kaaaata/jelly',
+    url: 'https://jellyfishapp.herokuapp.com/',
+    route: 'jelly',
+    blurb: 'Jelly is a bash terminal clone for the web. Instead of going to youtube.com and using their search bar, simply alias youtube.com to \'yt\', and type \'yt gangnam style\' to instantly search youtube in a new tab.',
+    features: [
+      'Search any website with a short command',
+      'Alias website URLs to create your own commands',
+      'Create your own profile of commands and access it from any computer',
+      'Import and export entire profiles of commmands in JSON format',
+    ],
+    stack: [
+      'React frontend',
+      'Node/Express.js API',
+      'Postgres database',
+    ],
+    demo: {
+    },
+    nextSteps: [
+      'More animations',
+    ],
+  },
 ];
 
 export default projects;

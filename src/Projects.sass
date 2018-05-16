@@ -1,7 +1,5 @@
 .feature
   margin-bottom: 100px
-  .title
-    text-align: center
   .pic
     min-width: 250px
     max-width: 900px
@@ -13,9 +11,26 @@
       height: 375px
     @media screen and (min-width: 700px)
       height: 500px
+  .pic-mini
+    min-width: 250px
+    max-width: 450px
+    height: 250px
+    margin: 0 auto 50px auto
+    background-size: cover
+    @media screen and (min-width: 500px)
+      height: 300px
   .info
     max-width: 600px
     margin: auto
     text-align: left
     .blurb
       text-align: left
+
+.projects
+  display: flex
+  flex-wrap: wrap
+  margin: 0 -15px
+  .project-mini
+    max-width: 400px
+    flex-grow: 1
+    margin: 0 15px

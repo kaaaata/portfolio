@@ -32,7 +32,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
             render={() => <React.Fragment>
               <Selfie /><LineBreak />
               <Blurb /><LineBreak />
-              <Feature project={projects[0]} />
+              <h1 className="title">Projects</h1>
+              <Feature project={projects[0]} mini={false} />
               <Projects projects={projects.slice(1)} />
             </React.Fragment>}
           />

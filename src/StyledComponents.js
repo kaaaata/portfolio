@@ -11,7 +11,7 @@ export const SlideyButton = styled.button`
   height: 40px;
   border-radius: 5px;
   border: 2px solid black;
-  margin-right: 15px;
+  margin: 0 25px 15px 0;
   background-color: white
   transition: all 0.15s ease-out;
   &:hover {

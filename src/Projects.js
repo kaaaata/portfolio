@@ -14,14 +14,14 @@ const Slideshow = () => {
 
 export const Feature = (props) => {
   const { images, name, blurb, route, github, url } = props.project;
+  const { mini } = props;
 
   return (
     <section className="feature">
-      <h1 className="title">Projects</h1>
-      <div className="pic" style={{
+      <div className={mini ? 'pic-mini' : 'pic'} style={{
         backgroundImage: `url(${require(`./assets/${images[0]}`)})`
       }} />
-      <article className="info">
+      <article className="info-mini">
         <h2>{name}</h2>
         <p className="blurb">{blurb}</p>
         <Link className="link" to={`/${route}`}>
@@ -30,7 +30,7 @@ export const Feature = (props) => {
         <a href={github} target="_blank">
           <SlideyButton>GitHub</SlideyButton>
         </a>
-        {url && <a href={url} target="_blank">}
+        {url && <a href={url} target="_blank">
           <SlideyButton>Check it out</SlideyButton>
         </a>}
       </article>
@@ -48,9 +48,9 @@ export const Projects = (props) => {
   return (
     <section className="projects">
       {props.projects.map(project => (
-        <section key={project.name} className="project">
-          {project.name}
-        </section>
+        <article key={project.name} className="project-mini">
+          <Feature project={project} mini={true} />
+        </article>
       ))}
     </section>
   );

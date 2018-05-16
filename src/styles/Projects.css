@@ -1,7 +1,5 @@
 .feature {
   margin-bottom: 100px; }
-  .feature .title {
-    text-align: center; }
   .feature .pic {
     min-width: 250px;
     max-width: 900px;
@@ -15,9 +13,27 @@
     @media screen and (min-width: 700px) {
       .feature .pic {
         height: 500px; } }
+  .feature .pic-mini {
+    min-width: 250px;
+    max-width: 450px;
+    height: 250px;
+    margin: 0 auto 50px auto;
+    background-size: cover; }
+    @media screen and (min-width: 500px) {
+      .feature .pic-mini {
+        height: 300px; } }
   .feature .info {
     max-width: 600px;
     margin: auto;
     text-align: left; }
     .feature .info .blurb {
       text-align: left; }
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px; }
+  .projects .project-mini {
+    max-width: 400px;
+    flex-grow: 1;
+    margin: 0 15px; }
