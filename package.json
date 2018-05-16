@@ -1,22 +1,32 @@
 {
-  "name": "cat-portfolio",
-  "version": "1.0.0",
+  "name": "portfolio",
+  "version": "0.1.0",
+  "description": "Portfolio",
+  "author": "Catherine Han",
+  "license": "",
   "private": true,
-  "dependencies": {
-    "lodash": "^4.17.5",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1",
-    "react-scroll-to-component": "^1.0.2"
-  },
-  "engines": {
-    "node" : ">=8.10.0"
-  },
   "scripts": {
     "sass-dev": "sass --watch src:src/styles --sourcemap=none",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "dependencies": {
+    "ajv": "^6.0.0",
+    "axios": "^0.17.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
+    "reactstrap": "^5.0.0-beta.3",
+    "redux": "^3.7.2",
+    "shortid": "^2.2.8",
+    "styled-components": "^3.2.6"
   }
 }

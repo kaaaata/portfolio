@@ -1,35 +1,41 @@
 import React, { Component } from 'react';
-import scrollToComponent from 'react-scroll-to-component';
-import Header from './Header';
-import Landing from './Landing';
-import About from './About';
-import Projects from './Projects';
-import Skills from './Skills';
-import Contact from './Contact';
-import Footer from './Footer';
+import { Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+// import * as actions from './redux/actions';
+// import store from './redux/store';
+import styled from 'styled-components';
+
 import './styles/App.css';
 
-export default class App extends Component {
-  scrollToRef(ref) {
-    scrollToComponent(this.refs[ref], {
-      offset: -50, // height of header
-      align: 'top',
-      duration: ref === 'home' ? 2500 : 1500,
-      ease: 'outQuart'
-    });
-  }
+const mapStateToProps = (state) => ({
+  // games: state.default.games,
+});
+const mapDispatchToProps = (dispatch) => ({
+  //
+});
 
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App extends Component {
   render() {
+
     return (
-      <div className="app">
-        <Header scrollToRef={this.scrollToRef.bind(this)} />
-        <Landing ref="home" />
-        <About ref="about" />
-        <Projects ref="projects" />
-        <Skills ref="skills" />
-        <Contact ref="contact" />
-        <Footer />
-      </div>
+      <main className="app">
+        Cat Site
+        <div className="filter" />
+        {/* <Switch>
+          <Route
+            exact path="/"
+            render={() => <Home />}
+          />
+          {games.map((game, index) => (
+            <Route
+              key={index}
+              exact path={`/${game.id}`}
+              render={() => <Game {...game} />}
+            />
+          ))}
+        </Switch> */}
+      </main>
     );
   }
-}
+}));
