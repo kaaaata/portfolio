@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import './styles/Home.css';
 
 export const Header = () => {
@@ -49,7 +50,7 @@ export const Footer = () => {
         { image: 'facebook.png', url: 'https://www.linkedin.com/in/kaaaata/' },
         { image: 'dota.png', url: 'https://www.linkedin.com/in/kaaaata/' },
       ].map(media => (
-        <a href={media.url} target="_blank">
+        <a key={media.image} href={media.url} target="_blank">
           <div
             key={media.image}
             className="media"

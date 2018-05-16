@@ -1,8 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import projects from './projects';
+import skills from './skills';
 
 const initialState = {
   projects,
+  skills,
 };
 
 const reducers = {

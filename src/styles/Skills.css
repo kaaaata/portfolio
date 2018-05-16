@@ -1,0 +1,13 @@
+.skills .skill {
+  display: inline-block; }
+  .skills .skill .logo {
+    width: 75px;
+    height: 75px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: solid blue;
+    margin: 0 auto 5px auto; }
+  .skills .skill .name {
+    border: solid blue;
+    text-align: center; }
