@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 // import store from './redux/store';
 
 import { LineBreak } from './StyledComponents';
-import { Header, Selfie, Blurb } from './Home';
+import { Header, Selfie, Blurb, Footer } from './Home';
 import { Feature, Projects, Project } from './Projects';
 
 import './styles/App.css';
@@ -34,7 +34,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               <Blurb /><LineBreak />
               <h1 className="title">Projects</h1>
               <Feature project={projects[0]} mini={false} />
-              <Projects projects={projects.slice(1)} />
+              <Projects projects={projects.slice(1)} /><LineBreak />
+              <Footer />
             </React.Fragment>}
           />
           {projects.map(project => (
@@ -42,7 +43,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               key={project.name}
               exact path={`/${project.route}`}
               render={() => <React.Fragment>
-                <Project project={project} />
+                <Project project={project} /><LineBreak />
+                <Footer />
               </React.Fragment>}
             />
           ))}

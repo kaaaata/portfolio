@@ -18,3 +18,21 @@
   max-width: 750px;
   margin: 0 auto 300px auto;
   text-align: center; }
+
+.home-footer {
+  margin-bottom: 100px;
+  text-align: center; }
+  .home-footer .name {
+    font-size: 24px;
+    margin-bottom: 20px; }
+  .home-footer .email {
+    margin-bottom: 30px;
+    font-weight: 400;
+    letter-spacing: 2px; }
+  .home-footer a .media {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 10px;
+    background-size: contain;
+    background-repeat: no-repeat; }

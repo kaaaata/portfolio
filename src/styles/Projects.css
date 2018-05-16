@@ -40,10 +40,12 @@
     .feature .info .blurb {
       text-align: left; }
 
-.project .info {
-  max-width: 600px;
-  margin: auto;
-  text-align: left; }
+.project {
+  margin-bottom: 150px; }
+  .project .info {
+    max-width: 600px;
+    margin: auto;
+    text-align: left; }
 
 .projects {
   display: flex;
@@ -51,11 +53,11 @@
   flex-direction: column; }
   @media screen and (min-width: 750px) {
     .projects {
-      margin: 0 -15px;
+      margin: 0 -15px 150px -15px;
       flex-direction: row; } }
   .projects .project-mini {
     flex-grow: 1; }
     @media screen and (min-width: 750px) {
       .projects .project-mini {
-        margin: 0 15px;
+        margin: 0 15px 150px 15px;
         flex-direction: row; } }

@@ -32,7 +32,7 @@ class Slideshow extends Component {
     return (
       <div className={mini ? 'slideshow mini' : 'slideshow'}>
         <div className="pic" style={{
-          backgroundImage: `url(${require(`./assets/${images[index]}`)})`
+          backgroundImage: `url(${require(`./assets/projects/${images[index]}`)})`
         }} />
       </div>
     );

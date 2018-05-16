@@ -8,7 +8,7 @@ export const Header = () => {
       <Link to="/">
         <div className="logo" />
       </Link>
-      <h1>CATHERINE HAN</h1>
+      <h1>Catherine Han</h1>
     </section>
   );
 };
@@ -32,6 +32,33 @@ export const Blurb = () => {
           I build fullstack web applications using the latest features in HTML5, CSS3, and JavaScript ES7. Familiar with React/Redux, Node.js, Django, Sass, and Postgres.
         </p>
       </article>
+    </section>
+  );
+};
+
+export const Footer = () => {
+  return (
+    <section className="home-footer">
+      <h1 className="name">Catherine Han</h1>
+      <a href="mailto:catherinehan714@gmail.com">
+        <h3 className="email">catherinehan714@gmail.com</h3>
+      </a>
+      {[
+        { image: 'linkedin.png', url: 'https://www.linkedin.com/in/kaaaata/' },
+        { image: 'github.png', url: 'https://www.linkedin.com/in/kaaaata/' },
+        { image: 'facebook.png', url: 'https://www.linkedin.com/in/kaaaata/' },
+        { image: 'dota.png', url: 'https://www.linkedin.com/in/kaaaata/' },
+      ].map(media => (
+        <a href={media.url} target="_blank">
+          <div
+            key={media.image}
+            className="media"
+            style={{
+              backgroundImage: `url(${require(`./assets/media/${media.image}`)})`
+            }}
+          />
+        </a>
+      ))}
     </section>
   );
 };
