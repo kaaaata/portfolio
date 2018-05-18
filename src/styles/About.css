@@ -1,12 +1,11 @@
 .about {
-  margin-bottom: 250px; }
+  margin-bottom: 100px; }
   .about .content {
     max-width: 1000px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: auto;
-    border: solid red; }
+    margin: auto; }
     .about .content .selfie {
       margin: 0 10px;
       width: 100vw;
@@ -31,3 +30,7 @@
         .about .content .bio {
           width: 45%;
           height: auto; } }
+
+.resume {
+  margin-bottom: 250px;
+  text-align: center; }

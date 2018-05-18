@@ -41,14 +41,12 @@ export const Footer = () => {
   return (
     <section className="home-footer">
       <h1 className="name">Catherine Han</h1>
-      <a href="mailto:catherinehan714@gmail.com">
-        <h3 className="email">catherinehan714@gmail.com</h3>
-      </a>
+      <h3 className="email">catherinehan714@gmail.com</h3>
       {[
         { image: 'linkedin.png', url: 'https://www.linkedin.com/in/kaaaata/' },
-        { image: 'github.png', url: 'https://www.linkedin.com/in/kaaaata/' },
-        { image: 'facebook.png', url: 'https://www.linkedin.com/in/kaaaata/' },
-        { image: 'dota.png', url: 'https://www.linkedin.com/in/kaaaata/' },
+        { image: 'github.png', url: 'https://github.com/kaaaata/' },
+        { image: 'facebook.png', url: 'https://www.facebook.com/blueconiferforest/' },
+        { image: 'dota.png', url: 'https://www.dotabuff.com/players/125258124/' },
       ].map(media => (
         <a key={media.image} href={media.url} target="_blank">
           <div

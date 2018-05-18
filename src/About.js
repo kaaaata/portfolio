@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { PimpyButton } from './StyledComponents';
+
 import './styles/About.css';
 
 export const About = () => {
@@ -29,8 +31,14 @@ export const About = () => {
 
 export const Resume = () => {
   return (
-    <button type="submit" onClick={() => window.open('../assets/Catherine Han\'s Resume.pdf')}>
-      <h2>Click to view my Resume!</h2>
-    </button>
+    <section className="resume">
+      <h2>Check out my resume!</h2>
+      <br />
+      <article className="content">
+        <a href="https://www.docdroid.net/cW5Az4s/catherine-hans-resume.pdf" target="_blank">
+          <PimpyButton>Resume</PimpyButton>
+        </a>
+      </article>
+    </section>
   );
 };

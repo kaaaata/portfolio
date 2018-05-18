@@ -28,7 +28,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
     return (
       <main className="app">
         <Header />
-        <LineBreak />
         <Switch>
           <Route
             exact path="/"

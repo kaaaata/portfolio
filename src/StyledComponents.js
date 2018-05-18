@@ -6,7 +6,7 @@ export const LineBreak = styled.div`
   margin: 25px auto;
 `;
 
-export const SlideyButton = styled.button`
+export const PimpyButton = styled.button`
   width: 120px;
   height: 40px;
   border-radius: 5px;

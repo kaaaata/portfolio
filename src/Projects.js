@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { SlideyButton } from './StyledComponents';
+import { PimpyButton } from './StyledComponents';
 
 import './styles/Projects.css';
 
@@ -50,13 +50,13 @@ export const Feature = (props) => {
         <h2>{name}</h2>
         <p className="blurb">{blurb}</p>
         <Link className="link" to={`/${route}`}>
-          <SlideyButton>More on {name}</SlideyButton>
+          <PimpyButton>More on {name}</PimpyButton>
         </Link>
         <a href={github} target="_blank">
-          <SlideyButton>GitHub Repo</SlideyButton>
+          <PimpyButton>GitHub Repo</PimpyButton>
         </a>
         {url && <a href={url} target="_blank">
-          <SlideyButton>Check it out</SlideyButton>
+          <PimpyButton>Check it out</PimpyButton>
         </a>}
       </article>
     </section>
