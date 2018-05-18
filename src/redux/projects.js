@@ -85,6 +85,32 @@ const projects = [
       'Postgres database',
     ],
     details: {
+      'what': 'Demo',
+      'description': 'Below is a brief guide on how Jelly works.',
+      'pointers': [
+        {
+          event: 'User creates an alias for a website\'s URL',
+          actions: [
+            'Command object is created and stored in Postgres database',
+            'React client fetches and displays all user\'s commands, saving information in state',
+          ],
+        },
+        {
+          event: 'User enters an alias into the terminal',
+          actions: [
+            'React client generates a query string composed of the alias\' URL and the search string (if any)',
+            'Using JavaScript\'s window.open(), a new tab or window is opened with the query string as the destination URL',
+            'Since nearly all searchable websites can use the same URL query string pattern, Jelly works on nearly every website (try it!)',
+          ],
+        },
+        {
+          event: 'User exports their commands into JSON format',
+          actions: [
+            'All the user\'s commands get JSON.stringified and displayed to the user in an alert() popup',
+            'The stringified profile of commands can be imported and used instantly by any other user'
+          ],
+        },
+      ],
     },
     nextSteps: [
       'More animations',
