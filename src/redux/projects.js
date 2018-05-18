@@ -117,27 +117,54 @@ const projects = [
     ],
   },
   {
-    name: 'Jelly2',
-    images: ['jelly1.png', 'jelly2.png', 'jelly3.png'],
-    github: 'https://github.com/kaaaata/jelly',
-    url: 'https://jellyfishapp.herokuapp.com/',
-    route: 'jelly',
-    blurb: 'Jelly is a bash terminal clone for the web. Instead of going to youtube.com and using their search bar, simply alias youtube.com to \'yt\', and type \'yt gangnam style\' to instantly search youtube in a new tab.',
+    name: 'Day Logger',
+    images: ['day1.png', 'day2.png', 'day3.png'],
+    github: 'https://github.com/kaaaata/day-logger',
+    url: 'http://day-logger.herokuapp.com/',
+    route: 'day',
+    blurb: 'This is a web app for users to log what they did each day, alongside ratings for happiness and productivity. The idea is to create an interface for people to visualize how happy and productive they are across a stretch of time.',
     features: [
-      'Search any website with a short command',
-      'Alias website URLs to create your own commands',
-      'Create your own profile of commands and access it from any computer',
-      'Import and export entire profiles of commmands in JSON format',
+      'Create your own calendar with customizable day names',
+      'Enter activities into your calendar with ratings for happiness and productivity',
+      'Every activity and calendar day will show a different emoji depending on how happy and productive you were',
+      'View statistics like pie charts and scatterplots to see trends and patterns',
     ],
     technologies: [
-      'React frontend',
+      'React/Redux frontend',
       'Node/Express.js API',
       'Postgres database',
     ],
     details: {
+      'what': 'Demo',
+      'description': 'Below is a brief guide on how Day Logger (forgive the name) works.',
+      'pointers': [
+        {
+          event: 'User creates a new day with some new activities',
+          actions: [
+            'New day object is created in Redux',
+            'New activity objects are created in Redux and assigned a property representing it\'s day',
+            'React view updates emojis for days and activities dynamically depending on happiness and productivity levels',
+            'Statistical variables are updated in Redux',
+          ],
+        },
+        {
+          event: 'User presses the save button',
+          actions: [
+            'All days and activities in the Redux store are saved into the Postgres database',
+          ],
+        },
+        {
+          event: 'User visits statistics page',
+          actions: [
+            'Statistical variables in Redux store have already been calculated',
+            'Chart.js is used to display statistical data in pie charts and scatterplots',
+          ],
+        },
+      ],
     },
     nextSteps: [
       'More animations',
+      'More analytics features',
     ],
   },
 ];
