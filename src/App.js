@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 // import * as actions from './redux/actions';
 // import store from './redux/store';
 
-import { LineBreak } from './StyledComponents';
 import { Header, Selfie, Blurb, Footer } from './Home';
 import { Feature, Projects, Project } from './Projects';
 import { Skills } from './Skills';
@@ -42,7 +41,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               <h1 className="title">My Story</h1>
               <About />
               <Resume />
-              <LineBreak />
               <Footer />
             </React.Fragment>}
           />
@@ -52,7 +50,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               <Header title="Projects" />
               <Feature project={projects[0]} mini={false} />
               <Projects projects={projects.slice(1)} />
-              <LineBreak />
               <Footer />
             </React.Fragment>}
           />
@@ -61,7 +58,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
             render={() => <React.Fragment>
               <Header title="Skills" />
               <Skills skills={skills} />
-              <LineBreak />
               <Footer />
             </React.Fragment>}
           />
@@ -70,7 +66,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
             render={() => <React.Fragment>
               <Header title="About" />
               <About />
-              <LineBreak />
               <Footer />
             </React.Fragment>}
           />
@@ -80,7 +75,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               exact path={`/${project.route}`}
               render={() => <React.Fragment>
                 <Header title={project.name} />
-                <Project project={project} /><LineBreak />
+                <Project project={project} />
                 <Footer />
               </React.Fragment>}
             />

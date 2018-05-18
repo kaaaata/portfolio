@@ -47,6 +47,7 @@ export const Blurb = () => {
 export const Footer = () => {
   return (
     <section className="home-footer">
+      <div className="line-break" />
       <h1 className="name">Catherine Han</h1>
       <h3 className="email">catherinehan714@gmail.com</h3>
       {[

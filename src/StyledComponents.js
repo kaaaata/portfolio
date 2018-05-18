@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const LineBreak = styled.div`
-  border-bottom: solid black;
-  width: 150px;
-  margin: 25px auto;
-`;
-
 export const PimpyButton = styled.button`
   width: 120px;
   height: 40px;
