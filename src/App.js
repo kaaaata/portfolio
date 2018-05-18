@@ -9,6 +9,7 @@ import { LineBreak } from './StyledComponents';
 import { Header, Selfie, Blurb, Footer } from './Home';
 import { Feature, Projects, Project } from './Projects';
 import { Skills } from './Skills';
+import { About, Resume } from './About';
 
 import './styles/App.css';
 
@@ -38,6 +39,9 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               <Feature project={projects[0]} mini={false} />
               <Projects projects={projects.slice(1)} /><LineBreak />
               <Skills {...this.props} /><LineBreak />
+              <About />
+              <Resume />
+              <LineBreak />
               <Footer />
             </React.Fragment>}
           />

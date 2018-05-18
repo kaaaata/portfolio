@@ -4,14 +4,11 @@ const skills = [
   'JavaScript',
   'React',
   'Redux',
-  'Django',
-  'Node.js',
   'Sass',
+  'Node.js',
+  'Django',
   'Postgres',
   'Heroku',
-  'Git',
-  'R',
-  'VBA',
 ];
 
 export default skills;
