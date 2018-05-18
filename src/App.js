@@ -27,19 +27,49 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
 
     return (
       <main className="app">
-        <Header />
         <Switch>
           <Route
             exact path="/"
             render={() => <React.Fragment>
-              <Selfie /><LineBreak />
-              <Blurb /><LineBreak />
+              <Header title="Catherine Han" />
+              <Selfie />
+              <Blurb />
               <h1 className="title">Projects</h1>
               <Feature project={projects[0]} mini={false} />
-              <Projects projects={projects.slice(1)} /><LineBreak />
-              <Skills {...this.props} /><LineBreak />
+              <Projects projects={projects.slice(1)} />
+              <h1 className="title">Skills</h1>
+              <Skills skills={skills} />
+              <h1 className="title">My Story</h1>
               <About />
               <Resume />
+              <LineBreak />
+              <Footer />
+            </React.Fragment>}
+          />
+          <Route
+            exact path="/projects"
+            render={() => <React.Fragment>
+              <Header title="Projects" />
+              <Feature project={projects[0]} mini={false} />
+              <Projects projects={projects.slice(1)} />
+              <LineBreak />
+              <Footer />
+            </React.Fragment>}
+          />
+          <Route
+            exact path="/skills"
+            render={() => <React.Fragment>
+              <Header title="Skills" />
+              <Skills skills={skills} />
+              <LineBreak />
+              <Footer />
+            </React.Fragment>}
+          />
+          <Route
+            exact path="/about"
+            render={() => <React.Fragment>
+              <Header title="About" />
+              <About />
               <LineBreak />
               <Footer />
             </React.Fragment>}
@@ -49,6 +79,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               key={project.name}
               exact path={`/${project.route}`}
               render={() => <React.Fragment>
+                <Header title={project.name} />
                 <Project project={project} /><LineBreak />
                 <Footer />
               </React.Fragment>}

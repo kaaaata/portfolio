@@ -1,36 +1,34 @@
 .about {
-  margin-bottom: 100px; }
-  .about .content {
-    max-width: 1000px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: auto; }
-    .about .content .selfie {
-      margin: 0 10px;
-      width: 100vw;
-      height: 70vw; }
+  margin: 100px auto 400px auto;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; }
+  .about .selfie {
+    margin: 0 10px;
+    width: 100vw;
+    height: 70vw; }
+    @media screen and (min-width: 750px) {
+      .about .selfie {
+        width: 45%;
+        height: auto; } }
+    .about .selfie .pic {
+      margin: 0 auto;
+      background-color: papayawhip;
+      width: 75%;
+      height: 95%; }
       @media screen and (min-width: 750px) {
-        .about .content .selfie {
-          width: 45%;
-          height: auto; } }
-      .about .content .selfie .pic {
-        margin: 0 auto;
-        background-color: papayawhip;
-        width: 75%;
-        height: 95%; }
-        @media screen and (min-width: 750px) {
-          .about .content .selfie .pic {
-            width: 90%;
-            height: 40vw;
-            max-height: 450px; } }
-    .about .content .bio {
-      margin: 0 10px; }
-      @media screen and (min-width: 750px) {
-        .about .content .bio {
-          width: 45%;
-          height: auto; } }
+        .about .selfie .pic {
+          width: 90%;
+          height: 40vw;
+          max-height: 450px; } }
+  .about .bio {
+    margin: 0 10px; }
+    @media screen and (min-width: 750px) {
+      .about .bio {
+        width: 45%;
+        height: auto; } }
 
 .resume {
-  margin-bottom: 250px;
+  margin: 0 auto 400px auto;
   text-align: center; }

@@ -17,7 +17,7 @@ class Slideshow extends Component {
   componentDidMount() {
     this.setState({ interval: setInterval(() => {
       this.setState({ index: this.state.index === 2 ? 0 : this.state.index + 1 });
-    }, 5000)})
+    }, 5000)});
   }
 
   componentWillUnmount() {
@@ -26,14 +26,16 @@ class Slideshow extends Component {
 
   render() {
     const { index } = this.state;
-    const { images } = this.props.project;
-    const { mini } = this.props;
+    const { images, mini } = this.props;
 
     return (
       <div className={mini ? 'slideshow mini' : 'slideshow'}>
-        <div className="pic" style={{
-          backgroundImage: `url(${require(`./assets/projects/${images[index]}`)})`
-        }} />
+        <div
+          className="pic"
+          style={{
+            backgroundImage: `url(${require(`./assets/projects/${images[index]}`)})`
+          }}
+        />
       </div>
     );
   }
@@ -45,26 +47,26 @@ export const Feature = (props) => {
 
   return (
     <section className="feature">
-      <Slideshow {...props} />
+      <Slideshow images={images} mini={mini} />
       <article className="info">
         <h2>{name}</h2>
         <p className="blurb">{blurb}</p>
-        <Link className="link" to={`/${route}`}>
+        <Link className="link" to={`/${route}`} onClick={() => window.scroll(0, 0)}>
           <PimpyButton>More on {name}</PimpyButton>
         </Link>
-        <a href={github} target="_blank">
-          <PimpyButton>GitHub Repo</PimpyButton>
-        </a>
         {url && <a href={url} target="_blank">
           <PimpyButton>Check it out</PimpyButton>
         </a>}
+        <a href={github} target="_blank">
+          <PimpyButton>GitHub Repo</PimpyButton>
+        </a>
       </article>
     </section>
   );
 };
 
 export const Project = (props) => {
-  const { features, technologies, details, nextSteps } = props.project; 
+  const { features, technologies, details, nextSteps } = props.project;
 
   return (
     <section className="project">
