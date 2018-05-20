@@ -21,6 +21,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App extends Component {
+  componentDidMount() {
+    window.scroll(0, 0);
+  }
+  
   render() {
     const { projects, skills } = this.props;
 

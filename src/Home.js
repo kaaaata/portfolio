@@ -12,8 +12,13 @@ export const Header = (props) => {
         <div className="logo" />
       </Link>
       <h1>{title}</h1>
-      {['Projects', 'Skills', 'About'].map(nav => (
-        <Link className="link" to={`/${nav.toLowerCase()}`} onClick={() => window.scroll(0, 0)}>
+      {['Home', 'Projects', 'Skills', 'About'].map(nav => (
+        <Link
+          key={nav}
+          className="link"
+          to={`/${nav === 'Home' ? '' : nav.toLowerCase()}`}
+          onClick={() => window.scroll(0, 0)}
+        >
           <p>{nav.toUpperCase()}</p>
         </Link>
       ))}

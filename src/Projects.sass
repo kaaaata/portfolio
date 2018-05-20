@@ -1,25 +1,18 @@
+@import 'Mixins'
+
 .slideshow
-  position: relative
   display: flex
   justify-content: center
   align-items: center
-  width: 85vw
+  width: 100%
   height: 60vw
+  max-height: 700px
   margin: 0 auto 50px auto
   background-color: rgba(0, 0, 0, 0.05)
   &.mini
-    position: relative
-    display: flex
-    justify-content: center
-    align-items: center
-    width: 80vw
-    height: 55vw
-    max-width: 600px
-    max-height: 450px
-    margin: 0 auto 50px auto
-    background-color: rgba(0, 0, 0, 0.05)
-    @media screen and (min-width: 750px)
-      width: 45vw
+    margin: 50px auto
+    max-height: 500px
+    @media screen and (min-width: 800px)
       height: 30vw
   .pic
     width: 85%
@@ -28,12 +21,12 @@
     border-radius: 5px
     box-shadow: 2px 2px 16px grey
     background-size: cover
-    background-position: center left
-    transition: all 0.75s ease-out
+    background-position: top center
+    +transition(background-image 0.75s ease-out)
   
 .feature
-  margin-bottom: 25px
-  .info
+  margin: 0 5px
+  .info 
     max-width: 600px
     margin: auto
     text-align: left
@@ -41,7 +34,7 @@
       text-align: left
 
 .project
-  margin-bottom: 375px
+  margin-bottom: 300px
   .info
     max-width: 600px
     margin: auto
@@ -50,13 +43,10 @@
 .projects
   display: flex
   justify-content: center
-  flex-direction: column
-  @media screen and (min-width: 750px)
-    margin: 0 -15px 300px -15px
-    flex-direction: row
+  flex-wrap: wrap
+  margin: 0 -15px 350px -15px
   .project-mini
-    flex-grow: 1
-    @media screen and (min-width: 750px)
-      margin: 0 15px 150px 15px
-      flex-direction: row
+    margin: 0 15px
+    @media screen and (min-width: 800px)
+      width: 45%
   

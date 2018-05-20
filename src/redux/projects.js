@@ -167,6 +167,61 @@ const projects = [
       'More analytics features',
     ],
   },
+  {
+    name: 'Quikker',
+    images: ['quikker.jpg'],
+    github: 'https://github.com/kaaaata/quikker',
+    url: null,
+    route: 'quikker',
+    blurb: 'Quikker is a clone of Uber\'s backend that I built with three of my fellow engineers. My responsibility was to build the matching microservice API, which receives available passenger/driver data and creates optimal matches.',
+    features: [
+      'Use Node/Express.js API to receive available passenger/driver data and store in queues, preparing them for matching',
+      'Create 5000 unique matches per second, removing the passenger/driver from their queues and inserting the match into a Postgres database table',
+      'Successfully handle working with large data sets (10+ million rows of data)',
+      'Achieve 1000-2000 RPM on the server',
+    ],
+    technologies: [
+      'Node/Express.js API',
+      'Postgres database',
+      'New Relic',
+      'Siege',
+    ],
+    details: {
+      'what': 'Microservice Architecture',
+      'description': 'The below pointers flesh out exactly what happens in this matching microservice from start to finish.',
+      'pointers': [
+        {
+          event: 'Available passengers/drivers data come in from other microservices',
+          actions: [
+            'Passengers data is stored in a queue',
+            'Drivers data is stored in a nested array data structure representing a zip-code-like geocoordinate system, each element of which is a queue',
+          ],
+        },
+        {
+          event: 'The API runs a matching algorithm on a loop',
+          actions: [
+            '5000 passenger-driver matches are generated at one time',
+            'For every passenger, the algorithm fetches the nearest driver (who has been waiting the longest time) in the same geocoordinate as the passenger',
+            'If there are no drivers there, an expanding-radius search technique is used to find the most nearest driver',
+            'Passengers and drivers are removed from their respective queues, and when 5000 matches are created, they are inserted into a Postgres database table',
+          ],
+        },
+        {
+          event: 'Trips are constantly being updated',
+          actions: [
+            'Whenever a trip is updated (start, in progress, end, etc.), data is sent to the API',
+            'API creates a Postgres query to update the appropriate row of data in the trips table',
+          ],
+        },
+      ],
+    },
+    nextSteps: [
+      'Deploy with AWS and Docker',
+      'Improve matching algorithm (last I heard even Uber itself was having a hard time with this algorithm)',
+      'Move passenger/driver queues from memory to AWS',
+      'Improve Mocha test coverage',
+    ],
+  },
 ];
 
 export default projects;

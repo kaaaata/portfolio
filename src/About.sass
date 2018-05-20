@@ -1,12 +1,10 @@
 .about
-  margin: 100px auto 400px auto
+  margin: 0 auto 400px auto
   max-width: 1000px
   display: flex
   justify-content: center
   flex-wrap: wrap
-  // border: solid red
   .selfie
-    // border: solid green
     margin: 0 10px
     width: 100vw
     height: 70vw
@@ -15,7 +13,8 @@
       height: auto
     .pic
       margin: 0 auto
-      background-color: papayawhip
+      background: url("../assets/headshot.jpg") no-repeat center center
+      background-size: cover
       width: 75%
       height: 95%
       @media screen and (min-width: 750px)
@@ -23,7 +22,6 @@
         height: 40vw
         max-height: 450px
   .bio
-    // border: solid blue
     margin: 0 10px
     @media screen and (min-width: 750px)
       width: 45%

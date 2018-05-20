@@ -1,5 +1,5 @@
 .about {
-  margin: 100px auto 400px auto;
+  margin: 0 auto 400px auto;
   max-width: 1000px;
   display: flex;
   justify-content: center;
@@ -14,7 +14,8 @@
         height: auto; } }
     .about .selfie .pic {
       margin: 0 auto;
-      background-color: papayawhip;
+      background: url("../assets/headshot.jpg") no-repeat center center;
+      background-size: cover;
       width: 75%;
       height: 95%; }
       @media screen and (min-width: 750px) {
