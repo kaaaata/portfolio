@@ -23,6 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App extends Component {
   componentDidMount() {
     window.scroll(0, 0);
+    window.onblur = () => document.title = 'imy ily ♥ | Catherine Han';
+    window.onfocus = () => document.title = 'Catherine Han';
   }
   
   render() {

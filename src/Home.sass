@@ -1,6 +1,13 @@
 @import 'Mixins'
-  
+
++keyframes(fadein)
+  from
+    +opacity(0)
+  to
+    +opacity(1)
+
 .home-header
+  +animation('fadein 2s')
   text-align: center  
   .logo
     width: 75px
@@ -14,14 +21,9 @@
   .link
     display: inline-block
     margin: 5px
-  +animation('fadein 2s')
-+keyframes(fadein)
-  from
-    +opacity(0)
-  to
-    +opacity(1)
 
 .home-selfie
+  +animation('fadein 1s')
   margin: auto
   .pic
     width: 100%
