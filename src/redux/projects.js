@@ -176,9 +176,9 @@ const projects = [
     blurb: 'Quikker is a clone of Uber\'s backend that I built with three of my fellow engineers. My responsibility was to build the matching microservice API, which receives available passenger/driver data and creates optimal matches.',
     features: [
       'Use Node/Express.js API to receive available passenger/driver data and store in queues, preparing them for matching',
-      'Create 5000 unique matches per second, removing the passenger/driver from their queues and inserting the match into a Postgres database table',
-      'Successfully handle working with large data sets (10+ million rows of data)',
-      'Achieve 1000-2000 RPM on the server',
+      'Create 5,000 unique matches per second, removing the passenger/driver from their queues and inserting the match into a Postgres database table',
+      'Successfully handle high volumes of data (10+ million rows of passenger/driver data)',
+      'Achieve 1,000-2,000 RPM on the server',
     ],
     technologies: [
       'Node/Express.js API',
@@ -188,7 +188,7 @@ const projects = [
     ],
     details: {
       'what': 'Microservice Architecture',
-      'description': 'The below pointers flesh out exactly what happens in this matching microservice from start to finish.',
+      'description': 'The below pointers detail exactly what happens in a server rotation from start to finish.',
       'pointers': [
         {
           event: 'Available passengers/drivers data come in from other microservices',
@@ -200,10 +200,10 @@ const projects = [
         {
           event: 'The API runs a matching algorithm on a loop',
           actions: [
-            '5000 passenger-driver matches are generated at one time',
+            '5,000 passenger-driver matches are generated at one time',
             'For every passenger, the algorithm fetches the nearest driver (who has been waiting the longest time) in the same geocoordinate as the passenger',
             'If there are no drivers there, an expanding-radius search technique is used to find the most nearest driver',
-            'Passengers and drivers are removed from their respective queues, and when 5000 matches are created, they are inserted into a Postgres database table',
+            'Passengers and drivers are removed from their respective queues, and when 5,000 matches are created, they are inserted into a Postgres database table',
           ],
         },
         {
