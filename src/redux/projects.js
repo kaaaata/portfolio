@@ -1,7 +1,7 @@
 const projects = [
   {
     name: 'Big 2',
-    images: ['big21.png', 'big22.png', 'big23.png'],
+    images: ['big21.png', 'big22.png'],
     github: 'https://github.com/kaaaata/big-2',
     url: null,
     route: 'big2',

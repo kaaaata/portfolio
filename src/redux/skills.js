@@ -6,6 +6,7 @@ const skills = [
   'Redux',
   'Sass',
   'Node.js',
+  'Python',
   'Django',
   'Postgres',
   'Heroku',
