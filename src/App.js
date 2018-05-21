@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 // import * as actions from './redux/actions';
 // import store from './redux/store';
 
-import { Header, Selfie, Blurb, Footer } from './Home';
+import { FireworksToggle, Header, Selfie, Blurb, Footer } from './Home';
 import { Feature, Projects, Project } from './Projects';
 import { Skills } from './Skills';
 import { About, Resume } from './About';
+
+import { fireworks } from './animations/fireworks';
 
 import './styles/App.css';
 
@@ -25,6 +27,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
     window.scroll(0, 0);
     window.onblur = () => document.title = 'imy ily ♥ | Catherine Han';
     window.onfocus = () => document.title = 'Catherine Han';
+    fireworks();
   }
   
   render() {
@@ -32,6 +35,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
 
     return (
       <main className="app">
+        <FireworksToggle />
         <Switch>
           <Route
             exact path="/"
@@ -47,7 +51,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               <h1 className="title">My Story</h1>
               <About />
               <Resume />
-              <Footer />
             </React.Fragment>}
           />
           <Route
@@ -56,7 +59,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               <Header title="Projects" />
               <Feature project={projects[0]} mini={false} />
               <Projects projects={projects.slice(1)} />
-              <Footer />
             </React.Fragment>}
           />
           <Route
@@ -64,7 +66,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
             render={() => <React.Fragment>
               <Header title="Skills" />
               <Skills skills={skills} />
-              <Footer />
             </React.Fragment>}
           />
           <Route
@@ -72,7 +73,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
             render={() => <React.Fragment>
               <Header title="About" />
               <About />
-              <Footer />
             </React.Fragment>}
           />
           {projects.map(project => (
@@ -82,11 +82,11 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
               render={() => <React.Fragment>
                 <Header title={project.name} />
                 <Project project={project} />
-                <Footer />
               </React.Fragment>}
             />
           ))}
         </Switch>
+        <Footer />
       </main>
     );
   }

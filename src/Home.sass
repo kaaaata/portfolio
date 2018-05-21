@@ -6,9 +6,18 @@
   to
     +opacity(1)
 
+.fireworks-toggle
+  width: 75px
+  height: 75px
+  position: fixed
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: contain
+  background-color: transparent
+
 .home-header
   +animation('fadein 2s')
-  text-align: center  
+  text-align: center
   .logo
     width: 75px
     height: 75px
@@ -25,6 +34,7 @@
 .home-selfie
   +animation('fadein 1s')
   margin: auto
+  position: relative
   .pic
     width: 100%
     height: 70vw
@@ -32,7 +42,7 @@
     background: url("../assets/selfie.jpg") no-repeat center center
     background-size: cover
     margin: 50px auto 325px auto
-
+    
 .home-blurb
   max-width: 650px
   margin: 0 auto 300px auto
