@@ -4,6 +4,7 @@
   align-items: center;
   width: 100%;
   height: 60vw;
+  max-width: 1250px;
   max-height: 700px;
   margin: 0 auto 50px auto;
   background-color: rgba(0, 0, 0, 0.05); }
@@ -26,6 +27,9 @@
     -ms-transition: background-image 0.75s ease-out;
     -o-transition: background-image 0.75s ease-out;
     transition: background-image 0.75s ease-out; }
+    @media screen and (min-width: 800px) {
+      .slideshow .pic {
+        background-position: center center; } }
 
 .feature {
   margin: 0 5px; }
