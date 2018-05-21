@@ -59,7 +59,9 @@
   -ms-animation: fadein 1s;
   -o-animation: fadein 1s;
   animation: fadein 1s;
-  margin: auto; }
+  margin: auto;
+  position: relative;
+  z-index: -5; }
   .home-selfie .pic {
     width: 100%;
     height: 70vw;

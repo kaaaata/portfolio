@@ -28,9 +28,9 @@ export const Header = (props) => {
 
 export const Selfie = () => {
   return (
-    <section className="home-selfie">
+    <article className="home-selfie">
       <div className="pic" />
-    </section>
+    </article>
   );
 };
 

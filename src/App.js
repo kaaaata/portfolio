@@ -10,6 +10,8 @@ import { Feature, Projects, Project } from './Projects';
 import { Skills } from './Skills';
 import { About, Resume } from './About';
 
+import { fireworks } from './animations/fireworks';
+
 import './styles/App.css';
 
 const mapStateToProps = (state) => ({
@@ -25,6 +27,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(class App
     window.scroll(0, 0);
     window.onblur = () => document.title = 'imy ily ♥ | Catherine Han';
     window.onfocus = () => document.title = 'Catherine Han';
+    fireworks();
   }
   
   render() {

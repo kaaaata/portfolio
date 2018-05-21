@@ -1,5 +1,7 @@
+@import 'Mixins'
+  
 // reset
-  body
+body
   margin: 0
   padding: 0
 a
@@ -54,6 +56,15 @@ ul
   margin-bottom: 20px
 
 // general styling
+#canvas
+  position: fixed
+  z-index: -1
+  +opacity(1)
+  +transition(opacity 1s)
+#blank-canvas
+  position: fixed
+  z-index: -1
+
 .app
   font-family: 'Nunito Sans', sans-serif
   min-width: 270px

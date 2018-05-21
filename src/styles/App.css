@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+  padding: 0; }
+
 a {
   text-decoration: none;
   color: black; }
@@ -53,6 +57,21 @@ li {
 
 ul {
   margin-bottom: 20px; }
+
+#canvas {
+  position: fixed;
+  z-index: -1;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -ms-transition: opacity 1s;
+  -o-transition: opacity 1s;
+  transition: opacity 1s; }
+
+#blank-canvas {
+  position: fixed;
+  z-index: -1; }
 
 .app {
   font-family: "Nunito Sans", sans-serif;
