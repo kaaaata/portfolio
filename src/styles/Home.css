@@ -33,6 +33,15 @@
   to {
     opacity: 1;
     filter: alpha(opacity=100); } }
+.fireworks-toggle {
+  width: 75px;
+  height: 75px;
+  position: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-color: transparent; }
+
 .home-header {
   -webkit-animation: fadein 2s;
   -moz-animation: fadein 2s;
@@ -60,8 +69,7 @@
   -o-animation: fadein 1s;
   animation: fadein 1s;
   margin: auto;
-  position: relative;
-  z-index: -5; }
+  position: relative; }
   .home-selfie .pic {
     width: 100%;
     height: 70vw;

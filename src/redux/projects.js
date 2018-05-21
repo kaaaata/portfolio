@@ -5,7 +5,7 @@ const projects = [
     github: 'https://github.com/kaaaata/big-2',
     url: null,
     route: 'big2',
-    blurb: 'This is an online client I built for the popular Asian card game Big 2, also known as Deuces. It features live 1v1, 1vAI, and AIvAI gameplay. The AI logic utilizes a fusion of minimax, reinforcement learning optimized parameters, and hard coded logic. This project was inspired by my friends, with whom I grew up playing Big 2 with, and live chess websites such as chess.com and lichess.com.',
+    blurb: 'This is an online client I built for the popular Asian card game Big 2, also known as Deuces. It features live 1v1, 1vAI, and AIvAI gameplay. The AI utilizes a fusion of minimax, reinforcement learning, and hard coded logic. This project was inspired by my friends, with whom I grew up playing Big 2 with, and live chess websites such as chess.com and lichess.com.',
     features: [
       'Live 1v1, 1vAI, and AIvAI gameplay',
       'Reinforcement learning script to train AI by playing it against itself (currently 350 games/sec)',

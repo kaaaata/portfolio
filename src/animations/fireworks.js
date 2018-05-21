@@ -22,11 +22,8 @@ export const fireworks = () => {
     particles = [],
     // starting hue
     hue = 120,
-    // when launching fireworks with a click, too many get launched at once without a limiter, one launch per 5 loop ticks
-    limiterTotal = 5,
-    limiterTick = 0,
     // this will time the auto launches of fireworks, one launch per timerTotal loop ticks
-    timerTotal = 15,
+    timerTotal = 35,
     timerTick = 0;
       
   // set canvas dimensions
@@ -81,13 +78,6 @@ export const fireworks = () => {
     // add current coordinates to the start of the array
     this.coordinates.unshift([this.x, this.y]);
     
-    // cycle the circle target indicator radius
-    if (this.targetRadius < 8) {
-      this.targetRadius += 0.3;
-    } else {
-      this.targetRadius = 1;
-    }
-    
     // speed up the firework
     this.speed *= this.acceleration;
     
@@ -125,7 +115,7 @@ export const fireworks = () => {
     this.y = y;
     // track the past coordinates of each particle to create a trail effect, increase the coordinate count to create more prominent trails
     this.coordinates = [];
-    this.coordinateCount = 11;
+    this.coordinateCount = 9;
     while (this.coordinateCount--) {
       this.coordinates.push([this.x, this.y]);
     }
@@ -133,16 +123,16 @@ export const fireworks = () => {
     this.angle = random(0, Math.PI * 2);
     this.speed = random(1, 10);
     // friction will slow the particle down
-    this.friction = 0.975;
+    this.friction = 0.96;
     // gravity will be applied and pull the particle down
-    this.gravity = 1.5;
+    this.gravity = 1;
     // set the hue to a random number +-50 of the overall hue variable
     this.hue = random(hue - 50, hue + 50);
     this.brightness = random(50, 80);
     this.alpha = 1;
     // set how fast the particle fades out
     // this.decay = random( 0.015, 0.03 );
-    this.decay = random(0.0025, 0.001);
+    this.decay = random(0.005, 0.0025);
   }
 
   // update particle
@@ -178,14 +168,14 @@ export const fireworks = () => {
   // create particle group/explosion
   function createParticles(x, y) {
     // increase the particle count for a bigger explosion, beware of the canvas performance hit with the increased particles though
-    let particleCount = 30;
+    let particleCount = 50;
     while (particleCount--) {
       particles.push(new Particle(x, y));
     }
   }
 
   // main demo loop
-  function loop() {
+  const loop = () => {
     // this function will run endlessly with requestAnimationFrame
     window.requestAnimFrame(loop);
     
@@ -207,14 +197,14 @@ export const fireworks = () => {
     ctx.globalCompositeOperation = 'lighter';
     
     // loop over each firework, draw it, update it
-    var i = fireworks.length;
+    let i = fireworks.length;
     while (i--) {
       fireworks[i].draw();
       fireworks[i].update(i);
     }
     
     // loop over each particle, draw it, update it
-    var i = particles.length;
+    i = particles.length;
     while (i--) {
       particles[i].draw();
       particles[i].update(i);
@@ -227,15 +217,16 @@ export const fireworks = () => {
     } else {
       timerTick++;
     }
-  }
+  };
+
+  // make fireworks never shoot off screen when window is resized
+  window.onresize = () => {
+    cw = window.innerWidth;
+    ch = window.innerHeight;
+    canvas.width = cw;
+    canvas.height = ch;
+  };
 
   // once the window loads, we are ready for some fireworks!
   window.onload = loop;
-
-  setTimeout(() => {
-    document.getElementById('canvas').style.opacity = 0;
-    setTimeout(() => {
-      document.getElementById('canvas').id = 'blank-canvas';
-    }, 1000);
-  }, 4000);
 };

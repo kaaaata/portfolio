@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles/Home.css';
+
+export class FireworksToggle extends Component {
+  constructor() {
+    super();
+    this.state = {
+      backgroundImage: 'color',
+    }
+  }
+
+  render() {
+    const { backgroundImage } = this.state;
+
+    return (
+      <button
+        className="fireworks-toggle"
+        onClick={() => {
+          document.getElementById('canvas').style.opacity = document.getElementById('canvas').style.opacity === '0' ? '1' : '0';
+          this.setState({ backgroundImage: backgroundImage === 'color' ? 'black_and_white' : 'color' });
+        }}
+        style={{ backgroundImage: `url(${require(`./assets/fireworks_${backgroundImage}.png`)})` }}
+      />
+    );
+  }
+}
 
 export const Header = (props) => {
   const { title } = props;

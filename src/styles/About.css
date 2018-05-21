@@ -7,8 +7,7 @@
   .about .selfie {
     margin: 0 10px;
     width: 100vw;
-    height: 70vw;
-    z-index: -5; }
+    height: 70vw; }
     @media screen and (min-width: 750px) {
       .about .selfie {
         width: 45%;
