@@ -1,28 +1,32 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+// import * as actions from './stores/actions';
+// import store from './stores/store';
+import Home from './Home';
+import About from './About';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+// const mapStateToProps = (state) => ({
+//   test: state.test,
+// });
+// const mapDispatchToProps = (dispatch) => ({
+//   dispatchTest: (test) => dispatch(actions.test(test)),
+// });
 
-export default App;
+const App = () => (
+  <main>
+    <Switch>
+      <Route
+        exact path="/"
+        render={() => <Home />}
+      />
+      <Route
+        exact path="/about"
+        render={() => <About />}
+      />
+    </Switch>
+  </main>
+);
+
+export default withRouter(App);
