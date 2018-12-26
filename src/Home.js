@@ -1,5 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { graphqlQuery, increaseNum } from './utils/graphql';
 
 const color = '';
 const emotionCss = css`
@@ -8,19 +10,41 @@ const emotionCss = css`
     color: ${color};
   }
 `;
-const Home = () => (
-  <section>
-    home page!
-    <Link to='/about'>
-      go to another page
-    </Link>
+class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      num: 'unset'
+    };
+  }
 
-    <div
-      css={emotionCss}
-    >
-      This has a hotpink background.
-    </div>
-  </section>
-);
+  async componentDidMount() {
+    const { num } = await graphqlQuery(`{num}`);
+    this.setState({ num });
+  }
+
+  async increaseNum(increment) {
+    const data = await increaseNum(increment);
+    this.setState({ num: data.increaseNum });
+  }
+
+  render() {
+    return (
+      <section>
+        home page!
+        <Link to='/about'>
+          go to another page
+        </Link>
+
+        <div
+          css={emotionCss}
+        >
+          Num = {this.state.num}
+        </div>
+        <button onClick={() => this.increaseNum(5)}>increase num</button>
+      </section>
+    );
+  }
+}
 
 export default Home;
