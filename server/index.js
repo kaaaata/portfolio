@@ -1,11 +1,12 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
+const psqlHelper = require('../database/postgres');
+const db = require('../database/db');
+const dbHelpers = require('../database/index');
 
 const app = express();
 const port = 4000;
-
-let num = 1;
 
 const schema = buildSchema(`
   type Query {
@@ -17,11 +18,8 @@ const schema = buildSchema(`
 
 const root = { // The root provides a resolver function for each API endpoint
   hello: () => 'Hello world!',
-  num: () => num,
-  increaseNum: ({ increment }) => {
-    num += increment;
-    return num;
-  }
+  num: dbHelpers.getNum,
+  increaseNum: dbHelpers.increaseNum
 };
 
 app.use('/graphql', graphqlHTTP({

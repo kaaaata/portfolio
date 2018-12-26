@@ -1,5 +1,5 @@
 export const graphqlQuery = async(query, variables = {}) => {
-  let num = await fetch('/graphql', {
+  const data = await fetch('/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -11,9 +11,7 @@ export const graphqlQuery = async(query, variables = {}) => {
     })
   });
 
-  num = await num.json();
-  
-  return num.data;
+  return (await data.json()).data;
 }
 
 export const increaseNum = async(increment) => {
