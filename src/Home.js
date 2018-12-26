@@ -41,7 +41,7 @@ class Home extends React.Component {
         >
           Num = {this.state.num}
         </div>
-        <button onClick={() => this.increaseNum(5)}>increase num</button>
+        <button type='button' onClick={() => this.increaseNum(5)}>increase num</button>
       </section>
     );
   }

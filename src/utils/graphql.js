@@ -1,9 +1,9 @@
-export const graphqlQuery = async(query, variables = {}) => {
-  const data = await fetch('/graphql', {
+export const graphqlQuery = async (query, variables = {}) => {
+  const res = await fetch('/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Accept': 'application/json'
     },
     body: JSON.stringify({
       query,
@@ -11,10 +11,12 @@ export const graphqlQuery = async(query, variables = {}) => {
     })
   });
 
-  return (await data.json()).data;
-}
+  const resJson = await res.json();
 
-export const increaseNum = async(increment) => {
+  return resJson.data;
+};
+
+export const increaseNum = async (increment) => {
   const query = `
     query IncreaseNum($increment: Int) {
       increaseNum(increment: $increment)
@@ -22,5 +24,5 @@ export const increaseNum = async(increment) => {
   `;
   const variables = { increment };
 
-  return await graphqlQuery(query, variables);
-}
+  return graphqlQuery(query, variables);
+};

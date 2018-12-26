@@ -1,1 +1,1 @@
-export const test = (test) => ({ type: 'test', payload: test });
+export const test = payload => ({ type: 'test', payload });

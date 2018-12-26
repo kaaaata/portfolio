@@ -1,0 +1,6 @@
+/src/serviceWorker.js
+/database/db.js
+/database/postgres.js
+/migrations
+/node_modules
+/public

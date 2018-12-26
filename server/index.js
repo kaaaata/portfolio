@@ -1,8 +1,6 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
-const psqlHelper = require('../database/postgres');
-const db = require('../database/db');
 const dbHelpers = require('../database/index');
 
 const app = express();

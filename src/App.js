@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 // import * as actions from './stores/actions';
 // import store from './stores/store';
 import Home from './Home';
