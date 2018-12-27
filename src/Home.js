@@ -1,50 +1,44 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { graphqlQuery, increaseNum } from './utils/graphql';
+import { gloria } from './styles';
 
-const color = '';
-const emotionCss = css`
-  background-color: hotpink;
-  &:hover {
-    color: ${color};
+const homeCss = css`
+  background: url("assets/home.jpg") no-repeat top center;
+  background-size: cover;
+  height: 60vw;
+  ${gloria}
+  position: relative;
+  header {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 30%;
+    font-size: 72px;
+    text-shadow: 2px 2px deepskyblue;
+  }
+  article {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 60%;
+    font-size: 36px;
+    text-shadow: 1px 1px deepskyblue;
+  }
+  .filter {
+    background: white;
+    height: 100%;
+    width: 100%;
+    opacity: 0.45;
   }
 `;
-class Home extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      num: 'unset'
-    };
-  }
 
-  async componentDidMount() {
-    const { num } = await graphqlQuery(`{num}`);
-    this.setState({ num });
-  }
-
-  async increaseNum(increment) {
-    const data = await increaseNum(increment);
-    this.setState({ num: data.increaseNum });
-  }
-
-  render() {
-    return (
-      <section>
-        home page!
-        <Link to='/about'>
-          go to another page
-        </Link>
-
-        <div
-          css={emotionCss}
-        >
-          Num = {this.state.num}
-        </div>
-        <button type='button' onClick={() => this.increaseNum(5)}>increase num</button>
-      </section>
-    );
-  }
-}
+const Home = () => (
+  <section css={homeCss}>
+    <div className='filter' />
+    <header>Hi, I'm Catherine!</header>
+    <article>
+      I love building cool things on the web.
+    </article>
+  </section>
+);
 
 export default Home;
