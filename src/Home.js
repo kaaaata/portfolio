@@ -1,42 +1,44 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { gloria } from './styles';
+import { montserrat } from './styles';
 
 const homeCss = css`
+  margin-left: 25px;
   background: url("assets/home.jpg") no-repeat top center;
   background-size: cover;
   height: 60vw;
-  ${gloria}
   position: relative;
+  ${montserrat}
+
   header {
-    width: 100%;
     position: absolute;
-    text-align: center;
     top: 30%;
-    font-size: 72px;
-    text-shadow: 2px 2px deepskyblue;
+    right: 15%;
+    font-size: 48px;
   }
+
   article {
-    width: 100%;
     position: absolute;
-    text-align: center;
-    top: 60%;
-    font-size: 36px;
-    text-shadow: 1px 1px deepskyblue;
+    top: 50%;
+    right: 15%;
+    font-size: 24px;
   }
+
   .filter {
     background: white;
     height: 100%;
     width: 100%;
-    opacity: 0.45;
+    opacity: 0.25;
   }
 `;
 
 const Home = () => (
   <section css={homeCss}>
     <div className='filter' />
-    <header>Hi, I'm Catherine!</header>
+    <header>
+      Catherine Han
+    </header>
     <article>
-      I love building cool things on the web.
+      Software Engineer
     </article>
   </section>
 );

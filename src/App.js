@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 // import { connect } from 'react-redux';
@@ -6,6 +7,7 @@ import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { karla } from './styles';
 import Home from './Home';
+import WaterSidebar from './WaterSidebar';
 
 // const mapStateToProps = (state) => ({
 //   test: state.test,
@@ -19,11 +21,19 @@ const appCss = css`
 `;
 
 const App = () => (
-  <main css={appCss}>
+  <main id='app' css={appCss}>
     <Switch>
       <Route
         exact path="/"
-        render={() => <Home />}
+        render={() => (
+          <>
+            <WaterSidebar />
+            <Home />
+            <div style={{ height: '2000px' }}>
+              filler div
+            </div>
+          </>
+        )}
       />
     </Switch>
   </main>
