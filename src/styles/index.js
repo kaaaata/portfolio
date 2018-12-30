@@ -1,2 +1,3 @@
-export const karla = `font-family: 'Karla', sans-serif;`;
-export const montserrat = `font-family: 'Montserrat', sans-serif;`;
+export { default as fonts } from './fonts';
+export { default as colors } from './colors';
+export { default as layout } from './layout';

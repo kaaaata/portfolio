@@ -5,9 +5,8 @@ import { withRouter } from 'react-router';
 // import * as actions from './stores/actions';
 // import store from './stores/store';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { karla } from './styles';
-import Home from './Home';
-import WaterSidebar from './WaterSidebar';
+import { colors, fonts } from './styles';
+import AppListing from './AppListing';
 
 // const mapStateToProps = (state) => ({
 //   test: state.test,
@@ -17,7 +16,12 @@ import WaterSidebar from './WaterSidebar';
 // });
 
 const appCss = css`
-  ${karla}
+  ${fonts.karla}
+  background: ${colors.slateDark};
+  width: 100%;
+  height: 100%;
+  min-width: 320px;
+  padding: 40px;
 `;
 
 const App = () => (
@@ -26,13 +30,7 @@ const App = () => (
       <Route
         exact path="/"
         render={() => (
-          <>
-            <WaterSidebar />
-            <Home />
-            <div style={{ height: '2000px' }}>
-              filler div
-            </div>
-          </>
+          <AppListing />
         )}
       />
     </Switch>

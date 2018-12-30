@@ -9,7 +9,9 @@
         "quote-props": "off",
         "import/prefer-default-export": "off",
         "react/jsx-max-props-per-line": "off",
-        "react/no-unescaped-entities": "off"
+        "react/no-unescaped-entities": "off",
+        "react/prop-types": "off",
+        "object-curly-newline": "off"
     },
     "env": {
         "browser": true
