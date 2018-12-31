@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, layout } from './styles';
+import { colors, layout, zIndex } from './styles';
 import { Filter, Link } from './particles';
 
 const appListings = [
@@ -57,18 +57,20 @@ const AppThumb = ({
   const appThumbCss = css`
     background: url("assets/${thumb}") no-repeat center center;
     background-size: cover;
+    background-color: ${colors.greenLight};
     width: 300px;
     height: 200px;
     display: inline-block;
     margin: 0 20px 20px 0;
     position: relative;
-    transition: transform 0.25s ease-out;
+    transition: transform 0.25s ease-out, z-index 0.25s ease-out;
     border-radius: 5px;
     box-shadow: 4px 4px 8px ${colors.darkSlate};
     overflow: hidden;
 
     &:hover {
       transform: scale(1.1);
+      z-index: ${zIndex.stickyNavContent};
     }
   `;
 

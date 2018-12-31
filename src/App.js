@@ -9,6 +9,7 @@ import { colors, fonts } from './styles';
 import AppListing from './AppListing';
 import CopyPaster from './CopyPaster';
 import { RedirectRoute } from './particles';
+import TopNav from './TopNav';
 // const mapStateToProps = (state) => ({
 //   test: state.test,
 // });
@@ -22,30 +23,38 @@ const appCss = css`
   width: 100%;
   height: 100%;
   min-width: 320px;
+`;
+
+const appContentCss = css`
+  width: 100%;
+  height: 100%;
   padding: 40px;
 `;
 
 const App = () => (
   <main id='app' css={appCss}>
-    <Switch>
-      <Route
-        exact path="/"
-        render={() => (
-          <AppListing />
-        )}
-      />
-      <Route
-        exact path="/copypaster"
-        render={() => (
-          <CopyPaster />
-        )}
-      />
-      <Route
-        render={() => (
-          <RedirectRoute />
-        )}
-      />
-    </Switch>
+    <TopNav />
+    <section css={appContentCss}>
+      <Switch>
+        <Route
+          exact path="/"
+          render={() => (
+            <AppListing />
+          )}
+        />
+        <Route
+          exact path="/copypaster"
+          render={() => (
+            <CopyPaster />
+          )}
+        />
+        <Route
+          render={() => (
+            <RedirectRoute />
+          )}
+        />
+      </Switch>
+    </section>
   </main>
 );
 
