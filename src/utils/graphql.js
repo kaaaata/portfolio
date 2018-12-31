@@ -16,13 +16,13 @@ export const graphqlQuery = async (query, variables = {}) => {
   return resJson.data;
 };
 
-export const increaseNum = async (increment) => {
+export const saveText = async (text) => {
   const query = `
-    query IncreaseNum($increment: Int) {
-      increaseNum(increment: $increment)
+    query SaveText($text: String) {
+      saveText(text: $text)
     }
   `;
-  const variables = { increment };
+  const variables = { text };
 
   return graphqlQuery(query, variables);
 };

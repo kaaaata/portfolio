@@ -51,3 +51,9 @@ table {
 * {
 	box-sizing: border-box;
 }
+html, body, #root {
+	height: 100%;
+}
+body {
+	background: #495867; /* slateDark */
+}

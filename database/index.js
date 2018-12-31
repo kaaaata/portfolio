@@ -1,18 +1,15 @@
 const knex = require('./db');
 
-const getNum = async () => {
-  const data = await knex('stat_tracking').where({ id: 1 }).select('num');
-  const { num } = data[0];
-  return num;
+const getText = async () => {
+  const data = await knex('copy_paster').where({ id: 'default' }).select('text');
+  return data[0].text;
 };
-const increaseNum = async ({ increment }) => {
-  const currentNum = await getNum();
-  const newNum = currentNum + increment;
-  await knex('stat_tracking').where({ id: 1 }).update({ num: newNum });
-  return newNum;
+const saveText = async ({ text }) => {
+  await knex('copy_paster').where({ id: 'default' }).update({ text });
+  return text;
 };
 
 module.exports = {
-  getNum,
-  increaseNum
+  getText,
+  saveText
 };

@@ -5,26 +5,35 @@ import { Filter, Link } from './particles';
 
 const appListings = [
   {
-    name: 'Portfolio Site',
-    thumb: 'cat.png',
-    href: 'http://www.kaaaata.com',
-    ribbon: 'External'
+    name: 'Portfolio',
+    thumb: 'invoker.png',
+    href: 'http://www.kaaaata.com'
+  },
+  {
+    name: 'Copypaster',
+    thumb: 'copy.jpg',
+    href: '/copypaster',
+    ribbon: 'New!'
   },
   {
     name: 'Jelly',
     thumb: 'jelly.png',
     href: 'http://jellyfishapp.herokuapp.com',
-    ribbon: 'External'
+  },
+  {
+    name: 'Big 2',
+    thumb: 'cards.png',
+    href: 'https://catsbig2.herokuapp.com'
   }
 ];
 
-const CornerRibbon = ({
+const Ribbon = ({
   color, text
 }) => {
-  const cornerRibbonCss = css`
+  const ribbonCss = css`
     background: ${color};
     width: 200px;
-    height: 40px;
+    height: 30px;
     transform: rotate(45deg);
     ${layout.absolute('25px', '-50px')}
     ${layout.flexCenter}
@@ -34,7 +43,7 @@ const CornerRibbon = ({
   `;
 
   return (
-    <div css={cornerRibbonCss}>
+    <div css={ribbonCss}>
       <div>{text}</div>
     </div>
   );
@@ -43,13 +52,13 @@ const CornerRibbon = ({
 const AppThumb = ({
   application
 }) => {
-  const { name, thumb, ribbon, href } = application;
+  const { thumb, ribbon, href } = application;
 
   const appThumbCss = css`
-    background: url("assets/${thumb}") no-repeat top center;
+    background: url("assets/${thumb}") no-repeat center center;
     background-size: cover;
-    width: 200px;
-    height: 300px;
+    width: 300px;
+    height: 200px;
     display: inline-block;
     margin: 0 20px 20px 0;
     position: relative;
@@ -61,22 +70,13 @@ const AppThumb = ({
     &:hover {
       transform: scale(1.1);
     }
-
-    span {
-      position: absolute;
-      bottom: 20px;
-      text-align: center;
-      width: 100%;
-      font-size: 24px;
-    }
   `;
 
   return (
-    <Link href={href} key={name}>
-      <article css={appThumbCss} key={name}>
-        <Filter opacity={ribbon === 'Coming Soon!' ? 0.75 : 0.25} />
-        {!!ribbon && <CornerRibbon color={colors.blue} text={ribbon} />}
-        <span>{name}</span>
+    <Link href={href}>
+      <article css={appThumbCss}>
+        <Filter opacity={ribbon === 'Coming Soon!' ? 0.75 : 0.1} />
+        {!!ribbon && <Ribbon color={colors.blue} text={ribbon} />}
       </article>
     </Link>
   );
@@ -85,7 +85,7 @@ const AppThumb = ({
 const AppListing = () => (
   <section>
     {appListings.map(application => (
-      <AppThumb application={application} />
+      <AppThumb application={application} key={application.name} />
     ))}
   </section>
 );

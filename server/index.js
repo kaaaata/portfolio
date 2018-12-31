@@ -8,16 +8,14 @@ const port = 4000;
 
 const schema = buildSchema(`
   type Query {
-    hello: String,
-    num: Int,
-    increaseNum(increment: Int): Int
+    text: String,
+    saveText(username: String, filename: String, text: String): String
   }
 `);
 
 const root = { // The root provides a resolver function for each API endpoint
-  hello: () => 'Hello world!',
-  num: dbHelpers.getNum,
-  increaseNum: dbHelpers.increaseNum
+  text: dbHelpers.getText,
+  saveText: dbHelpers.saveText
 };
 
 app.use('/graphql', graphqlHTTP({
@@ -25,6 +23,12 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true,
 }));
+
+app.set('trust proxy', true);
+
+app.get('/ip', (req, res) => {
+  res.status(200).json(req.ip);
+});
 
 app.listen(port);
 

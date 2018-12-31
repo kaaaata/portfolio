@@ -7,7 +7,8 @@ import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from './styles';
 import AppListing from './AppListing';
-
+import CopyPaster from './CopyPaster';
+import { RedirectRoute } from './particles';
 // const mapStateToProps = (state) => ({
 //   test: state.test,
 // });
@@ -31,6 +32,17 @@ const App = () => (
         exact path="/"
         render={() => (
           <AppListing />
+        )}
+      />
+      <Route
+        exact path="/copypaster"
+        render={() => (
+          <CopyPaster />
+        )}
+      />
+      <Route
+        render={() => (
+          <RedirectRoute />
         )}
       />
     </Switch>
