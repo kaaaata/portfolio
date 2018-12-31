@@ -40,13 +40,14 @@ class CopyPaster extends React.Component {
   render() {
     const textareaStyles = css`
       outline: none;
-      height: 500px;
-      background: ${colors.slateLight};
-      border: 2px solid ${this.state.isSaved ? colors.green : colors.red};
       width: 100%;
+      height: 500px;
+      background: transparent;
+      color: ${colors.blueLight};
+      border: 2px solid ${this.state.isSaved ? colors.green : colors.red};
       ${fonts.montserrat}
       font-size: 16px;
-      padding: 5px 45px 5px 5px;
+      padding: 10px;
       resize: vertical;
     `;
 
@@ -55,6 +56,7 @@ class CopyPaster extends React.Component {
         css={textareaStyles}
         value={this.state.inputText}
         onChange={e => this.handleTextChange(e)}
+        spellCheck={false}
       />
     );
   }

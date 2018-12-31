@@ -11,7 +11,7 @@ export default {
   blue: '#8ac4ff',
   blueDark: '#3977b5',
 
-  slateLight: '#779cab',
-  slate: '#627c85',
-  slateDark: '#495867'
+  slateLight: '#99B9D8',
+  slate: '#2D363F',
+  slateDark: '#1B2026'
 };

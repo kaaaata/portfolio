@@ -18,7 +18,7 @@ import TopNav from './TopNav';
 // });
 
 const appCss = css`
-  ${fonts.karla}
+  ${fonts.montserrat}
   background: ${colors.slateDark};
   width: 100%;
   height: 100%;
@@ -29,6 +29,7 @@ const appContentCss = css`
   width: 100%;
   height: 100%;
   padding: 40px;
+  padding-top: ${40 + 65}px;
 `;
 
 const App = () => (

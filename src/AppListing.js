@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, layout, zIndex } from './styles';
+import { colors, layout } from './styles';
 import { Filter, Link } from './particles';
 
 const appListings = [
@@ -28,10 +28,11 @@ const appListings = [
 ];
 
 const Ribbon = ({
-  color, text
+  text
 }) => {
   const ribbonCss = css`
-    background: ${color};
+    background: ${colors.slate};
+    color: white;
     width: 200px;
     height: 30px;
     transform: rotate(45deg);
@@ -61,16 +62,14 @@ const AppThumb = ({
     width: 300px;
     height: 200px;
     display: inline-block;
-    margin: 0 20px 20px 0;
+    margin: 0 15px 15px 0;
     position: relative;
-    transition: transform 0.25s ease-out, z-index 0.25s ease-out;
-    border-radius: 5px;
-    box-shadow: 4px 4px 8px ${colors.darkSlate};
+    transition: transform 0.25s ease-out;
+    box-shadow: 1px 1px 1px black;
     overflow: hidden;
 
     &:hover {
       transform: scale(1.1);
-      z-index: ${zIndex.stickyNavContent};
     }
   `;
 
@@ -78,7 +77,7 @@ const AppThumb = ({
     <Link href={href}>
       <article css={appThumbCss}>
         <Filter opacity={ribbon === 'Coming Soon!' ? 0.75 : 0.1} />
-        {!!ribbon && <Ribbon color={colors.blue} text={ribbon} />}
+        {!!ribbon && <Ribbon text={ribbon} />}
       </article>
     </Link>
   );
