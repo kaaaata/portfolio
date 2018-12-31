@@ -6,9 +6,9 @@ export default {
   `,
   absolute: (top, right, bottom, left) => `
     position: absolute;
-    ${top !== undefined ? `top: ${top};` : ''}
-    ${right !== undefined ? `right: ${right};` : ''}
-    ${bottom !== undefined ? `bottom: ${bottom};` : ''}
-    ${left !== undefined ? `left: ${left};` : ''}
+    ${top || top === 0 ? `top: ${top};` : ''}
+    ${right || right === 0 ? `right: ${right};` : ''}
+    ${bottom || bottom === 0 ? `bottom: ${bottom};` : ''}
+    ${left || left === 0 ? `left: ${left};` : ''}
   `
 };
