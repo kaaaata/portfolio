@@ -7,23 +7,27 @@ const appListings = [
   {
     name: 'Portfolio',
     thumb: 'invoker.png',
-    href: 'http://www.kaaaata.com'
+    href: 'http://www.kaaaata.com',
+    github: 'https://github.com/kaaaata/portfolio/tree/old'
   },
   {
     name: 'Copypaster',
     thumb: 'copy.jpg',
     href: '/copypaster',
-    ribbon: 'New!'
+    ribbon: 'New!',
+    github: 'https://github.com/kaaaata/portfolio/tree/dev'
   },
   {
     name: 'Jelly',
     thumb: 'jelly.png',
     href: 'http://jellyfishapp.herokuapp.com',
+    github: 'https://github.com/kaaaata/jelly'
   },
   {
     name: 'Big 2',
     thumb: 'cards.png',
-    href: 'https://catsbig2.herokuapp.com'
+    href: 'https://catsbig2.herokuapp.com',
+    github: 'https://github.com/kaaaata/big-2'
   }
 ];
 
@@ -53,7 +57,7 @@ const Ribbon = ({
 const AppThumb = ({
   application
 }) => {
-  const { thumb, ribbon, href } = application;
+  const { thumb, ribbon, href, github } = application;
 
   const appThumbCss = css`
     background: url("assets/${thumb}") no-repeat center center;
@@ -68,16 +72,41 @@ const AppThumb = ({
     box-shadow: 1px 1px 1px black;
     overflow: hidden;
 
+    a {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+
+      .octocat {
+        ${layout.absolute(null, '5px', '5px')}
+        width: 40px;
+        height: 40px;
+        background: url("assets/octocat.png") no-repeat center center;
+        background-size: cover;
+        transition: transform 0.25s ease-out;
+  
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
     &:hover {
       transform: scale(1.1);
+
+      a {
+        opacity: 1;
+      }
     }
   `;
 
   return (
     <Link href={href}>
       <article css={appThumbCss}>
-        <Filter opacity={ribbon === 'Coming Soon!' ? 0.75 : 0.1} />
+        <Filter color='black' opacity={0.15} />
         {!!ribbon && <Ribbon text={ribbon} />}
+        <Link href={github}>
+          <div className='octocat' />
+        </Link>
       </article>
     </Link>
   );

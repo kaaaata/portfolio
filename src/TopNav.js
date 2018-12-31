@@ -11,7 +11,6 @@ const topNavCss = css`
   z-index: ${zIndex.stickyNav};
   opacity: 1;
   font-size: 24px;
-  border: 1px solid red;
   color: white;
 
   .topNavContent {
