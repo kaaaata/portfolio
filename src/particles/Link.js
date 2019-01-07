@@ -1,11 +1,12 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { withRouter } from 'react-router';
-import { noop } from 'lodash';
+import { noop, omit } from 'lodash';
 
-const Link = ({
-  href, children, location
-}) => {
+const Link = (props) => {
+  const { href, location, children } = props;
+  const otherProps = omit(props, ['href', 'location', 'children']);
+
   if (!children) return null;
 
   const linkCss = css`
@@ -26,6 +27,7 @@ const Link = ({
       rel='noopener noreferrer'
       css={linkCss}
       onClick={scrollToTop}
+      {...otherProps}
     >
       {children}
     </a>

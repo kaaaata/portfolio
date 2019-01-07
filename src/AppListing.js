@@ -35,7 +35,7 @@ const Ribbon = ({
   text
 }) => {
   const ribbonCss = css`
-    background: ${colors.slate};
+    background: ${colors.purple};
     color: white;
     width: 200px;
     height: 30px;
@@ -43,7 +43,7 @@ const Ribbon = ({
     ${layout.absolute('25px', '-50px')}
     ${layout.flexCenter}
     font-size: 16px;
-    box-shadow: 2px 2px 16px ${colors.slate};
+    box-shadow: 2px 2px 16px ${colors.purple};
     user-select: none;
   `;
 
@@ -62,7 +62,7 @@ const AppThumb = ({
   const appThumbCss = css`
     background: url("assets/${thumb}") no-repeat center center;
     background-size: cover;
-    background-color: ${colors.greenLight};
+    background-color: ${colors.salmon};
     width: 300px;
     height: 200px;
     display: inline-block;

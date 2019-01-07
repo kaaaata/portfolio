@@ -8,6 +8,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from './styles';
 import AppListing from './AppListing';
 import CopyPaster from './CopyPaster';
+import Home from './Home';
 import { RedirectRoute } from './particles';
 import TopNav from './TopNav';
 // const mapStateToProps = (state) => ({
@@ -19,10 +20,16 @@ import TopNav from './TopNav';
 
 const appCss = css`
   ${fonts.montserrat}
-  background: ${colors.slateDark};
+  background: ${colors.dark};
+  line-height: 1.5;
+  color: white;
   width: 100%;
   height: 100%;
   min-width: 320px;
+
+  p {
+    line-height: 1.5;
+  }
 `;
 
 const appContentCss = css`
@@ -40,7 +47,10 @@ const App = () => (
         <Route
           exact path="/"
           render={() => (
-            <AppListing />
+            <>
+              <Home />
+              <AppListing />
+            </>
           )}
         />
         <Route
