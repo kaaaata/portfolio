@@ -5,7 +5,7 @@ const path = require('path');
 const dbHelpers = require('../database/index');
 
 const app = express();
-const port = 4000;
+const port = 3000;
 
 const schema = buildSchema(`
   type Query {
@@ -25,7 +25,9 @@ const root = { // The root provides a resolver function for each API endpoint
   registerSnakeHighScore: dbHelpers.registerSnakeHighScore
 };
 
-if (process.env.NODE_ENV === 'production') app.use(express.static(path.join(__dirname, '/../build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/../build'))
+);
 
 app.use('/graphql', graphqlHTTP({
   schema,
