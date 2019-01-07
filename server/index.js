@@ -26,8 +26,8 @@ const root = { // The root provides a resolver function for each API endpoint
 };
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/../build'))
-);
+  app.use(express.static(path.join(__dirname, '/../build')));
+}
 
 app.use('/graphql', graphqlHTTP({
   schema,
