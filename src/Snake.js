@@ -2,6 +2,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { range, sample } from 'lodash';
 import { mq, colors } from './styles';
+import { graphqlQuery, registerSnakeHighScore } from './utils/graphql';
 
 const rows = 20;
 const cols = 25;
@@ -30,7 +31,8 @@ class Snake extends React.Component {
       food: [],
       snake: [[9, 15], [8, 15], [7, 15], [6, 15], [5, 15]],
       isSnakeDead: false,
-      score: 5
+      score: 5,
+      snakeHighScore: '...loading'
     };
 
     this.moveDirection = 'right';
@@ -38,7 +40,8 @@ class Snake extends React.Component {
     this.moveInterval = null;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    document.title = 'Snake | Catherine Han';
     document.onkeyup = (e) => {
       if ([87, 38].includes(e.keyCode)) { // w, up
         if (this.lastMoveDirection !== 'down') this.moveDirection = 'up';
@@ -50,6 +53,9 @@ class Snake extends React.Component {
         if (this.lastMoveDirection !== 'right') this.moveDirection = 'left';
       }
     };
+
+    const { snakeHighScore } = await graphqlQuery('{ snakeHighScore }');
+    this.setState({ snakeHighScore });
 
     this.startGame();
   }
@@ -112,6 +118,10 @@ class Snake extends React.Component {
     if (didSnakeDie) {
       this.setState({ isSnakeDead: true });
       clearInterval(this.moveInterval);
+      registerSnakeHighScore(this.state.score);
+      if (this.state.score > this.state.snakeHighScore) {
+        this.setState({ snakeHighScore: this.state.score });
+      }
       return;
     }
 
@@ -172,40 +182,55 @@ class Snake extends React.Component {
 
   render() {
     return (
-      <div css={snakeCss}>
-        <div className='snake_game__container'>
-          {range(rows).map(y => (
-            <div key={y} className='snakeRow'>
-              {range(25).map(x => (
-                <div
-                  key={x}
-                  css={css`
-                    width: 25px;
-                    height: 25px;
-                    border-bottom: 1px solid ${colors.purple};
-                    border-right: 1px solid ${colors.purple};
-                    display: inline-block;
-                    background: ${this.getCellColor(x, y)};
-                  `}
-                />
-              ))}
-            </div>
-          ))}
+      <>
+        <div
+          css={css`
+            display: none;
+
+            ${mq.tablet(`
+              display: block;
+            `)}
+          `}
+        >
+          Please increase your browser width to play Snake! ʘ‿ʘ
         </div>
-        <div>
-          <span>Score: {this.state.score}</span>
-          {this.state.isSnakeDead && (
-            <span>&nbsp;|&nbsp;
-              <span
-                onClick={() => this.startGame()}
-                css={css`cursor: pointer;`}
-              >
-                Play Again
+        <div css={snakeCss}>
+          <div className='snake_game__container'>
+            {range(rows).map(y => (
+              <div key={y} className='snakeRow'>
+                {range(25).map(x => (
+                  <div
+                    key={x}
+                    css={css`
+                      width: 25px;
+                      height: 25px;
+                      border-bottom: 1px solid ${colors.purple};
+                      border-right: 1px solid ${colors.purple};
+                      display: inline-block;
+                      background: ${this.getCellColor(x, y)};
+                    `}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+          <div>
+            <span>Score: {this.state.score}</span>
+            &nbsp;|&nbsp;
+            <span>High Score: {this.state.snakeHighScore}</span>
+            {this.state.isSnakeDead && (
+              <span>&nbsp;|&nbsp;
+                <span
+                  onClick={() => this.startGame()}
+                  css={css`cursor: pointer;`}
+                >
+                  Play Again
+                </span>
               </span>
-            </span>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -1,11 +1,10 @@
-import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { withRouter } from 'react-router';
 import { noop, omit } from 'lodash';
 
 const Link = (props) => {
-  const { href, location, children } = props;
-  const otherProps = omit(props, ['href', 'location', 'children']);
+  const { href, location, children, onClick = noop } = props;
+  const otherProps = omit(props, ['href', 'location', 'children', 'onClick']);
 
   if (!children) return null;
 
@@ -16,9 +15,12 @@ const Link = (props) => {
   `;
   const isSameRoute = href === location.pathname;
   const useReactRouter = href.startsWith('/');
-  const scrollToTop = isSameRoute
-    ? () => window.scroll(0, 0)
-    : noop;
+
+  const linkOnClick = () => {
+    onClick();
+
+    if (isSameRoute) window.scroll(0, 0);
+  };
 
   return (
     <a
@@ -26,7 +28,7 @@ const Link = (props) => {
       target={useReactRouter ? null : '_blank'}
       rel='noopener noreferrer'
       css={linkCss}
-      onClick={scrollToTop}
+      onClick={linkOnClick}
       {...otherProps}
     >
       {children}

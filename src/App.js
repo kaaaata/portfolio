@@ -12,6 +12,7 @@ import CopyPaster from './CopyPaster';
 import Home from './Home';
 import { RedirectRoute } from './particles';
 import TopNav from './TopNav';
+import Footer from './Footer';
 // const mapStateToProps = (state) => ({
 //   test: state.test,
 // });
@@ -20,54 +21,55 @@ import TopNav from './TopNav';
 // });
 
 const appCss = css`
-  ${fonts.montserrat}
+  ${fonts.typeface}
   background: ${colors.dark};
-  color: white;
-  width: 100%;
-  height: 100%;
   min-width: 320px;
-
-  p {
-    line-height: 1.5;
-  }
 `;
 
 const appContentCss = css`
-  width: 100%;
-  height: 100%;
   padding: 40px;
   padding-top: ${40 + 65}px;
 `;
 
-const App = () => (
-  <main id='app' css={appCss}>
-    <TopNav />
-    <section css={appContentCss}>
-      <Switch>
-        <Route
-          exact path="/"
-          render={() => (
-            <>
-              <Home />
+const App = () => {
+  document.title = 'Home | Catherine Han';
+
+  return (
+    <main id='app' css={appCss}>
+      <TopNav />
+      <section css={appContentCss}>
+        <Switch>
+          <Route
+            exact path="/"
+            render={() => (
+              <>
+                <Home />
+                <AppListing />
+              </>
+            )}
+          />
+          <Route
+            exact path="/copypaster"
+            render={() => (
+              <CopyPaster />
+            )}
+          />
+          <Route
+            exact path="/snake"
+            render={() => (
               <Snake />
-              {/* <AppListing /> */}
-            </>
-          )}
-        />
-        <Route
-          exact path="/copypaster"
-          render={() => (
-            <CopyPaster />
-          )}
-        />
-        <Route
-          render={() => (
-            <RedirectRoute />
-          )}
-        />
-      </Switch>
-    </section>
-  </main>
-);
+            )}
+          />
+          <Route
+            render={() => (
+              <RedirectRoute />
+            )}
+          />
+        </Switch>
+      </section>
+      <Footer />
+    </main>
+  );
+};
 
 export default withRouter(App);

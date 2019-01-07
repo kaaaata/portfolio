@@ -12,7 +12,7 @@ export const graphqlQuery = async (query, variables = {}) => {
   });
 
   const resJson = await res.json();
-
+  console.log('graphql graphqlQuery returned ', resJson.data);
   return resJson.data;
 };
 
@@ -23,6 +23,17 @@ export const saveText = async (text) => {
     }
   `;
   const variables = { text };
+
+  return graphqlQuery(query, variables);
+};
+
+export const registerSnakeHighScore = async (score) => {
+  const query = `
+    query RegisterSnakeHighScore($score: Int) {
+      registerSnakeHighScore(score: $score)
+    }
+  `;
+  const variables = { score };
 
   return graphqlQuery(query, variables);
 };

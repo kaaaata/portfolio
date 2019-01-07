@@ -1,16 +1,14 @@
-import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, fonts, zIndex, layout, mq } from './styles';
-import { Filter, Link, FlexSpacer } from './particles';
+import { colors, zIndex, layout, mq } from './styles';
+import { Link, FlexSpacer } from './particles';
 
 const topNavCss = css`
   position: fixed;
   width: 100%;
-  height: 65px;
+  height: 56px;
   z-index: ${zIndex.stickyNav};
   opacity: 1;
-  font-size: 24px;
-  color: white;
+  background: ${colors.red};
 
   .top_nav__content {
     position: absolute;
@@ -41,9 +39,7 @@ const mediaIcons = [
 
 const HomeButton = () => (
   <Link href='/'>
-    <div css={css`margin-right: 20px;`}>
-      Catherine Han
-    </div>
+    <h1>Catherine Han</h1>
   </Link>
 );
 
@@ -79,10 +75,6 @@ const MediaIcons = () => mediaIcons.map(media => (
 
 const TopNav = () => (
   <section css={topNavCss}>
-    <Filter
-      color={colors.red}
-      opacity={0.75}
-    />
     <div className='top_nav__content'>
       <HomeButton />
       <FlexSpacer />

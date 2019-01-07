@@ -20,6 +20,7 @@ class CopyPaster extends React.Component {
   }
 
   async componentDidMount() {
+    document.title = 'A Text Box | Catherine Han';
     const { text } = await graphqlQuery('{ text }');
     this.setState({ inputText: JSON.parse(text) });
   }
