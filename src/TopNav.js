@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, fonts, zIndex, layout } from './styles';
+import { colors, fonts, zIndex, layout, mq } from './styles';
 import { Filter, Link, FlexSpacer } from './particles';
 
 const topNavCss = css`
@@ -68,6 +68,10 @@ const MediaIcons = () => mediaIcons.map(media => (
         margin-left: 25px;
         filter: invert(100%);
         transition: transform 0.25s ease-out;
+
+        ${mq.phone(`
+          margin-left: 5px;
+        `)}
       `}
     />
   </Link>

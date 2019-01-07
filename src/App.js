@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from './styles';
 import AppListing from './AppListing';
+import Snake from './Snake';
 import CopyPaster from './CopyPaster';
 import Home from './Home';
 import { RedirectRoute } from './particles';
@@ -21,7 +22,6 @@ import TopNav from './TopNav';
 const appCss = css`
   ${fonts.montserrat}
   background: ${colors.dark};
-  line-height: 1.5;
   color: white;
   width: 100%;
   height: 100%;
@@ -49,7 +49,8 @@ const App = () => (
           render={() => (
             <>
               <Home />
-              <AppListing />
+              <Snake />
+              {/* <AppListing /> */}
             </>
           )}
         />

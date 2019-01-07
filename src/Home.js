@@ -1,10 +1,12 @@
 import React from 'react';
+import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 
 const Home = () => (
   <section>
     <p>
-      Hi! My name is Cat, and welcome to my web page. I am a software engineer based in San Francisco. Below is a quick showcase of my skillset and recent projects.
+      Hi! My name is Cat. I am a software engineer based in San Francisco.
     </p>
+    <br />
   </section>
 );
 
