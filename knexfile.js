@@ -2,7 +2,7 @@ module.exports = {
   production: {
     client: 'pg',
     debug: true,
-    connection: 'FILL_ME_IN (heroku postgres url)',
+    connection: process.env.DATABASE_URL,
     ssl: true,
     migrations: {
       commands: 'migrations'
