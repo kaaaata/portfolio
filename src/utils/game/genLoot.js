@@ -1,17 +1,21 @@
-import { sample, random, find, uniq } from 'lodash';
+import { sample, random, uniq } from 'lodash';
 import models from './models';
 
 const { itemData, itemBonuses, rarities, bonusBaseStat } = models;
+const uniqRight = arr => uniq(arr.reverse()).reverse();
 
-const applyLevelModifier = (value, level, rarityModifier) => {
-  const levelModifier = 1.1 ** (level - 1);
-  const volatilityModifier = random(0.95, 1.05);
+const applyLevelModifier = (value, level, rarity) => {
+  const modifiers = [
+    1.1 ** (level - 1), // level
+    rarity.statModifier, // rarity
+    random(0.95, 1.05) // volatility
+  ];
 
-  return Math.ceil(value * levelModifier * volatilityModifier);
+  return Math.ceil(value * modifiers.reduce((a, b) => a * b));
 };
 
 const genItemBonuses = (rarity) => {
-  let bonusCount = sample(find(rarities, i => i.rarity === rarity).bonusCount);
+  let bonusCount = sample(rarity.bonusCount);
   const bonuses = [];
 
   while (bonusCount-- > 0) {
@@ -28,13 +32,13 @@ const genItemName = (itemType, bonuses) => {
     case 1:
       return [itemType, 'of', bonuses[0].suffix].join(' ');
     case 2:
-      return uniq([bonuses[0].prefix, itemType, 'of', bonuses[1].suffix]).join(' ');
+      return uniqRight([bonuses[0].prefix, itemType, 'of', bonuses[1].suffix]).join(' ');
     case 3:
       return sample([true, false])
-        ? uniq([bonuses[0].prefix, bonuses[1].prefix, itemType, 'of', bonuses[2].suffix]).join(' ')
-        : uniq([bonuses[0].prefix, itemType, bonuses[1].prefix, 'of', bonuses[2].suffix]).join(' ');
+        ? uniqRight([bonuses[0].prefix, bonuses[1].prefix, itemType, 'of', bonuses[2].suffix]).join(' ')
+        : uniqRight([bonuses[0].prefix, itemType, 'of', bonuses[1].prefix, bonuses[2].suffix]).join(' ');
     case 4:
-      return uniq([
+      return uniqRight([
         bonuses[0].prefix, bonuses[1].prefix, itemType, 'of', bonuses[2].prefix, bonuses[3].suffix
       ]).join(' ');
     default:
@@ -42,19 +46,21 @@ const genItemName = (itemType, bonuses) => {
   }
 };
 
-const genItemStats = (item, bonuses, itemLevel, rarityModifier) => {
+const genItemStats = (item, bonuses, itemLevel, rarity) => {
   const itemStats = {};
-  const isWeapon = item.slots.includes('weapon') || item.slots.includes('offhand');
+  const isWeapon = item.slots.includes('weapon')
+    || (item.slots.includes('offhand') && item.type !== 'Shield');
+  const defaultBonuses = [];
 
   if (isWeapon) {
-    itemStats.damage = applyLevelModifier(item.baseStat, itemLevel, rarityModifier);
+    itemStats.damage = applyLevelModifier(item.baseStat, itemLevel, rarity);
   } else {
-    itemStats.armor = applyLevelModifier(item.baseStat, itemLevel, rarityModifier);
+    itemStats.armor = applyLevelModifier(item.baseStat, itemLevel, rarity);
   }
 
   bonuses.forEach((bonus) => {
     const bonusName = bonus.name;
-    const bonusValue = applyLevelModifier(bonusBaseStat, itemLevel, rarityModifier);
+    const bonusValue = applyLevelModifier(bonusBaseStat, itemLevel, rarity);
 
     if (!itemStats.hasOwnProperty(bonusName)) {
       itemStats[bonusName] = bonusValue;
@@ -68,35 +74,35 @@ const genItemStats = (item, bonuses, itemLevel, rarityModifier) => {
 
 const genRarity = () => {
   const seed = random(100);
-
   const commonLikelihood = rarities.find(i => i.rarity === 'common').likelihood;
   const uncommonLikelihood = rarities.find(i => i.rarity === 'uncommon').likelihood;
   const rareLikelihood = rarities.find(i => i.rarity === 'rare').likelihood;
+  let rarity = 'legendary';
 
   if (seed < commonLikelihood) {
-    return 'common';
+    rarity = 'common';
   } else if (seed < commonLikelihood + uncommonLikelihood) {
-    return 'uncommon';
+    rarity = 'uncommon';
   } else if (seed < commonLikelihood + uncommonLikelihood + rareLikelihood) {
-    return 'rare';
+    rarity = 'rare';
   }
 
-  return 'legendary';
+  return rarities.find(i => i.rarity === rarity);
 };
 
 export default (itemLevel = random(1, 10)) => {
   const item = sample(itemData);
   const rarity = genRarity();
   const spriteVariant = sample(item.sprite.variants);
-  const sprite = `${item.sprite[rarity]}${spriteVariant}.png`;
+  const sprite = `${item.sprite[rarity.rarity]}${spriteVariant}.png`;
   const bonuses = genItemBonuses(rarity);
   const name = genItemName(item.type, bonuses);
-  const stats = genItemStats(item, bonuses, itemLevel, rarity.statModifier);
+  const stats = genItemStats(item, bonuses, itemLevel, rarity);
 
   const decoratedItem = {
     ...item,
     name,
-    rarity,
+    rarity: rarity.rarity,
     sprite,
     itemLevel,
     stats

@@ -61,6 +61,11 @@ export default {
       name: 'Armor Piercing Damage',
       prefix: 'Desolating',
       suffix: 'Desolation'
+    },
+    {
+      name: 'Poison',
+      prefix: 'Poisoned',
+      suffix: 'Poison'
     }
   ],
   itemData: [
@@ -185,7 +190,7 @@ export default {
       baseStat: 15
     },
     {
-      type: 'Lucky Charm',
+      type: 'Bauble',
       sprite: {
         common: 'gem_01',
         uncommon: 'gem_01',
@@ -193,7 +198,7 @@ export default {
         legendary: 'crystal_01',
         variants: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
       },
-      slots: ['luckycharm'],
+      slots: ['bauble'],
       baseStat: 5
     },
   ],
@@ -204,7 +209,7 @@ export default {
     ring2: 'Ring',
     weapon: 'Weapon',
     offhand: 'Offhand',
-    luckycharm: 'Lucky Charm',
+    bauble: 'Bauble',
   },
   charTypes: [
     'fighter', // weapon: sword, offhand: shield or sword
