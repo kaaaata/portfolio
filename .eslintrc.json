@@ -18,7 +18,9 @@
         "max-len": "off",
         "no-plusplus": "off",
         "no-else-return": "off",
-        "react/no-access-state-in-setstate": "off"
+        "react/no-access-state-in-setstate": "off",
+        "consistent-return": "off",
+        "no-prototype-builtins": "off"
     },
     "env": {
         "browser": true

@@ -13,6 +13,7 @@ import Home from './Home';
 import { RedirectRoute } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
+import Game from './Game';
 // const mapStateToProps = (state) => ({
 //   test: state.test,
 // });
@@ -58,6 +59,12 @@ const App = () => {
             exact path="/snake"
             render={() => (
               <Snake />
+            )}
+          />
+          <Route
+            exact path="/game"
+            render={() => (
+              <Game />
             )}
           />
           <Route
