@@ -1,15 +1,14 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { zIndex, colors } from './styles';
+import { zIndex, colors, layout } from './styles';
 
 const footerCss = css`
   width: 100%;
-  height: 56px;
+  height: 80px;
   z-index: ${zIndex.stickyNav};
-  opacity: 1;
-  background: ${colors.red};
+  background: ${colors.blackDark};
   display: flex;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 ${layout.MAIN_PADDING}px;
 `;
 
 const Footer = () => (

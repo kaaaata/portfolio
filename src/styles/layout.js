@@ -10,5 +10,9 @@ export default {
     ${right || right === 0 ? `right: ${right};` : ''}
     ${bottom || bottom === 0 ? `bottom: ${bottom};` : ''}
     ${left || left === 0 ? `left: ${left};` : ''}
-  `
+  `,
+
+  // constants
+  TOP_NAV_HEIGHT: 80,
+  MAIN_PADDING: 40
 };

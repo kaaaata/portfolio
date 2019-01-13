@@ -1,33 +1,26 @@
-const montserrat = `font-family: 'Montserrat', sans-serif;`;
-const karla = `font-family: 'Karla', sans-serif;`;
+import colors from './colors';
+
+const ptSans = `font-family: 'PT Sans', sans-serif;`;
+const ptSerif = `font-family: 'PT Serif', serif;`;
 
 export default {
-  karla,
-  montserrat,
+  ptSans,
+  ptSerif,
 
   typeface: `
-    ${montserrat}
+    ${ptSans};
+    color: ${colors.white};
 
-    color: white;
-
-    p {
-      line-height: 1.5;
+    h1, h2, h3, h4, h5, h6 {
+      ${ptSerif}
     }
 
     h1 {
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1;
+      font-size: 30px;
     }
 
     h2 {
-      font-size: 20px;
-      line-height: 1.5;
-    }
-
-    h3 {
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 25px;
     }
   `
 };

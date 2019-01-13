@@ -5,15 +5,15 @@ import { withRouter } from 'react-router';
 // import * as actions from './stores/actions';
 // import store from './stores/store';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, fonts } from './styles';
+import { colors, fonts, layout } from './styles';
 import AppListing from './AppListing';
 import Snake from './Snake';
 import CopyPaster from './CopyPaster';
-import Home from './Home';
+import ContentContainer from './ContentContainer';
 import { RedirectRoute } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
-import Game from './Game';
+import SideNav from './SideNav';
 // const mapStateToProps = (state) => ({
 //   test: state.test,
 // });
@@ -23,18 +23,17 @@ import Game from './Game';
 
 const appCss = css`
   ${fonts.typeface}
-  background: ${colors.dark};
+  background: ${colors.black};
   min-width: 320px;
 `;
 
 const appContentCss = css`
-  padding: 40px;
-  padding-top: ${40 + 65}px;
+  display: flex;
+  padding: ${layout.MAIN_PADDING}px;
+  padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
 `;
 
 const App = () => {
-  document.title = 'Home | Catherine Han';
-
   return (
     <main id='app' css={appCss}>
       <TopNav />
@@ -44,8 +43,8 @@ const App = () => {
             exact path="/"
             render={() => (
               <>
-                <Home />
-                <AppListing />
+                <SideNav />
+                <ContentContainer />
               </>
             )}
           />
@@ -59,12 +58,6 @@ const App = () => {
             exact path="/snake"
             render={() => (
               <Snake />
-            )}
-          />
-          <Route
-            exact path="/game"
-            render={() => (
-              <Game />
             )}
           />
           <Route
