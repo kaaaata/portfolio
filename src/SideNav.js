@@ -49,7 +49,7 @@ class SideNav extends React.Component {
   constructor() {
     super();
     this.state = {
-      isNavOpen: true,
+      isNavOpen: false,
     };
   }
 

@@ -12,15 +12,22 @@ export default {
     color: ${colors.white};
 
     h1, h2, h3, h4, h5, h6 {
-      ${ptSerif}
+      ${ptSans}
     }
 
     h1 {
       font-size: 30px;
+      margin-bottom: 20px;
+      line-height: 1.25;
     }
 
     h2 {
       font-size: 25px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      line-height: 1.5;
     }
   `
 };

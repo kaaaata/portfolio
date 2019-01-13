@@ -1,32 +1,17 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import MainContent from './MainContent';
 
 const contentContainerCss = css`
   flex-grow: 1;
 `;
 
-const Home = () => {
+const ContentContainer = () => {
   return (
     <section css={contentContainerCss}>
-      <h2>
-        Hi! My name is Cat. I am a software engineer based in San Francisco.
-      </h2>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <div id='hash' style={{ height: '100px', border: '1px solid red' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
-      <br />
+      <MainContent />
     </section>
   );
 };
 
-export default Home;
+export default ContentContainer;
