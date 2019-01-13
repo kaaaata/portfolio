@@ -22,7 +22,7 @@ const Home = () => {
       <div style={{ height: '100px' }}>filler</div>
       <div style={{ height: '100px' }}>filler</div>
       <div style={{ height: '100px' }}>filler</div>
-      <div style={{ height: '100px' }}>filler</div>
+      <div id='hash' style={{ height: '100px', border: '1px solid red' }}>filler</div>
       <div style={{ height: '100px' }}>filler</div>
       <br />
     </section>

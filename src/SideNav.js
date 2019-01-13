@@ -1,10 +1,11 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, layout } from './styles';
+import { Link } from './particles';
 
 const sideNavCss = isNavOpen => css`
   width: ${isNavOpen ? '300px' : '40px'};
-  height: ${isNavOpen ? '500px' : '40px'};
+  height: ${isNavOpen ? '300px' : '40px'};
   background: ${isNavOpen ? colors.blackDark : 'unset'};
   margin-right: ${layout.MAIN_PADDING}px;
   position: sticky;
@@ -40,6 +41,9 @@ const sideNavToggleCss = isNavOpen => css`
     }
   }
 `;
+const sideNavPagesCss = isNavOpen => css`
+  display: ${isNavOpen ? 'unset' : 'none'};
+`;
 
 class SideNav extends React.Component {
   constructor() {
@@ -66,6 +70,19 @@ class SideNav extends React.Component {
     return (
       <section css={sideNavCss(isNavOpen)}>
         {sideNavToggle}
+        <article css={sideNavPagesCss(isNavOpen)}>
+          <div>stuff</div>
+          <Link href='/#hash'><div>clickme</div></Link>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+          <div>stuff</div>
+        </article>
       </section>
     );
   }
