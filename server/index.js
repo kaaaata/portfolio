@@ -36,6 +36,8 @@ app.get('/ip', (req, res) => {
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/../build')));
+  // the '*' endpoint is disabled in development to allow hot reloading.
+  // this means React Router Hash Link will not scroll on refresh in development.
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(path.join(__dirname, '/../build'), 'index.html'));
   });

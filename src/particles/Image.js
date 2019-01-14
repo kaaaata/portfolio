@@ -2,6 +2,12 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { omit } from 'lodash';
 import { mq } from '../styles';
 
+/**
+ * Convert shorthand CSS prop values to usable CSS syntax
+ * @param {string} cssProperty (width|height)
+ * @param {number|array} dimensionsRange (<value>|[<desktopValue>, <tabletValue>, <phoneValue>])
+ * @returns {string} Usable CSS syntax
+ */
 const genImageDimensions = (
   cssProperty, // 'width' || 'height
   dimensionsRange // <number> || [desktop, tablet, phone]
