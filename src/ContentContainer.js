@@ -1,4 +1,3 @@
-import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import MainContent from './MainContent';
 

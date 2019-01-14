@@ -1,16 +1,49 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { omit } from 'lodash';
+import { mq } from '../styles';
 
-const Image = ({ src, width, height, circular }) => {
+const genImageDimensions = (
+  cssProperty, // 'width' || 'height
+  dimensionsRange // <number> || [desktop, tablet, phone]
+) => {
+  if (typeof dimensionsRange === 'number') {
+    return `${cssProperty}: ${dimensionsRange}px;`;
+  } else if (Array.isArray(dimensionsRange) && dimensionsRange.length === 3) {
+    const desktopCss = `${cssProperty}: ${dimensionsRange[0]}px;`;
+    const tabletCss = mq.tablet(`${cssProperty}: ${dimensionsRange[1]}px;`);
+    const phoneCss = mq.phone(`${cssProperty}: ${dimensionsRange[2]}px;`);
+
+    return `
+      ${desktopCss};
+      ${tabletCss};
+      ${phoneCss};
+    `;
+  }
+
+  return null;
+};
+
+const Image = (props) => {
+  const { src, width, height, size = 'cover', circular } = props;
+  const otherProps = omit(props, ['src', 'width', 'height', 'size', 'circular']);
+
+  const widthCss = genImageDimensions('width', width);
+  const heightCss = genImageDimensions('height', height);
+
   const imageCss = css`
     background: url("assets/${src}") no-repeat center center;
-    background-size: cover;
-    ${width && `width: ${width}px;`}
-    ${height && `height: ${height}px;`}
+    background-size: ${size};
+    ${widthCss || ''}
+    ${heightCss || ''}
     ${circular && 'border-radius: 50%;'}
   `;
 
   return (
-    <div css={imageCss} />
+    <div
+      className='image'
+      css={imageCss}
+      {...otherProps}
+    />
   );
 };
 

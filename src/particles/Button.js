@@ -7,6 +7,7 @@ const buttonCss = css`
   height: 40px;
   border-radius: 5px;
   border: 2px solid white;
+  font-size: 14px;
   cursor: pointer;
   background: transparent;
   outline: none;

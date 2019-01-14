@@ -1,16 +1,22 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, layout } from './styles';
+import { colors, layout, mq } from './styles';
 import { Link } from './particles';
 
 const sideNavCss = isNavOpen => css`
-  width: ${isNavOpen ? '300px' : '40px'};
+  width: ${isNavOpen ? '20vw' : '40px'};
   height: ${isNavOpen ? '300px' : '40px'};
   background: ${isNavOpen ? colors.blackDark : 'unset'};
+  flex: none;
+  max-width: 250px;
   margin-right: ${layout.MAIN_PADDING}px;
   position: sticky;
   top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
   transition: all 0.25s ease-out;
+
+  ${mq.phoneAndTablet(`
+    display: none;
+  `)}
 `;
 const sideNavToggleCss = isNavOpen => css`
   width: 40px;

@@ -19,7 +19,7 @@ const snakeCss = css`
     }
   }
 
-  ${mq.tablet(`
+  ${mq.phoneAndTablet(`
     display: none;
   `)}
 `;
@@ -187,7 +187,7 @@ class Snake extends React.Component {
           css={css`
             display: none;
 
-            ${mq.tablet(`
+            ${mq.phoneAndTablet(`
               display: block;
             `)}
           `}

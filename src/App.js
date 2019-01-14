@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 // import * as actions from './stores/actions';
 // import store from './stores/store';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, fonts, layout } from './styles';
+import { colors, fonts, layout, mq } from './styles';
 import AppListing from './AppListing';
 import Snake from './Snake';
 import CopyPaster from './CopyPaster';
@@ -31,6 +31,10 @@ const appContentCss = css`
   display: flex;
   padding: ${layout.MAIN_PADDING}px;
   padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
+
+  ${mq.phoneAndTablet(`
+    display: block;
+  `)}
 `;
 
 const App = () => {

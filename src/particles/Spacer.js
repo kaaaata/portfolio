@@ -1,9 +1,13 @@
 import React from 'react';
+import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 
-const Spacer = ({ size = 1 }) => Array(size)
-  .fill(null)
-  .map((space, index) => (
-    <br key={index} />
-  ));
+const Spacer = ({ size }) => (
+  <div
+    css={css`
+      width: 100%;
+      height: ${size}px;
+    `}
+  />
+);
 
 export default Spacer;

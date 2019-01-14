@@ -8,8 +8,13 @@ export default {
     }
   `,
   tablet: css => `
+    @media screen and (min-width: ${phoneMax}) and (max-width: ${tabletMax}) {
+      ${css}
+    }
+  `,
+  phoneAndTablet: css => `
     @media screen and (max-width: ${tabletMax}) {
       ${css}
     }
-  `
+  `,
 };
