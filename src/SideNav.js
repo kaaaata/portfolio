@@ -49,6 +49,10 @@ const sideNavToggleCss = isNavOpen => css`
 `;
 const sideNavPagesCss = isNavOpen => css`
   display: ${isNavOpen ? 'unset' : 'none'};
+  
+  div {
+    margin-top: 10px;
+  }
 `;
 
 class SideNav extends React.Component {
@@ -77,17 +81,8 @@ class SideNav extends React.Component {
       <section css={sideNavCss(isNavOpen)}>
         {sideNavToggle}
         <article css={sideNavPagesCss(isNavOpen)}>
-          <div>stuff</div>
-          <Link href='/#hash'><div>clickme</div></Link>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
-          <div>stuff</div>
+          <Link href='/#skills'><div>Skills</div></Link>
+          <Link href='/#contact'><div>Contact</div></Link>
         </article>
       </section>
     );
