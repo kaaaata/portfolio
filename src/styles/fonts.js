@@ -29,5 +29,9 @@ export default {
       margin-bottom: 10px;
       line-height: 1.5;
     }
+
+    li {
+      line-height: 1.5;
+    }
   `
 };

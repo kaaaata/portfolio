@@ -17,4 +17,14 @@ export default {
       ${css}
     }
   `,
+  desktop: css => `
+    @media screen and (min-width: ${tabletMax}) {
+      ${css}
+    }
+  `,
+  tabletAndDesktop: css => `
+    @media screen and (min-width: ${phoneMax}) {
+      ${css}
+    }
+  `
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, layout, mq } from './styles';
-import { Link } from './particles';
+import { Link, Spacer } from './particles';
 
 const sideNavCss = isNavOpen => css`
   width: ${isNavOpen ? '20vw' : '40px'};
@@ -47,11 +47,11 @@ const sideNavToggleCss = isNavOpen => css`
     }
   }
 `;
-const sideNavPagesCss = isNavOpen => css`
+const sideNavLinksCss = isNavOpen => css`
   display: ${isNavOpen ? 'unset' : 'none'};
   
   div {
-    margin-top: 10px;
+    margin-top: 5px;
   }
 `;
 
@@ -65,7 +65,6 @@ class SideNav extends React.Component {
 
   render() {
     const { isNavOpen } = this.state;
-
     const sideNavToggle = (
       <div
         css={sideNavToggleCss(isNavOpen)}
@@ -80,7 +79,8 @@ class SideNav extends React.Component {
     return (
       <section css={sideNavCss(isNavOpen)}>
         {sideNavToggle}
-        <article css={sideNavPagesCss(isNavOpen)}>
+        <Spacer height={15} />
+        <article css={sideNavLinksCss(isNavOpen)}>
           <Link href='/#skills'><div>Skills</div></Link>
           <Link href='/#contact'><div>Contact</div></Link>
         </article>

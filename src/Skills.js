@@ -2,26 +2,29 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import { find } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, zIndex } from './styles';
+import { colors, zIndex, mixins, mq } from './styles';
 import { Image, Spacer } from './particles';
 
 const skills = [
   {
     name: 'React',
-    description: 'I\'ve used React extensively at work and in side projects. Probably 50% of all my hours spent coding ever went into React!'
+    description: 'I\'ve used React extensively at work and in side projects. Probably 50% of my total time spent coding went into React!',
+    flavorTexts: ['Familiar with React 15/16', 'Fragments FTW.']
   },
   {
     name: 'Redux',
     description: 'Redux is a flux state container I use in my side projects. Hoping to gain professional experience with it at some point!',
-    flavorTexts: ['This site has Redux as a dependency, but doesn\'t actually use it!']
+    flavorTexts: ['This site has functional Redux architecture built into it...', '...but is currently too small to make any sensible use of it!']
   },
   {
     name: 'Fluxible',
-    description: 'Fluxible is a flux state container tech I use in conjunction with React at Massdrop. It\'s similar to Redux, but different semantically.'
+    description: 'Fluxible is a flux state container tech I used in conjunction with React at Massdrop. It\'s similar to Redux, but uses handlers to store data in multiple stores instead of reducing to a single store.',
+    flavorTexts: ['I\'ve worked on one of largest repos out there that uses Fluxible!']
   },
   {
     name: 'Git',
-    description: 'I use Git to manage all my projects.'
+    description: 'I use Git to manage all my projects. Having experimented with various Git softwares, I still like the command line the best...',
+    flavorTexts: ['The most useful command: git symbolic-ref --short -q HEAD']
   },
   {
     name: 'Node',
@@ -29,26 +32,29 @@ const skills = [
   },
   {
     name: 'GraphQL',
-    description: 'I\'ve only recently picked up GraphQL, but it has been a blast working with it so far. A few more layers of abstraction are required to get a simple server up and running for a project, but the much increased flexibility in what you can do with "endpoint functionality" in the form of queries has been much appreciated. While writing "post" type queries has been more difficult, writing "get" type queries have been a breeze.',
-    flavorTexts: ['This website utilizes GraphQL!']
+    description: 'I\'ve only recently picked up GraphQL, but it has been a blast working with it so far. I aspire at some point to gain professional experience working with GraphQL on a large scale application.',
+    flavorTexts: ['This website utilizes GraphQL!', '...but isn\'t complex enough to appreciate it fully...']
   },
   {
     name: 'Sass',
-    description: 'SASS/SCSS are style sheet languages I\'ve used both professionally and in side projects. It\'s feature rich and fun to write!'
+    description: 'SASS/SCSS are style sheet languages I\'ve used both professionally and in side projects. They are very cool, especially Sass with its pimpy syntax, but CSS-in-JS is on another level.'
   },
   {
     name: 'Emotion',
-    description: 'Emotion is a new CSS-in-JS library that is lightweight, powerful, and fast. It is a combination of JavaScript and SCSS, allowing the user to write SCSS syntax as a Javascript template literal, allowing for WILD dynamic styling possibilities and code reusability.',
+    description: 'Emotion is a new CSS-in-JS library that is lightweight, powerful, and fast. It combines JavaScript and SCSS to allow users to write SCSS as JS template literals, allowing for WILD dynamic styling possibilities and code reusability.',
     flavorTexts: ['100% of this site\'s CSS is from Emotion!']
   },
   {
     name: 'Bash',
-    description: 'I\'m still a newbie when it comes to Bash scripting, but I have been able to come up with some cool and useful aliases, functions, and scripts. My opinion of Bash is, it\'s pretty confusing and time-consuming to learn, but the payoff is worth it.'
+    description: 'I\'m still a newbie when it comes to Bash scripting, but I have been able to come up with some cool and useful aliases, functions, and scripts. My opinion of Bash is, it\'s pretty confusing and time-consuming to learn, but the payoff is well worth it.',
+    flavorTexts: [
+      "export PS1='🌊🌊🌊  ${PWD##*/} 🤸  '", // eslint-disable-line no-template-curly-in-string
+      'Hyper terminal is worth checking out'
+    ]
   },
   {
     name: 'Python',
-    description: 'I have some experience scripting professionally in Python, writing re-usable scripts to help coworkers automate workflow involving Windows filesystems and Excel spreadsheet manipulation. I\'ve also experimented with building a RESTful API with Django.',
-    flavorTexts: ['My first programming language!']
+    description: 'I have some experience scripting professionally in Python, writing re-usable scripts to help coworkers automate workflow involving Windows filesystems and Excel spreadsheet manipulation. I\'ve also experimented with building a RESTful API with Django.'
   },
   {
     name: 'Redis',
@@ -56,24 +62,44 @@ const skills = [
   },
   {
     name: 'MySQL',
-    description: 'I use MySQL at Massdrop, both using raw queries and through Sequelize.'
+    description: '*page intentionally left blank*'
   },
   {
     name: 'Postgres',
-    description: 'Postgres is my database tech of choice for side projects. Using the Knex library to allow server-side JavaScript to interface with Postgres (and also for migrations), working with this tech has been a stroll in the park. Additionally, Heroku has a great Postgres add-on, allowing for easy deployment of Postgres-powered web apps.'
+    description: 'Postgres is my database tech of choice for side projects. Using the Knex library to interface server-side JavaScript with Postgres (and also for migrations), working with this tech has been a breeze. Additionally, Heroku has a great Postgres add-on, allowing for easy deployment of Postgres-powered web apps.'
   },
   {
     name: 'Heroku',
-    description: 'Heroku is a cloud platform that allows you to easily deploy both full stack and serverless web apps.',
+    description: 'Heroku is a cloud platform that allows you to easily deploy both full stack and serverless web apps. I\'ve deployed many different projects to Heroku.',
     flavorTexts: ['This site is hosted on Heroku!']
   },
 ];
 
+const waxAndWane = duration => `
+  ${mixins.keyframes('waxAndWane', `
+    0%, 100% { transform: scale(1.15); }
+    50% { transform: scale(1); }
+  `)}
+
+  animation: waxAndWane ${duration} infinite ease-in-out;
+`;
 const skillsCss = css`
   display: flex;
   justify-content: center;
   position: relative;
   flex-wrap: wrap;
+
+  .react-draggable-dragging {
+    ${mq.tabletAndDesktop(`
+      .image {
+        ${waxAndWane('1s')}
+      }
+    `)}
+
+    ${mq.phone(`
+      transform: none !important;
+    `)}
+  }
 `;
 const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   width: 100%;
@@ -91,22 +117,25 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   .image {
     margin-right: 20px;
     flex: none;
+    ${waxAndWane('2s')}
   }
 
   p, li, span {
     color: ${colors.grey};
 
-    &.additionally {
+    &.also {
       color: ${colors.white};
     }
   }
+
+  ${mq.phone(`
+    display: none;
+  `)}
 `;
-const skillCss = isActive => css`
+const skillCss = css`
   z-index: ${zIndex.default};
-  border: ${isActive ? '1px solid red' : 'none'};
-  display: ${isActive ? 'none' : 'unset'};
   margin: 10px;
-  cursor: default;
+  cursor: pointer;
 
   .image {
     margin: auto;
@@ -130,15 +159,15 @@ const FeaturedSkillContent = ({ activeSkill }) => {
   return <>
     <Image
       src={`skills/${name.toLowerCase()}.png`}
-      width={[125, 100, 75]}
-      height={[125, 100, 75]}
+      width={[125, 100, 75]} // 75 hidden in breakpoint
+      height={[125, 100, 75]} // 75 hidden in breakpoint
       size='contain'
     />
     <div css={css`flex-grow: 1;`}>
       <h1>{name}</h1>
       <p>{description}</p>
       {flavorTexts && <>
-        <p className='additionally'>Additionally...</p>
+        <p className='also'>Also...</p>
         {flavorTexts.map(pointer => (
           <li key={pointer}>{pointer}</li>
         ))}
@@ -187,16 +216,16 @@ class Skills extends React.Component {
         >
           <FeaturedSkillContent activeSkill={activeSkill} />
         </div>
-        <Spacer size={20} />
+        <Spacer height={[20, 20, 0]} />
         {skills.map(skill => (
           <Draggable
             bounds='parent'
             onStart={() => this.handleDragSkillStart(skill.name)}
             onStop={() => this.handleDragSkillStop()}
-            position={activeSkill === skill.name ? null : { x: 0, y: 0 }}
+            position={{ x: 0, y: 0 }}
             key={skill.name}
           >
-            <div css={skillCss(activeSkill === skill.name)}>
+            <div css={skillCss}>
               <Image
                 src={`skills/${skill.name.toLowerCase()}.png`}
                 width={50}

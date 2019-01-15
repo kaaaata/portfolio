@@ -6,7 +6,6 @@ const contactCss = css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 100px;
 `;
 
 const Contact = () => (
@@ -20,12 +19,12 @@ const Contact = () => (
       height={100}
       circular
     />
-    <Spacer size={20} />
+    <Spacer height={20} />
     <Button
       href='https://docdro.id/mbNvZtM'
       text='See My Resume'
     />
-    <Spacer size={20} />
+    <Spacer height={20} />
     <p>Feel free to contact me!</p>
     <p><u>catherinehan714@gmail.com</u></p>
   </article>
