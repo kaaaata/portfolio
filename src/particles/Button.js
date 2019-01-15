@@ -35,7 +35,7 @@ const Button = (props) => {
   const button = (
     <button
       css={buttonCss}
-      onClick={onClick()}
+      onClick={onClick}
       type='button'
       {...otherProps}
     >
