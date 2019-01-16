@@ -11,8 +11,8 @@ const intervalSpeed = 100;
 const snakeCss = css`
   .snake_game__container {
     width: fit-content;
-    border-left: 1px solid ${colors.purple};
-    border-top: 1px solid ${colors.purple};
+    border-left: 1px solid ${colors.grey};
+    border-top: 1px solid ${colors.grey};
   
     .snakeRow {
       height: 25px;
@@ -174,10 +174,10 @@ class Snake extends React.Component {
     if (this.isFoodOnCell(x, y)) {
       return colors.green;
     } else if (this.isSnakeOnCell(x, y)) {
-      return this.state.isSnakeDead ? '#FF0000' : colors.salmon;
+      return this.state.isSnakeDead ? colors.red : colors.yellow;
     }
 
-    return colors.dark;
+    return colors.black;
   }
 
   render() {
@@ -204,8 +204,8 @@ class Snake extends React.Component {
                     css={css`
                       width: 25px;
                       height: 25px;
-                      border-bottom: 1px solid ${colors.purple};
-                      border-right: 1px solid ${colors.purple};
+                      border-bottom: 1px solid ${colors.grey};
+                      border-right: 1px solid ${colors.grey};
                       display: inline-block;
                       background: ${this.getCellColor(x, y)};
                     `}
@@ -214,7 +214,7 @@ class Snake extends React.Component {
               </div>
             ))}
           </div>
-          <div>
+          <div css={css`margin-bottom: 1000px;`}>
             <span>Score: {this.state.score}</span>
             &nbsp;|&nbsp;
             <span>High Score: {this.state.snakeHighScore}</span>

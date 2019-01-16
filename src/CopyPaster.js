@@ -44,12 +44,13 @@ class CopyPaster extends React.Component {
       width: 100%;
       height: 500px;
       background: transparent;
-      color: ${colors.blue};
+      color: ${colors.white};
       border: 2px solid ${this.state.isSaved ? colors.green : colors.red};
-      ${fonts.montserrat}
+      ${fonts.ptSerif}
       font-size: 16px;
       padding: 10px;
       resize: vertical;
+      margin-bottom: 1000px;
     `;
 
     return (
