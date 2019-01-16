@@ -117,7 +117,7 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   .image {
     margin-right: 20px;
     flex: none;
-    ${waxAndWane('2s')}
+    ${waxAndWane('2.5s')}
   }
 
   p, li, span {
