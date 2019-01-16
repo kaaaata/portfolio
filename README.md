@@ -13,14 +13,23 @@ Ensure all code to be deployed is committed
 The site is hosted at [kaaaata.herokuapp.com](https://kaaaata.herokuapp.com) and I have a registered domain [www.kaaaata.com](http://www.kaaaata.com) which points to it  
 
 ## Database and Migration Instructions
-This project uses Postgres with Knex.  
+This project uses Postgres with Knex  
+
 <code>knexfile.js</code> contains config information such as database name "portfolio"  
+
 <code>psql portfolio</code> to open psql command line  
 <code>\q</code> to quit psql command line  
+
 <code>knex migrate:make migration_name</code> to create a local migration  
 <code>knex migrate:latest</code> to run a batch of migrations locally  
 <code>knex migrate:rollback</code> to roll back the latest batch of migrations locally  
+note: don't edit a migration file after it has been run, because it won't do the new stuff. instead, create a new migration. however, the same migration file can be run many times.  
 todo: figure out migrations on prod DB (Postgres hosted on Heroku)  
+
+While local DB is small, which will probably be always, the following commands are useful:  
+<code>dropdb portfolio</code>  to delete the database  
+<code>createdb portfolio</code>  to create the database (empty)  
+<code>knex migrate:latest</code>  to apply all migrations  
 
 ## Other useful scripts
 <code>npm run lint</code> to run lint excluding rules in .eslintrc.json  
