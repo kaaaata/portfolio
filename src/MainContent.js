@@ -4,20 +4,23 @@ import { colors } from './styles';
 import { Spacer } from './particles';
 import Skills from './Skills';
 import Contact from './Contact';
+import Intro from './Intro';
+
+const contentDividerCss = css`
+  color: ${colors.grey};
+  border-bottom: none;
+  max-width: 500px;
+`;
 
 const ContentDivider = () => <>
   <Spacer height={75} />
-  <hr
-    css={css`
-      color: ${colors.grey};
-      border-bottom: none;
-    `}
-  />
+  <hr css={contentDividerCss} />
   <Spacer height={75} />
 </>;
 
 const MainContent = () => (
   <section>
+    <Intro />
     <Skills /><ContentDivider />
     <Contact />
     <Spacer height={75} />

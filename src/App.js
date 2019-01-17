@@ -31,7 +31,7 @@ const appContentCss = css`
   display: flex;
   padding: ${layout.MAIN_PADDING}px;
   padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: auto;
 
   ${mq.phoneAndTablet(`

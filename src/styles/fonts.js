@@ -25,6 +25,10 @@ export default {
       font-size: 25px;
     }
 
+    h3 {
+      font-size: 20px;
+    }
+
     p {
       margin-bottom: 10px;
       line-height: 1.5;
