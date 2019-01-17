@@ -23,7 +23,7 @@ const skills = [
   },
   {
     name: 'Git',
-    description: 'I use Git to manage all my projects. Having experimented with various Git softwares, I still like the command line the best...',
+    description: 'I use Git to manage all my projects. Having experimented with various Git softwares, I still prefer the command line...',
     flavorTexts: ['The most useful command: git symbolic-ref --short -q HEAD']
   },
   {
@@ -66,18 +66,18 @@ const skills = [
   },
   {
     name: 'Postgres',
-    description: 'Postgres is my database tech of choice for side projects. Using the Knex library to interface server-side JavaScript with Postgres (and also for migrations), working with this tech has been a breeze. Additionally, Heroku has a great Postgres add-on, allowing for easy deployment of Postgres-powered web apps.'
+    description: 'Postgres is my database tech of choice for side projects. Using the Knex library to interface server-side JavaScript with Postgres (and also for migrations), working with this tech has been wonderful. Additionally, Heroku has a great Postgres add-on, allowing for easy deployment of Postgres-powered web apps.'
   },
   {
     name: 'Heroku',
-    description: 'Heroku is a cloud platform that allows you to easily deploy both full stack and serverless web apps. I\'ve deployed many different projects to Heroku.',
+    description: 'Heroku is a cloud platform that enables easy deployment of both full stack and serverless web apps. I\'ve deployed many different projects to Heroku.',
     flavorTexts: ['This site is hosted on Heroku!']
   },
 ];
 
 const waxAndWane = duration => `
   ${mixins.keyframes('waxAndWane', `
-    0%, 100% { transform: scale(1.15); }
+    0%, 100% { transform: scale(1.1); }
     50% { transform: scale(1); }
   `)}
 
@@ -107,7 +107,7 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
     ? colors.yellow
     : activeSkill ? colors.green : colors.grey};
   height: 400px;
-  border-radius: 5%;
+  border-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: ${activeSkill ? 'unset' : 'center'};
@@ -117,6 +117,7 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   .image {
     margin-right: 20px;
     flex: none;
+    border-radius: 20%;
     ${waxAndWane('2.5s')}
   }
 
@@ -139,6 +140,7 @@ const skillCss = css`
 
   .image {
     margin: auto;
+    border-radius: 20%;
   }
 
   .skill_name {
