@@ -1,6 +1,4 @@
 import React from 'react';
-import Draggable from 'react-draggable';
-import { find } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, zIndex, mixins, mq } from './styles';
 import { Image, Spacer, Filter } from './particles';
@@ -75,14 +73,6 @@ const skills = [
   },
 ];
 
-const waxAndWane = duration => `
-  ${mixins.keyframes('waxAndWane', `
-    0%, 100% { transform: scale(1.1); }
-    50% { transform: scale(1); }
-  `)}
-
-  animation: waxAndWane ${duration} infinite ease-in-out;
-`;
 const skillsCss = css`
   max-width: 750px;
   margin: auto;
@@ -90,48 +80,32 @@ const skillsCss = css`
   justify-content: center;
   position: relative;
   flex-wrap: wrap;
-
-  .filter {
-    opacity: 0.5;
-    ${mq.tabletAndDesktop(`
-      display: none;
-    `)}
-  }
-
-  .react-draggable-dragging {
-    ${mq.tabletAndDesktop(`
-      .image {
-        ${waxAndWane('1s')}
-      }
-    `)}
-
-    ${mq.phone(`
-      transform: none !important;
-    `)}
-  }
 `;
-const skillsFeatureCss = (draggedSkill, activeSkill) => css`
+const skillsFeatureCss = activeSkill => css`
   width: 100%;
-  border: 2px dashed ${draggedSkill
-    ? colors.yellow
-    : activeSkill ? colors.green : colors.grey};
+  border: 2px dashed ${activeSkill ? colors.green : colors.grey};
   height: 400px;
   border-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: ${activeSkill ? 'unset' : 'center'};
-  z-index: ${zIndex.mouseEventAreaBackground};
   padding: 30px;
-
-  .drag_n_drop {
-    filter: invert(100%);
-  }
 
   .featured_skill_image {
     margin-right: 30px;
     flex: none;
     border-radius: 20%;
-    ${waxAndWane('2.5s')}
+    
+    ${mixins.keyframes('waxAndWane', `
+      0%, 100% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+    `)}
+
+    animation: waxAndWane 2.5s infinite ease-in-out;
+  }
+
+  .inspect_icon {
+    filter: invert(50%);
   }
 
   p, li, span {
@@ -147,7 +121,6 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   `)}
 `;
 const skillCss = css`
-  z-index: ${zIndex.default};
   padding: 10px;
   cursor: pointer;
 
@@ -162,104 +135,74 @@ const skillCss = css`
   }
 `;
 
-const FeaturedSkillContent = ({ activeSkill }) => {
-  if (!activeSkill) {
-    return (
-      <Image
-        className='drag_n_drop'
-        src='dragndrop.png'
-        width={50}
-        height={50}
-      />
-    );
-  }
-
-  const { name, description, flavorTexts } = find(skills, i => i.name === activeSkill);
-
-  return <>
-    <Image
-      className='featured_skill_image'
-      src={`skills/${name.toLowerCase()}.png`}
-      width={[125, 100, 75]} // 75 hidden in breakpoint
-      height={[125, 100, 75]} // 75 hidden in breakpoint
-      size='contain'
-    />
-    <div css={css`flex-grow: 1;`}>
-      <h1>{name}</h1>
-      <p>{description}</p>
-      {flavorTexts && <>
-        <p className='also'>Also...</p>
-        {flavorTexts.map(pointer => (
-          <li key={pointer}>{pointer}</li>
-        ))}
-      </>}
-    </div>
-  </>;
-};
-
 class Skills extends React.Component {
   constructor() {
     super();
     this.state = {
-      draggedSkill: null,
-      activeSkill: null,
+      activeSkill: null
     };
-
-    this.isHoveringDropZone = false;
-  }
-
-  handleDragSkillStart(skillName) {
-    this.setState({ draggedSkill: skillName });
-  }
-
-  handleDragSkillStop() {
-    this.setState({
-      activeSkill: this.isHoveringDropZone
-        ? this.state.draggedSkill
-        : this.state.activeSkill,
-      draggedSkill: null
-    });
   }
 
   render() {
-    const { draggedSkill, activeSkill } = this.state;
+    const { activeSkill } = this.state;
+    const { name, description, flavorTexts } = activeSkill || {};
+
+    const featuredSkillPlaceholder = (
+      <Image
+        className='inspect_icon'
+        src='inspect.png'
+        width={50}
+        height={50}
+      />
+    );
+    const featuredSkillContent = activeSkill && <>
+      <Image
+        className='featured_skill_image'
+        src={`skills/${name.toLowerCase()}.png`}
+        width={[125, 100, 75]} // 75 hidden in breakpoint
+        height={[125, 100, 75]} // 75 hidden in breakpoint
+        size='contain'
+      />
+      <div css={css`flex-grow: 1;`}>
+        <h1>{name}</h1>
+        <p>{description}</p>
+        {flavorTexts && <>
+          <p className='also'>Also...</p>
+          {flavorTexts.map(pointer => (
+            <li key={pointer}>{pointer}</li>
+          ))}
+        </>}
+      </div>
+    </>;
 
     return (
-      <article
+      <section
         id='skills'
         css={skillsCss}
       >
-        <Filter /> {/* add a layer to nullify react-draggable on mobile */}
         <h1>Skills</h1>
-        <div
-          css={skillsFeatureCss(draggedSkill, activeSkill)}
-          onMouseEnter={() => { this.isHoveringDropZone = true; }}
-          onMouseLeave={() => { this.isHoveringDropZone = false; }}
-        >
-          <FeaturedSkillContent activeSkill={activeSkill} />
-        </div>
+        <article css={skillsFeatureCss(activeSkill)}>
+          {activeSkill ? featuredSkillContent : featuredSkillPlaceholder}
+        </article>
         <Spacer height={[20, 20, 0]} />
         {skills.map(skill => (
-          <Draggable
-            bounds='parent'
-            onStart={() => this.handleDragSkillStart(skill.name)}
-            onStop={() => this.handleDragSkillStop()}
-            position={{ x: 0, y: 0 }}
+          <div
+            css={skillCss}
             key={skill.name}
+            onMouseOver={() => this.setState({ activeSkill: skill })}
+            onClick={() => this.setState({ activeSkill: skill })}
           >
-            <div css={skillCss}>
-              <Image
-                src={`skills/${skill.name.toLowerCase()}.png`}
-                width={50}
-                height={50}
-                size='contain'
-              />
-              <div className='skill_name'>{skill.name}</div>
-            </div>
-          </Draggable>
+            <Image
+              src={`skills/${skill.name.toLowerCase()}.png`}
+              width={[75, 40, 40]}
+              height={[75, 40, 40]}
+              size='contain'
+            />
+            <div className='skill_name'>{skill.name}</div>
+          </div>
         ))}
         <Spacer size={40} />
-      </article>
+      </section>
     );
   }
 }
