@@ -3,7 +3,7 @@ import Draggable from 'react-draggable';
 import { find } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, zIndex, mixins, mq } from './styles';
-import { Image, Spacer } from './particles';
+import { Image, Spacer, Filter } from './particles';
 
 const skills = [
   {
@@ -91,6 +91,13 @@ const skillsCss = css`
   position: relative;
   flex-wrap: wrap;
 
+  .filter {
+    opacity: 0.5;
+    ${mq.tabletAndDesktop(`
+      display: none;
+    `)}
+  }
+
   .react-draggable-dragging {
     ${mq.tabletAndDesktop(`
       .image {
@@ -141,7 +148,7 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
 `;
 const skillCss = css`
   z-index: ${zIndex.default};
-  margin: 10px;
+  padding: 10px;
   cursor: pointer;
 
   .image {
@@ -222,6 +229,7 @@ class Skills extends React.Component {
         id='skills'
         css={skillsCss}
       >
+        <Filter /> {/* add a layer to nullify react-draggable on mobile */}
         <h1>Skills</h1>
         <div
           css={skillsFeatureCss(draggedSkill, activeSkill)}

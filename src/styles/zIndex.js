@@ -6,7 +6,8 @@ const zIndexOrder = [
   'mouseEventAreaForeground',
   'stickyNav',
   'stickyNavFilter',
-  'stickyNavContent'
+  'stickyNavContent',
+  'maximum'
   // highest
 ];
 const zIndex = {};
