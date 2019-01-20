@@ -1,18 +1,19 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, layout, mq } from './styles';
+import { colors, layout, mq, zIndex } from './styles';
 import { Link, Spacer } from './particles';
 
 // todo: change height to fit-content once there's enough stuff in the sidebar
 const sideNavCss = isNavOpen => css`
-  width: ${isNavOpen ? '20vw' : '40px'};
+  width: ${isNavOpen ? '30vw' : '40px'};
   height: ${isNavOpen ? '300px' : '40px'};
   background: ${isNavOpen ? colors.blackDark : 'unset'};
   flex: none;
   max-width: 250px;
-  margin-right: ${layout.MAIN_PADDING}px;
-  position: sticky;
+  position: fixed;
+  z-index: ${zIndex.stickyNav};
   top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
+  transition: all 0.25s ease-out;
 
   ${mq.phoneAndTablet(`
     display: none;

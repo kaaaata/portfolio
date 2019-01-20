@@ -17,6 +17,7 @@ export default {
   // constants
   TOP_NAV_HEIGHT: 80,
   MAIN_PADDING: 40,
+  MAIN_PADDING_PHONE: 20,
 
   // utils
 

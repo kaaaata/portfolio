@@ -23,7 +23,8 @@
         "no-prototype-builtins": "off",
         "jsx-a11y/mouse-events-have-key-events": "off",
         "react/no-array-index-key": "off",
-        "no-nested-ternary": "off"
+        "no-nested-ternary": "off",
+        "line-break-style": "off"
     },
     "env": {
         "browser": true

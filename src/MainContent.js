@@ -14,9 +14,9 @@ const contentDividerCss = css`
 `;
 
 const ContentDivider = () => <>
-  <Spacer height={120} />
+  <Spacer height={[120, 80, 40]} />
   <hr css={contentDividerCss} />
-  <Spacer height={120} />
+  <Spacer height={[120, 80, 40]} />
 </>;
 
 const MainContent = () => (
@@ -25,7 +25,7 @@ const MainContent = () => (
     <Biography /><ContentDivider />
     <Skills /><ContentDivider />
     <Contact />
-    <Spacer height={120} />
+    <Spacer height={[120, 80, 40]} />
   </section>
 );
 

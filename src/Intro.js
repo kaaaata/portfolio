@@ -1,17 +1,16 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Button } from './particles';
-import { zIndex, effects } from './styles';
+import { zIndex, effects, layout } from './styles';
 import Snake from './Snake';
 
 const introCss = css`
   overflow: hidden;
-  height: 625px;
 
   .image {
     ${effects.flicker}
     ${effects.rainbow}
-    animation: flicker 4s ease-out infinite, rainbow 9s linear infinite;
+    animation: flicker 4s ease-out infinite, rainbow 10s linear infinite;
     margin: auto;
   }
 `;
@@ -45,6 +44,13 @@ class Intro extends React.Component {
         />
       </div>
     );
+    const logo = (
+      <Image
+        src='logo.png'
+        width={[500, 420, 320 - layout.MAIN_PADDING_PHONE * 2]}
+        height={[750, 750, 500]}
+      />
+    );
 
     return (
       <section
@@ -52,15 +58,10 @@ class Intro extends React.Component {
         css={introCss}
       >
         {secret}
-        {this.state.isSecretFound ? (
-          <Snake />
-        ) : (
-          <Image
-            src='logo.png'
-            width={[500, 420, 320]}
-            height={750}
-          />
-        )}
+        {this.state.isSecretFound
+          ? <Snake />
+          : logo
+        }
       </section>
     );
   }

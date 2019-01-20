@@ -2,8 +2,6 @@ import mixins from './mixins';
 
 export default {
   flicker: `
-    opacity: 1;
-
     ${mixins.keyframes('flicker', `
       0% { opacity: 0.8; }
       20% { opacity: 0.8; }

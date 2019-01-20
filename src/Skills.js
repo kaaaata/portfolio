@@ -116,7 +116,11 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   z-index: ${zIndex.mouseEventAreaBackground};
   padding: 30px;
 
-  .image {
+  .drag_n_drop {
+    filter: invert(100%);
+  }
+
+  .featured_skill_image {
     margin-right: 30px;
     flex: none;
     border-radius: 20%;
@@ -154,7 +158,12 @@ const skillCss = css`
 const FeaturedSkillContent = ({ activeSkill }) => {
   if (!activeSkill) {
     return (
-      <span>Drag 'n' Drop!</span>
+      <Image
+        className='drag_n_drop'
+        src='dragndrop.png'
+        width={50}
+        height={50}
+      />
     );
   }
 
@@ -162,6 +171,7 @@ const FeaturedSkillContent = ({ activeSkill }) => {
 
   return <>
     <Image
+      className='featured_skill_image'
       src={`skills/${name.toLowerCase()}.png`}
       width={[125, 100, 75]} // 75 hidden in breakpoint
       height={[125, 100, 75]} // 75 hidden in breakpoint
