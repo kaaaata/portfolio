@@ -9,6 +9,9 @@ const cols = 25;
 const intervalSpeed = 100;
 
 const snakeCss = css`
+  width: fit-content;
+  margin: auto;
+
   .snake_game__container {
     width: fit-content;
     border-left: 1px solid ${colors.grey};
@@ -41,22 +44,8 @@ class Snake extends React.Component {
   }
 
   async componentDidMount() {
-    document.title = 'Snake | Catherine Han';
-    document.onkeyup = (e) => {
-      if ([87, 38].includes(e.keyCode)) { // w, up
-        if (this.lastMoveDirection !== 'down') this.moveDirection = 'up';
-      } else if ([83, 40].includes(e.keyCode)) { // s, down
-        if (this.lastMoveDirection !== 'up') this.moveDirection = 'down';
-      } else if ([68, 39].includes(e.keyCode)) { // d, right
-        if (this.lastMoveDirection !== 'left') this.moveDirection = 'right';
-      } else if ([65, 37].includes(e.keyCode)) { // a, left
-        if (this.lastMoveDirection !== 'right') this.moveDirection = 'left';
-      }
-    };
-
     const { snakeHighScore } = await graphqlQuery('{ snakeHighScore }');
     this.setState({ snakeHighScore });
-
     this.startGame();
   }
 
@@ -67,6 +56,19 @@ class Snake extends React.Component {
   startGame() {
     this.moveDirection = 'right';
     this.lastMoveDirection = 'right';
+
+    document.onkeydown = (e) => {
+      e.preventDefault();
+      if ([87, 38].includes(e.keyCode)) { // w, up
+        if (this.lastMoveDirection !== 'down') this.moveDirection = 'up';
+      } else if ([83, 40].includes(e.keyCode)) { // s, down
+        if (this.lastMoveDirection !== 'up') this.moveDirection = 'down';
+      } else if ([68, 39].includes(e.keyCode)) { // d, right
+        if (this.lastMoveDirection !== 'left') this.moveDirection = 'right';
+      } else if ([65, 37].includes(e.keyCode)) { // a, left
+        if (this.lastMoveDirection !== 'right') this.moveDirection = 'left';
+      }
+    };
 
     this.setState({
       food: [],
@@ -116,6 +118,7 @@ class Snake extends React.Component {
     );
 
     if (didSnakeDie) {
+      document.onkeydown = null;
       this.setState({ isSnakeDead: true });
       clearInterval(this.moveInterval);
       registerSnakeHighScore(this.state.score);
@@ -217,7 +220,7 @@ class Snake extends React.Component {
           <div css={css`margin-bottom: 1000px;`}>
             <span>Score: {this.state.score}</span>
             &nbsp;|&nbsp;
-            <span>High Score: {this.state.snakeHighScore}</span>
+            <span>Global High Score: {this.state.snakeHighScore}</span>
             {this.state.isSnakeDead && (
               <span>&nbsp;|&nbsp;
                 <span

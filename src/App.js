@@ -7,7 +7,6 @@ import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts, layout, mq } from './styles';
 import AppListing from './AppListing';
-import Snake from './Snake';
 import CopyPaster from './CopyPaster';
 import ContentContainer from './ContentContainer';
 import { RedirectRoute } from './particles';
@@ -58,12 +57,6 @@ const App = () => {
             exact path="/copypaster"
             render={() => (
               <CopyPaster />
-            )}
-          />
-          <Route
-            exact path="/snake"
-            render={() => (
-              <Snake />
             )}
           />
           <Route

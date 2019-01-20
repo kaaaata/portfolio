@@ -13,9 +13,10 @@ const buttonCss = css`
   outline: none;
   color: ${colors.white};
   transition: all 0.25s ease-out;
+  transition-property: color, background;
 
   span {
-    padding: 0 10px;
+    padding: 0 15px;
   }
 
   &:hover {
@@ -24,7 +25,7 @@ const buttonCss = css`
   }
 
   &:active {
-    background: ${colors.grey};
+    transform: translateY(3px);
   }
 `;
 

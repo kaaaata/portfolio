@@ -5,25 +5,27 @@ import { Spacer } from './particles';
 import Skills from './Skills';
 import Contact from './Contact';
 import Intro from './Intro';
+import Biography from './Biography';
 
 const contentDividerCss = css`
   color: ${colors.grey};
   border-bottom: none;
-  max-width: 500px;
+  max-width: 250px;
 `;
 
 const ContentDivider = () => <>
-  <Spacer height={75} />
+  <Spacer height={120} />
   <hr css={contentDividerCss} />
-  <Spacer height={75} />
+  <Spacer height={120} />
 </>;
 
 const MainContent = () => (
   <section>
-    <Intro />
+    <Intro /><ContentDivider />
+    <Biography /><ContentDivider />
     <Skills /><ContentDivider />
     <Contact />
-    <Spacer height={75} />
+    <Spacer height={120} />
   </section>
 );
 

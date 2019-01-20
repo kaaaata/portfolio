@@ -33,7 +33,7 @@ const skills = [
   {
     name: 'GraphQL',
     description: 'I\'ve only recently picked up GraphQL, but it has been a blast working with it so far. I aspire at some point to gain professional experience working with GraphQL on a large scale application.',
-    flavorTexts: ['This website utilizes GraphQL!', '...but isn\'t complex enough to appreciate it fully...']
+    flavorTexts: ['This website utilizes GraphQL!']
   },
   {
     name: 'Sass',
@@ -46,7 +46,7 @@ const skills = [
   },
   {
     name: 'Bash',
-    description: 'I\'m still a newbie when it comes to Bash scripting, but I have been able to come up with some cool and useful aliases, functions, and scripts. My opinion of Bash is, it\'s pretty confusing and time-consuming to learn, but the payoff is well worth it.',
+    description: 'I\'m still a newbie when it comes to Bash scripting, but I have been able to come up with some cool and useful aliases, functions, and scripts.',
     flavorTexts: [
       "export PS1='🌊🌊🌊  ${PWD##*/} 🤸  '", // eslint-disable-line no-template-curly-in-string
       'Hyper terminal is worth checking out'
@@ -84,6 +84,8 @@ const waxAndWane = duration => `
   animation: waxAndWane ${duration} infinite ease-in-out;
 `;
 const skillsCss = css`
+  max-width: 750px;
+  margin: auto;
   display: flex;
   justify-content: center;
   position: relative;
@@ -112,10 +114,10 @@ const skillsFeatureCss = (draggedSkill, activeSkill) => css`
   justify-content: center;
   align-items: ${activeSkill ? 'unset' : 'center'};
   z-index: ${zIndex.mouseEventAreaBackground};
-  padding: 20px;
+  padding: 30px;
 
   .image {
-    margin-right: 20px;
+    margin-right: 30px;
     flex: none;
     border-radius: 20%;
     ${waxAndWane('2.5s')}

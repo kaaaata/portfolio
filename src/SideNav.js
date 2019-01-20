@@ -81,6 +81,8 @@ class SideNav extends React.Component {
         {sideNavToggle}
         <Spacer height={15} />
         <article css={sideNavLinksCss(isNavOpen)}>
+          <Link href='/#intro'><div>Top</div></Link>
+          <Link href='/#bio'><div>Bio</div></Link>
           <Link href='/#skills'><div>Skills</div></Link>
           <Link href='/#contact'><div>Contact</div></Link>
         </article>
