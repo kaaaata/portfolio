@@ -5,3 +5,4 @@ export { default as FlexSpacer } from './FlexSpacer';
 export { default as Image } from './Image';
 export { default as Button } from './Button';
 export { default as Spacer } from './Spacer';
+export { default as Title } from './Title';

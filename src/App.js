@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts, layout, mq } from './styles';
 import CopyPaster from './CopyPaster';
-import { RedirectRoute } from './particles';
+import { RedirectRoute, Title } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import SideNav from './SideNav';
@@ -35,6 +35,7 @@ const appContentCss = css`
 const App = () => {
   return (
     <main id='app' css={appCss}>
+      <Title />
       <TopNav />
       <section css={appContentCss}>
         <Switch>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from './styles';
+import { Title } from './particles';
 import { graphqlQuery, saveText } from './utils/graphql';
 
 class CopyPaster extends React.Component {
@@ -12,15 +13,10 @@ class CopyPaster extends React.Component {
       isSaved: true
     };
 
-    this.saveText = throttle((inputText) => {
-      saveText(JSON.stringify(inputText));
-    }, 1000);
-
     this.timeout = null;
   }
 
   async componentDidMount() {
-    document.title = 'A Text Box | Catherine Han';
     const { text } = await graphqlQuery('{ text }');
     this.setState({ inputText: JSON.parse(text) });
   }
@@ -29,12 +25,14 @@ class CopyPaster extends React.Component {
     clearTimeout(this.timeout);
   }
 
+  saveText = debounce(async (inputText) => {
+    await saveText(JSON.stringify(inputText));
+    this.setState({ isSaved: true });
+  }, 500);
+
   handleTextChange(e) {
     const inputText = e.target.value;
     this.setState({ inputText, isSaved: false });
-    this.timeout = setTimeout(() => (
-      this.setState({ isSaved: true })
-    ), 1000);
     this.saveText(inputText);
   }
 
@@ -53,14 +51,15 @@ class CopyPaster extends React.Component {
       margin-bottom: 1000px;
     `;
 
-    return (
+    return <>
+      <Title title='A Text Box' />
       <textarea
         css={textareaStyles}
         value={this.state.inputText}
         onChange={e => this.handleTextChange(e)}
         spellCheck={false}
       />
-    );
+    </>;
   }
 }
 
