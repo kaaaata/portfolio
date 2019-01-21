@@ -43,13 +43,10 @@ const LinkComponent = (props) => {
 
   const linkOnClick = () => {
     onClick();
+    setIsSidebarVisible(false);
 
-    if (useReactRouter && !useReactRouterHashLink) {
-      if (isSameRoute) {
-        window.scroll(0, 0);
-      } else {
-        setIsSidebarVisible(false);
-      }
+    if (useReactRouter && !useReactRouterHashLink && isSameRoute) {
+      window.scroll(0, 0);
     }
   };
 
