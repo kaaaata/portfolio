@@ -19,7 +19,7 @@ const secretCss = isSecretFound => css`
   display: none;
   z-index: ${zIndex.mouseEventAreaForeground};
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
 `;
 

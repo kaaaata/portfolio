@@ -81,7 +81,7 @@ const Biography = () => (
     <div className='bio_section' >
       <li>Work</li>
       <li>Building out features on this site</li>
-      <li>Trying to get better at ping pong</li>
+      <li>Trying to get better at ping pong...</li>
     </div>
     
     <Spacer height={40} />

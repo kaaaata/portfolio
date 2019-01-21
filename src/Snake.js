@@ -217,7 +217,7 @@ class Snake extends React.Component {
               </div>
             ))}
           </div>
-          <div css={css`margin-bottom: 1000px;`}>
+          <div>
             <span>Score: {this.state.score}</span>
             &nbsp;|&nbsp;
             <span>Global High Score: {this.state.snakeHighScore}</span>
