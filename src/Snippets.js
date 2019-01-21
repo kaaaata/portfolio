@@ -5,8 +5,8 @@
 // import { connect } from 'react-redux';
 
 // const mapStateToProps = state => ({
-//   test: state.test,
+//   test: state.test
 // });
 // const mapDispatchToProps = dispatch => ({
-//   dispatchTest: test => dispatch(actions.test(test)),
+//   setCurrentRoute: payload => dispatch(actions.setCurrentRoute(payload))
 // });

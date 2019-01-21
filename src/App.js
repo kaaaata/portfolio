@@ -1,6 +1,9 @@
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { connect } from 'react-redux';
+import * as actions from './stores/actions';
 import { colors, fonts, layout, mq } from './styles';
 import CopyPaster from './CopyPaster';
 import { RedirectRoute, Title } from './particles';
@@ -31,31 +34,43 @@ const appContentCss = css`
   `)}
 `;
 
-const App = () => {
-  return (
-    <main id='app' css={appCss}>
-      <Title />
-      <TopNav />
-      <Sidebar />
-      <section css={appContentCss}>
-        <Switch>
-          <Route
-            exact path="/"
-            render={() => <MainContent />}
-          />
-          <Route
-            exact path="/copypaster"
-            render={() => <CopyPaster />}
-          />
-          <Route
-            render={() => <RedirectRoute />}
-          />
-        </Switch>
-      </section>
-      <Footer />
-    </main>
-  );
-};
+class App extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    this.props.setCurrentRoute({
+      pathname: nextProps.location.pathname,
+      hash: nextProps.location.hash
+    });
+  }
 
+  render() {
+    return (
+      <main id='app' css={appCss}>
+        <Title />
+        <TopNav />
+        <Sidebar />
+        <section css={appContentCss}>
+          <Switch>
+            <Route
+              exact path="/"
+              render={() => <MainContent />}
+            />
+            <Route
+              exact path="/copypaster"
+              render={() => <CopyPaster />}
+            />
+            <Route
+              render={() => <RedirectRoute />}
+            />
+          </Switch>
+        </section>
+        <Footer />
+      </main>
+    );
+  }
+}
 
-export default withRouter(App);
+const mapDispatchToProps = dispatch => ({
+  setCurrentRoute: payload => dispatch(actions.setCurrentRoute(payload))
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(App));

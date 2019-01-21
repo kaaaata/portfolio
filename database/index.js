@@ -21,10 +21,10 @@ const registerSnakeHighScore = async ({ score }) => {
   console.log('registerSnakeHighScore returned ', score);
   return score;
 };
-const snakeAteFood = async () => {
-  await knex('stat_tracking').insert({ stat: 'snake_ate_food', value: 1 });
-  console.log('snakeAteFood returned', 1);
-  return 1;
+const trackStats = async ({ stat, numValue, textValue }) => {
+  await knex('stat_tracking').insert({ stat, numValue, textValue });
+  console.log('trackStats returned ', stat);
+  return stat;
 };
 
 module.exports = {
@@ -32,5 +32,5 @@ module.exports = {
   saveText,
   getSnakeHighScore,
   registerSnakeHighScore,
-  snakeAteFood
+  trackStats
 };

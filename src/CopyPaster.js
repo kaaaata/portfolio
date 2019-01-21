@@ -22,6 +22,7 @@ class CopyPaster extends React.Component {
   }
 
   async componentDidMount() {
+    window.scroll(0, 0);
     const { text } = await graphqlQuery('{ text }');
     this.setState({ inputText: JSON.parse(text) });
   }

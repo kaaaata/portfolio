@@ -13,16 +13,19 @@ const schema = buildSchema(`
     
     saveText(text: String): String,
     registerSnakeHighScore(score: Int): Int,
-    snakeAteFood(food: Int): Int
+    trackStats(stat: String, numValue: Int, textValue: String): String
   }
 `);
-const root = { // The root provides a resolver function for each API endpoint
-  text: dbHelpers.getText,
-  saveText: dbHelpers.saveText,
 
+const root = { // The root provides a resolver function for each API endpoint
+  // read
+  text: dbHelpers.getText,
   snakeHighScore: dbHelpers.getSnakeHighScore,
+
+  // write
+  saveText: dbHelpers.saveText,
   registerSnakeHighScore: dbHelpers.registerSnakeHighScore,
-  snakeAteFood: dbHelpers.snakeAteFood
+  trackStats: dbHelpers.trackStats
 };
 
 const app = express();

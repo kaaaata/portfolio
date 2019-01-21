@@ -12,7 +12,7 @@ export const graphqlQuery = async (query, variables = {}) => {
   });
 
   const resJson = await res.json();
-  console.log('graphql graphqlQuery returned ', resJson.data);
+
   return resJson.data;
 };
 
@@ -38,13 +38,38 @@ export const registerSnakeHighScore = async (score) => {
   return graphqlQuery(query, variables);
 };
 
-export const snakeAteFood = async () => {
+/**
+ * Write stat tracking entries into database
+ * @param {string} stat stat to be tracked
+ * @param {object|number|string} value ({ numValue, textValue }|numValue|textValue)
+ * @returns {string} graphql query function called
+ */
+export const trackStats = async (stat, value = {}) => {
+  let values;
+
+  if (typeof value === 'object') {
+    values = {
+      numValue: value.hasOwnProperty('numValue') ? value.numValue : 1,
+      textValue: value.hasOwnProperty('textValue') ? value.textValue : ''
+    };
+  } else if (typeof value === 'number') {
+    values = {
+      numValue: value,
+      textValue: ''
+    };
+  } else if (typeof value === 'string') {
+    values = {
+      numValue: 1,
+      textValue: value
+    };
+  }
+
   const query = `
-    query SnakeAteFood($food: Int) {
-      snakeAteFood(food: $food)
+    query TrackStats($stat: String, $numValue: Int, $textValue: String) {
+      trackStats(stat: $stat, numValue: $numValue, textValue: $textValue)
     }
   `;
-  const variables = {};
+  const variables = { stat, ...values };
 
   return graphqlQuery(query, variables);
 };

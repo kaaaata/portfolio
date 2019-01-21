@@ -5,7 +5,7 @@ import { mq, colors } from './styles';
 import {
   graphqlQuery,
   registerSnakeHighScore,
-  snakeAteFood
+  trackStats
 } from './utils/graphql';
 
 const rows = 20;
@@ -121,10 +121,6 @@ class Snake extends React.Component {
       this.state.snake.length - (didSnakeEatFood ? 0 : 1)
     );
 
-    if (didSnakeEatFood) {
-      snakeAteFood();
-    }
-
     if (didSnakeDie) {
       document.onkeydown = null;
       this.setState({ isSnakeDead: true });
@@ -145,6 +141,7 @@ class Snake extends React.Component {
       if (didSnakeEatFood) {
         this.setState({ score: this.state.score + 1 });
         this.placeFood();
+        trackStats('snake_ate_food');
       }
     });
   }

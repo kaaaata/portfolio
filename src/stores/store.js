@@ -1,7 +1,11 @@
 import { createStore } from 'redux';
 
 const initialState = {
-  isSidebarVisible: false
+  isSidebarVisible: false,
+  currentRoute: {
+    pathname: '/',
+    hash: ''
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +14,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isSidebarVisible: action.payload,
+      };
+    case 'SET_CURRENT_ROUTE':
+      return {
+        ...state,
+        currentRoute: action.payload,
       };
     default:
       return state;

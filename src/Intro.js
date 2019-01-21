@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Button } from './particles';
 import { zIndex, effects, layout } from './styles';
 import Snake from './Snake';
+import { trackStats } from './utils/graphql';
 
 const introCss = css`
   overflow: hidden;
@@ -27,7 +28,7 @@ class Intro extends React.Component {
   constructor() {
     super();
     this.state = {
-      isSecretFound: false,
+      isSecretFound: false
     };
   }
 
@@ -40,7 +41,10 @@ class Intro extends React.Component {
       >
         <Button
           text='Click Me'
-          onClick={() => this.setState({ isSecretFound: true })}
+          onClick={() => {
+            this.setState({ isSecretFound: true });
+            trackStats('found_secret');
+          }}
         />
       </div>
     );

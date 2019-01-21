@@ -1,7 +1,9 @@
 import React from 'react';
+import { debounce } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, zIndex, mixins, mq } from './styles';
-import { Image, Spacer, Filter } from './particles';
+import { colors, mixins, mq } from './styles';
+import { Image, Spacer } from './particles';
+import { trackStats } from './utils/graphql';
 
 const skills = [
   {
@@ -135,6 +137,15 @@ class Skills extends React.Component {
     this.state = {
       activeSkill: null
     };
+
+    this.trackActivateSkill = debounce((skillName) => {
+      trackStats('viewed_skill', { textValue: skillName });
+    }, 500);
+  }
+
+  handleActivateSkill(skill) {
+    this.setState({ activeSkill: skill });
+    this.trackActivateSkill(skill.name);
   }
 
   render() {
@@ -183,8 +194,8 @@ class Skills extends React.Component {
           <div
             css={skillCss}
             key={skill.name}
-            onMouseOver={() => this.setState({ activeSkill: skill })}
-            onClick={() => this.setState({ activeSkill: skill })}
+            onMouseOver={() => this.handleActivateSkill(skill)}
+            onClick={() => this.handleActivateSkill(skill)}
           >
             <Image
               src={`skills/${skill.name.toLowerCase()}.png`}

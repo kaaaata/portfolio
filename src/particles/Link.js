@@ -1,6 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import { noop, omit } from 'lodash';
+import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 const linkCss = css`
@@ -9,17 +10,20 @@ const linkCss = css`
   cursor: pointer;
   text-decoration: none;
 `;
+const linkCssNoHref = css`
+  cursor: default;
+`;
 
-const Link = (props) => {
-  const { href, onClick = noop, children, location } = props;
-  const otherProps = omit(props, ['href', 'onClick', 'children', 'location']);
+const LinkComponent = (props) => {
+  const { href, onClick = noop, children, currentRoute } = props;
+  const otherProps = omit(props, ['href', 'onClick', 'children', 'currentRoute', 'dispatch']);
 
   if (!children) {
     return null;
   } else if (!href) {
     return (
       <span
-        css={linkCss}
+        css={linkCssNoHref}
         onClick={onClick}
         {...otherProps}
       >
@@ -28,10 +32,9 @@ const Link = (props) => {
     );
   }
 
-
   const useReactRouter = href.startsWith('/');
   const useReactRouterHashLink = useReactRouter && href.includes('#');
-  const isSameRoute = href === `${location.pathname}${location.hash}`;
+  const isSameRoute = href === `${currentRoute.pathname}${currentRoute.hash}`;
 
   const linkOnClick = () => {
     onClick();
@@ -41,28 +44,47 @@ const Link = (props) => {
     }
   };
 
-  return useReactRouterHashLink ? (
-    <HashLink
-      to={href}
-      css={linkCss}
-      onClick={linkOnClick}
-      smooth
-      {...otherProps}
-    >
-      {children}
-    </HashLink>
-  ) : (
-    <a
-      href={isSameRoute ? null : href}
-      target={useReactRouter ? null : '_blank'}
-      rel='noopener noreferrer'
-      css={linkCss}
-      onClick={linkOnClick}
-      {...otherProps}
-    >
-      {children}
-    </a>
-  );
+  if (useReactRouterHashLink) {
+    return (
+      <HashLink
+        to={href}
+        css={linkCss}
+        onClick={linkOnClick}
+        smooth
+        {...otherProps}
+      >
+        {children}
+      </HashLink>
+    );
+  } else if (useReactRouter) {
+    return (
+      <Link
+        to={href}
+        css={linkCss}
+        onClick={linkOnClick}
+        {...otherProps}
+      >
+        {children}
+      </Link>
+    );
+  } else {
+    return (
+      <a
+        href={href}
+        target='_blank'
+        rel='noopener noreferrer'
+        css={linkCss}
+        onClick={linkOnClick}
+        {...otherProps}
+      >
+        {children}
+      </a>
+    );
+  }
 };
 
-export default withRouter(Link);
+const mapStateToProps = state => ({
+  currentRoute: state.currentRoute
+});
+
+export default connect(mapStateToProps)(LinkComponent);
