@@ -1,6 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Spacer } from './particles';
-import { colors } from './styles';
 
 const contactCss = css`
   display: flex;
