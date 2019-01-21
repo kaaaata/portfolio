@@ -63,12 +63,6 @@ const mediaIcons = [
   { image: 'steam.png', url: 'https://steamcommunity.com/id/KATA-' }
 ];
 
-const HomeButton = () => (
-  <Link href='/'>
-    <h2>Catherine Han</h2>
-  </Link>
-);
-
 const MediaIcons = () => mediaIcons.map(media => (
   <Link
     key={media.image}
@@ -83,7 +77,6 @@ const MediaIcons = () => mediaIcons.map(media => (
 const TopNav = () => (
   <section css={topNavCss}>
     <div className='top_nav__content'>
-      <HomeButton />
       <FlexSpacer />
       <MediaIcons />
     </div>

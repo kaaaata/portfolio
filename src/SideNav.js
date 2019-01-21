@@ -3,17 +3,15 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, layout, mq, zIndex } from './styles';
 import { Link, Spacer } from './particles';
 
-// todo: change height to fit-content once there's enough stuff in the sidebar
 const sideNavCss = isNavOpen => css`
-  width: ${isNavOpen ? '30vw' : '40px'};
-  height: ${isNavOpen ? '300px' : '40px'};
-  background: ${isNavOpen ? colors.blackDark : 'unset'};
-  flex: none;
-  max-width: 250px;
+  width: ${isNavOpen ? '300px' : '40px'};
+  background: ${isNavOpen ? colors.blackDark : 'transparent'};
+  height: 100%;
   position: fixed;
   z-index: ${zIndex.stickyNav};
-  top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
-  transition: all 0.25s ease-out;
+  top: ${layout.TOP_NAV_HEIGHT}px;
+  left: 0px;
+  transition: width 0.25s ease-out;
 
   ${mq.phoneAndTablet(`
     display: none;
@@ -21,12 +19,14 @@ const sideNavCss = isNavOpen => css`
 `;
 const sideNavToggleCss = isNavOpen => css`
   width: 40px;
-  height: 25px;
+  height: 40px;
   position: relative;
   cursor: pointer;
+  margin-left: 20px;
 
   .three_bar {
     width: 100%;
+    margin-top: 5px;
     height: 5px;
     background: ${colors.white};
     position: absolute;
@@ -49,12 +49,11 @@ const sideNavToggleCss = isNavOpen => css`
   }
 `;
 const sideNavLinksCss = isNavOpen => css`
-  display: ${isNavOpen ? 'unset' : 'none'};
+  color: ${isNavOpen ? 'unset' : 'transparent'};
 
   .side_nav_link {
     height: 40px;
-    border: 1px solid red;
-    background: red;
+    background: ${isNavOpen ? 'red' : 'transparent'};
     ${layout.flexCenter}
   }
 `;
@@ -90,7 +89,6 @@ class SideNav extends React.Component {
     return (
       <section css={sideNavCss(isNavOpen)}>
         {sideNavToggle}
-        <Spacer height={15} />
         <article css={sideNavLinksCss(isNavOpen)}>
           {sideNavLinks.map(link => (
             <Link
