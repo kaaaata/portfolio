@@ -46,7 +46,7 @@ export default {
       line-height: 1.5;
       color: ${colors.grey};
 
-      ${mq.phone(`
+      ${mq.phoneAndTablet(`
         line-height: 1.25;
       `)}
     }

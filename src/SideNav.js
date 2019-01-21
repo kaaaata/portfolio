@@ -50,17 +50,27 @@ const sideNavToggleCss = isNavOpen => css`
 `;
 const sideNavLinksCss = isNavOpen => css`
   display: ${isNavOpen ? 'unset' : 'none'};
-  
-  div {
-    margin-top: 5px;
+
+  .side_nav_link {
+    height: 40px;
+    border: 1px solid red;
+    background: red;
+    ${layout.flexCenter}
   }
 `;
+
+const sideNavLinks = [
+  { href: '/#intro', text: 'Top' },
+  { href: '/#resume', text: 'Resume' },
+  { href: '/#skills', text: 'Skills' },
+  { href: '/#contact', text: 'Contact' }
+];
 
 class SideNav extends React.Component {
   constructor() {
     super();
     this.state = {
-      isNavOpen: false,
+      isNavOpen: true,
     };
   }
 
@@ -82,10 +92,16 @@ class SideNav extends React.Component {
         {sideNavToggle}
         <Spacer height={15} />
         <article css={sideNavLinksCss(isNavOpen)}>
-          <Link href='/#intro'><div>Top</div></Link>
-          <Link href='/#bio'><div>Bio</div></Link>
-          <Link href='/#skills'><div>Skills</div></Link>
-          <Link href='/#contact'><div>Contact</div></Link>
+          {sideNavLinks.map(link => (
+            <Link
+              href={link.href}
+              key={link.text}
+            >
+              <div className='side_nav_link'>
+                <div>{link.text}</div>
+              </div>
+            </Link>
+          ))}
         </article>
       </section>
     );

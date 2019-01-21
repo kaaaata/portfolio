@@ -46,6 +46,11 @@ const biographyCss = css`
       .bio_section--left {
         border-right: none;
       }
+
+      .bio_section--right {
+        width: auto;
+        margin: auto;
+      }
     }
   `)}
 
@@ -56,7 +61,7 @@ const biographyCss = css`
 
 const Biography = () => (
   <section
-    id='bio'
+    id='resume'
     css={biographyCss}
   >
     <h2>Catherine Han</h2>
