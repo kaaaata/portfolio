@@ -14,7 +14,20 @@ const Link = (props) => {
   const { href, onClick = noop, children, location } = props;
   const otherProps = omit(props, ['href', 'onClick', 'children', 'location']);
 
-  if (!children) return null;
+  if (!children) {
+    return null;
+  } else if (!href) {
+    return (
+      <span
+        css={linkCss}
+        onClick={onClick}
+        {...otherProps}
+      >
+        {children}
+      </span>
+    );
+  }
+
 
   const useReactRouter = href.startsWith('/');
   const useReactRouterHashLink = useReactRouter && href.includes('#');

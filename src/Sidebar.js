@@ -1,16 +1,19 @@
+import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import { colors, layout, mq, zIndex } from './styles';
-import { Link } from './particles';
+import { Link, Filter } from './particles';
 
 const sidebarCss = isSidebarVisible => css`
-  width: ${isSidebarVisible ? '300px' : '40px'};
-  background: ${isSidebarVisible ? colors.blackDark : 'transparent'};
+  width: ${isSidebarVisible ? '250px' : 0};
+  background: ${colors.blackMediumDark};
   height: 100%;
+  box-shadow: 0 5px 15px ${colors.blackDark};
   position: fixed;
   z-index: ${zIndex.stickyNav};
   top: ${layout.TOP_NAV_HEIGHT}px;
-  left: 0px;
+  left: 0;
+  overflow: hidden;
   transition: width 0.25s ease-out;
 
   ${mq.phoneAndTablet(`
@@ -18,36 +21,63 @@ const sidebarCss = isSidebarVisible => css`
   `)}
 `;
 const sidebarLinksCss = isSidebarVisible => css`
-  color: ${isSidebarVisible ? 'unset' : 'transparent'};
+  white-space: nowrap;
+  height: 40px;
+  background: ${isSidebarVisible ? colors.green : colors.blackMediumDark};
+  transition: background 0.75s ease-out;
+  ${layout.flexCenter}
 
-  .side_nav_link {
+  .filter {
     height: 40px;
-    background: ${isSidebarVisible ? 'red' : 'transparent'};
-    ${layout.flexCenter}
+    z-index: ${zIndex.stickyNavFilter};
+  }
+
+  .sidebar_link--text {
+    position: relative;
+    z-index: ${zIndex.stickyNavContent};
   }
 `;
 
-const sidebarLinks = [
-  { href: '/#intro', text: 'Top' },
-  { href: '/#resume', text: 'Resume' },
-  { href: '/#skills', text: 'Skills' },
-  { href: '/#contact', text: 'Contact' }
+
+const sidebarSections = [
+  [
+    { href: '#/intro', text: 'Home' },
+    { href: '/#resume', text: 'Resume' },
+    { href: '/#skills', text: 'Skills' },
+    { href: '/#contact', text: 'Contact' },
+    { href: null, text: null } // a blank
+  ],
+  [
+    { href: null, text: 'Misc' },
+    { href: '/copypaster', text: 'A Text Box' }
+  ]
 ];
 
 const Sidebar = ({ isSidebarVisible }) => (
   <section css={sidebarCss(isSidebarVisible)}>
-    <article css={sidebarLinksCss(isSidebarVisible)}>
-      {sidebarLinks.map(link => (
-        <Link
-          href={link.href}
-          key={link.text}
-        >
-          <div className='side_nav_link'>
-            <div>{link.text}</div>
-          </div>
-        </Link>
-      ))}
-    </article>
+    {sidebarSections.map((links, index) => (
+      <React.Fragment key={index}>
+        {links.map((link, i) => (
+          <Link
+            href={link.href}
+            key={i}
+          >
+            <div
+              className={`sidebar_link ${!i ? 'sidebar_link--title' : ''}`}
+              css={sidebarLinksCss(isSidebarVisible)}
+            >
+              <Filter
+                color={colors.blackMediumDark}
+                opacity={link.text ? (0.4 + (i + 1) * 0.05) : 1}
+              />
+              <div className='sidebar_link--text'>
+                {link.text}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </React.Fragment>
+    ))}
   </section>
 );
 

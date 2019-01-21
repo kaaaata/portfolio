@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 
 const initialState = {
-  isSidebarVisible: false
+  isSidebarVisible: true
 };
 
 const reducer = (state = initialState, action) => {

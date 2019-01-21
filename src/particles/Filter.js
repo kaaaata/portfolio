@@ -1,7 +1,8 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { colors } from '../styles';
 
 const Filter = ({
-  opacity = 0, color = 'white'
+  opacity = 0, color = colors.white
 }) => {
   const filterCss = css`
     opacity: ${opacity};
