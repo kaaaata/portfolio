@@ -17,25 +17,33 @@ export default {
 
     h1 {
       font-size: 30px;
-      margin-bottom: 20px;
+      margin: 20px 0;
       line-height: 1.25;
     }
 
     h2 {
       font-size: 25px;
+      margin: 15px 0;
     }
 
     h3 {
       font-size: 20px;
+      margin: 10px 0;
+    }
+
+    h4 {
+      margin: 10px 0;
     }
 
     p {
       margin-bottom: 10px;
       line-height: 1.5;
+      color: ${colors.grey};
     }
 
     li {
       line-height: 1.5;
+      color: ${colors.grey};
     }
   `
 };

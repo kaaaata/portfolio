@@ -1,31 +1,20 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
-// import { connect } from 'react-redux';
-// import * as actions from './stores/actions';
-// import store from './stores/store';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts, layout, mq } from './styles';
-import AppListing from './AppListing';
 import CopyPaster from './CopyPaster';
 import ContentContainer from './ContentContainer';
 import { RedirectRoute } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import SideNav from './SideNav';
-// const mapStateToProps = (state) => ({
-//   test: state.test,
-// });
-// const mapDispatchToProps = (dispatch) => ({
-//   dispatchTest: (test) => dispatch(actions.test(test)),
-// });
 
 const appCss = css`
   ${fonts.typeface}
   background: ${colors.black};
   min-width: 320px;
 `;
-
 const appContentCss = css`
   display: flex;
   max-width: 1200px;
@@ -64,11 +53,7 @@ const App = () => {
               <CopyPaster />
             )}
           />
-          <Route
-            render={() => (
-              <RedirectRoute />
-            )}
-          />
+          <Route render={() => <RedirectRoute />} />
         </Switch>
       </section>
       <Footer />

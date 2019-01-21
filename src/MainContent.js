@@ -7,6 +7,10 @@ import Contact from './Contact';
 import Intro from './Intro';
 import Biography from './Biography';
 
+const mainContentCss = css`
+  margin: auto;
+  width: 750px;
+`;
 const contentDividerCss = css`
   color: ${colors.grey};
   border-bottom: none;
@@ -20,7 +24,7 @@ const ContentDivider = () => <>
 </>;
 
 const MainContent = () => (
-  <section>
+  <section css={mainContentCss}>
     <Intro /><ContentDivider />
     <Biography /><ContentDivider />
     <Skills /><ContentDivider />

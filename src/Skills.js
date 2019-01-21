@@ -74,7 +74,6 @@ const skills = [
 ];
 
 const skillsCss = css`
-  max-width: 750px;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -108,12 +107,8 @@ const skillsFeatureCss = activeSkill => css`
     filter: invert(50%);
   }
 
-  p, li, span {
-    color: ${colors.grey};
-
-    &.also {
-      color: ${colors.white};
-    }
+  p.also {
+    color: ${colors.white};
   }
 
   ${mq.phone(`
@@ -129,8 +124,7 @@ const skillCss = css`
     border-radius: 20%;
   }
 
-  .skill_name {
-    margin-top: 5px;
+  h4 {
     text-align: center;
   }
 `;
@@ -198,7 +192,7 @@ class Skills extends React.Component {
               height={[75, 40, 40]}
               size='contain'
             />
-            <div className='skill_name'>{skill.name}</div>
+            <h4>{skill.name}</h4>
           </div>
         ))}
         <Spacer size={40} />

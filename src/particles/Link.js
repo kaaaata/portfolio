@@ -5,6 +5,7 @@ import { HashLink } from 'react-router-hash-link';
 
 const linkCss = css`
   color: inherit;
+  width: initial;
   cursor: pointer;
   text-decoration: none;
 `;
