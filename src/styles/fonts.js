@@ -1,4 +1,5 @@
 import colors from './colors';
+import mq from './mq';
 
 const ptSans = `font-family: 'PT Sans', sans-serif;`;
 const ptSerif = `font-family: 'PT Serif', serif;`;
@@ -44,6 +45,10 @@ export default {
     li {
       line-height: 1.5;
       color: ${colors.grey};
+
+      ${mq.phone(`
+        line-height: 1.25;
+      `)}
     }
   `
 };

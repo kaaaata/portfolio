@@ -1,6 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, Button } from './particles';
-import { colors } from './styles';
+import { colors, mq } from './styles';
 
 const biographyCss = css`
   margin: auto;
@@ -11,19 +11,21 @@ const biographyCss = css`
   h2, h4 {
     text-align: center;
   }
+
+  .bio_section {
+    padding: 20px;
+  }
   
   .bio_container {
     display: flex;
     justify-content: center;
-
-    .bio--left {
+ 
+    .bio_section--left {
       flex-grow: 1;
-      padding: 20px;
       border-right: 1px solid ${colors.white};
     }
 
-    .bio--right {
-      padding: 20px;
+    .bio_section--right {
       text-align: right;
       list-style-type: none;
 
@@ -33,9 +35,19 @@ const biographyCss = css`
     }
   }
 
-  .bio--right_now {
-    padding: 20px;
-  }
+  ${mq.phone(`
+    .bio_section {
+      padding: 10px;
+    }
+
+    .bio_container {
+      flex-direction: column;
+
+      .bio_section--left {
+        border-right: none;
+      }
+    }
+  `)}
 
   a {
     margin: auto;
@@ -52,13 +64,13 @@ const Biography = () => (
     <Spacer height={20} />
 
     <div className='bio_container'>
-      <div className='bio--left'>
+      <div className='bio_section bio_section--left'>
         <li>Experienced in building fullstack, client-facing features</li>
         <li>Especially interested in modular, scalable code patterns at the UI/UX and flux levels</li>
         <li>Up to date with modern tech and best practices</li>
         <li>Great attention to detail</li>
       </div>
-      <div className='bio--right'>
+      <div className='bio_section bio_section--right'>
         <li><span>Massdrop</span>&nbsp;&nbsp;&nbsp;2019</li>
         <li><span>SS&C</span>&nbsp;&nbsp;&nbsp;2017</li>
         <li><span>NYU</span>&nbsp;&nbsp;&nbsp;2016</li>
@@ -66,7 +78,7 @@ const Biography = () => (
     </div>
 
     <h4>What I'm doing right now...</h4>
-    <div className='bio--right_now'>
+    <div className='bio_section' >
       <li>Work</li>
       <li>Building out features on this site</li>
       <li>Trying to get better at ping pong</li>
