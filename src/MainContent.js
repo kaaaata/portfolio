@@ -9,7 +9,7 @@ import Biography from './Biography';
 
 const mainContentCss = css`
   margin: auto;
-  width: 750px;
+  max-width: 750px;
 `;
 const contentDividerCss = css`
   color: ${colors.grey};

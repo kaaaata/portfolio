@@ -4,11 +4,11 @@ import { withRouter } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts, layout, mq } from './styles';
 import CopyPaster from './CopyPaster';
-import ContentContainer from './ContentContainer';
 import { RedirectRoute } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import SideNav from './SideNav';
+import MainContent from './MainContent';
 
 const appCss = css`
   ${fonts.typeface}
@@ -43,7 +43,7 @@ const App = () => {
             render={() => (
               <>
                 <SideNav />
-                <ContentContainer />
+                <MainContent />
               </>
             )}
           />
