@@ -1,8 +1,9 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
 import { noop, omit } from 'lodash';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { connect } from 'react-redux';
+import * as actions from '../stores/actions';
 
 const linkCss = css`
   color: inherit;
@@ -15,8 +16,12 @@ const linkCssNoHref = css`
 `;
 
 const LinkComponent = (props) => {
-  const { href, onClick = noop, children, currentRoute } = props;
-  const otherProps = omit(props, ['href', 'onClick', 'children', 'currentRoute', 'dispatch']);
+  const {
+    href, onClick = noop, children, currentRoute, setIsSidebarVisible
+  } = props;
+  const otherProps = omit(props, [
+    'href', 'onClick', 'children', 'currentRoute', 'dispatch', 'setIsSidebarVisible'
+  ]);
 
   if (!children) {
     return null;
@@ -39,8 +44,12 @@ const LinkComponent = (props) => {
   const linkOnClick = () => {
     onClick();
 
-    if (isSameRoute && !useReactRouterHashLink) {
-      window.scroll(0, 0);
+    if (useReactRouter && !useReactRouterHashLink) {
+      if (isSameRoute) {
+        window.scroll(0, 0);
+      } else {
+        setIsSidebarVisible(false);
+      }
     }
   };
 
@@ -86,5 +95,8 @@ const LinkComponent = (props) => {
 const mapStateToProps = state => ({
   currentRoute: state.currentRoute
 });
+const mapDispatchToProps = dispatch => ({
+  setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),
+});
 
-export default connect(mapStateToProps)(LinkComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(LinkComponent);

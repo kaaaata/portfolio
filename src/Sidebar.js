@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
-import { colors, layout, mq, zIndex } from './styles';
+import { colors, layout, zIndex } from './styles';
 import { Link, Filter } from './particles';
 
 const sidebarCss = isSidebarVisible => css`
@@ -15,10 +15,6 @@ const sidebarCss = isSidebarVisible => css`
   left: 0;
   overflow: hidden;
   transition: width 0.25s ease-out;
-
-  ${mq.phoneAndTablet(`
-    display: none;
-  `)}
 `;
 const sidebarLinksCss = isSidebarVisible => css`
   white-space: nowrap;

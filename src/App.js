@@ -19,14 +19,14 @@ const appCss = css`
 `;
 const appContentCss = css`
   display: flex;
-  max-width: 1200px;
+  max-width: 750px;
   margin: auto;
   padding: ${layout.MAIN_PADDING}px;
   padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
 
   ${mq.phone(`
     padding: ${layout.MAIN_PADDING_PHONE}px;
-    padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING_PHONE1}px;
+    padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING_PHONE}px;
   `)}
 
   ${mq.phoneAndTablet(`
