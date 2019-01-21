@@ -37,3 +37,14 @@ export const registerSnakeHighScore = async (score) => {
 
   return graphqlQuery(query, variables);
 };
+
+export const snakeAteFood = async () => {
+  const query = `
+    query SnakeAteFood($food: Int) {
+      snakeAteFood(food: $food)
+    }
+  `;
+  const variables = {};
+
+  return graphqlQuery(query, variables);
+};

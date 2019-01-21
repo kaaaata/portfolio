@@ -9,10 +9,11 @@ const port = process.env.PORT || 4000;
 const schema = buildSchema(`
   type Query {
     text: String,
-    saveText(text: String): String,
-
     snakeHighScore: Int,
-    registerSnakeHighScore(score: Int): Int
+    
+    saveText(text: String): String,
+    registerSnakeHighScore(score: Int): Int,
+    snakeAteFood(food: Int): Int
   }
 `);
 const root = { // The root provides a resolver function for each API endpoint
@@ -20,7 +21,8 @@ const root = { // The root provides a resolver function for each API endpoint
   saveText: dbHelpers.saveText,
 
   snakeHighScore: dbHelpers.getSnakeHighScore,
-  registerSnakeHighScore: dbHelpers.registerSnakeHighScore
+  registerSnakeHighScore: dbHelpers.registerSnakeHighScore,
+  snakeAteFood: dbHelpers.snakeAteFood
 };
 
 const app = express();

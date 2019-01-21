@@ -2,7 +2,11 @@ import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { range, sample } from 'lodash';
 import { mq, colors } from './styles';
-import { graphqlQuery, registerSnakeHighScore } from './utils/graphql';
+import {
+  graphqlQuery,
+  registerSnakeHighScore,
+  snakeAteFood
+} from './utils/graphql';
 
 const rows = 20;
 const cols = 25;
@@ -116,6 +120,10 @@ class Snake extends React.Component {
       0,
       this.state.snake.length - (didSnakeEatFood ? 0 : 1)
     );
+
+    if (didSnakeEatFood) {
+      snakeAteFood();
+    }
 
     if (didSnakeDie) {
       document.onkeydown = null;
