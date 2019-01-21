@@ -41,11 +41,11 @@ const sidebarLinksCss = isSidebarVisible => css`
 
 const sidebarSections = [
   [
-    { href: '#/intro', text: 'Home' },
+    { href: null, text: 'Homepage' },
+    { href: '/#intro', text: 'Home' },
     { href: '/#resume', text: 'Resume' },
     { href: '/#skills', text: 'Skills' },
-    { href: '/#contact', text: 'Contact' },
-    { href: null, text: null } // a blank
+    { href: '/#contact', text: 'Contact' }
   ],
   [
     { href: null, text: 'Misc' },
@@ -68,7 +68,7 @@ const Sidebar = ({ isSidebarVisible }) => (
             >
               <Filter
                 color={colors.blackMediumDark}
-                opacity={link.text ? (0.4 + (i + 1) * 0.05) : 1}
+                opacity={link.href ? (0.5 + (i + 1) * 0.05) : 1}
               />
               <div className='sidebar_link--text'>
                 {link.text}
