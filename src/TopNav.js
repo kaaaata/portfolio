@@ -1,6 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, zIndex, layout, mq } from './styles';
 import { Link, FlexSpacer } from './particles';
+import { SidebarToggle } from './components';
 
 const topNavCss = css`
   position: fixed;
@@ -77,6 +78,7 @@ const MediaIcons = () => mediaIcons.map(media => (
 const TopNav = () => (
   <section css={topNavCss}>
     <div className='top_nav__content'>
+      <SidebarToggle />
       <FlexSpacer />
       <MediaIcons />
     </div>

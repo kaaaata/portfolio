@@ -14,6 +14,11 @@ class CopyPaster extends React.Component {
     };
 
     this.timeout = null;
+
+    this.saveText = debounce(async (inputText) => {
+      await saveText(JSON.stringify(inputText));
+      this.setState({ isSaved: true });
+    }, 500);
   }
 
   async componentDidMount() {
@@ -24,11 +29,6 @@ class CopyPaster extends React.Component {
   componentWillUnmount() {
     clearTimeout(this.timeout);
   }
-
-  saveText = debounce(async (inputText) => {
-    await saveText(JSON.stringify(inputText));
-    this.setState({ isSaved: true });
-  }, 500);
 
   handleTextChange(e) {
     const inputText = e.target.value;

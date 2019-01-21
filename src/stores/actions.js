@@ -1,1 +1,1 @@
-export const setDocumentTitle = documentTitle => ({ type: 'SET_DOCUMENT_TITLE', documentTitle });
+export const setIsSidebarVisible = payload => ({ type: 'SET_IS_SIDEBAR_VISIBLE', payload });

@@ -15,7 +15,9 @@ The site is hosted at [kaaaata.herokuapp.com](https://kaaaata.herokuapp.com) and
 ## Database and Migration Instructions
 This project uses Postgres with Knex  
 
-<code>knexfile.js</code> contains config information such as database name "portfolio"  
+<code>knexfile.js</code> contains config information such as database name "portfolio", and postgres role username/password "postgres"/"postgres"
+<code>CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres';</code> if role does not currently exist
+todo: look into more scalable/reasonable implementations of knex/postgres configs...
 
 <code>psql portfolio</code> to open psql command line  
 <code>\q</code> to quit psql command line  

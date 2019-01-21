@@ -1,15 +1,15 @@
 import { createStore } from 'redux';
 
 const initialState = {
-  documentTitle: ''
+  isSidebarVisible: false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_DOCUMENT_TITLE':
+    case 'SET_IS_SIDEBAR_VISIBLE':
       return {
         ...state,
-        documentTitle: action.payload,
+        isSidebarVisible: action.payload,
       };
     default:
       return state;
