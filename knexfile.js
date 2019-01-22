@@ -4,7 +4,7 @@ module.exports = {
     debug: true,
     connection: {
       database: process.env.DATABASE_URL,
-      timezone: "-08:00"
+      timezone: "pst"
     },
     ssl: true,
     migrations: {
