@@ -2,10 +2,7 @@ module.exports = {
   production: {
     client: 'pg',
     debug: true,
-    connection: {
-      database: process.env.DATABASE_URL,
-      timezone: "pst"
-    },
+    connection: process.env.DATABASE_URL,
     ssl: true,
     migrations: {
       commands: 'migrations'
@@ -16,8 +13,7 @@ module.exports = {
     connection: {
       database: 'portfolio',
       user: 'postgres',
-      password: 'postgres',
-      timezone: "pst"
+      password: 'postgres'
     }
   },
 };

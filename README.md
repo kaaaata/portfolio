@@ -6,7 +6,6 @@ Ensure package.json has: <code>"proxy": "http://localhost:4000"</code>
 <code>npm run start</code> to start the React app at localhost:3000  
 
 ## Heroku Deployment Instructions
-Ensure package.json DOES NOT have: <code>"proxy": "http://localhost:4000"</code>  
 Ensure Procfile reads: <code>web: node server/index.js</code>  
 Ensure all code to be deployed is committed  
 <code>git push heroku master</code> (if on master) or <code>git push heroku branch_name:master</code>  
