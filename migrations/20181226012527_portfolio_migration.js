@@ -3,7 +3,8 @@ exports.up = (knex, Promise) => Promise.all([
     table.increments('id'),
     table.string('stat'),
     table.integer('numValue'),
-    table.string('textValue')
+    table.string('textValue'),
+    table.timestamp('created_at').defaultTo(knex.fn.now())
   }),
   knex.schema.createTable('apps', (table) => {
     table.string('key').primary(),

@@ -10,11 +10,15 @@ const saveText = async ({ text }) => {
   console.log('saveText returned ', text);
   return text;
 };
-
 const getSnakeHighScore = async () => {
   const data = await knex('apps').where({ key: 'snake_high_score' }).select('value');
   console.log('getSnakeHighScore returned ', data);
   return data[0].value;
+};
+const getSnakeTotalFoodEaten = async () => {
+  const data = await knex('stat_tracking').count('stat').where({ stat: 'snake_ate_food' });
+  console.log('getSnakeTotalFoodEaten returned ', data);
+  return data[0].count;
 };
 const registerSnakeHighScore = async ({ score }) => {
   await knex('apps').where({ value: 'snake_high_score' }).update({ value: score });
@@ -32,5 +36,6 @@ module.exports = {
   saveText,
   getSnakeHighScore,
   registerSnakeHighScore,
+  getSnakeTotalFoodEaten,
   trackStats
 };

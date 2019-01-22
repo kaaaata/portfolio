@@ -1,6 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, Button } from './particles';
 import { colors, mq } from './styles';
+import { trackStats } from './utils/graphql';
 
 const biographyCss = css`
   margin: auto;
@@ -93,6 +94,7 @@ const Biography = () => (
     <Button
       href='https://docdro.id/mbNvZtM'
       text='View Full Resume'
+      onClick={() => trackStats('viewed_resume')}
     />
   </section>
 );

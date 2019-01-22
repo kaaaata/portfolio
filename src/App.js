@@ -11,6 +11,7 @@ import TopNav from './TopNav';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
+import { trackStats } from './utils/graphql';
 
 const appCss = css`
   ${fonts.typeface}
@@ -40,6 +41,10 @@ class App extends React.Component {
       pathname: nextProps.location.pathname,
       hash: nextProps.location.hash
     });
+  }
+
+  componentDidMount() {
+    trackStats('visited_site');
   }
 
   render() {

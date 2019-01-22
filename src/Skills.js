@@ -139,7 +139,7 @@ class Skills extends React.Component {
     };
 
     this.trackActivateSkill = debounce((skillName) => {
-      trackStats('viewed_skill', { textValue: skillName });
+      trackStats('viewed_skill', skillName);
     }, 500);
   }
 

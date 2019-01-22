@@ -2,6 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, zIndex, layout, mq } from './styles';
 import { Link, FlexSpacer } from './particles';
 import { SidebarToggle } from './components';
+import { trackStats } from './utils/graphql';
 
 const topNavCss = css`
   position: fixed;
@@ -68,6 +69,7 @@ const MediaIcons = () => mediaIcons.map(media => (
   <Link
     key={media.image}
     href={media.url}
+    onClick={() => trackStats('click_media_icon', media.image.split('.')[0])}
   >
     <div
       css={mediaIconsCss(media.image)}

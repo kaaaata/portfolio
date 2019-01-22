@@ -2,7 +2,6 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../stores/actions';
 import { colors } from '../styles';
-import { trackStats } from '../utils/graphql';
 
 const sidebarToggleCss = isSidebarVisible => css`
   width: 40px;
@@ -38,10 +37,7 @@ const sidebarToggleCss = isSidebarVisible => css`
 const SidebarToggle = ({ isSidebarVisible, setIsSidebarVisible }) => (
   <div
     css={sidebarToggleCss(isSidebarVisible)}
-    onClick={() => {
-      setIsSidebarVisible(!isSidebarVisible);
-      trackStats('toggled_sidebar');
-    }}
+    onClick={() => setIsSidebarVisible(!isSidebarVisible)}
   >
     <div className='three_bar three_bar--top' />
     <div className='three_bar three_bar--center' />

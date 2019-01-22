@@ -16,11 +16,13 @@ const contentDividerCss = css`
   max-width: 250px;
 `;
 
-const ContentDivider = () => <>
-  <Spacer height={[120, 80, 40]} />
-  <hr css={contentDividerCss} />
-  <Spacer height={[120, 80, 40]} />
-</>;
+const ContentDivider = () => (
+  <React.Fragment>
+    <Spacer height={[120, 80, 40]} />
+    <hr css={contentDividerCss} />
+    <Spacer height={[120, 80, 40]} />
+  </React.Fragment>
+);
 
 const MainContent = () => (
   <section css={mainContentCss}>

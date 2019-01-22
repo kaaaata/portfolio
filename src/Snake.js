@@ -39,7 +39,8 @@ class Snake extends React.Component {
       snake: [[9, 15], [8, 15], [7, 15], [6, 15], [5, 15]],
       isSnakeDead: false,
       score: 5,
-      snakeHighScore: '...loading'
+      snakeHighScore: '...loading',
+      snakeTotalFoodEaten: '...loading'
     };
 
     this.moveDirection = 'right';
@@ -50,6 +51,8 @@ class Snake extends React.Component {
   async componentDidMount() {
     const { snakeHighScore } = await graphqlQuery('{ snakeHighScore }');
     this.setState({ snakeHighScore });
+    const { snakeTotalFoodEaten } = await graphqlQuery('{ snakeTotalFoodEaten }');
+    this.setState({ snakeTotalFoodEaten });
     this.startGame();
   }
 
@@ -88,8 +91,9 @@ class Snake extends React.Component {
   }
 
   moveSnake() {
-    const currentHeadX = this.state.snake[0][0];
-    const currentHeadY = this.state.snake[0][1];
+    const { snake, score, snakeHighScore, snakeTotalFoodEaten } = this.state;
+    const currentHeadX = snake[0][0];
+    const currentHeadY = snake[0][1];
     let newHeadX = currentHeadX;
     let newHeadY = currentHeadY;
 
@@ -116,18 +120,18 @@ class Snake extends React.Component {
 
     const didSnakeEatFood = this.isFoodOnCell(newHeadX, newHeadY);
     const didSnakeDie = this.isSnakeOnCell(newHeadX, newHeadY);
-    const restOfSnake = this.state.snake.slice(
+    const restOfSnake = snake.slice(
       0,
-      this.state.snake.length - (didSnakeEatFood ? 0 : 1)
+      snake.length - (didSnakeEatFood ? 0 : 1)
     );
 
     if (didSnakeDie) {
       document.onkeydown = null;
       this.setState({ isSnakeDead: true });
       clearInterval(this.moveInterval);
-      registerSnakeHighScore(this.state.score);
-      if (this.state.score > this.state.snakeHighScore) {
-        this.setState({ snakeHighScore: this.state.score });
+      registerSnakeHighScore(score);
+      if (score > snakeHighScore) {
+        this.setState({ snakeHighScore: score });
       }
       return;
     }
@@ -139,7 +143,12 @@ class Snake extends React.Component {
       ]
     }, () => {
       if (didSnakeEatFood) {
-        this.setState({ score: this.state.score + 1 });
+        this.setState({
+          score: score + 1,
+          snakeTotalFoodEaten: typeof snakeTotalFoodEaten === 'number'
+            ? snakeTotalFoodEaten + 1
+            : snakeTotalFoodEaten
+        });
         this.placeFood();
         trackStats('snake_ate_food');
       }
@@ -226,6 +235,8 @@ class Snake extends React.Component {
             <span>Score: {this.state.score}</span>
             &nbsp;|&nbsp;
             <span>Global High Score: {this.state.snakeHighScore}</span>
+            &nbsp;|&nbsp;
+            <span>Global Food Eaten: {this.state.snakeTotalFoodEaten}</span>
             {this.state.isSnakeDead && (
               <span>&nbsp;|&nbsp;
                 <span

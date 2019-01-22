@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from './styles';
 import { Title } from './particles';
-import { graphqlQuery, saveText } from './utils/graphql';
+import { graphqlQuery, saveText, trackStats } from './utils/graphql';
 
 class CopyPaster extends React.Component {
   constructor() {
@@ -23,6 +23,7 @@ class CopyPaster extends React.Component {
 
   async componentDidMount() {
     window.scroll(0, 0);
+    trackStats('visited_copypaster');
     const { text } = await graphqlQuery('{ text }');
     this.setState({ inputText: JSON.parse(text) });
   }

@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import { colors, layout, zIndex } from './styles';
 import { Link, Filter } from './particles';
+import { trackStats } from './utils/graphql';
 
 const sidebarCss = isSidebarVisible => css`
   width: ${isSidebarVisible ? '250px' : 0};
@@ -57,6 +58,7 @@ const Sidebar = ({ isSidebarVisible }) => (
           <Link
             href={link.href}
             key={i}
+            onClick={() => trackStats('sidebar_link_click', link.href)}
           >
             <div
               className={`sidebar_link ${!i ? 'sidebar_link--title' : ''}`}

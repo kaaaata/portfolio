@@ -10,6 +10,7 @@ const schema = buildSchema(`
   type Query {
     text: String,
     snakeHighScore: Int,
+    snakeTotalFoodEaten: Int,
     
     saveText(text: String): String,
     registerSnakeHighScore(score: Int): Int,
@@ -21,6 +22,7 @@ const root = { // The root provides a resolver function for each API endpoint
   // read
   text: dbHelpers.getText,
   snakeHighScore: dbHelpers.getSnakeHighScore,
+  snakeTotalFoodEaten: dbHelpers.getSnakeTotalFoodEaten,
 
   // write
   saveText: dbHelpers.saveText,

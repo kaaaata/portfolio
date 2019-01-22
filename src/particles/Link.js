@@ -29,7 +29,7 @@ const LinkComponent = (props) => {
     return (
       <span
         css={linkCssNoHref}
-        onClick={onClick}
+        // onClick not passed down to links without href
         {...otherProps}
       >
         {children}
