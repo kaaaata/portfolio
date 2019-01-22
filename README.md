@@ -33,6 +33,13 @@ While local DB is small, which will probably be always, the following commands a
 <code>createdb portfolio</code>  to create the database (empty)  
 <code>knex migrate:latest</code>  to apply all migrations  
 
+## Heroku Database Useful Commands
+<code>heroku pg:reset DATABASE_URL</code> drop heroku db (DATABASE_URL is NOT a variable here.)
+<code>heroku run knex migrate:latest</code> syntax to run latest knex migrations
+<code>heroku pg:psql</code>go to heroku psql command line
+<code>\dt</code>"show tables;"
+<code>\q</code>"quit;"
+
 ## Other useful scripts
 <code>npm run lint</code> to run lint excluding rules in .eslintrc.json  
 
