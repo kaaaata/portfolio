@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from './stores/actions';
 import { colors, fonts, layout, mq } from './styles';
 import CopyPaster from './CopyPaster';
-import { RedirectRoute, Title } from './particles';
+import { RedirectRoute, Title, FlexContainer } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
@@ -19,7 +19,6 @@ const appCss = css`
   min-width: 320px;
 `;
 const appContentCss = css`
-  display: flex;
   max-width: 750px;
   margin: auto;
   padding: ${layout.MAIN_PADDING}px;
@@ -53,7 +52,7 @@ class App extends React.Component {
         <Title />
         <TopNav />
         <Sidebar />
-        <section css={appContentCss}>
+        <FlexContainer _css={appContentCss}>
           <Switch>
             <Route
               exact path="/"
@@ -67,7 +66,7 @@ class App extends React.Component {
               render={() => <RedirectRoute />}
             />
           </Switch>
-        </section>
+        </FlexContainer>
         <Footer />
       </main>
     );

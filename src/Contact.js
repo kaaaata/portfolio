@@ -1,17 +1,12 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { Image, Spacer } from './particles';
-
-const contactCss = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+import React from 'react';
+import { Image, Spacer, FlexContainer } from './particles';
 
 const Contact = () => (
-  <section
+  <FlexContainer
     id='contact'
-    css={contactCss}
+    flexDirection='column'
+    justifyContent='center'
+    alignItems='center'
   >
     <Image
       src='selfie.png'
@@ -24,7 +19,7 @@ const Contact = () => (
     <h4><u>catherinehan714@gmail.com</u></h4>
     <Spacer height={40} />
     <p>P.S. This page has a secret...can you find it? (Hint: devtools)</p>
-  </section>
+  </FlexContainer>
 );
 
 export default Contact;

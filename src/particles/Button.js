@@ -31,7 +31,7 @@ const buttonCss = css`
 
 const Button = (props) => {
   const { text, href, onClick = noop } = props;
-  const otherProps = omit(props, ['text, href, onClick']);
+  const otherProps = omit(props, ['text', 'href', 'onClick']);
 
   const button = (
     <button

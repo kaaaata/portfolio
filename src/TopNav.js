@@ -1,6 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, zIndex, layout, mq } from './styles';
-import { Link, FlexSpacer } from './particles';
+import { Link, FlexContainer, FlexItem } from './particles';
 import { SidebarToggle } from './components';
 import { trackStats } from './utils/graphql';
 
@@ -15,8 +15,6 @@ const topNavCss = css`
     padding: 0 ${layout.MAIN_PADDING}px;
     height: 100%;
     z-index: ${zIndex.stickyNavContent};
-    display: flex;
-    align-items: center;
     width: 100%;
     
     h2 {
@@ -79,11 +77,14 @@ const MediaIcons = () => mediaIcons.map(media => (
 
 const TopNav = () => (
   <section css={topNavCss}>
-    <div className='top_nav__content'>
+    <FlexContainer
+      alignItems='center'
+      className='top_nav__content'
+    >
       <SidebarToggle />
-      <FlexSpacer />
+      <FlexItem />
       <MediaIcons />
-    </div>
+    </FlexContainer>
   </section>
 );
 

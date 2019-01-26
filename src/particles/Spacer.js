@@ -1,8 +1,8 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { layout } from '../styles';
+import { mq } from '../styles';
 
 const Spacer = ({ height }) => {
-  const heightCss = layout.genImageDimensions('height', height);
+  const heightCss = mq.genResponsiveCss('height', height);
 
   return (
     <div

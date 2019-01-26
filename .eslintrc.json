@@ -24,7 +24,8 @@
         "jsx-a11y/mouse-events-have-key-events": "off",
         "react/no-array-index-key": "off",
         "no-nested-ternary": "off",
-        "line-break-style": "off"
+        "line-break-style": "off",
+        "react/destructuring-assignment": "off"
     },
     "env": {
         "browser": true

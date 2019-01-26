@@ -1,14 +1,14 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { omit } from 'lodash';
-import { layout } from '../styles';
+import { mq } from '../styles';
 
 
 const Image = (props) => {
-  const { src, width, height, size = 'cover', circular } = props;
-  const otherProps = omit(props, ['src', 'width', 'height', 'size', 'circular']);
+  const { src, width, height, size = 'cover', circular, className = '' } = props;
+  const otherProps = omit(props, ['src', 'width', 'height', 'size', 'circular', 'className']);
 
-  const widthCss = layout.genImageDimensions('width', width);
-  const heightCss = layout.genImageDimensions('height', height);
+  const widthCss = mq.genResponsiveCss('width', width);
+  const heightCss = mq.genResponsiveCss('height', height);
 
   const imageCss = css`
     background: url("assets/${src}") no-repeat center center;
@@ -20,7 +20,7 @@ const Image = (props) => {
 
   return (
     <div
-      className='image'
+      className={`image ${className}`}
       css={imageCss}
       {...otherProps}
     />

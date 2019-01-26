@@ -2,7 +2,7 @@ import React from 'react';
 import { debounce } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, mixins, mq } from './styles';
-import { Image, Spacer } from './particles';
+import { Image, Spacer, FlexContainer } from './particles';
 import { trackStats } from './utils/graphql';
 
 const skills = [
@@ -77,19 +77,13 @@ const skills = [
 
 const skillsCss = css`
   margin: auto;
-  display: flex;
-  justify-content: center;
   position: relative;
-  flex-wrap: wrap;
 `;
 const skillsFeatureCss = activeSkill => css`
   width: 100%;
   border: 2px dashed ${activeSkill ? colors.green : colors.grey};
   height: 400px;
   border-radius: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: ${activeSkill ? 'unset' : 'center'};
   padding: 30px;
 
   .featured_skill_image {
@@ -181,14 +175,20 @@ class Skills extends React.Component {
     </>;
 
     return (
-      <section
+      <FlexContainer
         id='skills'
-        css={skillsCss}
+        justifyContent='center'
+        flexWrap='wrap'
+        _css={skillsCss}
       >
         <h1>Skills</h1>
-        <article css={skillsFeatureCss(activeSkill)}>
+        <FlexContainer
+          justifyContent='center'
+          alignItems={activeSkill ? 'unset' : 'center'}
+          _css={skillsFeatureCss(activeSkill)}
+        >
           {activeSkill ? featuredSkillContent : featuredSkillPlaceholder}
-        </article>
+        </FlexContainer>
         <Spacer height={[20, 20, 0]} />
         {skills.map(skill => (
           <div
@@ -207,7 +207,7 @@ class Skills extends React.Component {
           </div>
         ))}
         <Spacer size={40} />
-      </section>
+      </FlexContainer>
     );
   }
 }
