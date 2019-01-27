@@ -1,33 +1,37 @@
 {
-    "extends": "airbnb",
-    "rules": {
-        "comma-dangle": "off",
-        "quotes": "off",
-        "react/jsx-filename-extension": "off",
-        "jsx-quotes": "off",
-        "react/jsx-one-expression-per-line": "off",
-        "quote-props": "off",
-        "import/prefer-default-export": "off",
-        "react/jsx-max-props-per-line": "off",
-        "react/no-unescaped-entities": "off",
-        "react/prop-types": "off",
-        "object-curly-newline": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "jsx-a11y/no-static-element-interactions": "off",
-        "jsx-a11y/anchor-is-valid": "off",
-        "max-len": "off",
-        "no-plusplus": "off",
-        "no-else-return": "off",
-        "react/no-access-state-in-setstate": "off",
-        "consistent-return": "off",
-        "no-prototype-builtins": "off",
-        "jsx-a11y/mouse-events-have-key-events": "off",
-        "react/no-array-index-key": "off",
-        "no-nested-ternary": "off",
-        "line-break-style": "off",
-        "react/destructuring-assignment": "off"
-    },
-    "env": {
-        "browser": true
-    }
+  "extends": "airbnb",
+  "rules": {
+    "comma-dangle": "off",
+    "quotes": "off",
+    "react/jsx-filename-extension": "off",
+    "jsx-quotes": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "quote-props": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-max-props-per-line": "off",
+    "react/no-unescaped-entities": "off",
+    "react/prop-types": "off",
+    "object-curly-newline": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "max-len": "off",
+    "no-plusplus": "off",
+    "no-else-return": "off",
+    "react/no-access-state-in-setstate": "off",
+    "consistent-return": "off",
+    "no-prototype-builtins": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "react/no-array-index-key": "off",
+    "no-nested-ternary": "off",
+    "line-break-style": "off",
+    "react/destructuring-assignment": "off"
+  },
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  },
+  "plugins": [
+    "jest"
+  ]
 }

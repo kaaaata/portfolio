@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from './stores/actions';
 import { colors, fonts, layout, mq } from './styles';
 import CopyPaster from './CopyPaster';
-import { RedirectRoute, Title, FlexContainer } from './particles';
+import { Title, FlexContainer } from './particles';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
@@ -63,7 +63,7 @@ class App extends React.Component {
               render={() => <CopyPaster />}
             />
             <Route
-              render={() => <RedirectRoute />}
+              render={() => <Redirect to='/' />}
             />
           </Switch>
         </FlexContainer>

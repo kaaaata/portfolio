@@ -41,13 +41,12 @@ export default {
    * Convert shorthand CSS prop values to usable emotion CSS syntax
    * @param {string} cssProperty css property name
    * @param {string|number|array} cssValue (<value>|[<desktopValue>, <tabletValue>, <phoneValue>])
-   * gracefully handles all cssValue shapes [], [a, b], [a, null, b], [a, 0, b], ['', a, b]
-   * @param {boolean} forcePixels forces cssValue numbers to use "px". default true.
+   * for simplicity, cssValue array must have length 3.
+   * @param {boolean} forcePixels forces numerical cssValues to use "px". default true.
    * @returns {string} Usable emotion CSS syntax
    */
   genResponsiveCss: (cssProperty, cssValue, forcePixels = true) => {
-    const isCssPropertyValid = typeof cssProperty === 'string' && cssProperty !== '';
-    if (!isCssPropertyValid) return '';
+    if (typeof cssProperty !== 'string' || cssProperty === '') return '';
 
     const isCssValueValidSingular = value => (
       (typeof value === 'string' && value !== '') || typeof value === 'number'
@@ -60,20 +59,20 @@ export default {
       return `${cssProperty}: ${value};`;
     }
 
-    if (Array.isArray(cssValue) && cssValue.length >= 1) {
+    if (Array.isArray(cssValue) && cssValue.length === 3) {
       const values = forcePixels
         ? cssValue.map(value => (typeof value === 'number' ? `${value}px` : value))
         : cssValue;
 
-      const desktopCss = isCssValueValidSingular
+      const desktopCss = isCssValueValidSingular(values[0])
         ? desktop(`${cssProperty}: ${values[0]};`)
         : '';
       const tabletCss = isCssValueValidSingular(values[1])
         ? tablet(`${cssProperty}: ${values[1]};`)
-        : desktopCss;
+        : '';
       const phoneCss = isCssValueValidSingular(values[2])
         ? phone(`${cssProperty}: ${values[2]};`)
-        : tabletCss;
+        : '';
 
       return `
         ${desktopCss}
