@@ -1,4 +1,4 @@
-import { mq } from '../styles';
+import { mq } from '../components/styles';
 
 test('mq.genResponsiveCss() works for non-responsive inputs', () => {
   const testCases = [

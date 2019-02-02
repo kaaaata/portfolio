@@ -1,6 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { zIndex, colors, layout } from './styles';
-import { FlexContainer } from './particles';
+import { zIndex, colors, layout } from '../styles';
+import { FlexContainer } from '../particles';
 
 const footerCss = css`
   width: 100%;

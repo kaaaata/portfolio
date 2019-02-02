@@ -1,28 +1,10 @@
 import React from 'react';
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { Image, Button } from './particles';
-import { zIndex, effects, layout } from './styles';
+import { jsx } from '@emotion/core'; /** @jsx jsx */
+import { Image, Button } from '../particles';
+import { layout } from '../styles';
 import Snake from './Snake';
-import { trackStats } from './utils/graphql';
-
-const introCss = css`
-  overflow: hidden;
-
-  .image {
-    ${effects.flicker}
-    ${effects.rainbow}
-    animation: flicker 4s ease-out infinite, rainbow 10s linear infinite;
-    margin: auto;
-  }
-`;
-const secretCss = isSecretFound => css`
-  visibility: ${isSecretFound ? 'hidden' : 'unset'};
-  display: none;
-  z-index: ${zIndex.mouseEventAreaForeground};
-  position: absolute;
-  top: 35%;
-  left: 50%;
-`;
+import { trackStats } from '../utils/graphql';
+import { introCss, secretCss } from './introCss';
 
 class Intro extends React.Component {
   constructor() {

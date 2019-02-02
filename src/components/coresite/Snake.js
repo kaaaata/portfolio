@@ -1,12 +1,12 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { range, sample } from 'lodash';
-import { mq, colors } from './styles';
+import { mq, colors } from '../styles';
 import {
   graphqlQuery,
   registerSnakeHighScore,
   trackStats
-} from './utils/graphql';
+} from '../utils/graphql';
 
 const rows = 20;
 const cols = 25;

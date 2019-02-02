@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Spacer, FlexContainer } from './particles';
+import { Image, Spacer, FlexContainer } from '../particles';
 
 const Contact = () => (
   <FlexContainer

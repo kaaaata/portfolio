@@ -7,7 +7,7 @@ Make sure you have postgres installed with a role "postgres" using password "pos
 <code>CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres';</code>  create role from psql command line  
 
 ## Bootstrapping Instructions
-<code>npm install</code> install dependencies  
+<code>npm i</code> install dependencies  
 <code>knex migrate:latest</code> apply latest db migrations  
 <code>npm run server</code> to start Express server proxied at [localhost:4000](http://localhost:4000)  
 <code>npm start</code> to start the React app at [localhost:3000](http://localhost:3000)  
@@ -18,7 +18,7 @@ Make sure you have postgres installed with a role "postgres" using password "pos
 <code>npm run lint</code> run lint excluding rules in .eslintrc.json  
 <code>npm run build</code> not useful to run locally. automatically run when pushing to heroku  
 <code>npm run eject</code> I don't see this project benefiting from ejecting  
-<code>npm run test</code> maybe tests will be useful eventually...but not now  
+<code>npm t</code> run Jest test suite
 
 ## Database and Migration Tips
 This project uses Postgres with Knex  

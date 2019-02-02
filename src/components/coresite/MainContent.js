@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors } from './styles';
-import { Spacer } from './particles';
+import { colors } from '../styles';
+import { Spacer } from '../particles';
 import Skills from './Skills';
 import Contact from './Contact';
 import Intro from './Intro';

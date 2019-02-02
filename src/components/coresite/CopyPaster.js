@@ -1,9 +1,9 @@
 import React from 'react';
 import { debounce } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, fonts } from './styles';
-import { Title } from './particles';
-import { graphqlQuery, saveText, trackStats } from './utils/graphql';
+import { colors, fonts } from '../styles';
+import { Title } from '../particles';
+import { graphqlQuery, saveText, trackStats } from '../utils/graphql';
 
 class CopyPaster extends React.Component {
   constructor() {
