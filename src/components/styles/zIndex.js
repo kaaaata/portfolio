@@ -3,6 +3,7 @@ const zIndexOrder = [
   // lowest
   'default',
   'mouseEventAreaBackground',
+  'mouseEventAreaMiddleground',
   'mouseEventAreaForeground',
   'stickyNav',
   'stickyNavFilter',

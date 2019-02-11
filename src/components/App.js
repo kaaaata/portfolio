@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import * as actions from './stores/actions';
 import { Title, FlexContainer } from './particles';
 import { CopyPaster, TopNav, Footer, Sidebar, MainContent } from './coresite';
+// import { Song } from './song';
+import { Xiangqi } from './xiangqi';
 import { trackStats } from './utils/graphql';
 import { appCss, appContentCss } from './appCss';
 
@@ -36,6 +38,14 @@ class App extends React.Component {
             <Route
               exact path="/copypaster"
               render={() => <CopyPaster />}
+            />
+            {/* <Route
+              exact path="/song"
+              render={() => <Song />}
+            /> */}
+            <Route
+              exact path="/xiangqi"
+              render={() => <Xiangqi />}
             />
             <Route
               render={() => <Redirect to='/' />}
