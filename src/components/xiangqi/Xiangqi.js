@@ -1,92 +1,22 @@
 import React from 'react';
-import { range, cloneDeep, isEmpty } from 'lodash';
+import { range } from 'lodash';
 import Draggable from 'react-draggable';
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { colors, fonts, layout, zIndex } from '../styles';
-import { Title, FlexContainer, FlexItem, Image } from '../particles';
-import { graphqlQuery, saveText, trackStats } from '../utils/graphql';
+import { jsx } from '@emotion/core'; /** @jsx jsx */
+import { Image } from '../particles';
 import BoardGridOverlay from './BoardGridOverlay';
-
-const xiangqiCss = css`
-  position: relative;
-`;
-const squareCss = (isAnythingDragged, isThisDragged) => css`
-  ${layout.flexCenter};
-
-  .piece {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-    border-radius: 50%;
-    position: absolute;
-    z-index: ${isAnythingDragged && !isThisDragged
-    ? zIndex.mouseEventAreaBackground
-    : zIndex.mouseEventAreaMiddleground};
-  }
-
-  .hitbox {
-    height: 100%;
-    width: 100%;
-    z-index: ${isAnythingDragged && !isThisDragged
-    ? zIndex.mouseEventAreaForeground
-    : zIndex.mouseEventAreaMiddleground};
-  }
-`;
-
-const boardCss = css`
-  display: inline-grid;
-  grid-template-columns: repeat(9, 60px);
-  grid-auto-rows: 60px;
-  grid-gap: 1px;
-  border: 1px solid black;
-`;
-
-const genNewXiangqiBoard = () => {
-  const board = {};
-  for (let x = 0; x < 9; x++) {
-    for (let y = 0; y < 10; y++) {
-      board[`${x}-${y}`] = null;
-    }
-  }
-
-  const createPiece = (name, color, x, y) => {
-    board[`${x}-${y}`] = { name, color, image: `xiangqi/${color}_${name}.png` };
-  };
-  ['red', 'black'].forEach((color) => {
-    createPiece('che', color, 0, color === 'red' ? 0 : 9);
-    createPiece('che', color, 8, color === 'red' ? 0 : 9);
-    createPiece('ma', color, 1, color === 'red' ? 0 : 9);
-    createPiece('ma', color, 7, color === 'red' ? 0 : 9);
-    createPiece('xiang', color, 2, color === 'red' ? 0 : 9);
-    createPiece('xiang', color, 6, color === 'red' ? 0 : 9);
-    createPiece('shi', color, 3, color === 'red' ? 0 : 9);
-    createPiece('shi', color, 5, color === 'red' ? 0 : 9);
-    createPiece('jiang', color, 4, color === 'red' ? 0 : 9);
-    createPiece('pao', color, 1, color === 'red' ? 2 : 7);
-    createPiece('pao', color, 7, color === 'red' ? 2 : 7);
-    createPiece('bing', color, 0, color === 'red' ? 3 : 6);
-    createPiece('bing', color, 2, color === 'red' ? 3 : 6);
-    createPiece('bing', color, 4, color === 'red' ? 3 : 6);
-    createPiece('bing', color, 6, color === 'red' ? 3 : 6);
-    createPiece('bing', color, 8, color === 'red' ? 3 : 6);
-  });
-
-  return board;
-};
+import logic from './logic';
+import { xiangqiCss, squareCss, boardCss } from './xiangqiCss';
 
 class Xiangqi extends React.Component {
   constructor() {
     super();
     this.state = {
-      ...genNewXiangqiBoard(),
-      draggedIndex: null
+      ...logic.genNewXiangqiBoard(),
+      draggedIndex: null, // this needs to be in state for z-index manipulation
+      highlightedIndices: []
     };
 
     this.hoveredIndex = null;
-  }
-
-  isValidMove(index, targetIndex) {
-    if (typeof index === 'string' && typeof targetIndex === 'string') {
-      return true;
-    }
   }
 
   movePiece(index, targetIndex) {
@@ -97,15 +27,23 @@ class Xiangqi extends React.Component {
   }
 
   handlePieceDragStart(index) {
-    this.setState({ draggedIndex: index });
+    this.setState({
+      draggedIndex: index,
+      highlightedIndices: logic.getValidMoves(this.state, index)
+    });
   }
 
   handlePieceDragEnd(index) {
-    if (this.isValidMove(index, this.hoveredIndex)) {
-      this.movePiece(index, this.hoveredIndex);
+    if (typeof index === 'string' && typeof this.hoveredIndex === 'string') {
+      if (this.state.highlightedIndices.includes(this.hoveredIndex)) {
+        this.movePiece(index, this.hoveredIndex);
+      }
     }
 
-    this.setState({ draggedIndex: null });
+    this.setState({
+      draggedIndex: null,
+      highlightedIndices: []
+    });
   }
 
   handleHoverSquare(index) {
@@ -134,10 +72,15 @@ class Xiangqi extends React.Component {
                     this.state.draggedIndex === index
                   )}
                 >
+                  {this.state.highlightedIndices.includes(index) && (
+                    <div className='highlight' />
+                  )}
                   <div
                     className='hitbox'
                     onMouseEnter={() => this.handleHoverSquare(index)}
-                  />
+                  >
+                    {index}
+                  </div>
                   {piece && (
                     <Draggable
                       onStart={() => this.handlePieceDragStart(index)}

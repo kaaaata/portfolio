@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'; /** @jsx jsx */
+import { css } from '@emotion/core';
 import { colors, mq } from '../styles';
 
 export const biographyCss = css`
