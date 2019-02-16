@@ -1,9 +1,6 @@
-const xmin = 0;
-const xmax = 8;
-const ymin = 0;
-const ymax = 9;
+import { mapValues } from 'lodash';
 
-const flipY = index => `${index[0]}-${9 - index.split('-')[1]}`;
+const flipY = index => `${index[0]}-${9 - index[2]}`;
 
 const mirrorMovesOverRiver = (moves) => {
   const mirroredMoves = {};
@@ -23,11 +20,25 @@ const precalculatedMoves = {
       '5-2': ['4-1'],
       '5-0': ['4-1'],
       '4-1': ['3-0', '3-2', '5-2', '5-0']
+    },
+    jiang: {
+      '3-0': ['4-0', '3-1'],
+      '3-1': ['3-0', '4-1', '3-2'],
+      '3-2': ['3-1', '4-2'],
+      '4-0': ['3-0', '4-1', '5-0'],
+      '4-1': ['3-1', '4-2', '5-1', '4-0'],
+      '4-2': ['3-2', '5-2', '4-1'],
+      '5-0': ['4-0', '5-1'],
+      '5-1': ['5-0', '4-1', '5-2'],
+      '5-2': ['4-2', '5-1']
     }
   },
-  black: {}
+
 };
-precalculatedMoves.black.shi = mirrorMovesOverRiver(precalculatedMoves.red.shi);
+precalculatedMoves.black = mapValues(
+  precalculatedMoves.red,
+  moves => mirrorMovesOverRiver(moves)
+);
 
 export default {
   genNewXiangqiBoard: () => {
@@ -67,14 +78,29 @@ export default {
     const piece = board[index];
     let validMoves = [];
 
-    switch (piece.name) {
-      case 'shi':
-        validMoves = precalculatedMoves[piece.color].shi[index];
-        break;
-      default:
-        break;
+    if (piece.name === 'shi') {
+      validMoves = precalculatedMoves[piece.color].shi[index];
+    } else if (piece.name === 'jiang') {
+      validMoves = precalculatedMoves[piece.color].jiang[index];
+    } else if (piece.name === 'bing') {
+      const x = index[0], y = index[2];
+      const hasCrossedRiver = piece.color === 'red'
+        ? y >= 5
+        : y <= 4;
+      validMoves.push(`${x}-${parseInt(y, 10) + (piece.color === 'red' ? 1 : -1)}`);
+      if (hasCrossedRiver) {
+        validMoves.push(`${parseInt(x, 10) + 1}-${y}`);
+        validMoves.push(`${parseInt(x, 10) - 1}-${y}`);
+      }
     }
 
-    return validMoves;
+    return validMoves.filter((move) => {
+      const x = move[0], y = move[2];
+      const targetOutOfBounds = x < 0 || x > 8 || y < 0 || y > 9;
+      const targetHasFriendly = board[move] && board[move].color === piece.color;
+      const targetInCheck = false;
+
+      return !(targetHasFriendly || targetInCheck || targetOutOfBounds);
+    });
   }
 };

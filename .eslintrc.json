@@ -25,7 +25,9 @@
     "react/no-array-index-key": "off",
     "no-nested-ternary": "off",
     "line-break-style": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "one-var": "off",
+    "one-var-declaration-per-line": "off"
   },
   "env": {
     "browser": true,
