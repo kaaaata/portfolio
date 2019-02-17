@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image } from '../particles';
 import BoardGridOverlay from './BoardGridOverlay';
 import { genNewXiangqiBoard, getValidMoves } from './logic';
-import { xiangqiCss, squareCss, boardCss } from './xiangqiCss';
+import { xiangqiCss, squareCss, highlightCss, boardCss } from './xiangqiCss';
 
 class Xiangqi extends React.Component {
   constructor() {
@@ -73,7 +73,9 @@ class Xiangqi extends React.Component {
                   )}
                 >
                   {this.state.highlightedIndices.includes(index) && (
-                    <div className='highlight' />
+                    <div
+                      css={highlightCss(this.state[index], this.state[this.state.draggedIndex])}
+                    />
                   )}
                   <div
                     className='hitbox'

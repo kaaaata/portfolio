@@ -33,7 +33,25 @@ export const squareCss = (isAnythingDragged, isThisDragged) => css`
     opacity: 0.5;
     width: 25px;
     height: 25px;
+
+    &.highlight--yellow {
+      background: ${colors.yellow};
+    }
   }
+`;
+
+export const highlightCss = (piece, draggedPiece) => css`
+  position: absolute;
+  z-index: ${zIndex.mouseEventAreaMiddleground};
+  border-radius: 50%;
+  background: ${colors.grey};
+  opacity: 0.5;
+  width: 25px;
+  height: 25px;
+
+  ${piece && piece.color !== (draggedPiece && draggedPiece.color)
+    ? `background: ${colors.yellow};`
+    : ''}
 `;
 
 export const boardCss = css`

@@ -56,19 +56,29 @@ precalculatedValidMoves.black = mapValues(
   moves => mirrorMovesOverRiver(moves)
 );
 
+const isIndexUnderAttack = (index, friendlyColor) => {
+  return false;
+};
+
+const isKingInCheck = (board, kingColor) => {
+  return false;
+};
+
 export default function getValidMoves(board, index) {
   const piece = board[index];
   const validations = {
     isTargetOutOfBounds: (x, y) => isIndexOutOfBounds(x, y),
-    targetHasFriendly: move => board[move] && board[move].color === piece.color,
-    isTargetInCheck: piece.name === 'jiang' && (() => false)
+    targetHasFriendly: move => board[move] && board[move].color === piece.color
   };
   let validMoves = [];
 
-  if (piece.name === 'shi') {
+  if (isKingInCheck(board, piece.color) && piece.name !== 'jiang') {
+    return [];
+  } else if (piece.name === 'shi') {
     validMoves = precalculatedValidMoves[piece.color].shi[index];
   } else if (piece.name === 'jiang') {
     validMoves = precalculatedValidMoves[piece.color].jiang[index];
+    validations.isTargetUnderAttack = isIndexUnderAttack(index, piece.color);
   } else if (piece.name === 'bing') {
     const x = index[0], y = index[2];
     const hasCrossedRiver = piece.color === 'red'
@@ -168,6 +178,7 @@ export default function getValidMoves(board, index) {
   return validMoves.filter(move => !(
     (validations.isTargetOutOfBounds && validations.isTargetOutOfBounds(move[0], move[2]))
     || (validations.targetHasFriendly && validations.targetHasFriendly(move))
-    || (validations.targetInCheck && validations.isTargetInCheck(move))
+    || (validations.targetInCheck && validations.isKingInCheck(move))
+    || (validations.isTargetUnderAttack && validations.isTargetUnderAttack(move, piece.color))
   ));
 }
