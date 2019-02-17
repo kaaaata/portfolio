@@ -4,14 +4,14 @@ import Draggable from 'react-draggable';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image } from '../particles';
 import BoardGridOverlay from './BoardGridOverlay';
-import logic from './logic';
+import { genNewXiangqiBoard, getValidMoves } from './logic';
 import { xiangqiCss, squareCss, boardCss } from './xiangqiCss';
 
 class Xiangqi extends React.Component {
   constructor() {
     super();
     this.state = {
-      ...logic.genNewXiangqiBoard(),
+      ...genNewXiangqiBoard(),
       draggedIndex: null, // this needs to be in state for z-index manipulation
       highlightedIndices: []
     };
@@ -29,7 +29,7 @@ class Xiangqi extends React.Component {
   handlePieceDragStart(index) {
     this.setState({
       draggedIndex: index,
-      highlightedIndices: logic.getValidMoves(this.state, index)
+      highlightedIndices: getValidMoves(this.state, index)
     });
   }
 

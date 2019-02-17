@@ -15,8 +15,6 @@ export const squareCss = (isAnythingDragged, isThisDragged) => css`
     z-index: ${isAnythingDragged && !isThisDragged
     ? zIndex.mouseEventAreaBackground
     : zIndex.mouseEventAreaMiddleground};
-
-    
   }
 
   .hitbox {
@@ -25,8 +23,6 @@ export const squareCss = (isAnythingDragged, isThisDragged) => css`
     z-index: ${isAnythingDragged && !isThisDragged
     ? zIndex.mouseEventAreaForeground
     : zIndex.mouseEventAreaMiddleground};
-
-    
   }
 
   .highlight {
