@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line
 import { range } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { layout } from '../styles';

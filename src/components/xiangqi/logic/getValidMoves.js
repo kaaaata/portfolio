@@ -65,6 +65,7 @@ const isKingInCheck = (board, kingColor) => {
 };
 
 export default function getValidMoves(board, index) {
+  console.log('getValidMoves called with board=', board);
   const piece = board[index];
   const validations = {
     isTargetOutOfBounds: (x, y) => isIndexOutOfBounds(x, y),

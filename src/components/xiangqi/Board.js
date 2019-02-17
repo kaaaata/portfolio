@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image } from '../particles';
 import BoardGridOverlay from './BoardGridOverlay';
-import { genNewXiangqiBoard, getValidMoves } from './logic';
+import { genNewXiangqiBoard, Game } from './logic';
 import { boardCss, squareCss, highlightCss, boardGridCss } from './boardCss';
 
 class Board extends React.Component {
@@ -16,28 +16,28 @@ class Board extends React.Component {
       highlightedIndices: []
     };
 
+    this.Game = new Game();
     this.hoveredIndex = null;
   }
 
   movePiece(index, targetIndex) {
+    this.Game.movePiece(index, targetIndex);
     this.setState({
-      [index]: null,
-      [targetIndex]: this.state[index]
+      [targetIndex]: this.state[index],
+      [index]: null
     });
   }
 
   handlePieceDragStart(index) {
     this.setState({
       draggedIndex: index,
-      highlightedIndices: getValidMoves(this.state, index)
+      highlightedIndices: this.Game.getValidMoves(index)
     });
   }
 
   handlePieceDragEnd(index) {
-    if (typeof index === 'string' && typeof this.hoveredIndex === 'string') {
-      if (this.state.highlightedIndices.includes(this.hoveredIndex)) {
-        this.movePiece(index, this.hoveredIndex);
-      }
+    if (this.state.highlightedIndices.includes(this.hoveredIndex)) {
+      this.movePiece(index, this.hoveredIndex);
     }
 
     this.setState({
@@ -58,7 +58,11 @@ class Board extends React.Component {
     return (
       <div css={boardCss}>
         <BoardGridOverlay />
-        <div className='board' css={boardGridCss}>
+        <div
+          className='board'
+          css={boardGridCss}
+          onMouseLeave={() => this.setState({ hoveredIndex: null })}
+        >
           {range(0, 10).reverse().map(y => (
             range(0, 9).map((x) => {
               const index = `${x}-${y}`;
