@@ -2,6 +2,19 @@ import { mapValues } from 'lodash';
 
 const flipY = index => `${index[0]}-${9 - index[2]}`;
 
+const isTargetOutOfBounds = (x, y, color, isXiang) => {
+  const xOutOfBounds = x < 0 || x > 8;
+
+  if (xOutOfBounds) {
+    return true;
+  } else {
+    const yOutOfBounds = isXiang
+      ? color === 'red' ? y < 0 && y > 4 : y < 5 && y > 9
+      : y < 0 || y > 9;
+    return yOutOfBounds;
+  }
+};
+
 const mirrorMovesOverRiver = (moves) => {
   const mirroredMoves = {};
 
@@ -92,11 +105,25 @@ export default {
         validMoves.push(`${parseInt(x, 10) + 1}-${y}`);
         validMoves.push(`${parseInt(x, 10) - 1}-${y}`);
       }
+    } else if (piece.name === 'xiang') {
+      const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
+      const directions = [{ x: 1, y: 1 }, { x: 1, y: -1 }, { x: -1, y: -1 }, { x: -1, y: 1 }];
+      directions.forEach((direction) => {
+        const isBlocked = board[`${x + direction.x}-${y + direction.y}`];
+        if (!isBlocked) {
+          const targetOutOfBounds = isTargetOutOfBounds(
+            x + direction.x * 2, y + direction.y * 2, piece.color, true
+          );
+          if (!targetOutOfBounds) {
+            validMoves.push(`${x + direction.x * 2}-${y + direction.y * 2}`);
+          }
+        }
+      });
     }
 
     return validMoves.filter((move) => {
       const x = move[0], y = move[2];
-      const targetOutOfBounds = x < 0 || x > 8 || y < 0 || y > 9;
+      const targetOutOfBounds = isTargetOutOfBounds(x, y);
       const targetHasFriendly = board[move] && board[move].color === piece.color;
       const targetInCheck = false;
 
