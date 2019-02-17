@@ -92,6 +92,11 @@ export default {
   },
   getValidMoves(board, index) {
     const piece = board[index];
+    const validations = {
+      isTargetOutOfBounds: (x, y) => isIndexOutOfBounds(x, y),
+      targetHasFriendly: move => board[move] && board[move].color === piece.color,
+      isTargetInCheck: piece.name === 'jiang' && (() => false)
+    };
     let validMoves = [];
 
     if (piece.name === 'shi') {
@@ -122,6 +127,7 @@ export default {
           }
         }
       });
+      validations.isTargetOutOfBounds = null;
     } else if (piece.name === 'che') {
       const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
       const directions = [{ x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: -1, y: 0 }];
@@ -139,6 +145,8 @@ export default {
           i++;
         }
       });
+      validations.isTargetOutOfBounds = null;
+      validations.targetHasFriendly = null;
     } else if (piece.name === 'pao') {
       const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
       const directions = [{ x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: -1, y: 0 }];
@@ -165,15 +173,36 @@ export default {
           i++;
         }
       });
+      validations.isTargetOutOfBounds = null;
+      validations.targetHasFriendly = null;
+    } else if (piece.name === 'ma') {
+      const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
+      const directions = [{ x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: -1, y: 0 }];
+      const moves = [];
+      directions.forEach((direction) => {
+        const isBlocked = board[`${x + direction.x}-${y + direction.y}`];
+        if (!isBlocked) {
+          if (direction.x === 0) {
+            moves.push({ x: x + 1, y: y + direction.y * 2 });
+            moves.push({ x: x - 1, y: y + direction.y * 2 });
+          } else if (direction.y === 0) {
+            moves.push({ x: x + direction.x * 2, y: y - 1 });
+            moves.push({ x: x + direction.x * 2, y: y + 1 });
+          }
+        }
+      });
+      moves.forEach((move) => {
+        if (!isIndexOutOfBounds(move.x, move.y)) {
+          validMoves.push(`${move.x}-${move.y}`);
+        }
+      });
+      validations.isTargetOutOfBounds = null;
     }
 
-    return validMoves.filter((move) => {
-      const x = move[0], y = move[2];
-      const targetOutOfBounds = isIndexOutOfBounds(`${x}-${y}`);
-      const targetHasFriendly = board[move] && board[move].color === piece.color;
-      const targetInCheck = false;
-
-      return !(targetHasFriendly || targetInCheck || targetOutOfBounds);
-    });
+    return validMoves.filter(move => !(
+      (validations.isTargetOutOfBounds && validations.isTargetOutOfBounds(move[0], move[2]))
+      || (validations.targetHasFriendly && validations.targetHasFriendly(move))
+      || (validations.targetInCheck && validations.isTargetInCheck(move))
+    ));
   }
 };
