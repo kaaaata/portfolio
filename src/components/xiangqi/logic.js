@@ -2,7 +2,10 @@ import { mapValues } from 'lodash';
 
 const flipY = index => `${index[0]}-${9 - index[2]}`;
 
-const isTargetOutOfBounds = (x, y, color, isXiang) => {
+const isIndexOutOfBounds = (x, y, color, isXiang) => {
+  // "x" and "y" are arguments instead of "index" here to allow
+  // indices to be evaluated before this function is called
+  // which results in more efficient code.
   const xOutOfBounds = x < 0 || x > 8;
 
   if (xOutOfBounds) {
@@ -111,7 +114,7 @@ export default {
       directions.forEach((direction) => {
         const isBlocked = board[`${x + direction.x}-${y + direction.y}`];
         if (!isBlocked) {
-          const targetOutOfBounds = isTargetOutOfBounds(
+          const targetOutOfBounds = isIndexOutOfBounds(
             x + direction.x * 2, y + direction.y * 2, piece.color, true
           );
           if (!targetOutOfBounds) {
@@ -119,11 +122,28 @@ export default {
           }
         }
       });
+    } else if (piece.name === 'che') {
+      const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
+      const directions = [{ x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: -1, y: 0 }];
+      directions.forEach((direction) => {
+        let i = 1, targetIndex = index, targetOutOfBounds, targetHasFriendly;
+        while (i <= 10) {
+          const targetX = parseInt(x, 10) + direction.x * i, targetY = parseInt(y, 10) + direction.y * i;
+          targetOutOfBounds = isIndexOutOfBounds(targetX, targetY);
+          targetIndex = `${targetX}-${targetY}`;
+          targetHasFriendly = board[targetIndex] && board[targetIndex].color === piece.color;
+          if (targetOutOfBounds || targetHasFriendly) {
+            return;
+          }
+          validMoves.push(targetIndex);
+          i++;
+        }
+      });
     }
 
     return validMoves.filter((move) => {
       const x = move[0], y = move[2];
-      const targetOutOfBounds = isTargetOutOfBounds(x, y);
+      const targetOutOfBounds = isIndexOutOfBounds(`${x}-${y}`);
       const targetHasFriendly = board[move] && board[move].color === piece.color;
       const targetInCheck = false;
 
