@@ -15,7 +15,7 @@ export const introCss = css`
 export const secretCss = isSecretFound => css`
   visibility: ${isSecretFound ? 'hidden' : 'unset'};
   display: none;
-  z-index: ${zIndex.mouseEventAreaForeground};
+  z-index: ${zIndex.mouseEventArea3};
   position: absolute;
   top: 35%;
   left: 50%;

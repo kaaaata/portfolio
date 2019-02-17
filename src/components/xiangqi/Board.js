@@ -5,7 +5,13 @@ import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image } from '../particles';
 import BoardGridOverlay from './BoardGridOverlay';
 import { genNewXiangqiBoard, Game } from './logic';
-import { boardCss, squareCss, highlightCss, boardGridCss } from './boardCss';
+import {
+  boardCss,
+  squareCss,
+  highlightCss,
+  boardGridCss,
+  lastMoveHighlightCss
+} from './boardCss';
 
 class Board extends React.Component {
   constructor() {
@@ -13,10 +19,13 @@ class Board extends React.Component {
     this.state = {
       ...genNewXiangqiBoard(),
       draggedIndex: null, // this needs to be in state for z-index manipulation
-      highlightedIndices: []
+      highlightedIndices: [],
+      lastMoveStart: null,
+      lastMoveEnd: null
     };
 
     this.Game = new Game();
+    this.turn = 'red';
     this.hoveredIndex = null;
   }
 
@@ -24,8 +33,11 @@ class Board extends React.Component {
     this.Game.movePiece(index, targetIndex);
     this.setState({
       [targetIndex]: this.state[index],
-      [index]: null
+      [index]: null,
+      lastMoveStart: index,
+      lastMoveEnd: targetIndex
     });
+    this.turn = this.turn === 'red' ? 'black' : 'red';
   }
 
   handlePieceDragStart(index) {
@@ -66,7 +78,35 @@ class Board extends React.Component {
           {range(0, 10).reverse().map(y => (
             range(0, 9).map((x) => {
               const index = `${x}-${y}`;
-              const piece = this.state[index];
+              const piece = this.state[index] && (
+                <Draggable
+                  onStart={() => this.handlePieceDragStart(index)}
+                  onStop={() => this.handlePieceDragEnd(index)}
+                  position={{ x: 0, y: 0 }}
+                  bounds='.board'
+                >
+                  <Image
+                    src={this.state[index].image}
+                    width={50}
+                    height={50}
+                    className='piece'
+                  />
+                </Draggable>
+              );
+              const hitbox = (
+                <div
+                  className='hitbox'
+                  onMouseEnter={() => this.handleHoverSquare(index)}
+                />
+              );
+              const highlight = this.state.highlightedIndices.includes(index) && (
+                <div css={highlightCss(this.state[index], this.state[this.state.draggedIndex])} />
+              );
+              const lastMoveHighlight = (
+                index === this.state.lastMoveStart || index === this.state.lastMoveEnd
+              ) && (
+                <div css={lastMoveHighlightCss} />
+              );
 
               return (
                 <div
@@ -76,32 +116,10 @@ class Board extends React.Component {
                     this.state.draggedIndex === index
                   )}
                 >
-                  {this.state.highlightedIndices.includes(index) && (
-                    <div
-                      css={highlightCss(this.state[index], this.state[this.state.draggedIndex])}
-                    />
-                  )}
-                  <div
-                    className='hitbox'
-                    onMouseEnter={() => this.handleHoverSquare(index)}
-                  >
-                    {index}
-                  </div>
-                  {piece && (
-                    <Draggable
-                      onStart={() => this.handlePieceDragStart(index)}
-                      onStop={() => this.handlePieceDragEnd(index)}
-                      position={{ x: 0, y: 0 }}
-                      bounds='.board'
-                    >
-                      <Image
-                        src={piece.image}
-                        width={50}
-                        height={50}
-                        className='piece'
-                      />
-                    </Draggable>
-                  )}
+                  {lastMoveHighlight}
+                  {highlight}
+                  {hitbox}
+                  {piece}
                 </div>
               );
             })

@@ -7,45 +7,33 @@ export const boardCss = css`
 
 export const squareCss = (isAnythingDragged, isThisDragged) => css`
   ${layout.flexCenter};
+  margin: -1px 0 0 -1px;
 
   .piece {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
     border-radius: 50%;
     position: absolute;
+    cursor: pointer;
     z-index: ${isAnythingDragged && !isThisDragged
-    ? zIndex.mouseEventAreaBackground
-    : zIndex.mouseEventAreaMiddleground};
+    ? zIndex.mouseEventArea1
+    : zIndex.mouseEventArea3};
   }
 
   .hitbox {
     height: 100%;
     width: 100%;
     z-index: ${isAnythingDragged && !isThisDragged
-    ? zIndex.mouseEventAreaForeground
-    : zIndex.mouseEventAreaMiddleground};
-  }
-
-  .highlight {
-    position: absolute;
-    z-index: ${zIndex.mouseEventAreaMiddleground};
-    border-radius: 50%;
-    background: ${colors.grey};
-    opacity: 0.5;
-    width: 25px;
-    height: 25px;
-
-    &.highlight--yellow {
-      background: ${colors.yellow};
-    }
+    ? zIndex.mouseEventArea5
+    : zIndex.mouseEventArea3};
   }
 `;
 
 export const highlightCss = (piece, draggedPiece) => css`
   position: absolute;
-  z-index: ${zIndex.mouseEventAreaMiddleground};
+  z-index: ${zIndex.mouseEventArea2};
   border-radius: 50%;
   background: ${colors.grey};
-  opacity: 0.5;
+  opacity: 0.75;
   width: 25px;
   height: 25px;
 
@@ -60,4 +48,14 @@ export const boardGridCss = css`
   grid-auto-rows: 60px;
   grid-gap: 1px;
   border: 1px solid black;
+`;
+
+export const lastMoveHighlightCss = css`
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  z-index: ${zIndex.mouseEventArea2};
+  border: 3px dashed ${colors.yellow};
+  border-radius: 25%;
+  opacity: 0.5;
 `;

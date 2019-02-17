@@ -14,5 +14,6 @@ export default class Game {
   movePiece(index, targetIndex) {
     this.board[targetIndex] = this.board[index];
     this.board[index] = null;
+    this.turn = this.turn === 'red' ? 'black' : 'red';
   }
 }
