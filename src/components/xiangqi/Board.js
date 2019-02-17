@@ -43,7 +43,9 @@ class Board extends React.Component {
   handlePieceDragStart(index) {
     this.setState({
       draggedIndex: index,
-      highlightedIndices: this.Game.getValidMoves(index)
+      highlightedIndices: this.turn === this.state[index].color
+        ? this.Game.getValidMoves(index)
+        : []
     });
   }
 
@@ -105,7 +107,7 @@ class Board extends React.Component {
               const lastMoveHighlight = (
                 index === this.state.lastMoveStart || index === this.state.lastMoveEnd
               ) && (
-                <div css={lastMoveHighlightCss} />
+                <div css={lastMoveHighlightCss(index === this.state.lastMoveStart)} />
               );
 
               return (

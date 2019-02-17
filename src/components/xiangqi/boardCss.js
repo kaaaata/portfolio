@@ -50,12 +50,12 @@ export const boardGridCss = css`
   border: 1px solid black;
 `;
 
-export const lastMoveHighlightCss = css`
+export const lastMoveHighlightCss = isLastMoveStart => css`
   position: absolute;
   height: 60px;
   width: 60px;
   z-index: ${zIndex.mouseEventArea2};
-  border: 3px dashed ${colors.yellow};
+  border: ${isLastMoveStart ? 2 : 3}px dashed ${colors.yellow};
   border-radius: 25%;
-  opacity: 0.5;
+  opacity: ${isLastMoveStart ? 0.6 : 0.7};
 `;
