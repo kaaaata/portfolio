@@ -41,23 +41,25 @@ class Board extends React.Component {
   }
 
   handlePieceDragStart(index) {
-    this.setState({
-      draggedIndex: index,
-      highlightedIndices: this.turn === this.state[index].color
-        ? this.Game.getValidMoves(index)
-        : []
-    });
+    if (this.turn === this.state[index].color) {
+      this.setState({
+        draggedIndex: index,
+        highlightedIndices: this.Game.getValidMoves(index)
+      });
+    }
   }
 
   handlePieceDragEnd(index) {
-    if (this.state.highlightedIndices.includes(this.hoveredIndex)) {
-      this.movePiece(index, this.hoveredIndex);
-    }
+    if (this.state.draggedIndex) {
+      if (this.state.highlightedIndices.includes(this.hoveredIndex)) {
+        this.movePiece(index, this.hoveredIndex);
+      }
 
-    this.setState({
-      draggedIndex: null,
-      highlightedIndices: []
-    });
+      this.setState({
+        draggedIndex: null,
+        highlightedIndices: []
+      });
+    }
   }
 
   handleHoverSquare(index) {
