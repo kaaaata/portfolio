@@ -1,0 +1,28 @@
+Xiangqi Tech Plan
+
+"Game" Layer (.js)
+- the game layer should contain all game logic code.
+- code should do very specific game logic related things, and should avoid flow-related operations.
+
+"Interface" Layer (.js)
+- the interface layer should contain helper functions to facilitate game flow.
+
+"View" Layer (React components)
+- the view layer should contain all code necessary to display the game on the screen.
+- should contain as little actual game logic as possible
+- necessary components include:
+1. <Xiangqi> the container component rendered inside <App> on the /xiangqi route. contains top-level game options such as "new game", "resign", etc. 
+2. <Board> the primary game display component. represents the board as an object in component state with 90 properties, each one representing a board square like '3-6'. calls interface functions to change state and adjust view. handles player click-and-drag interaction. pieces are placed on an invisible grid.
+3. <BoardGridOverlay> an isolated functional stateless & propless css-focused component placed inside <Xiangqi> to render the visible xiangqi board grid, where each piece sits on line intersections.
+
+Sample Flows
+Event: User starts game
+- <Board> component is mounted with empty states, then new Game class is instantiated and assigned to this.Game.
+- <Board> calls interface layer "new game", receives starting board state, sets state and renders the game's starting positions.
+
+Event: User holds down mouse on piece
+- <Board> calls interface layer "get valid moves", receives said moves, sets highlight state so user can see where he can move. 
+
+Event: User releases mouse to make a move
+- <Board> calls interface layer "move piece"
+- interface layer calls some game layer functions to determine whether the move is valid. if yes, updates Game class state, then returns true. if no, returns false. if return true, <Board> updates component state to reflect the move.
