@@ -126,16 +126,42 @@ export default {
       const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
       const directions = [{ x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: -1, y: 0 }];
       directions.forEach((direction) => {
-        let i = 1, targetIndex = index, targetOutOfBounds, targetHasFriendly;
-        while (i <= 10) {
+        let i = 1;
+        while (i < 10) {
           const targetX = parseInt(x, 10) + direction.x * i, targetY = parseInt(y, 10) + direction.y * i;
-          targetOutOfBounds = isIndexOutOfBounds(targetX, targetY);
-          targetIndex = `${targetX}-${targetY}`;
-          targetHasFriendly = board[targetIndex] && board[targetIndex].color === piece.color;
+          const targetIndex = `${targetX}-${targetY}`;
+          const targetOutOfBounds = isIndexOutOfBounds(targetX, targetY);
+          const targetHasFriendly = board[targetIndex] && board[targetIndex].color === piece.color;
           if (targetOutOfBounds || targetHasFriendly) {
             return;
           }
           validMoves.push(targetIndex);
+          i++;
+        }
+      });
+    } else if (piece.name === 'pao') {
+      const x = parseInt(index[0], 10), y = parseInt(index[2], 10);
+      const directions = [{ x: 0, y: 1 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: -1, y: 0 }];
+      directions.forEach((direction) => {
+        let i = 1, hasJumped;
+        while (i < 10) {
+          const targetX = parseInt(x, 10) + direction.x * i, targetY = parseInt(y, 10) + direction.y * i;
+          const targetIndex = `${targetX}-${targetY}`;
+          const targetOutOfBounds = isIndexOutOfBounds(targetX, targetY);
+          const targetHasPiece = board[targetIndex];
+          if (targetOutOfBounds) {
+            return;
+          } else if (hasJumped) {
+            const targetHasEnemy = targetHasPiece && targetHasPiece.color !== piece.color;
+            if (targetHasEnemy) {
+              validMoves.push(targetIndex);
+              return;
+            }
+          } else if (targetHasPiece) {
+            hasJumped = true;
+          } else {
+            validMoves.push(targetIndex);
+          }
           i++;
         }
       });
