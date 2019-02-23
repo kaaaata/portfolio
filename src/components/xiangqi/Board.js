@@ -74,11 +74,7 @@ class Board extends React.Component {
     return (
       <div css={boardCss}>
         <BoardGridOverlay />
-        <div
-          className='board'
-          css={boardGridCss}
-          onMouseLeave={() => this.setState({ hoveredIndex: null })}
-        >
+        <div className='board' css={boardGridCss}>
           {range(0, 10).reverse().map(y => (
             range(0, 9).map((x) => {
               const index = `${x}-${y}`;
@@ -101,6 +97,7 @@ class Board extends React.Component {
                 <div
                   className='hitbox'
                   onMouseEnter={() => this.handleHoverSquare(index)}
+                  onMouseLeave={() => { this.hoveredIndex = null; }}
                 />
               );
               const highlight = this.state.highlightedIndices.includes(index) && (
@@ -109,7 +106,7 @@ class Board extends React.Component {
               const lastMoveHighlight = (
                 index === this.state.lastMoveStart || index === this.state.lastMoveEnd
               ) && (
-                <div css={lastMoveHighlightCss(index === this.state.lastMoveStart)} />
+                <div css={lastMoveHighlightCss(index === this.state.lastMoveStart, this.turn)} />
               );
 
               return (

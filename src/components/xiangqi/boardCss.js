@@ -50,12 +50,11 @@ export const boardGridCss = css`
   border: 1px solid black;
 `;
 
-export const lastMoveHighlightCss = isLastMoveStart => css`
+export const lastMoveHighlightCss = (isLastMoveStart, turn) => css`
   position: absolute;
-  height: 60px;
-  width: 60px;
+  height: ${isLastMoveStart ? 30 : 60}px;
+  width: ${isLastMoveStart ? 30 : 60}px;
   z-index: ${zIndex.mouseEventArea2};
-  border: ${isLastMoveStart ? 2 : 3}px dashed ${colors.yellow};
-  border-radius: 25%;
-  opacity: ${isLastMoveStart ? 0.6 : 0.7};
+  border: 1px dashed ${turn === 'red' ? colors.black : colors.red};
+  border-radius: ${isLastMoveStart ? '50%' : 'unset'};
 `;
