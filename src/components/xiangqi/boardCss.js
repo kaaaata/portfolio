@@ -10,6 +10,7 @@ export const squareCss = (isAnythingDragged, isThisDragged) => css`
   margin: -1px 0 0 -1px;
 
   .piece {
+    margin: -1px 0 0 -2px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
     border-radius: 50%;
     position: absolute;
@@ -17,6 +18,7 @@ export const squareCss = (isAnythingDragged, isThisDragged) => css`
     z-index: ${isAnythingDragged && !isThisDragged
     ? zIndex.mouseEventArea1
     : zIndex.mouseEventArea3};
+    
   }
 
   .hitbox {
