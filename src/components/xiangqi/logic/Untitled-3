@@ -1,0 +1,24 @@
+1. have a state in Game class to store all indices that are under attack by each players pieces
+2. "isKingInCheck()" --> simple function to calculate whether your king is in the "attacked squares" array
+3. "getValidMoves()" "preventMoveIntoCheck()" -> this is the tricky part. this algorithm needs to: a) prevent moving a pinned piece which would result in check, b) prevent moving the king directly into check. i can think of two possible ways to do this. 
+
+way # 1: "brute force"
+- recalculate "attacked squares" state in Game class for every single possible valid move
+- determine whether or not the king's index will be within one of those attacked indices.
+pros:
+- can reuse allpre-existing getValidMoves() piece calculations
+cons:
+- getValidMoves() will need to be refactored with a "can move into check" arg, and change functionality accordingly, because whoever captures the enemy king first wins. i.e. you are allowed to move your king into check if you capture the opponent king in doing so. 
+- lots of wasted calculations, i.e. valid moves need to be calculated for each other enemy piece every time a move is considered
+
+way # 2: "backwards checking"
+- iterate through all of opponent's pieces
+- starting at the king's index, iterate through all of opponent's pieces, and for each piece, check whether there is a piece on the board in an index in which it could attack the king ("moving backwards from the king's index seeking")
+pros:
+- minimal calculations required. this method will bemore performant for sure
+cons:
+- need to write new "backwards seeking" algorithms for each pre-existing getValidMoves() piece algorithm
+- let's do this
+
+4. "checkLose()" --> simple function, if you have no valid moves, you lose. 
+c

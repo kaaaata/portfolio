@@ -1,14 +1,16 @@
 import genNewXiangqiBoard from './genNewXiangqiBoard';
 import getValidMoves from './getValidMoves';
+import genPiecesList from './genPiecesList';
 
 export default class Game {
   constructor() {
     this.board = genNewXiangqiBoard();
     this.turn = 'red';
+    this.piecesList = genPiecesList();
   }
 
   getValidMoves(index) {
-    return getValidMoves(this.board, index);
+    return getValidMoves(this.board, index, this.piecesList);
   }
 
   movePiece(index, targetIndex) {

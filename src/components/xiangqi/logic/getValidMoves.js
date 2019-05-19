@@ -1,6 +1,6 @@
 import { mapValues } from 'lodash';
-
-const flipY = index => `${index[0]}-${9 - index[2]}`;
+import isKingInCheck from './isKingInCheck';
+import * as utils from './utils';
 
 const isIndexOutOfBounds = (x, y, color, isXiang) => {
   // "x" and "y" are arguments instead of "index" here to allow
@@ -16,16 +16,6 @@ const isIndexOutOfBounds = (x, y, color, isXiang) => {
       : y < 0 || y > 9;
     return yOutOfBounds;
   }
-};
-
-const mirrorMovesOverRiver = (moves) => {
-  const mirroredMoves = {};
-
-  Object.keys(moves).forEach((startIndex) => {
-    mirroredMoves[flipY(startIndex)] = moves[startIndex].map(endIndex => flipY(endIndex));
-  });
-
-  return mirroredMoves;
 };
 
 const precalculatedValidMoves = {
@@ -53,18 +43,14 @@ const precalculatedValidMoves = {
 };
 precalculatedValidMoves.black = mapValues(
   precalculatedValidMoves.red,
-  moves => mirrorMovesOverRiver(moves)
+  moves => utils.mirrorMovesOverRiver(moves)
 );
 
 const isIndexUnderAttack = (index, friendlyColor) => {
   return false;
 };
 
-const isKingInCheck = (board, kingColor) => {
-  return false;
-};
-
-export default function getValidMoves(board, index) {
+export default function getValidMoves(board, index, piecesList) {
   const piece = board[index];
   const validations = {
     isTargetOutOfBounds: (x, y) => isIndexOutOfBounds(x, y),
@@ -72,7 +58,7 @@ export default function getValidMoves(board, index) {
   };
   let validMoves = [];
 
-  if (isKingInCheck(board, piece.color) && piece.name !== 'jiang') {
+  if (isKingInCheck(board, piece.color, piecesList) && piece.name !== 'jiang') {
     return [];
   } else if (piece.name === 'shi') {
     validMoves = precalculatedValidMoves[piece.color].shi[index];

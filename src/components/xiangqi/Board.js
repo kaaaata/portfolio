@@ -41,7 +41,7 @@ class Board extends React.Component {
   }
 
   handlePieceDragStart(index) {
-    if (this.turn === this.state[index].color) {
+    if (true || this.turn === this.state[index].color) {
       this.setState({
         draggedIndex: index,
         highlightedIndices: this.Game.getValidMoves(index)
