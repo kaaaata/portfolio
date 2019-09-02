@@ -34,8 +34,8 @@ const Biography = () => (
     <h4>What I'm doing right now...</h4>
     <div className='bio_section'>
       <li>Work</li>
-      <li>Trying to increase my table tennis rating from 300 to 500</li>
-      <li>2007scape</li>
+      <li>Trying to increase my table tennis rating from 500 to 1000</li>
+      <li>2007scape (Ironman mode)</li>
     </div>
 
     <Spacer height={40} />
