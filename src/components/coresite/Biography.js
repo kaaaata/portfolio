@@ -40,7 +40,7 @@ const Biography = () => (
 
     <Spacer height={40} />
     <Button
-      href='https://docdro.id/D0ypleg'
+      href='https://docdro.id/ySthgM0'
       text='View Full Resume'
       onClick={() => trackStats('viewed_resume')}
     />

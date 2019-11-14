@@ -44,6 +44,10 @@ export const registerSnakeHighScore = async (score) => {
  * @param {object|number|string} value ({ numValue, textValue }|numValue|textValue)
  * @returns {string} graphql query function called
  */
+export const trackStats = () => {
+  // temporarily disabled, since most of the site visits are me...
+};
+/*
 export const trackStats = async (stat, value = {}) => {
   let values;
 
@@ -73,3 +77,4 @@ export const trackStats = async (stat, value = {}) => {
 
   return graphqlQuery(query, variables);
 };
+*/
