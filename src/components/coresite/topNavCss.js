@@ -12,7 +12,6 @@ export const topNavCss = css`
     padding: 0 ${layout.MAIN_PADDING}px;
     height: 100%;
     z-index: ${zIndex.stickyNavContent};
-    width: 100%;
     
     h2 {
       margin-right: 10px;

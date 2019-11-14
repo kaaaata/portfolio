@@ -10,9 +10,7 @@ const sidebarSections = [
   [
     { href: null, text: 'Homepage' },
     { href: '/#intro', text: 'Home' },
-    { href: '/#resume', text: 'Resume' },
-    { href: '/#skills', text: 'Skills' },
-    { href: '/#contact', text: 'Contact' }
+    { href: '/#skills', text: 'Skills' }
   ],
   [
     { href: null, text: 'Misc' },

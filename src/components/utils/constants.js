@@ -51,7 +51,7 @@ export const skills = [
   },
   {
     name: 'Redis',
-    description: 'Not much to say here, I use it at work.'
+    description: 'Not much to say here, I use it at work. Recently learned about Redis leaky bucket implementations and Redis pipelining.'
   },
   {
     name: 'MySQL',

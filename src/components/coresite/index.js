@@ -1,5 +1,4 @@
 export { default as Biography } from './Biography';
-export { default as Contact } from './Contact';
 export { default as CopyPaster } from './CopyPaster';
 export { default as Footer } from './Footer';
 export { default as Intro } from './Intro';

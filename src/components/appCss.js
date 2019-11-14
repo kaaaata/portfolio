@@ -8,7 +8,7 @@ export const appCss = css`
 `;
 
 export const appContentCss = css`
-  max-width: 750px;
+  max-width: ${layout.MAX_WIDTH}px;
   margin: auto;
   padding: ${layout.MAIN_PADDING}px;
   padding-top: ${layout.TOP_NAV_HEIGHT + layout.MAIN_PADDING}px;
