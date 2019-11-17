@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import OLL from './OLL';
+import CubeNotation from './CubeNotation';
 import { FlexContainer, FlexItem, Image } from '../particles';
 
 const Algorithm = ({ algorithm = {}, step }) => (
@@ -18,7 +19,7 @@ const Algorithm = ({ algorithm = {}, step }) => (
       <FlexItem>
         <h2>Name: {algorithm.name}</h2>
         {algorithm.algos.map((a, index) => (
-          <h3 key={index}>{a}</h3>
+          <CubeNotation notation={a} key={index} />
         ))}
       </FlexItem>
       <FlexItem>
