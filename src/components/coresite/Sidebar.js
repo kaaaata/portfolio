@@ -16,8 +16,7 @@ const sidebarSections = [
     { href: null, text: 'Misc' },
     { href: '/cube', text: 'Cubing' },
     { href: '/copypaster', text: 'A Text Box' },
-    // { href: '/xiangqi', text: 'Xiangqi' },
-    // { href: '/song', text: 'Music Thing' }
+    // { href: '/xiangqi', text: 'Xiangqi' }
   ]
 ];
 

@@ -48,7 +48,7 @@ class Snake extends React.Component {
     this.moveInterval = null;
   }
 
-  async componentDidMount() {
+  async UNSAFE_componentDidMount() {
     const { snakeHighScore } = await graphqlQuery('{ snakeHighScore }');
     this.setState({ snakeHighScore });
     const { snakeTotalFoodEaten } = await graphqlQuery('{ snakeTotalFoodEaten }');

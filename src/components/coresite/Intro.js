@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Button } from '../particles';
 import { layout } from '../styles';
@@ -6,51 +6,39 @@ import Snake from './Snake';
 import { trackStats } from '../utils/graphql';
 import { introCss, secretCss } from './introCss';
 
-class Intro extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isSecretFound: false
-    };
-  }
+const Logo = () => (
+  <Image
+    src='logo.png'
+    width={[500, 420, 320 - layout.MAIN_PADDING_PHONE * 2]}
+    height={[750, 750, 500]}
+  />
+);
 
-  render() {
-    const secret = (
-      <div
-        className='secret'
-        id='secret'
-        css={secretCss(this.state.isSecretFound)}
-      >
-        <Button
-          text='Click Me'
-          onClick={() => {
-            this.setState({ isSecretFound: true });
-            trackStats('found_secret');
-          }}
-        />
-      </div>
-    );
-    const logo = (
-      <Image
-        src='logo.png'
-        width={[500, 420, 320 - layout.MAIN_PADDING_PHONE * 2]}
-        height={[750, 750, 500]}
+const Intro = () => {
+  const [isSecretFound, setIsSecretFound] = useState(false);
+
+  const secret = (
+    <div
+      className='secret'
+      id='secret'
+      css={secretCss(isSecretFound)}
+    >
+      <Button
+        text='Click Me'
+        onClick={() => {
+          setIsSecretFound(true);
+          trackStats('found_secret');
+        }}
       />
-    );
+    </div>
+  );
 
-    return (
-      <section
-        id='intro'
-        css={introCss}
-      >
-        {secret}
-        {this.state.isSecretFound
-          ? <Snake />
-          : logo
-        }
-      </section>
-    );
-  }
-}
+  return (
+    <section id='intro' css={introCss}>
+      {secret}
+      {isSecretFound ? <Snake /> : <Logo />}
+    </section>
+  );
+};
 
 export default Intro;

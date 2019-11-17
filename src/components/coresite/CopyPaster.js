@@ -1,68 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from '../styles';
-import { Title } from '../particles';
 import { graphqlQuery, saveText, trackStats } from '../utils/graphql';
 
-class CopyPaster extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      inputText: '',
-      isSaved: true
-    };
+const CopyPaster = () => {
+  const [inputText, setInputText] = useState('');
+  const [isSaved, setIsSaved] = useState(true);
 
-    this.timeout = null;
+  const gqlSaveText = debounce(async(text) => {
+    await saveText(JSON.stringify(text));
+    setIsSaved(true);
+  }, 500);
 
-    this.saveText = debounce(async (inputText) => {
-      await saveText(JSON.stringify(inputText));
-      this.setState({ isSaved: true });
-    }, 500);
-  }
-
-  async componentDidMount() {
+  useEffect(() => {
     window.scroll(0, 0);
     trackStats('visited_copypaster');
-    const { text } = await graphqlQuery('{ text }');
-    this.setState({ inputText: JSON.parse(text) });
-  }
 
-  componentWillUnmount() {
-    clearTimeout(this.timeout);
-  }
+    const cb = async() => {
+      const { text } = await graphqlQuery('{ text }');
+      setInputText(JSON.parse(text));
+    };
 
-  handleTextChange(e) {
-    const inputText = e.target.value;
-    this.setState({ inputText, isSaved: false });
-    this.saveText(inputText);
-  }
+    cb();
+  }, []);
 
-  render() {
-    const textareaStyles = css`
-      outline: none;
-      width: 100%;
-      height: 500px;
-      background: transparent;
-      color: ${colors.white};
-      border: 2px solid ${this.state.isSaved ? colors.green : colors.red};
-      ${fonts.ptSerif}
-      font-size: 16px;
-      padding: 10px;
-      resize: vertical;
-      margin-bottom: 1000px;
-    `;
+  const onTextChange = (e) => {
+    const text = e.target.value;
+    setInputText(text);
+    setIsSaved(false);
+    gqlSaveText(text);
+  };
 
-    return <>
-      <Title title='A Text Box' />
+  const textareaStyles = css`
+    outline: none;
+    width: 100%;
+    height: 500px;
+    background: transparent;
+    color: ${colors.white};
+    border: 2px solid ${isSaved ? colors.green : colors.red};
+    ${fonts.ptSerif}
+    font-size: 16px;
+    padding: 10px;
+    resize: vertical;
+    margin-bottom: 1000px;
+  `;
+
+  return (
+    <React.Fragment>
       <textarea
         css={textareaStyles}
-        value={this.state.inputText}
-        onChange={e => this.handleTextChange(e)}
+        value={inputText}
+        onChange={onTextChange}
         spellCheck={false}
       />
-    </>;
-  }
-}
+    </React.Fragment>
+  );
+};
 
 export default CopyPaster;

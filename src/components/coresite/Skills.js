@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { debounce } from 'lodash';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Spacer, FlexContainer, FlexItem } from '../particles';
@@ -6,36 +6,31 @@ import { trackStats } from '../utils/graphql';
 import { skills } from '../utils/constants';
 import { skillsCss, skillsFeatureCss, skillCss } from './skillsCss';
 
-class Skills extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      activeSkill: null
-    };
+const FeaturedSkillPlaceholder = () => (
+  <Image
+    className='inspect_icon'
+    src='inspect.png'
+    width={50}
+    height={50}
+  />
+);
 
-    this.trackActivateSkill = debounce((skillName) => {
-      trackStats('viewed_skill', skillName);
-    }, 500);
-  }
+const trackActivateSkill = debounce((skillName) => {
+  trackStats('viewed_skill', skillName);
+}, 500);
 
-  handleActivateSkill(skill) {
-    this.setState({ activeSkill: skill });
-    this.trackActivateSkill(skill.name);
-  }
+const Skills = () => {
+  const [activeSkill, setActiveSkill] = useState(null);
 
-  render() {
-    const { activeSkill } = this.state;
-    const { name, description, flavorTexts } = activeSkill || {};
+  const activateSkill = (skill) => {
+    setActiveSkill(skill);
+    trackActivateSkill(skill.name);
+  };
 
-    const featuredSkillPlaceholder = (
-      <Image
-        className='inspect_icon'
-        src='inspect.png'
-        width={50}
-        height={50}
-      />
-    );
-    const featuredSkillContent = activeSkill && <>
+  const { name, description, flavorTexts } = activeSkill || {};
+
+  const featuredSkillContent = activeSkill && (
+    <React.Fragment>
       <Image
         className='featured_skill_image'
         src={`skills/${name.toLowerCase()}.png`}
@@ -53,44 +48,44 @@ class Skills extends React.Component {
           ))}
         </>}
       </FlexItem>
-    </>;
+    </React.Fragment>
+  );
 
-    return (
+  return (
+    <FlexContainer
+      id='skills'
+      justifyContent='center'
+      flexWrap='wrap'
+      _css={skillsCss}
+    >
+      <h1>Skills</h1>
       <FlexContainer
-        id='skills'
         justifyContent='center'
-        flexWrap='wrap'
-        _css={skillsCss}
+        alignItems={activeSkill ? 'unset' : 'center'}
+        _css={skillsFeatureCss(activeSkill)}
       >
-        <h1>Skills</h1>
-        <FlexContainer
-          justifyContent='center'
-          alignItems={activeSkill ? 'unset' : 'center'}
-          _css={skillsFeatureCss(activeSkill)}
-        >
-          {activeSkill ? featuredSkillContent : featuredSkillPlaceholder}
-        </FlexContainer>
-        <Spacer height={[20, 20, 0]} />
-        {skills.map(skill => (
-          <div
-            css={skillCss}
-            key={skill.name}
-            onMouseOver={() => this.handleActivateSkill(skill)}
-            onClick={() => this.handleActivateSkill(skill)}
-          >
-            <Image
-              src={`skills/${skill.name.toLowerCase()}.png`}
-              width={[75, 40, 40]}
-              height={[75, 40, 40]}
-              size='contain'
-            />
-            <h4>{skill.name}</h4>
-          </div>
-        ))}
-        <Spacer size={40} />
+        {activeSkill ? featuredSkillContent : <FeaturedSkillPlaceholder />}
       </FlexContainer>
-    );
-  }
-}
+      <Spacer height={[20, 20, 0]} />
+      {skills.map(skill => (
+        <div
+          css={skillCss}
+          key={skill.name}
+          onMouseOver={() => activateSkill(skill)}
+          onClick={() => activateSkill(skill)}
+        >
+          <Image
+            src={`skills/${skill.name.toLowerCase()}.png`}
+            width={[75, 40, 40]}
+            height={[75, 40, 40]}
+            size='contain'
+          />
+          <h4>{skill.name}</h4>
+        </div>
+      ))}
+      <Spacer size={40} />
+    </FlexContainer>
+  );
+};
 
 export default Skills;
