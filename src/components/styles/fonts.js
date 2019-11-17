@@ -18,22 +18,22 @@ export default {
 
     h1 {
       font-size: 30px;
-      margin: 20px 0;
+      margin-bottom: 20px;
       line-height: 1.25;
     }
 
     h2 {
       font-size: 25px;
-      margin: 15px 0;
+      margin-bottom: 15px;
     }
 
     h3 {
       font-size: 20px;
-      margin: 10px 0;
+      margin-bottom: 10px;
     }
 
     h4 {
-      margin: 10px 0;
+      margin-bottom: 10px;
     }
 
     p {

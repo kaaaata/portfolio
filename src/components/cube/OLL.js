@@ -43,7 +43,7 @@ export default [
     name: 'wheel',
     algos: [
       "(R U2 R2') U' R2 U' R2' U2 R",
-      "f (R U R' U') f' F (R U R' U') F'"
+      "(f R U R' U' f') (F R U R' U' F')"
     ],
     squares: 5
   },
@@ -61,7 +61,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/3/3e/O27.gif',
     name: 'sune',
     algos: [
-      "R U R' U R U2 R'"
+      "(R U R' U R U2 R')"
     ],
     squares: 6
   },
@@ -70,7 +70,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/f/fe/O26.gif',
     name: 'anti-sune',
     algos: [
-      "L' U' L U' L' U2 L"
+      "(L' U' L U' L' U2 L)"
     ],
     squares: 6
   },
@@ -79,7 +79,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/4/40/O57.gif',
     name: 'h',
     algos: [
-      "R U R' U' M' U R U' r'"
+      "(R U R' U') M' (U R U' r')"
     ],
     squares: 7
   },
@@ -98,7 +98,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/6/64/O37.gif',
     name: 'mantaray',
     algos: [
-      "(y) F R U' R' U' R U R' F'"
+      "(y) (F R U' R' U' R U R' F')"
     ],
     squares: 5
   },
@@ -135,7 +135,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/5/5b/O43.gif',
     name: 'anti-p',
     algos: [
-      "f' L' U' L U f"
+      "(f' L' U' L U f)"
     ],
     squares: 5
   },
@@ -144,7 +144,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/d/d6/O44.gif',
     name: 'p',
     algos: [
-      "f R U R' U' f'"
+      "(f R U R' U' f')"
     ],
     squares: 5
   },
@@ -190,7 +190,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/c/cd/O33.gif',
     name: 't-together',
     algos: [
-      "R U R' U' R' F R F'"
+      "(R U R' U' R' F R F')"
     ],
     squares: 5
   },
@@ -199,7 +199,7 @@ export default [
     img: 'https://www.speedsolving.com/wiki/images/b/b2/O45.gif',
     name: 't-separate',
     algos: [
-      "F R U R' U' F'"
+      "(F R U R' U' F')"
     ],
     squares: 5
   },
