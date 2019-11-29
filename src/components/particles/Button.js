@@ -1,23 +1,17 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { noop, omit } from 'lodash';
+import { noop } from 'lodash';
 import { colors } from '../styles';
 import Link from './Link';
 
-const buttonCss = css`
-  height: 40px;
+const buttonCss = (isSelected, _css) => css`
   border-radius: 5px;
   border: 2px solid white;
   cursor: pointer;
-  background: transparent;
+  background: ${isSelected ? colors.white : 'transparent'};
   outline: none;
   color: ${colors.white};
   transition: all 0.25s ease-out;
   transition-property: color, background;
-
-  span {
-    padding: 0 15px;
-    font-size: 14px;
-  }
 
   &:hover {
     color: ${colors.black};
@@ -27,20 +21,24 @@ const buttonCss = css`
   &:active {
     transform: translateY(3px);
   }
+
+  ${_css}
 `;
 
-const Button = (props) => {
-  const { text, href, onClick = noop } = props;
-  const otherProps = omit(props, ['text', 'href', 'onClick']);
-
+const Button = ({
+  href,
+  onClick = noop,
+  isSelected,
+  _css,
+  children
+}) => {
   const button = (
     <button
-      css={buttonCss}
-      onClick={onClick}
+      css={buttonCss(isSelected, _css)}
       type='button'
-      {...otherProps}
+      onClick={onClick}
     >
-      <span>{text}</span>
+      {children}
     </button>
   );
 

@@ -24,12 +24,13 @@ const Intro = () => {
       css={secretCss(isSecretFound)}
     >
       <Button
-        text='Click Me'
         onClick={() => {
           setIsSecretFound(true);
           trackStats('found_secret');
         }}
-      />
+      >
+        <h4>Click Me</h4>
+      </Button>
     </div>
   );
 

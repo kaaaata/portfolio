@@ -59,6 +59,7 @@ const Skills = () => {
       _css={skillsCss}
     >
       <h1>Skills</h1>
+      <Spacer height={20} />
       <FlexContainer
         justifyContent='center'
         alignItems={activeSkill ? 'unset' : 'center'}

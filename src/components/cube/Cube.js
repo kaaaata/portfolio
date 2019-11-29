@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import OLL from './OLL';
 import CubeNotation from './CubeNotation';
-import { FlexContainer, FlexItem, Image, Spacer } from '../particles';
+import { FlexContainer, FlexItem, Image, Spacer, Button } from '../particles';
 import { mq } from '../styles';
 
 const algorithmCss = css`
@@ -54,12 +54,28 @@ const Algorithms = ({ algorithms = [], step }) => (
   </section>
 );
 
+const sortFnMap = {
+  ID: (a, b) => a.id - b.id
+};
+
 const Cube = () => {
   const [step, filterStep] = useState('OLL');
+  const [sort, setSort] = useState('ID');
+
+  const algorithms = OLL.sort(sortFnMap[sort]);
 
   return (
     <section>
-      <Algorithms algorithms={OLL} step={step} />
+      <FlexContainer>
+        <FlexContainer alignItems='center'>
+          <h4>Sort |&nbsp;&nbsp;</h4>
+          <Button>Asdf</Button>
+        </FlexContainer>
+      </FlexContainer>
+      <Spacer height={20} />
+      <hr />
+      <Spacer height={20} />
+      <Algorithms algorithms={algorithms} step={step} />
     </section>
   );
 };
