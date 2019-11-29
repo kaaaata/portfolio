@@ -25,7 +25,7 @@ const Algorithm = ({ algorithm = {}, step }) => (
   <article css={algorithmCss}>
     <FlexContainer justifyContent='space-between'>
       <div className='id_and_image'>
-        <h3>{step} {algorithm.id}</h3>
+        <h4>{step} {algorithm.id}</h4>
         <Image
           src={algorithm.img}
           width={80}
@@ -34,16 +34,15 @@ const Algorithm = ({ algorithm = {}, step }) => (
         />
       </div>
       <FlexItem>
-        <h3>"{algorithm.name}"</h3>
+        <h4>"{algorithm.name}"</h4>
         {algorithm.algos.map((a, index) => (
           <CubeNotation notation={a} key={index} />
         ))}
       </FlexItem>
-      <div className='square_count'>
+      <h4 className='square_count'>
         Squares: {algorithm.squares}
-      </div>
+      </h4>
     </FlexContainer>
-    <Spacer height={20} />
   </article>
 );
 

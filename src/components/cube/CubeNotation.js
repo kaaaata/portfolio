@@ -27,8 +27,8 @@ const defaultNotationColor = '#98C1D9';
 /**
  * Split up cube notation into sequences by parens
  * Assumes parens are correct and not nested.
- * @param {string} notation notation string
- * @returns {array} sequence array split up by parens
+ * @param {string} notation notation string (raw)
+ * @returns {array} sequence array split up by parens (display)
  */
 const notationToSequences = (notation = '') => {
   const ret = [];
@@ -77,12 +77,12 @@ const genNotationColor = (notation = '') => {
  * @param {string} algorithmString algorithm string
  * @returns {node} colorized cube notation component
  */
-const CubeNotation = ({ notation = '' }) => {
+const CubeNotation = ({ notation = '', key }) => {
   // divide string by parentheses
   const sequences = notationToSequences(notation);
 
   return (
-    <h3 css={cubeNotationCss}>
+    <h4 css={cubeNotationCss} key={key}>
       {sequences.map((s, index) => (
         <span
           css={css`color: ${genNotationColor(s)};`}
@@ -91,7 +91,7 @@ const CubeNotation = ({ notation = '' }) => {
           {s}
         </span>
       ))}
-    </h3>
+    </h4>
   );
 };
 
