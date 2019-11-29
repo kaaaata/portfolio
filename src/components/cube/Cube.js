@@ -21,35 +21,31 @@ const algorithmCss = css`
   }
 `;
 
-const Algorithm = ({ algorithm = {} }) => (
-  <article css={algorithmCss}>
-    <FlexContainer justifyContent='space-between'>
-      <div className='id_and_image'>
-        <h4>{algorithm.step} {algorithm.id}</h4>
-        <Image
-          src={algorithm.img}
-          width={80}
-          height={80}
-          external
-        />
-      </div>
-      <FlexItem>
-        <h4>"{algorithm.name}"</h4>
-        {algorithm.algos.map((a, index) => (
-          <CubeNotation notation={a} key={index} />
-        ))}
-      </FlexItem>
-      <h4 className='square_count'>
-        Squares: {algorithm.squares}
-      </h4>
-    </FlexContainer>
-  </article>
-);
-
-const Algorithms = ({ algorithms = [] }) => (
+const Algorithms = ({ algorithms = [], setSearchText }) => (
   <section>
     {algorithms.map((a, index) => (
-      <Algorithm algorithm={a} key={index} />
+      <article css={algorithmCss} key={index}>
+        <FlexContainer justifyContent='space-between'>
+          <div className='id_and_image'>
+            <h4>{a.step} {a.id}</h4>
+            <Image
+              src={a.img}
+              width={80}
+              height={80}
+              external
+            />
+          </div>
+          <FlexItem>
+            <h4>"{a.name}"</h4>
+            {a.algos.map((a2, index2) => (
+              <CubeNotation notation={a2} key={index2} setSearchText={setSearchText} />
+            ))}
+          </FlexItem>
+          <h4 className='square_count'>
+            Squares: {a.squares}
+          </h4>
+        </FlexContainer>
+      </article>
     ))}
   </section>
 );
@@ -67,6 +63,8 @@ const Cube = () => {
   const [showOll, setShowOll] = useState(true);
   const [sort, setSort] = useState('ID');
   const [sortOrder, setSortOrder] = useState(1); // 1 = asc, -1 = desc
+  const [searchMode, setSearchMode] = useState('Notation');
+  const [searchText, setSearchText] = useState('');
 
   const stepOptions = (
     <FlexContainer alignItems='center'>
@@ -104,14 +102,53 @@ const Cube = () => {
     </FlexContainer>
   );
 
+
   const searchOptions = (
     <FlexContainer alignItems='center'>
       <h4>Search</h4>
+      {['Notation', 'Name'].map(m => (
+        <Button
+          key={m}
+          onClick={() => setSearchMode(m)}
+          isSelected={m === searchMode}
+          _css='margin-left: 10px;'
+        >
+          {m}
+        </Button>
+      ))}
+      <input
+        value={searchText}
+        placeholder="FRUR'U'F"
+        onChange={e => setSearchText(
+          // todo: filter out useless characters with regex
+          e.target.value.replace(/[()\s]/g, '')
+        )}
+        spellCheck={false}
+        css={css`
+          outline: none;
+          margin-left: 10px;
+        `}
+      />
+      <Button
+        onClick={() => setSearchText('')}
+        _css='margin-left: 10px;'
+      >
+        Clear
+      </Button>
     </FlexContainer>
-  )
+  );
 
   const algorithms = []
     .concat(showOll ? OLL : [])
+    .filter((a) => {
+      if (searchMode === 'Name') {
+        return a.name.includes(searchText.toLowerCase());
+      }
+
+      return a.algos.some(
+        i => i.replace(/[()\s]/g, '').includes(searchText)
+      );
+    })
     .sort((a, b) => (sortFnMap[sort](a, b) * sortOrder));
 
   return (
@@ -124,7 +161,7 @@ const Cube = () => {
       <Spacer height={20} />
       <hr />
       <Spacer height={20} />
-      <Algorithms algorithms={algorithms} />
+      <Algorithms algorithms={algorithms} setSearchText={setSearchText} />
     </section>
   );
 };

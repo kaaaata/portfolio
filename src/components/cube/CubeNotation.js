@@ -77,7 +77,7 @@ const genNotationColor = (notation = '') => {
  * @param {string} algorithmString algorithm string
  * @returns {node} colorized cube notation component
  */
-const CubeNotation = ({ notation = '' }) => {
+const CubeNotation = ({ notation = '', setSearchText }) => {
   // divide string by parentheses
   const sequences = notationToSequences(notation);
 
@@ -86,8 +86,9 @@ const CubeNotation = ({ notation = '' }) => {
       {sequences.map((s, index) => (
         <span
           key={index}
-          css={css`color: ${genNotationColor(s)};`}
+          css={css`color: ${genNotationColor(s)}; cursor: pointer;`}
           index={index}
+          onClick={() => setSearchText(s.replace(/[()\s]/g, ''))}
         >
           {s}
         </span>
