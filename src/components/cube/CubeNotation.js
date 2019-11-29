@@ -77,14 +77,15 @@ const genNotationColor = (notation = '') => {
  * @param {string} algorithmString algorithm string
  * @returns {node} colorized cube notation component
  */
-const CubeNotation = ({ notation = '', key }) => {
+const CubeNotation = ({ notation = '' }) => {
   // divide string by parentheses
   const sequences = notationToSequences(notation);
 
   return (
-    <h4 css={cubeNotationCss} key={key}>
+    <h4 css={cubeNotationCss}>
       {sequences.map((s, index) => (
         <span
+          key={index}
           css={css`color: ${genNotationColor(s)};`}
           index={index}
         >

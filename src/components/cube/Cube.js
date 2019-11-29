@@ -21,11 +21,11 @@ const algorithmCss = css`
   }
 `;
 
-const Algorithm = ({ algorithm = {}, step }) => (
+const Algorithm = ({ algorithm = {} }) => (
   <article css={algorithmCss}>
     <FlexContainer justifyContent='space-between'>
       <div className='id_and_image'>
-        <h4>{step} {algorithm.id}</h4>
+        <h4>{algorithm.step} {algorithm.id}</h4>
         <Image
           src={algorithm.img}
           width={80}
@@ -46,10 +46,10 @@ const Algorithm = ({ algorithm = {}, step }) => (
   </article>
 );
 
-const Algorithms = ({ algorithms = [], step }) => (
+const Algorithms = ({ algorithms = [] }) => (
   <section>
     {algorithms.map((a, index) => (
-      <Algorithm algorithm={a} step={step} key={index} />
+      <Algorithm algorithm={a} key={index} />
     ))}
   </section>
 );
@@ -64,38 +64,58 @@ const sortFnMap = {
 };
 
 const Cube = () => {
-  const [step, filterStep] = useState('OLL');
+  const [showOll, setShowOll] = useState(true);
   const [sort, setSort] = useState('ID');
   const [sortOrder, setSortOrder] = useState(1); // 1 = asc, -1 = desc
 
-  const algorithms = OLL.sort((a, b) => (
-    sortFnMap[sort](a, b) * sortOrder
-  ));
+  const stepOptions = (
+    <FlexContainer alignItems='center'>
+      <h4>Steps</h4>
+      {['OLL'].map(s => (
+        <Button
+          key={s}
+          onClick={() => setShowOll(!showOll)}
+          isSelected={showOll}
+          _css='margin-left: 10px;'
+        >
+          {s}
+        </Button>
+      ))}
+    </FlexContainer>
+  );
+
+  const sortOptions = (
+    <FlexContainer alignItems='center'>
+      <h4>Sort</h4>
+      {Object.keys(sortFnMap).map(s => (
+        <Button
+          key={s}
+          onClick={() => {
+            setSortOrder(s === sort ? (sortOrder * -1) : sortOrder);
+            setSort(s);
+          }}
+          isSelected={s === sort}
+          _css='margin-left: 10px;'
+        >
+          {s}
+        </Button>
+      ))}
+    </FlexContainer>
+  );
+
+  const algorithms = []
+    .concat(showOll ? OLL : [])
+    .sort((a, b) => (sortFnMap[sort](a, b) * sortOrder));
 
   return (
     <section>
-      <FlexContainer>
-        <FlexContainer alignItems='center'>
-          <h4>Sort</h4>
-          {Object.keys(sortFnMap).map(s => (
-            <Button
-              key={s}
-              onClick={() => {
-                setSortOrder(s === sort ? (sortOrder * -1) : sortOrder);
-                setSort(s);
-              }}
-              isSelected={s === sort}
-              _css='margin-left: 10px;'
-            >
-              {s}
-            </Button>
-          ))}
-        </FlexContainer>
-      </FlexContainer>
+      {stepOptions}
+      <Spacer height={5} />
+      {sortOptions}
       <Spacer height={20} />
       <hr />
       <Spacer height={20} />
-      <Algorithms algorithms={algorithms} step={step} />
+      <Algorithms algorithms={algorithms} />
     </section>
   );
 };
