@@ -9,7 +9,7 @@ const buttonCss = (isSelected, _css) => css`
   cursor: pointer;
   background: ${isSelected ? colors.white : 'transparent'};
   outline: none;
-  color: ${colors.white};
+  color: ${isSelected ? colors.black : colors.white};
   transition: all 0.25s ease-out;
   transition-property: color, background;
 

@@ -55,21 +55,41 @@ const Algorithms = ({ algorithms = [], step }) => (
 );
 
 const sortFnMap = {
-  ID: (a, b) => a.id - b.id
+  ID: (a, b) => a.id - b.id,
+  Squares: (a, b) => (
+    a.squares === b.squares
+      ? a.id - b.id
+      : a.squares - b.squares
+  )
 };
 
 const Cube = () => {
   const [step, filterStep] = useState('OLL');
   const [sort, setSort] = useState('ID');
+  const [sortOrder, setSortOrder] = useState(1); // 1 = asc, -1 = desc
 
-  const algorithms = OLL.sort(sortFnMap[sort]);
+  const algorithms = OLL.sort((a, b) => (
+    sortFnMap[sort](a, b) * sortOrder
+  ));
 
   return (
     <section>
       <FlexContainer>
         <FlexContainer alignItems='center'>
-          <h4>Sort |&nbsp;&nbsp;</h4>
-          <Button>Asdf</Button>
+          <h4>Sort</h4>
+          {Object.keys(sortFnMap).map(s => (
+            <Button
+              key={s}
+              onClick={() => {
+                setSortOrder(s === sort ? (sortOrder * -1) : sortOrder);
+                setSort(s);
+              }}
+              isSelected={s === sort}
+              _css='margin-left: 10px;'
+            >
+              {s}
+            </Button>
+          ))}
         </FlexContainer>
       </FlexContainer>
       <Spacer height={20} />
