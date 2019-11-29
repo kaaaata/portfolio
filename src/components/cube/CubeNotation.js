@@ -1,8 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { notationToSequences } from './utils';
 
-const cubeNotationCss = css`
-  
-`;
 // assign colors to common triggers for easier memorization
 // mirrors & slightly modified triggers are the same color
 const triggerColors = {
@@ -23,38 +21,6 @@ const triggerColors = {
 };
 const defaultTriggerColor = '#EFBC9B';
 const defaultNotationColor = '#98C1D9';
-
-/**
- * Split up cube notation into sequences by parens
- * Assumes parens are correct and not nested.
- * @param {string} notation notation string (raw)
- * @returns {array} sequence array split up by parens (display)
- */
-const notationToSequences = (notation = '') => {
-  const ret = [];
-
-  let chars = '';
-  let inParens = false;
-  for (let i = 0; i < notation.length; i++) {
-    if (notation[i] === '(') {
-      if (!inParens) {
-        ret.push(chars);
-        chars = '';
-      }
-      inParens = true;
-    }
-    chars += notation[i];
-    if (notation[i] === ')') {
-      ret.push(chars);
-      chars = '';
-      inParens = false;
-    }
-  }
-
-  ret.push(chars);
-
-  return ret.filter(Boolean);
-};
 
 /**
  * Generate the color for a notation sequence
@@ -82,7 +48,7 @@ const CubeNotation = ({ notation = '', setSearchText }) => {
   const sequences = notationToSequences(notation);
 
   return (
-    <h4 css={cubeNotationCss}>
+    <h4>
       {sequences.map((s, index) => (
         <span
           key={index}

@@ -6,7 +6,6 @@ import { biographyCss } from './biographyCss';
 const Biography = () => (
   <section css={biographyCss}>
     <h2>Catherine Han</h2>
-    <Spacer height={10} />
     <h4>Software Engineer - San Francisco, CA</h4>
 
     <Spacer height={120} />
@@ -14,9 +13,8 @@ const Biography = () => (
     <FlexContainer justifyContent='flex-end'>
       <article>
         <h4>Feel free to contact me!</h4>
-        <Spacer height={10} />
         <h4><u>catherinehan714@gmail.com</u></h4>
-        <Spacer height={20} />
+        <Spacer height={15} />
         <Button
           href='https://docdro.id/ySthgM0'
           onClick={() => trackStats('viewed_resume')}

@@ -8,7 +8,8 @@ export default [
       "M U M' U2 M U M'",
       "(F R U R' U' F') U2 (F R U R' U' F')"
     ],
-    squares: 7
+    squares: 7,
+    moves: 7
   },
   {
     id: 23,
@@ -18,7 +19,8 @@ export default [
     algos: [
       "(R U R' U')3 (R' F R F')3"
     ],
-    squares: 7
+    squares: 7,
+    moves: 24
   },
   {
     id: 25,
@@ -28,7 +30,8 @@ export default [
     algos: [
       "l' U' L' U R U' L U x'"
     ],
-    squares: 7
+    squares: 7,
+    moves: 9
   },
   {
     id: 24,
@@ -38,7 +41,8 @@ export default [
     algos: [
       "r U R' U' r' F R F'"
     ],
-    squares: 7
+    squares: 7,
+    moves: 8
   },
   {
     id: 22,
@@ -49,7 +53,8 @@ export default [
       "(R U2 R2') U' R2 U' R2' U2 R",
       "(f R U R' U' f') (F R U R' U' F')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 9
   },
   {
     id: 21,
@@ -59,7 +64,8 @@ export default [
     algos: [
       "y F (R U R' U')3 F'"
     ],
-    squares: 5
+    squares: 5,
+    moves: 15
   },
   {
     id: 27,
@@ -69,7 +75,8 @@ export default [
     algos: [
       "(R U R' U R U2 R')"
     ],
-    squares: 6
+    squares: 6,
+    moves: 7
   },
   {
     id: 26,
@@ -79,7 +86,8 @@ export default [
     algos: [
       "(L' U' L U' L' U2 L)"
     ],
-    squares: 6
+    squares: 6,
+    moves: 7
   },
   {
     id: 57,
@@ -89,7 +97,8 @@ export default [
     algos: [
       "(R U R' U') M' (U R U' r')"
     ],
-    squares: 7
+    squares: 7,
+    moves: 9
   },
   {
     id: 20,
@@ -100,7 +109,8 @@ export default [
       "(M' U)4 y2 (M' U)4",
       "(M U)4 (M' U)4"
     ],
-    squares: 5
+    squares: 5,
+    moves: 17
   },
   {
     id: 37,
@@ -110,7 +120,8 @@ export default [
     algos: [
       "(y) (F R U' R' U' R U R' F')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 10
   },
   {
     id: 35,
@@ -121,7 +132,8 @@ export default [
       "(f R U R' U' f') (R U R' U R U2 R')",
       "(R U2 R2') (F R F') (R U2 R')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 9
   },
   {
     id: 34,
@@ -131,7 +143,8 @@ export default [
     algos: [
       "(R U R' U') B' (R' F R F') B"
     ],
-    squares: 5
+    squares: 5,
+    moves: 10
   },
   {
     id: 46,
@@ -141,7 +154,8 @@ export default [
     algos: [
       "R' U' (R' F R F') U R"
     ],
-    squares: 5
+    squares: 5,
+    moves: 8
   },
   {
     id: 43,
@@ -151,7 +165,8 @@ export default [
     algos: [
       "(f' L' U' L U f)"
     ],
-    squares: 5
+    squares: 5,
+    moves: 6
   },
   {
     id: 44,
@@ -161,7 +176,8 @@ export default [
     algos: [
       "(f R U R' U' f')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 6
   },
   {
     id: 31,
@@ -171,7 +187,8 @@ export default [
     algos: [
       "S' (L' U' L U L F' L' f)"
     ],
-    squares: 5
+    squares: 5,
+    moves: 9
   },
   {
     id: 32,
@@ -181,7 +198,8 @@ export default [
     algos: [
       "S (R U R' U' R' F R f')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 9
   },
   {
     id: 1,
@@ -191,7 +209,8 @@ export default [
     algos: [
       "(R U2 R2') F R F' U2' (R' F R F')"
     ],
-    squares: 1
+    squares: 1,
+    moves: 11
   },
   {
     id: 2,
@@ -202,7 +221,8 @@ export default [
       "(F R U R' U' F') (f R U R' U' f')",
       "(F R U R' U') S (R U R' U' f')"
     ],
-    squares: 1
+    squares: 1,
+    moves: 11
   },
   {
     id: 33,
@@ -212,7 +232,8 @@ export default [
     algos: [
       "(R U R' U' R' F R F')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 8
   },
   {
     id: 45,
@@ -222,7 +243,8 @@ export default [
     algos: [
       "(F R U R' U' F')"
     ],
-    squares: 5
+    squares: 5,
+    moves: 6
   },
   {
     id: 5,
@@ -232,7 +254,8 @@ export default [
     algos: [
       "r' U2 R U R' U r"
     ],
-    squares: 4
+    squares: 4,
+    moves: 7
   },
   {
     id: 6,
@@ -242,6 +265,7 @@ export default [
     algos: [
       "l U2 L' U' L U' l'"
     ],
-    squares: 4
+    squares: 4,
+    moves: 7
   }
 ];

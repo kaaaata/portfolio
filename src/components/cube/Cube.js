@@ -11,7 +11,7 @@ const algorithmCss = css`
     flex: none;
   }
 
-  .square_count {
+  .stats {
     width: 80px;
     flex: none;
 
@@ -41,9 +41,10 @@ const Algorithms = ({ algorithms = [], setSearchText }) => (
               <CubeNotation notation={a2} key={index2} setSearchText={setSearchText} />
             ))}
           </FlexItem>
-          <h4 className='square_count'>
-            Squares: {a.squares}
-          </h4>
+          <div className='stats'>
+            <p>Squares: {a.squares}</p>
+            <p>Moves: {a.moves}</p>
+          </div>
         </FlexContainer>
       </article>
     ))}
@@ -56,7 +57,8 @@ const sortFnMap = {
     a.squares === b.squares
       ? a.id - b.id
       : a.squares - b.squares
-  )
+  ),
+  Moves: (a, b) => a.moves - b.moves
 };
 
 const Cube = () => {
@@ -162,6 +164,13 @@ const Cube = () => {
       <hr />
       <Spacer height={20} />
       <Algorithms algorithms={algorithms} setSearchText={setSearchText} />
+      <Spacer height={20} />
+      <hr />
+      <Spacer height={20} />
+      <p>Notes:</p>
+      <p>
+        # Moves counts entire cube rotations (x) as one move, and 180 degree turns (U2) as one move. If multiple algorithms are listed, the shorter one is considered.
+      </p>
     </section>
   );
 };
