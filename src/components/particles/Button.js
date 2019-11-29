@@ -3,7 +3,7 @@ import { noop } from 'lodash';
 import { colors } from '../styles';
 import Link from './Link';
 
-const buttonCss = (isSelected, _css) => css`
+const buttonCss = (isSelected, isDisabled, _css) => css`
   border-radius: 5px;
   border: 2px solid white;
   cursor: pointer;
@@ -13,14 +13,16 @@ const buttonCss = (isSelected, _css) => css`
   transition: all 0.25s ease-out;
   transition-property: color, background;
 
-  &:hover {
-    color: ${colors.black};
-    background: ${colors.white};
-  }
+  ${isDisabled ? '' : `
+    &:hover {
+      color: ${colors.black};
+      background: ${colors.white};
+    }
 
-  &:active {
-    transform: translateY(3px);
-  }
+    &:active {
+      transform: translateY(3px);
+    }
+  `}
 
   ${_css}
 `;
@@ -29,20 +31,21 @@ const Button = ({
   href,
   onClick = noop,
   isSelected,
+  isDisabled,
   _css,
   children
 }) => {
   const button = (
     <button
-      css={buttonCss(isSelected, _css)}
+      css={buttonCss(isSelected, isDisabled, _css)}
       type='button'
-      onClick={onClick}
+      onClick={isDisabled ? noop : onClick}
     >
       {children}
     </button>
   );
 
-  return href ? (
+  return (href && !isDisabled) ? (
     <Link href={href}>
       {button}
     </Link>

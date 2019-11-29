@@ -76,6 +76,7 @@ const Cube = () => {
           key={s}
           onClick={() => setShowOll(!showOll)}
           isSelected={showOll}
+          isDisabled
           _css='margin-left: 10px;'
         >
           {s}
@@ -103,6 +104,12 @@ const Cube = () => {
     </FlexContainer>
   );
 
+  const searchOptions = (
+    <FlexContainer alignItems='center'>
+      <h4>Search</h4>
+    </FlexContainer>
+  )
+
   const algorithms = []
     .concat(showOll ? OLL : [])
     .sort((a, b) => (sortFnMap[sort](a, b) * sortOrder));
@@ -112,6 +119,8 @@ const Cube = () => {
       {stepOptions}
       <Spacer height={5} />
       {sortOptions}
+      <Spacer height={5} />
+      {searchOptions}
       <Spacer height={20} />
       <hr />
       <Spacer height={20} />
