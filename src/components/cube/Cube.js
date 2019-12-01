@@ -6,6 +6,8 @@ import { FlexContainer, FlexItem, Image, Spacer, Button } from '../particles';
 import { mq } from '../styles';
 
 const algorithmCss = css`
+  margin-bottom: 10px;
+
   .id_and_image {
     width: 120px;
     flex: none;
@@ -27,12 +29,11 @@ const Algorithms = ({ algorithms = [], setSearchText }) => (
       <article css={algorithmCss} key={index}>
         <FlexContainer justifyContent='space-between'>
           <div className='id_and_image'>
-            <h4>{a.step} {a.id}</h4>
+            <h4>{a.step.toUpperCase()} {a.id}</h4>
             <Image
-              src={a.img}
-              width={80}
-              height={80}
-              external
+              src={`cube/${a.step}/${a.step}_${a.id}.gif`}
+              width={60}
+              height={60}
             />
           </div>
           <FlexItem>
@@ -120,7 +121,7 @@ const Cube = () => {
       ))}
       <input
         value={searchText}
-        placeholder="FRUR'U'F"
+        placeholder="ex. FRUR'U'F"
         onChange={e => setSearchText(
           // todo: filter out useless characters with regex
           e.target.value.replace(/[()\s]/g, '')
@@ -169,7 +170,7 @@ const Cube = () => {
       <Spacer height={20} />
       <p>Notes:</p>
       <p>
-        # Moves counts entire cube rotations (x) as one move, and 180 degree turns (U2) as one move. If multiple algorithms are listed, the shorter one is considered.
+        1. "Moves" counts entire cube rotations (x) as one move, and 180 degree turns (U2) as one move. If multiple algorithms are listed, the shorter one is considered.
       </p>
     </section>
   );

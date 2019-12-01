@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/5/55/O1.gif",
     name: "runway",
     algorithms: [
@@ -12,7 +12,7 @@ export default [
   },
   {
     id: 2,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/7/7f/O2.gif",
     name: "zamboni",
     algorithms: [
@@ -24,7 +24,7 @@ export default [
   },
   {
     id: 5,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/e/ef/O5.gif",
     name: "right back wide anti-sune (rbwas)",
     algorithms: [
@@ -35,7 +35,7 @@ export default [
   },
   {
     id: 6,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/b/b5/O6.gif",
     name: "left back wide anti-sune (lfwas)",
     algorithms: [
@@ -46,7 +46,7 @@ export default [
   },
   {
     id: 20,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/2/2e/O20.gif",
     name: "checkers",
     algorithms: [
@@ -58,7 +58,7 @@ export default [
   },
   {
     id: 21,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/c/c4/O21.gif",
     name: "cross",
     algorithms: [
@@ -69,7 +69,7 @@ export default [
   },
   {
     id: 22,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/a/a6/O22.gif",
     name: "wheel",
     algorithms: [
@@ -81,7 +81,7 @@ export default [
   },
   {
     id: 23,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/5/50/O23.gif",
     name: "headlights",
     algorithms: [
@@ -92,7 +92,7 @@ export default [
   },
   {
     id: 24,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/5/56/O24.gif",
     name: "chameleon",
     algorithms: [
@@ -103,7 +103,7 @@ export default [
   },
   {
     id: 25,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/5/51/O25.gif",
     name: "bowtie",
     algorithms: [
@@ -114,7 +114,7 @@ export default [
   },
   {
     id: 26,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/f/fe/O26.gif",
     name: "anti-sune",
     algorithms: [
@@ -125,7 +125,7 @@ export default [
   },
   {
     id: 27,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/3/3e/O27.gif",
     name: "sune",
     algorithms: [
@@ -136,7 +136,7 @@ export default [
   },
   {
     id: 28,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/c/c7/O28.gif",
     name: "stealth",
     algorithms: [
@@ -148,7 +148,7 @@ export default [
   },
   {
     id: 31,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/1/16/O31.gif",
     name: "couch",
     algorithms: [
@@ -159,7 +159,7 @@ export default [
   },
   {
     id: 32,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/6/6b/O32.gif",
     name: "anti-couch",
     algorithms: [
@@ -170,7 +170,7 @@ export default [
   },
   {
     id: 33,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/c/cd/O33.gif",
     name: "t-together",
     algorithms: [
@@ -181,7 +181,7 @@ export default [
   },
   {
     id: 34,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/1/11/O34.gif",
     name: "c-t",
     algorithms: [
@@ -192,7 +192,7 @@ export default [
   },
   {
     id: 35,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/b/b7/O35.gif",
     name: "stingray",
     algorithms: [
@@ -204,7 +204,7 @@ export default [
   },
   {
     id: 37,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/6/64/O37.gif",
     name: "mantaray",
     algorithms: [
@@ -215,7 +215,7 @@ export default [
   },
   {
     id: 43,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/5/5b/O43.gif",
     name: "anti-p",
     algorithms: [
@@ -226,7 +226,7 @@ export default [
   },
   {
     id: 44,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/d/d6/O44.gif",
     name: "p",
     algorithms: [
@@ -237,7 +237,7 @@ export default [
   },
   {
     id: 45,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/b/b2/O45.gif",
     name: "t-separate",
     algorithms: [
@@ -248,7 +248,7 @@ export default [
   },
   {
     id: 46,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/d/de/O46.gif",
     name: "stingray",
     algorithms: [
@@ -259,7 +259,7 @@ export default [
   },
   {
     id: 57,
-    step: "OLL",
+    step: "oll",
     img: "https://www.speedsolving.com/wiki/images/4/40/O57.gif",
     name: "h",
     algorithms: [
