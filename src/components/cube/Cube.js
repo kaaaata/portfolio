@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import OLL from './OLL';
+import PLL from './PLL';
 import CubeNotation from './CubeNotation';
 import { FlexContainer, FlexItem, Image, Spacer, Button } from '../particles';
 import { mq } from '../styles';
@@ -63,7 +64,10 @@ const sortFnMap = {
 };
 
 const Cube = () => {
-  const [showOll, setShowOll] = useState(true);
+  const [showSteps, setShowSteps] = useState({
+    oll: true,
+    pll: false
+  });
   const [sort, setSort] = useState('ID');
   const [sortOrder, setSortOrder] = useState(1); // 1 = asc, -1 = desc
   const [searchMode, setSearchMode] = useState('Notation');
@@ -72,15 +76,18 @@ const Cube = () => {
   const stepOptions = (
     <FlexContainer alignItems='center'>
       <h4>Steps</h4>
-      {['OLL'].map(s => (
+      {Object.keys(showSteps).map(s => (
         <Button
           key={s}
-          onClick={() => setShowOll(!showOll)}
-          isSelected={showOll}
-          isDisabled
+          onClick={() => setShowSteps({
+            ...showSteps,
+            [s]: !showSteps[s]
+          })}
+          isSelected={showSteps[s]}
+          isDisabled={showSteps[s] && Object.values(showSteps).filter(Boolean).length === 1}
           _css='margin-left: 10px;'
         >
-          {s}
+          {s.toUpperCase()}
         </Button>
       ))}
     </FlexContainer>
@@ -142,7 +149,8 @@ const Cube = () => {
   );
 
   const algorithms = []
-    .concat(showOll ? OLL : [])
+    .concat(showSteps.oll ? OLL : [])
+    .concat(showSteps.pll ? PLL : [])
     .filter((a) => {
       if (searchMode === 'Name') {
         return a.name.includes(searchText.toLowerCase());
@@ -170,7 +178,11 @@ const Cube = () => {
       <Spacer height={20} />
       <p>Notes:</p>
       <p>
-        1. "Moves" counts entire cube rotations (x) as one move, and 180 degree turns (U2) as one move. If multiple algorithms are listed, the shorter one is considered.
+        1. "Moves" counts do not count entire cube rotations (x). 180 degree turns (U2) count as one move. If multiple algorithms are listed, the shorter one's moves are counted.
+        <br />
+        2. Most of these algorithms are from speedsolving.com. The ones that aren't are either right-to-left mirrors, or the same algorithm refactored for a different angle. I plan to add notes at some point in the future.
+        <br />
+        3. Sometimes, speedsolving.com uses "two-primes", such as "R2'". I think it's for speed, but I found this to be subjective, so I removed the primes from these instances. I think it should be up to the user to decide which direction they want to do their double-turns.
       </p>
     </section>
   );
