@@ -37,7 +37,7 @@ const Algorithms = ({ algorithms = [], setSearchText }) => (
           </div>
           <FlexItem>
             <h4>"{a.name}"</h4>
-            {a.algos.map((a2, index2) => (
+            {a.algorithms.map((a2, index2) => (
               <CubeNotation notation={a2} key={index2} setSearchText={setSearchText} />
             ))}
           </FlexItem>
@@ -147,7 +147,7 @@ const Cube = () => {
         return a.name.includes(searchText.toLowerCase());
       }
 
-      return a.algos.some(
+      return a.algorithms.some(
         i => i.replace(/[()\s]/g, '').includes(searchText)
       );
     })
