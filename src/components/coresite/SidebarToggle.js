@@ -34,7 +34,7 @@ const sidebarToggleCss = isSidebarVisible => css`
   }
 `;
 
-const SidebarToggle = ({ isSidebarVisible, setIsSidebarVisible }) => (
+const SidebarToggleComponent = ({ isSidebarVisible, setIsSidebarVisible }) => (
   <div
     css={sidebarToggleCss(isSidebarVisible)}
     onClick={() => setIsSidebarVisible(!isSidebarVisible)}
@@ -52,4 +52,6 @@ const mapDispatchToProps = dispatch => ({
   setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarToggle);
+export const SidebarToggle = (
+  connect(mapStateToProps, mapDispatchToProps)(SidebarToggleComponent)
+);

@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors, fonts } from '../styles';
 import { graphqlQuery, saveText, trackStats } from '../utils/graphql';
 
-const CopyPaster = () => {
+export const CopyPaster = () => {
   const [inputText, setInputText] = useState('');
   const [isSaved, setIsSaved] = useState(true);
 
@@ -57,5 +57,3 @@ const CopyPaster = () => {
     </React.Fragment>
   );
 };
-
-export default CopyPaster;

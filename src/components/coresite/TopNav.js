@@ -1,6 +1,6 @@
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Link, FlexContainer, FlexItem } from '../particles';
-import SidebarToggle from './SidebarToggle';
+import { SidebarToggle } from './SidebarToggle';
 import { trackStats } from '../utils/graphql';
 import { topNavCss, mediaIconsCss } from './topNavCss';
 
@@ -22,7 +22,7 @@ const MediaIcons = () => mediaIcons.map(media => (
   </Link>
 ));
 
-const TopNav = () => (
+export const TopNav = () => (
   <section css={topNavCss}>
     <FlexContainer
       alignItems='center'
@@ -34,5 +34,3 @@ const TopNav = () => (
     </FlexContainer>
   </section>
 );
-
-export default TopNav;

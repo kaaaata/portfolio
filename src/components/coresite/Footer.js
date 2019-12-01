@@ -10,7 +10,7 @@ const footerCss = css`
   padding: 0 ${layout.MAIN_PADDING}px;
 `;
 
-const Footer = () => (
+export const Footer = () => (
   <FlexContainer
     alignItems='center'
     _css={footerCss}
@@ -18,5 +18,3 @@ const Footer = () => (
     <h2>© Cat 2019</h2>
   </FlexContainer>
 );
-
-export default Footer;

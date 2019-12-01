@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Button } from '../particles';
 import { layout } from '../styles';
-import Snake from './Snake';
+import { Snake } from './Snake';
 import { trackStats } from '../utils/graphql';
 import { introCss, secretCss } from './introCss';
 
@@ -14,7 +14,7 @@ const Logo = () => (
   />
 );
 
-const Intro = () => {
+export const Intro = () => {
   const [isSecretFound, setIsSecretFound] = useState(false);
 
   const secret = (
@@ -41,5 +41,3 @@ const Intro = () => {
     </section>
   );
 };
-
-export default Intro;

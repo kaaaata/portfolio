@@ -31,7 +31,7 @@ const snakeCss = css`
   `)}
 `;
 
-class Snake extends React.Component {
+export class Snake extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -253,5 +253,3 @@ class Snake extends React.Component {
     );
   }
 }
-
-export default Snake;

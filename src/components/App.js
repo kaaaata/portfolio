@@ -5,13 +5,19 @@ import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from './stores/actions';
 import { FlexContainer } from './particles';
-import { CopyPaster, TopNav, Footer, Sidebar, MainContent } from './coresite';
+import {
+  CopyPaster,
+  TopNav,
+  Footer,
+  Sidebar,
+  MainContent
+} from './coresite';
 import { Cube } from './cube';
 // import { Xiangqi } from './xiangqi';
 import { trackStats } from './utils/graphql';
 import { appCss, appContentCss } from './appCss';
 
-const App = ({
+const AppComponent = ({
   setCurrentRoute, // from withRouter
   location // from withRouter
 }) => {
@@ -59,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
   setCurrentRoute: payload => dispatch(actions.setCurrentRoute(payload))
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export const App = withRouter(connect(null, mapDispatchToProps)(AppComponent));

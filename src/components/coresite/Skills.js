@@ -19,7 +19,7 @@ const trackActivateSkill = debounce((skillName) => {
   trackStats('viewed_skill', skillName);
 }, 500);
 
-const Skills = () => {
+export const Skills = () => {
   const [activeSkill, setActiveSkill] = useState(null);
 
   const activateSkill = (skill) => {
@@ -88,5 +88,3 @@ const Skills = () => {
     </FlexContainer>
   );
 };
-
-export default Skills;

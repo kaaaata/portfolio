@@ -3,7 +3,7 @@ import { Spacer, Button, FlexContainer } from '../particles';
 import { trackStats } from '../utils/graphql';
 import { biographyCss } from './biographyCss';
 
-const Biography = () => (
+export const Biography = () => (
   <section css={biographyCss}>
     <h2>Catherine Han</h2>
     <h4>Software Engineer - San Francisco, CA</h4>
@@ -25,5 +25,3 @@ const Biography = () => (
     </FlexContainer>
   </section>
 );
-
-export default Biography;

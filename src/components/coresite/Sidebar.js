@@ -20,7 +20,7 @@ const sidebarSections = [
   ]
 ];
 
-const Sidebar = ({ isSidebarVisible }) => (
+const SidebarComponent = ({ isSidebarVisible }) => (
   <section css={sidebarCss(isSidebarVisible)}>
     {sidebarSections.map((links, index) => (
       <React.Fragment key={index}>
@@ -53,4 +53,4 @@ const mapStateToProps = state => ({
   isSidebarVisible: state.isSidebarVisible,
 });
 
-export default connect(mapStateToProps)(Sidebar);
+export const Sidebar = connect(mapStateToProps)(SidebarComponent);
