@@ -1,7 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { mq } from '../styles';
 
-const Spacer = ({ height }) => {
+export const Spacer = ({ height }) => {
   const heightCss = mq.genResponsiveCss('height', height);
 
   return (
@@ -13,5 +13,3 @@ const Spacer = ({ height }) => {
     />
   );
 };
-
-export default Spacer;

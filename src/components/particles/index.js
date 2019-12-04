@@ -1,7 +1,7 @@
-export { default as Filter } from './Filter';
-export { default as Link } from './Link';
-export { default as Image } from './Image';
-export { default as Button } from './Button';
-export { default as Spacer } from './Spacer';
-export { default as FlexContainer } from './FlexContainer';
-export { default as FlexItem } from './FlexItem';
+export { Filter } from './Filter';
+export { Link } from './Link';
+export { Image } from './Image';
+export { Button } from './Button';
+export { Spacer } from './Spacer';
+export { FlexContainer } from './FlexContainer';
+export { FlexItem } from './FlexItem';

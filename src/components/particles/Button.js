@@ -1,7 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { noop } from 'lodash';
 import { colors } from '../styles';
-import Link from './Link';
+import { Link } from './Link';
 
 const buttonCss = (isSelected, isDisabled, _css) => css`
   border-radius: 5px;
@@ -27,7 +27,7 @@ const buttonCss = (isSelected, isDisabled, _css) => css`
   ${_css}
 `;
 
-const Button = ({
+export const Button = ({
   href,
   onClick = noop,
   isSelected,
@@ -51,5 +51,3 @@ const Button = ({
     </Link>
   ) : button;
 };
-
-export default Button;

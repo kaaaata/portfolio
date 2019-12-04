@@ -26,8 +26,8 @@ const SidebarComponent = ({ isSidebarVisible }) => (
       <React.Fragment key={index}>
         {links.map((link, i) => (
           <Link
-            href={link.href}
             key={i}
+            href={link.href}
             onClick={() => trackStats('sidebar_link_click', link.href)}
           >
             <div

@@ -1,7 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { noop, omit } from 'lodash';
-import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
+import { noop } from 'lodash';
+import { Link as ReactRouterLink } from 'react-router-dom';
+import { HashLink as ReactRouterHashLink } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 import * as actions from '../stores/actions';
 
@@ -19,19 +19,13 @@ const LinkComponent = (props) => {
   const {
     href, onClick = noop, children, currentRoute, setIsSidebarVisible
   } = props;
-  const otherProps = omit(props, [
-    'href', 'onClick', 'children', 'currentRoute', 'dispatch', 'setIsSidebarVisible'
-  ]);
 
   if (!children) {
     return null;
   } else if (!href) {
+    // onClick not passed down to links without href
     return (
-      <span
-        css={linkCssNoHref}
-        // onClick not passed down to links without href
-        {...otherProps}
-      >
+      <span css={linkCssNoHref}>
         {children}
       </span>
     );
@@ -52,26 +46,24 @@ const LinkComponent = (props) => {
 
   if (useReactRouterHashLink) {
     return (
-      <HashLink
+      <ReactRouterHashLink
         to={href}
         css={linkCss}
         onClick={linkOnClick}
         smooth
-        {...otherProps}
       >
         {children}
-      </HashLink>
+      </ReactRouterHashLink>
     );
   } else if (useReactRouter) {
     return (
-      <Link
+      <ReactRouterLink
         to={href}
         css={linkCss}
         onClick={linkOnClick}
-        {...otherProps}
       >
         {children}
-      </Link>
+      </ReactRouterLink>
     );
   } else {
     return (
@@ -81,7 +73,6 @@ const LinkComponent = (props) => {
         rel='noopener noreferrer'
         css={linkCss}
         onClick={linkOnClick}
-        {...otherProps}
       >
         {children}
       </a>
@@ -96,4 +87,4 @@ const mapDispatchToProps = dispatch => ({
   setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LinkComponent);
+export const Link = connect(mapStateToProps, mapDispatchToProps)(LinkComponent);
