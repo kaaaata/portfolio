@@ -7,7 +7,11 @@ export const PLL = [
       "(M2 U M2 U2 M2 U M2)"
     ],
     squares: 4,
-    moves: 7
+    moves: 7,
+    effects: [
+      { from: 2, to: 8, mirror: true },
+      { from: 4, to: 6, mirror: true }
+    ]
   },
   {
     id: 'Ua',
@@ -18,7 +22,12 @@ export const PLL = [
       "y2 (R U' R U R U R U' R' U' R2)"
     ],
     squares: 3,
-    moves: 7
+    moves: 7,
+    effects: [
+      { from: 2, to: 4 },
+      { from: 4, to: 6 },
+      { from: 6, to: 2 }
+    ]
   },
   {
     id: 'Ub',
@@ -29,7 +38,12 @@ export const PLL = [
       "y2 (R2 U R U R' U' R' U' R' U R')"
     ],
     squares: 3,
-    moves: 7
+    moves: 7,
+    effects: [
+      { from: 2, to: 6 },
+      { from: 6, to: 4 },
+      { from: 4, to: 2 }
+    ]
   },
   {
     id: 'Z',
@@ -39,7 +53,11 @@ export const PLL = [
       "(M2 U)2 (M U2 M2 U2 M U2)"
     ],
     squares: 4,
-    moves: 10
+    moves: 10,
+    effects: [
+      { from: 2, to: 4, mirror: true },
+      { from: 8, to: 6, mirror: true }
+    ]
   },
   {
     id: 'Aa',
@@ -49,7 +67,12 @@ export const PLL = [
       "x' z2 (L' U L) D2 (L U' L') D2 L2"
     ],
     squares: 3,
-    moves: 9
+    moves: 9,
+    effects: [
+      { from: 1, to: 3 },
+      { from: 3, to: 9 },
+      { from: 9, to: 1 }
+    ]
   },
   {
     id: 'Ab',
@@ -59,7 +82,12 @@ export const PLL = [
       "x' (R U' R) D2 (R' U R) D2 R2"
     ],
     squares: 3,
-    moves: 9
+    moves: 9,
+    effects: [
+      { from: 3, to: 7 },
+      { from: 7, to: 9 },
+      { from: 9, to: 3 }
+    ]
   },
   {
     id: 'E',
@@ -69,7 +97,11 @@ export const PLL = [
       "y x' (R U' R' D) (R U R' D') (R U R' D) (R U' R' D')"
     ],
     squares: 4,
-    moves: 4
+    moves: 4,
+    effects: [
+      { from: 1, to: 3, mirror: true },
+      { from: 7, to: 9, mirror: true }
+    ]
   },
   {
     id: 'F',
@@ -79,7 +111,11 @@ export const PLL = [
       "y (R' U' F') (R U R' U' R' F R2 U' R' U' R U R') (U R)"
     ],
     squares: 4,
-    moves: 18
+    moves: 18,
+    effects: [
+      { from: 1, to: 3, mirror: true },
+      { from: 4, to: 6, mirror: true }
+    ]
   },
   {
     id: 'Ga',
@@ -89,7 +125,15 @@ export const PLL = [
       ""
     ],
     squares: 6,
-    moves: 0
+    moves: 0,
+    effects: [
+      { from: 1, to: 9 },
+      { from: 9, to: 7 },
+      { from: 7, to: 1 },
+      { from: 2, to: 4 },
+      { from: 4, to: 8 },
+      { from: 8, to: 2 }
+    ]
   },
   {
     id: 'Gb',
@@ -99,7 +143,15 @@ export const PLL = [
       ""
     ],
     squares: 6,
-    moves: 0
+    moves: 0,
+    effects: [
+      { from: 1, to: 7 },
+      { from: 7, to: 9 },
+      { from: 9, to: 1 },
+      { from: 2, to: 8 },
+      { from: 8, to: 4 },
+      { from: 4, to: 2 }
+    ]
   },
   {
     id: 'Gc',
@@ -109,7 +161,15 @@ export const PLL = [
       ""
     ],
     squares: 6,
-    moves: 0
+    moves: 0,
+    effects: [
+      { from: 3, to: 7 },
+      { from: 7, to: 9 },
+      { from: 9, to: 3 },
+      { from: 2, to: 6 },
+      { from: 6, to: 8 },
+      { from: 8, to: 2 }
+    ]
   },
   {
     id: 'Gd',
@@ -119,7 +179,15 @@ export const PLL = [
       ""
     ],
     squares: 6,
-    moves: 0
+    moves: 0,
+    effects: [
+      { from: 3, to: 9 },
+      { from: 9, to: 7 },
+      { from: 7, to: 3 },
+      { from: 2, to: 8 },
+      { from: 8, to: 6 },
+      { from: 6, to: 2 }
+    ]
   },
   {
     id: 'Ja',
@@ -130,7 +198,11 @@ export const PLL = [
       "y2 (R' U2 R U) (R' U2) (L U' R U L')"
     ],
     squares: 4,
-    moves: 11
+    moves: 11,
+    effects: [
+      { from: 1, to: 7, mirror: true },
+      { from: 4, to: 8, mirror: true }
+    ]
   },
   {
     id: 'Jb',
@@ -141,7 +213,11 @@ export const PLL = [
       "(R U R' F') (R U R' U' R' F R2 U' R') U'"
     ],
     squares: 4,
-    moves: 11
+    moves: 11,
+    effects: [
+      { from: 3, to: 9, mirror: true },
+      { from: 6, to: 8, mirror: true }
+    ]
   },
   {
     id: 'Na',
@@ -152,7 +228,11 @@ export const PLL = [
       "(r' D r U2)4 (r' D r)"
     ],
     squares: 4,
-    moves: 15
+    moves: 15,
+    effects: [
+      { from: 4, to: 6, mirror: true },
+      { from: 3, to: 7, mirror: true }
+    ]
   },
   {
     id: 'Nb',
@@ -163,7 +243,11 @@ export const PLL = [
       "(l D' l' U2)4 (l D' l')"
     ],
     squares: 4,
-    moves: 15
+    moves: 15,
+    effects: [
+      { from: 4, to: 6, mirror: true },
+      { from: 1, to: 9, mirror: true }
+    ]
   },
   {
     id: 'Ra',
@@ -173,7 +257,11 @@ export const PLL = [
       "y2 (L U2) (L' U2) (L F') (L' U' L U) (L F L2)"
     ],
     squares: 4,
-    moves: 15
+    moves: 15,
+    effects: [
+      { from: 2, to: 6, mirror: true },
+      { from: 7, to: 9, mirror: true }
+    ]
   },
   {
     id: 'Rb',
@@ -183,7 +271,11 @@ export const PLL = [
       "(R' U2) (R U2) (R' F) (R U R' U') (R' F' R2 U')",
     ],
     squares: 4,
-    moves: 14
+    moves: 14,
+    effects: [
+      { from: 1, to: 3, mirror: true },
+      { from: 6, to: 8, mirror: true }
+    ]
   },
   {
     id: 'T',
@@ -193,7 +285,11 @@ export const PLL = [
       "(R U R' U' R' F R2 U' R' U' R U R' F')",
     ],
     squares: 4,
-    moves: 14
+    moves: 14,
+    effects: [
+      { from: 3, to: 9, mirror: true },
+      { from: 4, to: 6, mirror: true }
+    ]
   },
   {
     id: 'V',
@@ -203,7 +299,11 @@ export const PLL = [
       "(R' U R' d') (R' F' R2 U') (R' U R') (F R F)",
     ],
     squares: 4,
-    moves: 14
+    moves: 14,
+    effects: [
+      { from: 1, to: 9, mirror: true },
+      { from: 2, to: 6, mirror: true }
+    ]
   },
   {
     id: 'Y',
@@ -213,6 +313,10 @@ export const PLL = [
       "(F R U' R' U' R U R' F') (R U R' U') (R' F R F')",
     ],
     squares: 4,
-    moves: 17
+    moves: 17,
+    effects: [
+      { from: 1, to: 9, mirror: true },
+      { from: 2, to: 4, mirror: true }
+    ]
   },
 ];
