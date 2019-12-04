@@ -1,6 +1,6 @@
-import mixins from './mixins';
+import { mixins } from './mixins';
 
-export default {
+export const effects = {
   flicker: `
     ${mixins.keyframes('flicker', `
       0% { opacity: 0.8; }

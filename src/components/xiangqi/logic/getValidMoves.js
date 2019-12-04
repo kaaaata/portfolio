@@ -1,5 +1,5 @@
 import { mapValues } from 'lodash';
-import isKingInCheck from './isKingInCheck';
+import { isKingInCheck } from './isKingInCheck';
 import * as utils from './utils';
 
 const isIndexOutOfBounds = (x, y, color, isXiang) => {
@@ -50,7 +50,7 @@ const isIndexUnderAttack = (index, friendlyColor) => {
   return false;
 };
 
-export default function getValidMoves(board, index, piecesList) {
+export const getValidMoves = (board, index, piecesList) => {
   const piece = board[index];
   const validations = {
     isTargetOutOfBounds: (x, y) => isIndexOutOfBounds(x, y),
@@ -167,4 +167,4 @@ export default function getValidMoves(board, index, piecesList) {
     || (validations.targetInCheck && validations.isKingInCheck(move))
     || (validations.isTargetUnderAttack && validations.isTargetUnderAttack(move, piece.color))
   ));
-}
+};

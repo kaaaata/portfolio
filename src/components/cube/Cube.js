@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import OLL from './OLL';
-import PLL from './PLL';
-import Algorithms from './Algorithms';
+import { OLL } from './OLL';
+import { PLL } from './PLL';
+import { Algorithms } from './Algorithms';
 import { FlexContainer, Spacer, Button } from '../particles';
 
 const sortFnMap = {
@@ -15,7 +15,7 @@ const sortFnMap = {
   Moves: (a, b) => a.moves - b.moves
 };
 
-const Cube = () => {
+export const Cube = () => {
   const [showSteps, setShowSteps] = useState({
     oll: true,
     pll: false
@@ -139,5 +139,3 @@ const Cube = () => {
     </section>
   );
 };
-
-export default Cube;

@@ -1,5 +1,5 @@
 
-export default {
+export const mixins = {
   keyframes: (animationName, css) => `
     @-webkit-keyframes ${animationName} {
       ${css}

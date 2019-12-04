@@ -54,7 +54,7 @@ const genNotationColor = (notation = '') => {
  * @param {string} algorithmString algorithm string
  * @returns {node} colorized cube notation component
  */
-const CubeNotation = ({ notation = '', setSearchText }) => {
+export const CubeNotation = ({ notation = '', setSearchText }) => {
   // divide string by parentheses
   const sequences = notationToSequences(notation);
 
@@ -73,5 +73,3 @@ const CubeNotation = ({ notation = '', setSearchText }) => {
     </h4>
   );
 };
-
-export default CubeNotation;

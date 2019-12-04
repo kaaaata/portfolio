@@ -38,7 +38,7 @@ const diagonalCss = rotation => css`
   margin-top: -1px;
 `;
 
-const BoardGridOverlay = () => <>
+export const BoardGridOverlay = () => <>
   <div css={boardGridOverlayBackgroundCss}>
     {range(0, 11).map(y => (
       range(0, 10).map(x => (
@@ -59,5 +59,3 @@ const BoardGridOverlay = () => <>
     ))}
   </div>
 </>;
-
-export default BoardGridOverlay;

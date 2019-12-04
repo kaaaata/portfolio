@@ -3,7 +3,7 @@ const possibleKingIndices = {
   black: ['3-7', '3-8', '3-9', '4-7', '4-8', '4-9', '5-7', '5-8', '5-9']
 };
 
-export default function isKingInCheck(board, color, piecesList) {
+export const isKingInCheck = (board, color, piecesList) => {
   // find the index occupied by active player's king
   let x, y;
   possibleKingIndices[color].forEach((index) => {
@@ -39,4 +39,4 @@ export default function isKingInCheck(board, color, piecesList) {
   // // validations.isTargetOutOfBounds = null;
   // // validations.targetHasFriendly = null;
   return false;
-}
+};

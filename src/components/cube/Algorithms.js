@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import CubeNotation from './CubeNotation';
+import { CubeNotation } from './CubeNotation';
 import { FlexContainer, FlexItem, Image } from '../particles';
 import { mq } from '../styles';
 
@@ -21,7 +21,7 @@ const algorithmCss = css`
   }
 `;
 
-const Algorithms = ({ algorithms = [], setSearchText }) => (
+export const Algorithms = ({ algorithms = [], setSearchText }) => (
   <section>
     {algorithms.map((a, index) => (
       <article css={algorithmCss} key={index}>
@@ -49,5 +49,3 @@ const Algorithms = ({ algorithms = [], setSearchText }) => (
     ))}
   </section>
 );
-
-export default Algorithms;

@@ -1,4 +1,4 @@
-export default function genNewXiangqiBoard() {
+export const genNewXiangqiBoard = () => {
   const board = {};
   const createPiece = (name, color, x, y) => {
     board[`${x}-${y}`] = { name, color, image: `xiangqi/${color}_${name}.png` };
@@ -30,4 +30,4 @@ export default function genNewXiangqiBoard() {
   });
 
   return board;
-}
+};

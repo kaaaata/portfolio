@@ -3,7 +3,7 @@ import { range } from 'lodash';
 import Draggable from 'react-draggable';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image } from '../particles';
-import BoardGridOverlay from './BoardGridOverlay';
+import { BoardGridOverlay } from './BoardGridOverlay';
 import { genNewXiangqiBoard, Game } from './logic';
 import {
   boardCss,
@@ -13,7 +13,7 @@ import {
   lastMoveHighlightCss
 } from './boardCss';
 
-class Board extends React.Component {
+export class Board extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -130,5 +130,3 @@ class Board extends React.Component {
     );
   }
 }
-
-export default Board;

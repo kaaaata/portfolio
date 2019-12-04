@@ -1,4 +1,4 @@
-export default {
+export const layout = {
   flexCenter: `
     display: flex;
     justify-content: center;

@@ -5,6 +5,4 @@
 // const Xiangqi = () => <Board />;
 // temporarily exporting nothing so I can remove react-draggable.
 // when using Board, re-install react-draggable.
-const Xiangqi = () => {};
-
-export default Xiangqi;
+export const Xiangqi = () => {};

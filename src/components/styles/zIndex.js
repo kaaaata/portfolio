@@ -13,10 +13,10 @@ const zIndexOrder = [
   'maximum'
   // highest
 ];
-const zIndex = {};
+const zIndexObject = {};
 
 zIndexOrder.forEach((item) => {
-  zIndex[item] = zIndexOrder.indexOf(item);
+  zIndexObject[item] = zIndexOrder.indexOf(item);
 });
 
-export default zIndex;
+export const zIndex = zIndexObject;

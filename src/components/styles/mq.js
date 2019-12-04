@@ -30,7 +30,7 @@ const tabletAndDesktop = css => `
   }
 `;
 
-export default {
+export const mq = {
   phone,
   tablet,
   phoneAndTablet,

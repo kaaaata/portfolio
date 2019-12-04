@@ -1,4 +1,4 @@
-export default [
+export const OLL = [
   {
     id: 1,
     step: "oll",

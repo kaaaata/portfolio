@@ -1,2 +1,2 @@
-export { default as genNewXiangqiBoard } from './genNewXiangqiBoard';
-export { default as Game } from './Game';
+export { genNewXiangqiBoard } from './genNewXiangqiBoard';
+export { Game } from './Game';

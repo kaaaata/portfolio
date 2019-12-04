@@ -1,7 +1,7 @@
-export { default as fonts } from './fonts';
-export { default as colors } from './colors';
-export { default as layout } from './layout';
-export { default as zIndex } from './zIndex';
-export { default as mq } from './mq';
-export { default as mixins } from './mixins';
-export { default as effects } from './effects';
+export { fonts } from './fonts';
+export { colors } from './colors';
+export { layout } from './layout';
+export { zIndex } from './zIndex';
+export { mq } from './mq';
+export { mixins } from './mixins';
+export { effects } from './effects';
