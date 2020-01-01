@@ -80,7 +80,10 @@ export const Algorithms = () => {
       ))}
       <input
         value={searchText}
-        placeholder="ex. FRUR'U'F"
+        placeholder={searchMode === 'Notation'
+          ? "ex. FRUR'U'F"
+          : "ex. sune"
+        }
         onChange={e => setSearchText(
           // todo: filter out useless characters with regex
           e.target.value.replace(/[()\s]/g, '')
