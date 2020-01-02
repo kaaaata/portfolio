@@ -12,7 +12,7 @@ import {
   EnemyDiscard,
   EnemyBanish
 } from './PileOfCards';
-import { cards } from './cards';
+import { cards, createCard } from './cards';
 
 const clashCss = css`
   width: 800px;
@@ -113,11 +113,10 @@ export const Clash = () => {
           ]);
           console.log('removed card', removedCard);
           if (removedCard.onDiscard) {
-            const mockCard = {
-              ...removedCard,
+            const mockCard = createCard({
               ...removedCard.onDiscard,
-              onDiscard: null
-            };
+              isMockCard: true
+            });
 
             rotatePerspective();
             generateActionsForCard(mockCard);
