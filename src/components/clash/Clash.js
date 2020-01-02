@@ -88,14 +88,14 @@ export class Clash extends React.Component {
     };
     const stateCopy = {
       player: {
-        deck: new ArrayOfCards([...this.state[stateKeys.player.deck]]),
-        discard: new ArrayOfCards([...this.state[stateKeys.player.discard]]),
-        banish: new ArrayOfCards([...this.state[stateKeys.player.banish]])
+        deck: new ArrayOfCards(this.state[stateKeys.player.deck]),
+        discard: new ArrayOfCards(this.state[stateKeys.player.discard]),
+        banish: new ArrayOfCards(this.state[stateKeys.player.banish])
       },
       opponent: {
-        deck: new ArrayOfCards([...this.state[stateKeys.opponent.deck]]),
-        discard: new ArrayOfCards([...this.state[stateKeys.opponent.discard]]),
-        banish: new ArrayOfCards([...this.state[stateKeys.opponent.banish]])
+        deck: new ArrayOfCards(this.state[stateKeys.opponent.deck]),
+        discard: new ArrayOfCards(this.state[stateKeys.opponent.discard]),
+        banish: new ArrayOfCards(this.state[stateKeys.opponent.banish])
       }
     };
 

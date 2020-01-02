@@ -1,6 +1,6 @@
 export class ArrayOfCards {
   constructor(cards) {
-    this.cards = cards;
+    this.cards = [...cards];
   }
 
   getTopCard() {
