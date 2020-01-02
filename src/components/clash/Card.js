@@ -41,7 +41,8 @@ const cardBodyCss = css`
 
 export const Card = ({
   cardProps,
-  renderProps
+  renderProps,
+  onClick
 }) => {
   const {
     name,
@@ -86,6 +87,7 @@ export const Card = ({
       src='/clash/dirt.png'
       width={width}
       height={height}
+      onClick={onClick}
       _css={cardCss(x, y, transformCss)}
     >
       <Filter

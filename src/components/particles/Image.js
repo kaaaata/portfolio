@@ -11,6 +11,7 @@ export const Image = (props) => {
     external = false,
     className = '',
     _css = '',
+    onClick = () => {},
     children
   } = props;
 
@@ -32,6 +33,7 @@ export const Image = (props) => {
     <div
       className={`image ${className}`}
       css={imageCss}
+      onClick={onClick}
     >
       {children}
     </div>

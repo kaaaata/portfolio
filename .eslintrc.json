@@ -28,7 +28,11 @@
     "react/destructuring-assignment": "off",
     "one-var": "off",
     "one-var-declaration-per-line": "off",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "no-loop-func": "off",
+    "no-shadow": "off",
+    "arrow-parens": "off",
+    "dot-notation": "off"
   },
   "env": {
     "browser": true,
