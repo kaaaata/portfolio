@@ -178,7 +178,7 @@ export const Clash = () => {
 
   return (
     <section css={clashCss}>
-      <Card cardProps={cards['Strike']} renderProps={{ x: 300, y: 5 }} />
+      <Card cardProps={cards['Strike']} renderProps={{ x: 310, y: 5 }} />
 
       <div style={{ perspective: '1600px' }}>
         <EnemyDeck cards={enemyDeck} />
@@ -190,7 +190,7 @@ export const Clash = () => {
         <Card
           key={index}
           cardProps={card}
-          renderProps={{ x: 150 * (index + 1), y: 290 }}
+          renderProps={{ x: 175 + 135 * index, y: 280 }}
           onClick={() => playCard(card, isPlayersTurn)}
         />
       ))}

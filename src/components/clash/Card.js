@@ -53,8 +53,8 @@ export const Card = ({
   } = cardProps;
 
   const {
-    width = 140,
-    height = 160,
+    width = 125,
+    height = 150,
     x = 0,
     y = 0,
     isInPileOfCards,

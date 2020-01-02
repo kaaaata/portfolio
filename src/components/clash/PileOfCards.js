@@ -17,8 +17,8 @@ const PileOfCards = ({ cards, renderProps }) => {
     position: absolute;
     left: ${x - 5}px;
     top: ${y - 5}px;
-    width: 150px;
-    height: 170px;
+    width: 135px;
+    height: 160px;
     border: 2px solid ${themeColor};
     transform: rotate3d(1, 0, 0, 65deg);
   `;
@@ -27,8 +27,8 @@ const PileOfCards = ({ cards, renderProps }) => {
     position: absolute;
     left: ${countX}px;
     top: ${countY}px;
-    width: 150px;
-    height: 170px;
+    width: 135px;
+    height: 160px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -69,41 +69,41 @@ const PileOfCards = ({ cards, renderProps }) => {
 export const YourDeck = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 150, y: 420, themeColor: colors.green, countX: 140, countY: 420 }}
+    renderProps={{ x: 150, y: 440, themeColor: colors.green, countX: 140, countY: 445 }}
   />
 );
 
 export const YourDiscard = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 380, y: 420, themeColor: colors.red, countX: 385, countY: 420 }}
+    renderProps={{ x: 395, y: 440, themeColor: colors.red, countX: 395, countY: 445 }}
   />
 );
 
 export const YourBanish = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 540, y: 420, themeColor: colors.black, countX: 550, countY: 420 }}
+    renderProps={{ x: 540, y: 440, themeColor: colors.black, countX: 545, countY: 445 }}
   />
 );
 
 export const EnemyBanish = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 50, y: 125, themeColor: colors.black, countX: 35, countY: 110 }}
+    renderProps={{ x: 50, y: 130, themeColor: colors.black, countX: 35, countY: 125 }}
   />
 );
 
 export const EnemyDiscard = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 210, y: 125, themeColor: colors.red, countX: 200, countY: 110 }}
+    renderProps={{ x: 195, y: 130, themeColor: colors.red, countX: 185, countY: 125 }}
   />
 );
 
 export const EnemyDeck = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 430, y: 125, themeColor: colors.green, countX: 435, countY: 110 }}
+    renderProps={{ x: 450, y: 130, themeColor: colors.green, countX: 455, countY: 125 }}
   />
 );
