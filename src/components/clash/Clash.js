@@ -92,7 +92,7 @@ export const Clash = () => {
       if (attack) {
         for (let i = 0; i < attack; i++) {
           if (!opponentDeck.length) {
-            return;
+            break;
           }
 
           const removedCard = deckUtils.getTopCard(opponentDeck);
@@ -131,7 +131,7 @@ export const Clash = () => {
       if (heal) {
         for (let i = 0; i < heal; i++) {
           if (!playerDiscard.length) {
-            return;
+            break;
           }
 
           const healedCard = deckUtils.getTopCard(playerDiscard);
@@ -157,23 +157,23 @@ export const Clash = () => {
     generateActionsForCard(card);
     console.log('actions=', actions);
 
-    if (!actions.length) {
-      return;
+    if (actions.length) {
+      let i = 0;
+      interval = setInterval(() => {
+        actions[i].forEach(action => {
+          const { pile, setter, message } = action;
+          console.log(message);
+          setter(pile);
+        });
+
+        if (++i === actions.length) {
+          setIsAnimating(false);
+          clearInterval(interval);
+        }
+      }, 500);
+    } else {
+      setIsAnimating(false);
     }
-
-    let i = 0;
-    interval = setInterval(() => {
-      actions[i].forEach(action => {
-        const { pile, setter, message } = action;
-        console.log(message);
-        setter(pile);
-      });
-
-      if (++i === actions.length) {
-        setIsAnimating(false);
-        clearInterval(interval);
-      }
-    }, 500);
   };
 
   return (
