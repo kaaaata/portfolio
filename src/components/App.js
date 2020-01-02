@@ -13,6 +13,7 @@ import {
   MainContent
 } from './coresite';
 import { Cube } from './cube';
+import { Clash } from './clash';
 // import { Xiangqi } from './xiangqi';
 import { trackStats } from './utils/graphql';
 import { appCss, appContentCss } from './appCss';
@@ -46,6 +47,10 @@ const AppComponent = ({
           <Route
             exact path="/cube"
             render={() => <Cube />}
+          />
+          <Route
+            exact path="/clash"
+            render={() => <Clash />}
           />
           {/* <Route
             exact path="/xiangqi"

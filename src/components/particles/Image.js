@@ -10,7 +10,8 @@ export const Image = (props) => {
     circular,
     external = false,
     className = '',
-    _css = ''
+    _css = '',
+    children
   } = props;
 
   const widthCss = mq.genResponsiveCss('width', width);
@@ -31,6 +32,8 @@ export const Image = (props) => {
     <div
       className={`image ${className}`}
       css={imageCss}
-    />
+    >
+      {children}
+    </div>
   );
 };
