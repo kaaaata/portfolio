@@ -2,7 +2,14 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer } from '../particles';
 import { Card } from './Card';
-import { PileOfCards } from './PileOfCards';
+import {
+  YourDeck,
+  YourDiscard,
+  YourBanish,
+  EnemyDeck,
+  EnemyDiscard,
+  EnemyBanish
+} from './PileOfCards';
 
 const card = {
   name: 'Strike',
@@ -30,20 +37,22 @@ export const Clash = () => {
         Add Card
       </button>
 
+      <Card cardProps={card} renderProps={{ x: 300, y: 5 }} />
+
       <div style={{ perspective: '1600px' }}>
-        <PileOfCards cards={cards} renderProps={{ x: 50, y: 100 }} />
-        <PileOfCards cards={cards} renderProps={{ x: 210, y: 100 }} />
-        <PileOfCards cards={cards} renderProps={{ x: 425, y: 100 }} />
+        <EnemyDeck cards={cards} />
+        <EnemyDiscard cards={cards} />
+        <EnemyBanish cards={cards} />
       </div>
 
-      <Card cardProps={card} renderProps={{ x: 150, y: 255 }} />
-      <Card cardProps={card} renderProps={{ x: 310, y: 255 }} />
-      <Card cardProps={card} renderProps={{ x: 470, y: 255 }} />
+      <Card cardProps={card} renderProps={{ x: 150, y: 290 }} />
+      <Card cardProps={card} renderProps={{ x: 300, y: 290 }} />
+      <Card cardProps={card} renderProps={{ x: 450, y: 290 }} />
 
       <div style={{ perspective: '1600px' }}>
-        <PileOfCards cards={yourDeck} renderProps={{ x: 150, y: 425 }} />
-        <PileOfCards cards={cards} renderProps={{ x: 375, y: 425 }} />
-        <PileOfCards cards={cards} renderProps={{ x: 535, y: 425 }} />
+        <YourDeck cards={yourDeck} />
+        <YourDiscard cards={cards} />
+        <YourBanish cards={cards} />
       </div>
 
 
