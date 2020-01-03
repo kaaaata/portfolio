@@ -142,9 +142,11 @@ export class Clash extends React.Component {
     const removeTopCardFromStack = () => {
       if (!card.isMockCard) {
         const removedCard = stateCopy.stack.removeTopCard();
-        removedCard.location = 'discard';
-        console.log('asdf removed card', removedCard);
-        stateCopy[removedCard.player].discard.addCardToTop(removedCard);
+        removedCard.location = removedCard.type === 'potion'
+          ? 'banish'
+          : 'discard';
+
+        stateCopy[removedCard.player][removedCard.location].addCardToTop(removedCard);
 
         logs.push(`removing card from stack: "${removedCard.name}"`);
         actions.push([
@@ -153,8 +155,8 @@ export class Clash extends React.Component {
             stateKey: 'stack'
           },
           {
-            pile: [...stateCopy[removedCard.player].discard.cards],
-            stateKey: stateKeys[removedCard.player].discard
+            pile: [...stateCopy[removedCard.player][removedCard.location].cards],
+            stateKey: stateKeys[removedCard.player][removedCard.location]
           }
         ]);
       }
@@ -274,7 +276,7 @@ export class Clash extends React.Component {
           <Card
             key={index}
             cardProps={card}
-            renderProps={{ x: 310 + index * 5, y: 5 + index * 5 }}
+            renderProps={{ x: 310 + index * 10, y: 5 + index * 10 }}
           />
         ))}
 
