@@ -1,6 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors } from '../styles';
-import { Card } from './Card';
+import { Card, PileCardPlaceholder } from './Card';
 
 const PileOfCards = ({ cards, renderProps }) => {
   const {
@@ -42,16 +42,23 @@ const PileOfCards = ({ cards, renderProps }) => {
     <div>
       <div css={outlineCss} />
       {cards.map((card, index) => (
-        <Card
-          cardProps={card}
-          renderProps={{
-            x,
-            y: y - index * 1,
-            isInPileOfCards: true,
-            shouldAnimateEntry: index === cards.length - 1
-          }}
-          key={index}
-        />
+        (index >= cards.length - 2) ? (
+          <Card
+            key={index}
+            cardProps={card}
+            renderProps={{
+              x,
+              y: y - index,
+              isInPileOfCards: true,
+              shouldAnimateEntry: index === cards.length - 1
+            }}
+          />
+        ) : (
+          <PileCardPlaceholder
+            key={index}
+            renderProps={{ x, y: y - index }}
+          />
+        )
       ))}
       <div css={cardCountContainerCss}>
         <div className='card_count'>
