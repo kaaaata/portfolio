@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Spacer, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
@@ -13,7 +13,7 @@ const cardCss = (x, y, transformCss, onClick) => css`
   ${onClick ? `
     &:hover {
       transform: scale(1.25);
-      z-index: ${zIndex.maximum};
+      z-index: ${zIndex.mouseEventArea5};
     }
   ` : transformCss}
   cursor: ${onClick ? 'pointer' : 'default'};
@@ -24,16 +24,44 @@ const cardBodyCss = css`
   width: 100%;
   height: 100%;
   font-size: 12px;
+  text-shadow: 2px 2px 4px ${colors.black};
 
   .name {
     text-align: center;
     padding: 5px;
   }
 
-  .image {
+  .image_container {
     display: flex;
     justify-content: center;
+    position: relative;
     padding: 10px;
+
+    .filter {
+      margin-top: -10px;
+    }
+
+    .attack, .defense {
+      font-size: 24px;
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      text-align: center;
+
+      .number {
+        margin-top: 8px;
+        margin-left: -4px;
+      }
+
+      &.defense {
+        left: unset;
+        right: 5px;
+
+        .number {
+          margin-left: 0;
+        }
+      }
+    }
   }
 
   .border {
@@ -42,6 +70,7 @@ const cardBodyCss = css`
   }
 
   .description {
+    font-size: 10px;
     padding: 5px;
   }
 `;
@@ -56,7 +85,9 @@ export const Card = ({
     image,
     rarity,
     attack,
-    defense
+    defense,
+    description,
+    type
   } = cardProps;
 
   const {
@@ -89,33 +120,61 @@ export const Card = ({
     }, 0);
   });
 
+  const cardArt = (
+    <React.Fragment>
+      <Spacer height={48} />
+      <Image
+        src={`/clash/${image}.png`}
+        width={48}
+        height={48}
+        _css='position: absolute;'
+      />
+    </React.Fragment>
+  );
+
+  const attackDisplay = (
+    <Image
+      className='attack'
+      src='/clash/attack.png'
+      width={20}
+      height={20}
+    >
+      <div className='number'>{attack}</div>
+    </Image>
+  );
+
+  const defenseDisplay = (
+    <Image
+      className='defense'
+      src='/clash/defense.png'
+      width={20}
+      height={20}
+    >
+      <div className='number'>{defense}</div>
+    </Image>
+  );
+
   return (
     <Image
-      src='/clash/dirt.png'
+      src='/clash/rock.png'
       width={width}
       height={height}
       onClick={onClick}
       _css={cardCss(x, y, transformCss, onClick)}
     >
-      <Filter
-        opacity={0.4}
-        color={colors.black}
-      />
+      <Filter opacity={0.45} color={colors.black} />
       <div css={cardBodyCss}>
-        <div className='name'>
-          {name}
-        </div>
+        <div className='name'>{name}</div>
         <div className='border' />
-        <div className='image'>
-          <Image
-            src={`/clash/${image}.png`}
-            width={48}
-            height={48}
-          />
+        <div className='image_container'>
+          <Filter opacity={0.25} color={colors.white} />
+          {cardArt}
+          {attackDisplay}
+          {defenseDisplay}
         </div>
         <div className='border' />
         <div className='description'>
-          +1 Strength
+          {description}
         </div>
       </div>
     </Image>

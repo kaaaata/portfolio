@@ -9,20 +9,23 @@ const cardTemplate = {
   heal: null,
   onDiscard: null,
   type: '',
+  description: '',
   isMockCard: false // "pseudo" card for discard effects, etc.
 };
 
 export const createCard = (properties = {}) => {
-  return {
+  const card = {
     ...cardTemplate,
     ...properties
   };
+
+  return card;
 };
 
 const attacks = [
   createCard({
     name: 'Strike',
-    image: 'sword',
+    image: 'strike',
     rarity: 'common',
     attack: 5,
     defense: 0
@@ -39,7 +42,8 @@ const potions = [
     heal: 3,
     onDiscard: {
       heal: 3
-    }
+    },
+    description: 'Heal 3.'
   })
 ].map(card => (
   { ...card, type: 'potion' }
