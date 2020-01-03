@@ -118,8 +118,7 @@ export class Clash extends React.Component {
       activePlayer = temp;
     };
 
-    const generateActionsForCard = (card, index) => {
-      // move to stack
+    const addCardToStack = (card, index) => {
       if (!card.isMockCard) {
         if (card.location === 'yourHand') {
           stateCopy.yourHand.removeCardByIndex(index);
@@ -142,6 +141,31 @@ export class Clash extends React.Component {
           }
         ]);
       }
+    };
+
+    const removeTopCardFromStack = () => {
+      if (!card.isMockCard) {
+        const removedCard = stateCopy.stack.removeTopCard();
+        removedCard.location = 'discard';
+        stateCopy[activePlayer].discard.addCardToTop(removedCard);
+
+        logs.push(`removing card from stack: "${removedCard.name}"`);
+        actions.push([
+          {
+            pile: [...stateCopy.stack.cards],
+            stateKey: 'stack'
+          },
+          {
+            pile: [...stateCopy[activePlayer].discard.cards],
+            stateKey: stateKeys[activePlayer].discard
+          }
+        ]);
+      }
+    };
+
+    const generateActionsForCard = (card, index) => {
+      // move to stack
+      addCardToStack(card, index);
 
       // attack
       const attack = card.attack;
@@ -207,24 +231,7 @@ export class Clash extends React.Component {
         }
       }
 
-      // remove card from stack
-      if (!card.isMockCard) {
-        stateCopy.stack.removeTopCard();
-        card.location = 'discard';
-        stateCopy[activePlayer].discard.addCardToTop(card);
-
-        logs.push(`removing card from stack: "${card.name}"`);
-        actions.push([
-          {
-            pile: [...stateCopy.stack.cards],
-            stateKey: 'stack'
-          },
-          {
-            pile: [...stateCopy[activePlayer].discard.cards],
-            stateKey: stateKeys[activePlayer].discard
-          }
-        ]);
-      }
+      removeTopCardFromStack();
     };
 
     generateActionsForCard(card, index);
