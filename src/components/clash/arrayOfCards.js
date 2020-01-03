@@ -11,7 +11,7 @@ export class ArrayOfCards {
     return this.cards.pop();
   }
 
-  removeCardByIndex(index) {
+  removeCardAtIndex(index) {
     const removedCard = this.cards.splice(index, 1);
     return removedCard;
   }
