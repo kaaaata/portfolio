@@ -29,18 +29,18 @@ export class Clash extends React.Component {
     super(props);
     this.state = {
       yourDeck: [
-        ...Array(15).fill(cards['Strike']).map(card => ({ ...card, player: 'you' })),
-        { ...cards['Healing Potion'], player: 'you' }
-      ],
+        ...Array(15).fill(cards['Strike']),
+        cards['Healing Potion']
+      ].map(card => ({ ...card, player: 'you', location: 'deck' })),
       yourDiscard: [
-        ...Array(3).fill(cards['Strike']).map(card => ({ ...card, player: 'you' })),
-      ],
+        ...Array(3).fill(cards['Strike']),
+      ].map(card => ({ ...card, player: 'you', location: 'discard' })),
       yourBanish: [],
       enemyDeck: [
         ...Array(13).fill(cards['Strike']),
         cards['Healing Potion'],
         ...Array(3).fill(cards['Strike'])
-      ].map(card => ({ ...card, player: 'opponent' })),
+      ].map(card => ({ ...card, player: 'opponent', location: 'deck' })),
       enemyDiscard: [],
       enemyBanish: [],
 
@@ -57,12 +57,14 @@ export class Clash extends React.Component {
   componentDidMount() {
     const { yourDeck } = this.state;
     this.setState({
-      yourHand: yourDeck.slice(yourDeck.length - 3, yourDeck.length),
+      yourHand: yourDeck
+        .slice(yourDeck.length - 3, yourDeck.length)
+        .map(card => ({ ...card, location: 'yourHand' })),
       yourDeck: yourDeck.slice(0, yourDeck.length - 3)
     });
   }
 
-  playCard(card) {
+  playCard(card, index) {
     const {
       isAnimating,
       isPlayersTurn
@@ -96,7 +98,9 @@ export class Clash extends React.Component {
         deck: new ArrayOfCards(this.state[stateKeys.opponent.deck]),
         discard: new ArrayOfCards(this.state[stateKeys.opponent.discard]),
         banish: new ArrayOfCards(this.state[stateKeys.opponent.banish])
-      }
+      },
+      stack: new ArrayOfCards(this.state.stack),
+      yourHand: new ArrayOfCards(this.state.yourHand)
     };
 
     let activePlayer = card.player === 'you' ? 'player' : 'opponent';
@@ -114,7 +118,31 @@ export class Clash extends React.Component {
       activePlayer = temp;
     };
 
-    const generateActionsForCard = (card) => {
+    const generateActionsForCard = (card, index) => {
+      // move to stack
+      if (!card.isMockCard) {
+        if (card.location === 'yourHand') {
+          stateCopy.yourHand.removeCardByIndex(index);
+          stateCopy.yourHand.addCardAtIndex(null, index);
+        } else {
+          stateCopy[activePlayer][card.location].removeCardByIndex(index);
+        }
+        card.location = 'stack';
+        stateCopy.stack.addCardToTop(card);
+
+        logs.push(`adding card to stack: "${card.name}"`);
+        actions.push([
+          {
+            pile: [...stateCopy.stack.cards],
+            stateKey: 'stack'
+          },
+          {
+            pile: [...stateCopy.yourHand.cards],
+            stateKey: 'yourHand'
+          }
+        ]);
+      }
+
       // attack
       const attack = card.attack;
       if (attack) {
@@ -124,6 +152,7 @@ export class Clash extends React.Component {
           }
 
           const removedCard = stateCopy[activeOpponent].deck.removeTopCard();
+          removedCard.location = 'discard';
           stateCopy[activeOpponent].discard.addCardToTop(removedCard);
 
           logs.push('hitting opponent for 1');
@@ -141,11 +170,12 @@ export class Clash extends React.Component {
           if (removedCard.onDiscard) {
             const mockCard = createCard({
               ...removedCard.onDiscard,
-              isMockCard: true
+              isMockCard: true,
+              location: 'discard'
             });
 
             rotatePerspective();
-            generateActionsForCard(mockCard);
+            generateActionsForCard(mockCard, 0);
             rotatePerspective();
           }
         }
@@ -160,6 +190,7 @@ export class Clash extends React.Component {
           }
 
           const healedCard = stateCopy[activePlayer].discard.removeTopCard();
+          healedCard.location = 'deck';
           stateCopy[activePlayer].deck.addCardToTop(healedCard);
 
           logs.push('healing opponent for 1');
@@ -175,9 +206,28 @@ export class Clash extends React.Component {
           ]);
         }
       }
+
+      // remove card from stack
+      if (!card.isMockCard) {
+        stateCopy.stack.removeTopCard();
+        card.location = 'discard';
+        stateCopy[activePlayer].discard.addCardToTop(card);
+
+        logs.push(`removing card from stack: "${card.name}"`);
+        actions.push([
+          {
+            pile: [...stateCopy.stack.cards],
+            stateKey: 'stack'
+          },
+          {
+            pile: [...stateCopy[activePlayer].discard.cards],
+            stateKey: stateKeys[activePlayer].discard
+          }
+        ]);
+      }
     };
 
-    generateActionsForCard(card);
+    generateActionsForCard(card, index);
     console.log('actions=', actions);
     logs.forEach(message => {
       console.log(message);
@@ -228,14 +278,14 @@ export class Clash extends React.Component {
           <EnemyBanish cards={enemyBanish} />
         </div>
 
-        {yourHand.map((card, index) => (
+        {yourHand.map((card, index) => (card ? (
           <Card
             key={index}
             cardProps={card}
             renderProps={{ x: 175 + 135 * index, y: 280 }}
-            onClick={() => this.playCard(card)}
+            onClick={() => this.playCard(card, index)}
           />
-        ))}
+        ) : null))}
 
         <div className='your_side'>
           <YourDeck cards={yourDeck} />

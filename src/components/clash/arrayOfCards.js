@@ -11,8 +11,18 @@ export class ArrayOfCards {
     return this.cards.pop();
   }
 
+  removeCardByIndex(index) {
+    const removedCard = this.cards.splice(index, 1);
+    return removedCard;
+  }
+
   addCardToTop(card) {
     this.cards.push(card);
+    return this.cards;
+  }
+
+  addCardAtIndex(card, index) {
+    this.cards.splice(index, 0, card);
     return this.cards;
   }
 }

@@ -32,7 +32,8 @@
     "no-loop-func": "off",
     "no-shadow": "off",
     "arrow-parens": "off",
-    "dot-notation": "off"
+    "dot-notation": "off",
+    "no-param-reassign": "off"
   },
   "env": {
     "browser": true,
