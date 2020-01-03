@@ -1,9 +1,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { ArrayOfCards } from './arrayOfCards';
-import { Spacer } from '../particles';
 import { Card } from './Card';
-import { shuffle } from 'lodash';
 import {
   YourDeck,
   YourDiscard,
@@ -12,7 +10,8 @@ import {
   EnemyDiscard,
   EnemyBanish
 } from './PileOfCards';
-import { cards, createCard } from './cards';
+import { genRandomDeck } from './cards/cards';
+import { createCard } from './cards/utils';
 
 const clashCss = css`
   width: 800px;
@@ -29,18 +28,12 @@ export class Clash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      yourDeck: [
-        ...Array(15).fill(cards['Strike']),
-        cards['Healing Potion']
-      ].map(card => ({ ...card, player: 'you', location: 'deck' })),
-      yourDiscard: [
-        ...Array(3).fill(cards['Strike']),
-      ].map(card => ({ ...card, player: 'you', location: 'discard' })),
+      yourDeck: genRandomDeck()
+        .map(card => ({ ...card, player: 'you', location: 'deck' })),
+      yourDiscard: [],
       yourBanish: [],
-      enemyDeck: shuffle([
-        ...Array(20).fill(cards['Strike']),
-        ...Array(3).fill(cards['Healing Potion'])
-      ].map(card => ({ ...card, player: 'enemy', location: 'discard' }))),
+      enemyDeck: genRandomDeck()
+        .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
       enemyDiscard: [],
       enemyBanish: [],
 
@@ -193,10 +186,24 @@ export class Clash extends React.Component {
       addCardToStack(card, index);
 
       // attack
-      const attack = card.attack;
-      if (attack) {
+      if (typeof card.attack === 'number') {
+        let totalDamage = card.attack;
+        // add strength
+        if (!card.unblockble) {
+          // subtract enemy armor
+        }
+        if (card.necro) {
+          const bonusNecroDamage = Math.floor(
+            stateCopy.you.discard.cards.length / card.necro
+          );
+          totalDamage += bonusNecroDamage;
+        }
+        if (card.meltsArmor) {
+          // for every point of enemy armor, damage += 2
+        }
+
         const opponent = card.player === 'you' ? 'enemy' : 'you';
-        for (let i = 0; i < attack; i++) {
+        for (let i = 0; i < totalDamage; i++) {
           if (!stateCopy[opponent].deck.cards.length) {
             break;
           }

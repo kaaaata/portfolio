@@ -87,7 +87,9 @@ export const Card = ({
     attack,
     defense,
     description,
-    type
+    type,
+    heal,
+    onDiscard
   } = cardProps;
 
   const {
@@ -154,6 +156,12 @@ export const Card = ({
     </Image>
   );
 
+  let descriptionText = '';
+  if (heal) {
+    descriptionText += `Heal ${heal}. `;
+  }
+  descriptionText += description;
+
   return (
     <Image
       src='/clash/rock.png'
@@ -174,7 +182,7 @@ export const Card = ({
         </div>
         <div className='border' />
         <div className='description'>
-          {description}
+          {descriptionText}
         </div>
       </div>
     </Image>

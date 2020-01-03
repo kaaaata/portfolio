@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { Image, Spacer, Filter, FlexContainer } from '../particles';
-import { colors, zIndex } from '../styles';
+import { colors } from '../styles';
 import { Card } from './Card';
 
 const PileOfCards = ({ cards, renderProps }) => {
