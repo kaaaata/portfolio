@@ -1,4 +1,4 @@
-import { keyBy, sampleSize, shuffle } from 'lodash';
+import { keyBy, shuffle } from 'lodash';
 import { attacks } from './attacks';
 import { potions } from './potions';
 
@@ -8,14 +8,12 @@ export const cards = {
 };
 
 export const genRandomDeck = () => {
-  // make it 10% potions 90% cards or something
+  const deck = [
+    ...attacks,
+    ...attacks,
+    ...attacks,
+    ...potions
+  ].slice(0, 60);
 
-  const deck = shuffle([
-    ...sampleSize(attacks, 10),
-    ...sampleSize(attacks, 10),
-    ...sampleSize(attacks, 10),
-    ...sampleSize(potions, 5)
-  ]);
-
-  return deck;
+  return shuffle(deck);
 };

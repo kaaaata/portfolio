@@ -15,7 +15,7 @@ const PileOfCards = ({ cards, renderProps }) => {
     position: absolute;
     left: ${x - 5}px;
     top: ${y - 5}px;
-    width: 135px;
+    width: 130px;
     height: 160px;
     border: 2px solid ${themeColor};
     transform: rotate3d(1, 0, 0, 65deg);
@@ -25,7 +25,7 @@ const PileOfCards = ({ cards, renderProps }) => {
     position: absolute;
     left: ${countX}px;
     top: ${countY}px;
-    width: 135px;
+    width: 130px;
     height: 160px;
     display: flex;
     justify-content: center;
@@ -46,7 +46,7 @@ const PileOfCards = ({ cards, renderProps }) => {
           cardProps={card}
           renderProps={{
             x,
-            y: y - index * 2,
+            y: y - index * 1,
             isInPileOfCards: true,
             shouldAnimateEntry: index === cards.length - 1
           }}
@@ -63,45 +63,77 @@ const PileOfCards = ({ cards, renderProps }) => {
 };
 
 // "countX", and "countY" cannot be derived from "x" because of perspective.
-
 export const YourDeck = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 150, y: 440, themeColor: colors.green, countX: 140, countY: 445 }}
+    renderProps={{ x: 150, y: 440, themeColor: colors.green, countX: 135, countY: 440 }}
   />
 );
 
 export const YourDiscard = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 395, y: 440, themeColor: colors.red, countX: 395, countY: 445 }}
+    renderProps={{ x: 695, y: 440, themeColor: colors.red, countX: 705, countY: 440 }}
   />
 );
 
 export const YourBanish = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 540, y: 440, themeColor: colors.black, countX: 545, countY: 445 }}
+    renderProps={{ x: 835, y: 440, themeColor: colors.black, countX: 850, countY: 440 }}
   />
 );
 
 export const EnemyBanish = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 50, y: 130, themeColor: colors.black, countX: 35, countY: 125 }}
+    renderProps={{ x: 45, y: 80, themeColor: colors.black, countX: 25, countY: 70 }}
   />
 );
 
 export const EnemyDiscard = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 195, y: 130, themeColor: colors.red, countX: 185, countY: 125 }}
+    renderProps={{ x: 185, y: 80, themeColor: colors.red, countX: 170, countY: 70 }}
   />
 );
 
 export const EnemyDeck = ({ cards }) => (
   <PileOfCards
     cards={cards}
-    renderProps={{ x: 450, y: 130, themeColor: colors.green, countX: 455, countY: 125 }}
+    renderProps={{ x: 725, y: 80, themeColor: colors.green, countX: 735, countY: 70 }}
   />
 );
+
+export const YourHand = ({ cards, onClick }) => cards.map((card, index) => (
+  card ? (
+    <Card
+      key={index}
+      cardProps={card}
+      renderProps={{ x: 300 + 125 * index, y: 425 }}
+      onClick={() => onClick(card, index)}
+    />
+  ) : null
+));
+
+export const EnemyHand = ({ cards }) => cards.map((card, index) => (
+  card ? (
+    <Card
+      key={index}
+      cardProps={card}
+      renderProps={{ x: 330 + 125 * index, y: 50 }}
+    />
+  ) : null
+));
+
+export const Stack = ({ cards }) => cards.map((card, index) => (
+  <Card
+    key={index}
+    cardProps={card}
+    renderProps={{
+      x: 350 + index * 10,
+      y: 250 + index * 10,
+      isBlurred: cards.length >= 2 && index !== cards.length - 1
+    }}
+  />
+));

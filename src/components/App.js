@@ -34,7 +34,10 @@ const AppComponent = ({
     <main id='app' css={appCss}>
       <TopNav />
       <Sidebar />
-      <FlexContainer _css={appContentCss}>
+      <FlexContainer
+        justifyContent='center'
+        _css={appContentCss(location.pathname)}
+      >
         <Switch>
           <Route
             exact path="/"

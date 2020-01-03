@@ -3,22 +3,6 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Spacer, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
 
-const cardCss = (x, y, transformCss, onClick) => css`
-  position: absolute;
-  left: ${x}px;
-  top: ${y}px;
-  border: 2px solid ${colors.grey};
-  border-radius: 5px;
-  transition: transform 0.1s ease-out;
-  ${onClick ? `
-    &:hover {
-      transform: scale(1.25);
-      z-index: ${zIndex.mouseEventArea5};
-    }
-  ` : transformCss}
-  cursor: ${onClick ? 'pointer' : 'default'};
-`;
-
 const cardBodyCss = css`
   position: absolute;
   width: 100%;
@@ -93,12 +77,13 @@ export const Card = ({
   } = cardProps;
 
   const {
-    width = 125,
+    width = 120,
     height = 150,
     x = 0,
     y = 0,
-    isInPileOfCards,
-    shouldAnimateEntry
+    isInPileOfCards = false,
+    shouldAnimateEntry = false,
+    isBlurred = false
   } = renderProps;
 
   const animatedEntryStartingTransformCss = 'transform: rotate3d(0, 1, 0, 65deg);';
@@ -111,6 +96,23 @@ export const Card = ({
       ? animatedEntryStartingTransformCss
       : restingPositionTransformCss
   );
+
+  const cardCss = css`
+    position: absolute;
+    left: ${x}px;
+    top: ${y}px;
+    border: 2px solid ${colors.grey};
+    border-radius: 5px;
+    transition: transform 0.1s ease-out;
+    ${onClick ? `
+      &:hover {
+        transform: scale(1.25);
+        z-index: ${zIndex.mouseEventArea5};
+      }
+    ` : transformCss}
+    ${onClick ? 'cursor: pointer;' : ''}
+    ${isBlurred ? 'filter: blur(3px);' : ''}
+  `;
 
   useEffect(() => {
     // i have no idea why setTimeout(0) is needed here.
@@ -168,7 +170,7 @@ export const Card = ({
       width={width}
       height={height}
       onClick={onClick}
-      _css={cardCss(x, y, transformCss, onClick)}
+      _css={cardCss}
     >
       <Filter opacity={0.45} color={colors.black} />
       <div css={cardBodyCss}>
