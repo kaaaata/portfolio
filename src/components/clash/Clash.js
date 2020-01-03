@@ -58,9 +58,15 @@ export class Clash extends React.Component {
     const { yourDeck } = this.state;
     this.setState({
       yourHand: yourDeck
-        .slice(yourDeck.length - 3, yourDeck.length)
+        .slice(yourDeck.length - 3)
         .map(card => ({ ...card, location: 'yourHand' })),
       yourDeck: yourDeck.slice(0, yourDeck.length - 3)
+    });
+  }
+
+  executeRenderAction(action) {
+    action.forEach(subAction => {
+      this.setState({ [subAction.stateKey]: subAction.pile });
     });
   }
 
@@ -162,6 +168,26 @@ export class Clash extends React.Component {
       }
     };
 
+    const drawUntilHandIsFull = () => {
+      const yourNewHandCards = [];
+      stateCopy.yourHand.cards.forEach(card => {
+        yourNewHandCards.push(card === null
+          ? stateCopy.you.deck.removeTopCard()
+          : card);
+      });
+
+      actions.push([
+        {
+          pile: yourNewHandCards.map(card => ({ ...card, location: 'yourHand' })),
+          stateKey: 'yourHand'
+        },
+        {
+          pile: [...stateCopy.you.deck.cards],
+          stateKey: 'yourDeck'
+        }
+      ]);
+    };
+
     const generateActionsForCard = (card, index) => {
       // move to stack
       addCardToStack(card, index);
@@ -236,17 +262,17 @@ export class Clash extends React.Component {
     };
 
     generateActionsForCard(card, index);
+    drawUntilHandIsFull();
     console.log('actions=', actions);
     logs.forEach(message => {
       console.log(message);
     });
 
-    if (actions.length) {
-      let i = 0;
+    if (actions.length > 1) {
+      this.executeRenderAction(actions[0]);
+      let i = 1;
       this.interval = setInterval(() => {
-        actions[i].forEach(action => {
-          this.setState({ [action.stateKey]: action.pile });
-        });
+        this.executeRenderAction(actions[i]);
 
         if (++i === actions.length) {
           this.setState({ isAnimating: false });

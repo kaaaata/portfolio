@@ -1,22 +1,29 @@
 import { useState, useEffect } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Spacer, Filter } from '../particles';
-import { colors } from '../styles';
+import { colors, zIndex } from '../styles';
 
-const cardCss = (x, y, transformCss) => css`
+const cardCss = (x, y, transformCss, onClick) => css`
   position: absolute;
   left: ${x}px;
   top: ${y}px;
   border: 2px solid ${colors.grey};
   border-radius: 5px;
   transition: transform 0.1s ease-out;
-  ${transformCss}
+  ${onClick ? `
+    &:hover {
+      transform: scale(1.25);
+      z-index: ${zIndex.maximum};
+    }
+  ` : transformCss}
+  cursor: ${onClick ? 'pointer' : 'default'};
 `;
 
 const cardBodyCss = css`
   position: absolute;
   width: 100%;
   height: 100%;
+  font-size: 12px;
 
   .name {
     text-align: center;
@@ -26,7 +33,7 @@ const cardBodyCss = css`
   .image {
     display: flex;
     justify-content: center;
-    padding: 15px;
+    padding: 10px;
   }
 
   .border {
@@ -88,7 +95,7 @@ export const Card = ({
       width={width}
       height={height}
       onClick={onClick}
-      _css={cardCss(x, y, transformCss)}
+      _css={cardCss(x, y, transformCss, onClick)}
     >
       <Filter
         opacity={0.4}
