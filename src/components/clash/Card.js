@@ -132,7 +132,7 @@ export const Card = ({
     </React.Fragment>
   );
 
-  const attackDisplay = (
+  const attackDisplay = typeof attack === 'number' && (
     <Image
       className='attack'
       src='/clash/attack.png'
@@ -143,7 +143,7 @@ export const Card = ({
     </Image>
   );
 
-  const defenseDisplay = (
+  const defenseDisplay = typeof defense === 'number' && (
     <Image
       className='defense'
       src='/clash/defense.png'

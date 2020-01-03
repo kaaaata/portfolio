@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { ArrayOfCards } from './arrayOfCards';
 import { Spacer } from '../particles';
 import { Card } from './Card';
+import { shuffle } from 'lodash';
 import {
   YourDeck,
   YourDiscard,
@@ -36,11 +37,10 @@ export class Clash extends React.Component {
         ...Array(3).fill(cards['Strike']),
       ].map(card => ({ ...card, player: 'you', location: 'discard' })),
       yourBanish: [],
-      enemyDeck: [
-        ...Array(13).fill(cards['Strike']),
-        cards['Healing Potion'],
-        ...Array(3).fill(cards['Strike'])
-      ].map(card => ({ ...card, player: 'enemy', location: 'discard' })),
+      enemyDeck: shuffle([
+        ...Array(20).fill(cards['Strike']),
+        ...Array(3).fill(cards['Healing Potion'])
+      ].map(card => ({ ...card, player: 'enemy', location: 'discard' }))),
       enemyDiscard: [],
       enemyBanish: [],
 
