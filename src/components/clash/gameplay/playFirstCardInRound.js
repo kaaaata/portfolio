@@ -1,4 +1,4 @@
-import { ArrayOfCards } from '../arrayOfCards';
+import { ArrayOfCards } from './arrayOfCards';
 import { createCard } from '../cards/utils';
 import { store } from '../../stores/store';
 

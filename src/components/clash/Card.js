@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, Spacer, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
-import { cardBodyCss, pileCardPlaceholderCss } from './cardCss';
+import { cardBodyCss } from './cardCss';
 
 export const Card = ({
   cardProps,

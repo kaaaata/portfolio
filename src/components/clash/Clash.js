@@ -12,6 +12,7 @@ import {
   EnemyHand,
   Stack
 } from './PileOfCards';
+import { Portrait } from './Portrait';
 import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
 
 const clashCss = css`
@@ -71,6 +72,7 @@ const ClashComponent = (props) => {
 
   return (
     <section css={clashCss}>
+      <Portrait player='sour_patch' location='top' />
       <EnemyHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
       <div className='enemy_side'>
         <EnemyDeck />
@@ -80,6 +82,7 @@ const ClashComponent = (props) => {
 
       <Stack />
 
+      <Portrait player='cat' location='bottom' />
       <YourHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
       <div className='your_side'>
         <YourDeck />
