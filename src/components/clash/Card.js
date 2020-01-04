@@ -18,7 +18,9 @@ export const Card = ({
     description,
     type,
     heal,
-    onDiscard
+    onDiscard,
+    location,
+    player
   } = cardProps;
 
   const {
@@ -41,6 +43,8 @@ export const Card = ({
       ? animatedEntryStartingTransformCss
       : restingPositionTransformCss
   );
+
+  console.log('card rendering:', `${name}-${player}-${location}`);
 
   const cardCss = css`
     position: absolute;

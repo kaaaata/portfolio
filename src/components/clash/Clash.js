@@ -1,5 +1,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { connect } from 'react-redux';
+import * as actions from '../stores/actions';
 import {
   YourDeck,
   YourDiscard,
@@ -11,7 +13,6 @@ import {
   EnemyHand,
   Stack
 } from './PileOfCards';
-import { genRandomDeck } from './cards/cards';
 import { genPlayCardActions } from './gameplay/playCard';
 
 const clashCss = css`
@@ -26,111 +27,82 @@ const clashCss = css`
   }
 `;
 
-const sampleDeck = genRandomDeck();
+const ClashComponent = (props) => {
+  let interval = null;
+  let actions = [];
+  let isPlayersTurn = true;
+  let isAnimating = false;
 
-export class Clash extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      yourDeck: sampleDeck
-        .map(card => ({ ...card, player: 'you', location: 'deck' })),
-      yourDiscard: sampleDeck
-        .map(card => ({ ...card, player: 'you', location: 'discard' })),
-      yourBanish: sampleDeck
-        .map(card => ({ ...card, player: 'you', location: 'deck' })),
-      enemyDeck: sampleDeck
-        .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
-      enemyDiscard: sampleDeck
-        .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
-      enemyBanish: sampleDeck
-        .map(card => ({ ...card, player: 'enemy', location: 'banish' })),
-
-      yourHand: sampleDeck.slice(0, 3)
-        .map(card => ({ ...card, player: 'you', location: 'hand' })),
-      enemyHand: sampleDeck.slice(0, 3)
-        .map(card => ({ ...card, player: 'enemy', location: 'hand' })),
-      stack: []
-    };
-
-    this.interval = null; // only have one active interval, for simplicity/perf
-    this.actions = [];
-    this.isPlayersTurn = true;
-    this.isAnimating = false;
-  }
-
-  executeRenderAction(action) {
+  const executeRenderAction = (action) => {
     action.forEach(subAction => {
-      this.setState({ [subAction.stateKey]: subAction.pile });
+      props[subAction.actionKey](subAction.payload);
     });
-  }
+  };
 
-  handleClickCardInYourHand(card, index) {
-    if (this.isAnimating || !this.isPlayersTurn) {
+  const handleClickCardInYourHand = (card, index) => {
+    if (isAnimating || !isPlayersTurn) {
       return;
     }
 
     console.log('playing card', card);
-    this.isAnimating = true;
+    isAnimating = true;
     const t0 = performance.now();
-    this.actions = genPlayCardActions(card, index, this.state);
+    actions = genPlayCardActions(card, index);
     const t1 = performance.now();
     console.log(`genPlayCardActions took ${t1 - t0} milliseconds.`);
-    console.log('actions=', this.actions);
+    console.log('actions=', actions);
 
-    if (this.actions.length > 1) {
-      // later, if we want to allow pausing mid-animation, this.actions should be
+    if (actions.length > 1) {
+      // later, if we want to allow pausing mid-animation, actions should be
       // refactored to be a Stack, and it should pop every time an action is executed.
 
       // instantly execute the first action, which will always be "move to stack"
-      this.executeRenderAction(this.actions[0]);
+      executeRenderAction(actions[0]);
       let i = 1;
-      this.interval = setInterval(() => {
-        this.executeRenderAction(this.actions[i]);
+      interval = setInterval(() => {
+        executeRenderAction(actions[i]);
 
-        if (++i === this.actions.length) {
-          this.isAnimating = false;
-          clearInterval(this.interval);
+        if (++i === actions.length) {
+          isAnimating = false;
+          clearInterval(interval);
         }
       }, 500);
     } else {
-      this.isAnimating = false;
+      isAnimating = false;
     }
-  }
+  };
 
-  render() {
-    const {
-      yourDeck,
-      yourDiscard,
-      yourBanish,
-      enemyDeck,
-      enemyDiscard,
-      enemyBanish,
-      yourHand,
-      enemyHand,
-      stack
-    } = this.state;
+  return (
+    <section css={clashCss}>
+      <EnemyHand />
+      <div className='enemy_side'>
+        <EnemyDeck />
+        <EnemyDiscard />
+        <EnemyBanish />
+      </div>
 
-    return (
-      <section css={clashCss}>
-        <EnemyHand cards={enemyHand} />
-        <div className='enemy_side'>
-          <EnemyDeck cards={enemyDeck} />
-          <EnemyDiscard cards={enemyDiscard} />
-          <EnemyBanish cards={enemyBanish} />
-        </div>
+      <Stack />
 
-        <Stack cards={stack} />
+      <YourHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
+      <div className='your_side'>
+        <YourDeck />
+        <YourDiscard />
+        <YourBanish />
+      </div>
+    </section>
+  );
+};
 
-        <YourHand
-          cards={yourHand}
-          onClick={(card, index) => this.handleClickCardInYourHand(card, index)}
-        />
-        <div className='your_side'>
-          <YourDeck cards={yourDeck} />
-          <YourDiscard cards={yourDiscard} />
-          <YourBanish cards={yourBanish} />
-        </div>
-      </section>
-    );
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
+  setYourDiscard: payload => dispatch(actions.setYourDiscard(payload)),
+  setYourBanish: payload => dispatch(actions.setYourBanish(payload)),
+  setYourHand: payload => dispatch(actions.setYourHand(payload)),
+  setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload)),
+  setEnemyDiscard: payload => dispatch(actions.setEnemyDiscard(payload)),
+  setEnemyBanish: payload => dispatch(actions.setEnemyBanish(payload)),
+  setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),
+  setStack: payload => dispatch(actions.setStack(payload))
+});
+
+export const Clash = connect(null, mapDispatchToProps)(ClashComponent);

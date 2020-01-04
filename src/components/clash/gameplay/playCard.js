@@ -1,23 +1,25 @@
 import { ArrayOfCards } from '../arrayOfCards';
 import { createCard } from '../cards/utils';
+import { store } from '../../stores/store';
 
-const stateKeys = {
+const actionKeys = {
   you: {
-    deck: 'yourDeck',
-    discard: 'yourDiscard',
-    banish: 'yourBanish',
-    hand: 'yourHand'
+    deck: 'setYourDeck',
+    discard: 'setYourDiscard',
+    banish: 'setYourBanish',
+    hand: 'setYourHand'
   },
   enemy: {
-    deck: 'enemyDeck',
-    discard: 'enemyDiscard',
-    banish: 'enemyBanish',
-    hand: 'enemyHand'
+    deck: 'setEnemyDeck',
+    discard: 'setEnemyDiscard',
+    banish: 'setEnemyBanish',
+    hand: 'setEnemyHand'
   }
 };
 
-export const genPlayCardActions = (card, index, state) => {
+export const genPlayCardActions = (card, index) => {
   const actions = [];
+  const state = store.getState();
   const stateCopy = {
     you: {
       deck: new ArrayOfCards(state.yourDeck),
@@ -46,8 +48,8 @@ export const genPlayCardActions = (card, index, state) => {
       }
 
       removeCardAction = {
-        pile: [...stateCopy[card.player][card.location].cards],
-        stateKey: stateKeys[card.player][card.location]
+        actionKey: actionKeys[card.player][card.location],
+        payload: [...stateCopy[card.player][card.location].cards]
       };
 
       card.location = 'stack';
@@ -55,8 +57,8 @@ export const genPlayCardActions = (card, index, state) => {
 
       actions.push([
         {
-          pile: [...stateCopy.stack.cards],
-          stateKey: 'stack'
+          actionKey: 'setStack',
+          payload: [...stateCopy.stack.cards]
         },
         removeCardAction
       ]);
@@ -77,12 +79,12 @@ export const genPlayCardActions = (card, index, state) => {
 
       actions.push([
         {
-          pile: [...stateCopy.stack.cards],
-          stateKey: 'stack'
+          actionKey: 'setStack',
+          payload: [...stateCopy.stack.cards]
         },
         {
-          pile: [...stateCopy[removedCard.player][removedCard.location].cards],
-          stateKey: stateKeys[removedCard.player][removedCard.location]
+          actionKey: actionKeys[removedCard.player][removedCard.location],
+          payload: [...stateCopy[removedCard.player][removedCard.location].cards]
         }
       ]);
     }
@@ -140,12 +142,12 @@ export const genPlayCardActions = (card, index, state) => {
 
         actions.push([
           {
-            pile: [...stateCopy[opponent].deck.cards],
-            stateKey: stateKeys[opponent].deck
+            actionKey: actionKeys[opponent].deck,
+            payload: [...stateCopy[opponent].deck.cards]
           },
           {
-            pile: [...stateCopy[opponent].discard.cards],
-            stateKey: stateKeys[opponent].discard
+            actionKey: actionKeys[opponent].discard,
+            payload: [...stateCopy[opponent].discard.cards]
           }
         ]);
 
@@ -178,12 +180,12 @@ export const genPlayCardActions = (card, index, state) => {
 
         actions.push([
           {
-            pile: [...stateCopy[player].deck.cards],
-            stateKey: stateKeys[player].deck
+            actionKey: actionKeys[player].deck,
+            payload: [...stateCopy[player].deck.cards]
           },
           {
-            pile: [...stateCopy[player].discard.cards],
-            stateKey: stateKeys[player].discard
+            payload: [...stateCopy[player].discard.cards],
+            actionKey: actionKeys[player].discard
           }
         ]);
       }

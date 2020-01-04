@@ -1,6 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { colors } from '../styles';
 import { Card, PileCardPlaceholder } from './Card';
+import { connect } from 'react-redux';
 
 const PileOfCards = ({ cards, renderProps }) => {
   const {
@@ -69,78 +70,96 @@ const PileOfCards = ({ cards, renderProps }) => {
   );
 };
 
-// "countX", and "countY" cannot be derived from "x" because of perspective.
-export const YourDeck = ({ cards }) => (
-  <PileOfCards
-    cards={cards}
-    renderProps={{ x: 150, y: 440, themeColor: colors.green, countX: 135, countY: 440 }}
-  />
+// "countX", "countY" cannot be derived from "x", "y" because of perspective.
+export const YourDeck = connect(state => ({ cards: state.yourDeck }))(
+  ({ cards }) => (
+    <PileOfCards
+      cards={cards}
+      renderProps={{ x: 150, y: 440, themeColor: colors.green, countX: 135, countY: 440 }}
+    />
+  )
 );
 
-export const YourDiscard = ({ cards }) => (
-  <PileOfCards
-    cards={cards}
-    renderProps={{ x: 695, y: 440, themeColor: colors.red, countX: 705, countY: 440 }}
-  />
+export const YourDiscard = connect(state => ({ cards: state.yourDiscard }))(
+  ({ cards }) => (
+    <PileOfCards
+      cards={cards}
+      renderProps={{ x: 695, y: 440, themeColor: colors.red, countX: 705, countY: 440 }}
+    />
+  )
 );
 
-export const YourBanish = ({ cards }) => (
-  <PileOfCards
-    cards={cards}
-    renderProps={{ x: 835, y: 440, themeColor: colors.black, countX: 850, countY: 440 }}
-  />
+export const YourBanish = connect(state => ({ cards: state.yourBanish }))(
+  ({ cards }) => (
+    <PileOfCards
+      cards={cards}
+      renderProps={{ x: 835, y: 440, themeColor: colors.black, countX: 850, countY: 440 }}
+    />
+  )
 );
 
-export const EnemyBanish = ({ cards }) => (
-  <PileOfCards
-    cards={cards}
-    renderProps={{ x: 45, y: 80, themeColor: colors.black, countX: 25, countY: 70 }}
-  />
+export const YourHand = connect(state => ({ cards: state.yourHand }))(
+  ({ cards, onClick }) => cards.map((card, index) => (
+    card ? (
+      <Card
+        key={index}
+        cardProps={card}
+        renderProps={{ x: 300 + 125 * index, y: 425 }}
+        onClick={() => onClick(card, index)}
+      />
+    ) : null
+  ))
 );
 
-export const EnemyDiscard = ({ cards }) => (
-  <PileOfCards
-    cards={cards}
-    renderProps={{ x: 185, y: 80, themeColor: colors.red, countX: 170, countY: 70 }}
-  />
+export const EnemyBanish = connect(state => ({ cards: state.enemyBanish }))(
+  ({ cards }) => (
+    <PileOfCards
+      cards={cards}
+      renderProps={{ x: 45, y: 80, themeColor: colors.black, countX: 25, countY: 70 }}
+    />
+  )
 );
 
-export const EnemyDeck = ({ cards }) => (
-  <PileOfCards
-    cards={cards}
-    renderProps={{ x: 725, y: 80, themeColor: colors.green, countX: 735, countY: 70 }}
-  />
+export const EnemyDiscard = connect(state => ({ cards: state.enemyDiscard }))(
+  ({ cards }) => (
+    <PileOfCards
+      cards={cards}
+      renderProps={{ x: 185, y: 80, themeColor: colors.red, countX: 170, countY: 70 }}
+    />
+  )
 );
 
-export const YourHand = ({ cards, onClick }) => cards.map((card, index) => (
-  card ? (
+export const EnemyDeck = connect(state => ({ cards: state.enemyDeck }))(
+  ({ cards }) => (
+    <PileOfCards
+      cards={cards}
+      renderProps={{ x: 725, y: 80, themeColor: colors.green, countX: 735, countY: 70 }}
+    />
+  )
+);
+
+export const EnemyHand = connect(state => ({ cards: state.enemyHand }))(
+  ({ cards }) => cards.map((card, index) => (
+    card ? (
+      <Card
+        key={index}
+        cardProps={card}
+        renderProps={{ x: 330 + 125 * index, y: 50 }}
+      />
+    ) : null)
+  )
+);
+
+export const Stack = connect(state => ({ cards: state.stack }))(
+  ({ cards }) => cards.map((card, index) => (
     <Card
       key={index}
       cardProps={card}
-      renderProps={{ x: 300 + 125 * index, y: 425 }}
-      onClick={() => onClick(card, index)}
+      renderProps={{
+        x: 350 + index * 15,
+        y: 250,
+        isBlurred: cards.length >= 2 && index !== cards.length - 1
+      }}
     />
-  ) : null
-));
-
-export const EnemyHand = ({ cards }) => cards.map((card, index) => (
-  card ? (
-    <Card
-      key={index}
-      cardProps={card}
-      renderProps={{ x: 330 + 125 * index, y: 50 }}
-    />
-  ) : null
-));
-
-export const Stack = ({ cards }) => cards.map((card, index) => (
-  <Card
-    key={index}
-    cardProps={card}
-    renderProps={{
-      x: 350 + index * 10,
-      y: 250 + index * 10,
-      isBlurred: cards.length >= 2 && index !== cards.length - 1
-    }}
-  />
-));
+  ))
+);
