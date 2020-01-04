@@ -17,7 +17,7 @@ const actionKeys = {
   }
 };
 
-export const playCard = (card, index) => {
+export const playFirstCardInRound = (card, index) => {
   const actions = [];
   const state = store.getState();
   const stateCopy = {
@@ -36,15 +36,16 @@ export const playCard = (card, index) => {
     stack: new ArrayOfCards(state.stack)
   };
 
+  const wait = () => actions.push([]);
+
   const addCardToStack = (card, index) => {
     if (!card.isMockCard) {
       let removeCardAction = {};
 
-      stateCopy[card.player][card.location].removeCardAtIndex(index);
-
       if (card.location === 'hand') {
-        // add placeholder
-        stateCopy[card.player].hand.addCardAtIndex(null, index);
+        stateCopy[card.player].hand.cards[index] = null;
+      } else {
+        stateCopy[card.player][card.location].removeCardAtIndex(index);
       }
 
       removeCardAction = {
@@ -63,8 +64,7 @@ export const playCard = (card, index) => {
         removeCardAction
       ]);
 
-      // add "dummy action" to delay 500ms, so the player can read the card.
-      actions.push([]);
+      wait();
     }
   };
 
@@ -90,27 +90,7 @@ export const playCard = (card, index) => {
     }
   };
 
-  // const drawUntilHandIsFull = () => {
-  //   const yourNewHandCards = [];
-  //   stateCopy.yourHand.cards.forEach(card => {
-  //     yourNewHandCards.push(card === null
-  //       ? stateCopy.you.deck.removeTopCard()
-  //       : card);
-  //   });
-
-  //   actions.push([
-  //     {
-  //       pile: yourNewHandCards.map(card => ({ ...card, location: 'yourHand' })),
-  //       stateKey: 'yourHand'
-  //     },
-  //     {
-  //       pile: [...stateCopy.you.deck.cards],
-  //       stateKey: 'yourDeck'
-  //     }
-  //   ]);
-  // };
-
-  const generateActions = (card, index) => {
+  const genPlayCardActions = (card, index) => {
     addCardToStack(card, index);
 
     // attack
@@ -160,7 +140,7 @@ export const playCard = (card, index) => {
             isMockCard: true
           });
 
-          generateActions(mockCard);
+          genPlayCardActions(mockCard);
         }
       }
     }
@@ -194,11 +174,41 @@ export const playCard = (card, index) => {
     removeTopCardFromStack();
   };
 
-  generateActions(card, index);
+  const genDrawToFullActions = (player) => {
+    if (player === 'you') {
+      console.log('asdf', stateCopy[player].hand.cards);
+    }
+    while (stateCopy[player].hand.cards.includes(null)) {
+      const cardToDraw = stateCopy[player].deck.removeTopCard();
+      stateCopy[player].hand.cards[stateCopy[player].hand.cards.indexOf(null)] = (
+        {
+          ...cardToDraw,
+          location: 'hand'
+        }
+      );
+      actions.push([
+        {
+          actionKey: player === 'you' ? 'setYourHand' : 'setEnemyHand',
+          payload: [...stateCopy[player].hand.cards]
+        },
+        {
+          actionKey: player === 'you' ? 'setYourDeck' : 'setEnemyDeck',
+          payload: [...stateCopy[player].deck.cards]
+        }
+      ]);
+    }
 
-  // enemy plays a card now
-  const enemyHandRandomCard = stateCopy.enemy.hand.getRandomCard();
-  generateActions(enemyHandRandomCard.card, enemyHandRandomCard.index);
+    wait();
+  };
+
+  genPlayCardActions(card, index);
+  genDrawToFullActions('enemy');
+  const enemyHandRandomCardIndex = Math.floor(Math.random() * 3);
+  const enemyHandRandomCard = stateCopy.enemy.hand.getCardAtIndex(enemyHandRandomCardIndex);
+  // add placeholder
+  stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = null;
+  genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
+  genDrawToFullActions('you');
 
   return actions;
 };

@@ -7,12 +7,8 @@ export class ArrayOfCards {
     return this.cards[this.cards.length - 1];
   }
 
-  getRandomCard() {
-    const index = Math.floor(Math.random() * this.cards.length);
-    return {
-      card: this.cards[index],
-      index
-    };
+  getCardAtIndex(index) {
+    return this.cards[index];
   }
 
   removeTopCard() {
@@ -28,11 +24,4 @@ export class ArrayOfCards {
     this.cards.push(card);
     return this.cards;
   }
-
-  addCardAtIndex(card, index) {
-    this.cards.splice(index, 0, card);
-    return this.cards;
-  }
-
-
 }

@@ -12,7 +12,7 @@ import {
   EnemyHand,
   Stack
 } from './PileOfCards';
-import { playCard } from './gameplay/playCard';
+import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
 
 const clashCss = css`
   flex-shrink: 0;
@@ -29,7 +29,6 @@ const clashCss = css`
 const ClashComponent = (props) => {
   let interval = null;
   let actions = [];
-  let isPlayersTurn = true;
   let isAnimating = false;
 
   const executeRenderAction = (action) => {
@@ -39,14 +38,14 @@ const ClashComponent = (props) => {
   };
 
   const handleClickCardInYourHand = (card, index) => {
-    if (isAnimating || !isPlayersTurn) {
+    if (isAnimating) {
       return;
     }
 
     console.log(`playing ${card.name}`);
     isAnimating = true;
     const t0 = performance.now();
-    actions = playCard(card, index);
+    actions = playFirstCardInRound(card, index);
     const t1 = performance.now();
     console.log(`playCard took ${t1 - t0} milliseconds.`);
 
@@ -62,7 +61,6 @@ const ClashComponent = (props) => {
 
         if (++i === actions.length) {
           clearInterval(interval);
-          isPlayersTurn = false;
           isAnimating = false;
         }
       }, 500);
