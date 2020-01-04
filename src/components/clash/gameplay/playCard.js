@@ -17,7 +17,7 @@ const actionKeys = {
   }
 };
 
-export const genPlayCardActions = (card, index) => {
+export const playCard = (card, index) => {
   const actions = [];
   const state = store.getState();
   const stateCopy = {
@@ -195,6 +195,10 @@ export const genPlayCardActions = (card, index) => {
   };
 
   generateActions(card, index);
+
+  // enemy plays a card now
+  const enemyHandRandomCard = stateCopy.enemy.hand.getRandomCard();
+  generateActions(enemyHandRandomCard.card, enemyHandRandomCard.index);
 
   return actions;
 };

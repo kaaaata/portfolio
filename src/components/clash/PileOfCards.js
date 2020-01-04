@@ -139,15 +139,16 @@ export const EnemyDeck = connect(state => ({ cards: state.enemyDeck }))(
 );
 
 export const EnemyHand = connect(state => ({ cards: state.enemyHand }))(
-  ({ cards }) => cards.map((card, index) => (
+  ({ cards, onClick }) => cards.map((card, index) => (
     card ? (
       <Card
         key={index}
         cardProps={card}
         renderProps={{ x: 330 + 125 * index, y: 50 }}
+        onClick={() => onClick(card, index)}
       />
-    ) : null)
-  )
+    ) : null
+  ))
 );
 
 export const Stack = connect(state => ({ cards: state.stack }))(

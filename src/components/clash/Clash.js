@@ -1,4 +1,3 @@
-import React from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../stores/actions';
@@ -13,7 +12,7 @@ import {
   EnemyHand,
   Stack
 } from './PileOfCards';
-import { genPlayCardActions } from './gameplay/playCard';
+import { playCard } from './gameplay/playCard';
 
 const clashCss = css`
   flex-shrink: 0;
@@ -44,13 +43,12 @@ const ClashComponent = (props) => {
       return;
     }
 
-    console.log('playing card', card);
+    console.log(`playing ${card.name}`);
     isAnimating = true;
     const t0 = performance.now();
-    actions = genPlayCardActions(card, index);
+    actions = playCard(card, index);
     const t1 = performance.now();
-    console.log(`genPlayCardActions took ${t1 - t0} milliseconds.`);
-    console.log('actions=', actions);
+    console.log(`playCard took ${t1 - t0} milliseconds.`);
 
     if (actions.length > 1) {
       // later, if we want to allow pausing mid-animation, actions should be
@@ -63,8 +61,9 @@ const ClashComponent = (props) => {
         executeRenderAction(actions[i]);
 
         if (++i === actions.length) {
-          isAnimating = false;
           clearInterval(interval);
+          isPlayersTurn = false;
+          isAnimating = false;
         }
       }, 500);
     } else {
@@ -74,7 +73,7 @@ const ClashComponent = (props) => {
 
   return (
     <section css={clashCss}>
-      <EnemyHand />
+      <EnemyHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
       <div className='enemy_side'>
         <EnemyDeck />
         <EnemyDiscard />

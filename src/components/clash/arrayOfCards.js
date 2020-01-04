@@ -7,6 +7,14 @@ export class ArrayOfCards {
     return this.cards[this.cards.length - 1];
   }
 
+  getRandomCard() {
+    const index = Math.floor(Math.random() * this.cards.length);
+    return {
+      card: this.cards[index],
+      index
+    };
+  }
+
   removeTopCard() {
     return this.cards.pop();
   }
@@ -25,4 +33,6 @@ export class ArrayOfCards {
     this.cards.splice(index, 0, card);
     return this.cards;
   }
+
+
 }
