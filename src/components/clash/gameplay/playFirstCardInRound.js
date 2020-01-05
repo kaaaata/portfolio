@@ -120,6 +120,11 @@ const genPlayCardActions = (card, index) => {
     addCardToStack(card, index);
   }
 
+  // custom effects
+  if (customEffect) {
+    customCardEffects[name](card);
+  }
+
   // attack
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
@@ -233,11 +238,6 @@ const genPlayCardActions = (card, index) => {
         }
       ]);
     }
-  }
-
-  // custom effects
-  if (customEffect) {
-    customCardEffects[name](card);
   }
 
   if (!isMockCard) {
