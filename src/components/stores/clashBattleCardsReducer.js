@@ -3,25 +3,28 @@ import { cards, genRandomDeck } from '../clash/cards/cards';
 const sampleDeck = genRandomDeck();
 
 const initialState = {
-  yourDeck: sampleDeck.slice(0, 25)
+  yourDeck: [
+    ...sampleDeck.slice(0, 25),
+    cards['Lyra the Blue']
+  ]
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourDiscard: []
+  yourDiscard: sampleDeck.slice(0, 10)
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
   yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: [cards['Catherine the Great'], cards['Two Handed Strike'], cards['Sunder']]
+  yourHand: [cards['Wayne'], cards['Two Handed Strike'], cards['Sunder']]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
   enemyDeck: [
     ...Array(15).fill(cards['Parry']),
     cards['Healing Potion'],
-    ...Array(2).fill(cards['Parry']),
+    ...Array(1).fill(cards['Bomb']),
   ]
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
-  enemyDiscard: []
+  enemyDiscard: sampleDeck.slice(0, 10)
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyBanish: []
     .map(card => ({ ...card, player: 'enemy', location: 'banish' })),
-  enemyHand: Array(3).fill(cards['Parry'])
+  enemyHand: Array(3).fill(cards['Lyra the Blue'])
     .map(card => ({ ...card, player: 'enemy', location: 'hand' })),
   stack: []
 };

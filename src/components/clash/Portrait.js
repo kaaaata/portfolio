@@ -51,14 +51,13 @@ const portraitCss = (location) => css`
 
 const Portrait = ({
   location,
-  name,
   image,
   stats,
   shields
 }) => {
   const portrait = (
     <Image
-      src={`/clash/portraits/${image}.png`}
+      src={`/clash/${image}.png`}
       width={100}
       height={125}
     />

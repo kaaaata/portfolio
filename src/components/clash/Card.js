@@ -4,12 +4,16 @@ import { Image, Spacer, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
 import { cardBodyCss } from './cardCss';
 
-const genCardDescription = ({
-  heal,
-  damageSelf,
-  pierce,
-  description
-}) => {
+const genCardDescription = (cardProps) => {
+  const {
+    heal,
+    healEnemy,
+    damageSelf,
+    pierce,
+    description,
+    onDiscard
+  } = cardProps;
+
   if (description) {
     return description;
   }
@@ -19,11 +23,17 @@ const genCardDescription = ({
   if (heal) {
     sentences.push(`Heal ${heal}.`);
   }
+  if (healEnemy) {
+    sentences.push(`Heal enemy ${healEnemy}.`);
+  }
   if (damageSelf) {
-    sentences.push(`Discard ${damageSelf}.`);
+    sentences.push(`Take ${damageSelf} damage.`);
   }
   if (pierce) {
-    sentences.push(`Pierces ${2}.`);
+    sentences.push(`Pierce ${2} shields.`);
+  }
+  if (onDiscard) {
+    sentences.push(`On discard: ${genCardDescription(onDiscard)}`);
   }
 
   return sentences.join(' ');

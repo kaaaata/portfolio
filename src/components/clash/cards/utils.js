@@ -5,6 +5,7 @@ const cardTemplate = {
   attack: null,
   defense: null,
   heal: null,
+  healEnemy: null,
   onDiscard: null,
   type: '',
   description: '',
@@ -12,7 +13,9 @@ const cardTemplate = {
   isMockCard: false, // "pseudo" card for discard effects, etc.
   banishes: false,
   customEffect: false,
-  pierce: 0
+  pierce: 0,
+  buyable: true,
+  unblockable: false
 };
 
 export const createCard = (properties = {}) => {

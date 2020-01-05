@@ -19,6 +19,38 @@ export const allies = [
     customEffect: true,
     description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your draw pile.'
   }),
+  createCard({
+    name: 'Lyra the Blue',
+    image: 'mermaid',
+    rarity: 'uncommon',
+    attack: 0,
+    defense: 4,
+    heal: 6,
+    healEnemy: 3,
+    onDiscard: {
+      heal: 2,
+      healEnemy: 1
+    }
+  }),
+  createCard({
+    name: 'Jolo the Goon',
+    image: 'red_spear_guy',
+    rarity: 'uncommon',
+    attack: 1,
+    defense: 3,
+    customEffect: true,
+    pierce: 1,
+    description: 'Pierce: 1. Shuffle a copy of Jolo the Goon into your draw pile.'
+  }),
+  createCard({
+    name: 'Wayne',
+    image: 'goblin',
+    rarity: 'common',
+    attack: 2,
+    defense: 0,
+    customEffect: true,
+    description: 'Shuffle 2 copies of Bomb into your opponent\'s draw pile.'
+  })
 ].map(card => (
   { ...card, type: 'ally' }
 ));

@@ -35,7 +35,6 @@ let stateCopy = {};
 const actionGenerators = {
   // these functions mutate stateCopy and return actions.
   // "card" and "payload" values must be new objects, not references.
-  wait: () => [],
   addCardToStack: (card) => {
     const newCard = { ...card, location: 'stack' };
     stateCopy.stack.addCardToTop(newCard);
@@ -53,7 +52,11 @@ const actionGenerators = {
   },
   addCard: (card, player, location, index) => {
     // index = number|'top'|'random'
-    const newCard = { ...card, location };
+    const newCard = {
+      ...card,
+      player,
+      location
+    };
     if (location === 'hand') {
       stateCopy[player][location].cards[index] = newCard;
     } else if (index === 'top') {
@@ -102,6 +105,8 @@ const customCardEffects = {
       actions.push([actionGenerators.addCardToStack(newCard)]);
     });
 
+    actions.push([]);
+
     threeRandomAttacks.forEach(newCard => {
       actions.push([
         actionGenerators.removeTopCardFromStack(),
@@ -126,10 +131,42 @@ const customCardEffects = {
       actions.push([actionGenerators.addCardToStack(newCard)]);
     });
 
+    actions.push([]);
+
     twoHealingBlades.forEach(newCard => {
       actions.push([
         actionGenerators.removeTopCardFromStack(),
         actionGenerators.addCard(newCard, card.player, 'deck', 'random')
+      ]);
+    });
+  },
+  'Jolo the Goon': (card) => {
+    // Shuffle a copy of Jolo the Goon into your draw pile.
+    actions.push([actionGenerators.addCardToStack(cards['Jolo the Goon'])]);
+    actions.push([]);
+    actions.push([
+      actionGenerators.removeTopCardFromStack(),
+      actionGenerators.addCard(cards['Jolo the Goon'], card.player, 'deck', 'random')
+    ]);
+  },
+  'Wayne': (card) => {
+    // Shuffle 2 copies of Bomb into your opponent\'s draw pile.
+    const twoBombs = [
+      cards['Bomb'],
+      cards['Bomb']
+    ];
+    const opponent = card.player === 'you' ? 'enemy' : 'you';
+
+    twoBombs.forEach(newCard => {
+      actions.push([actionGenerators.addCardToStack(newCard)]);
+    });
+
+    actions.push([]);
+
+    twoBombs.forEach(newCard => {
+      actions.push([
+        actionGenerators.removeTopCardFromStack(),
+        actionGenerators.addCard(newCard, opponent, 'deck', 'random')
       ]);
     });
   }
@@ -142,6 +179,7 @@ const genPlayCardActions = (card, index) => {
     attack,
     defense,
     heal,
+    healEnemy,
     damageSelf,
     player,
     unblockable,
@@ -174,21 +212,22 @@ const genPlayCardActions = (card, index) => {
       actionGenerators.addCardToStack(card),
       actionGenerators.removeCard(player, 'hand', index)
     ]);
-    actions.push([]);
   }
+
+  actions.push([]);
 
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
-    if (attack && type !== 'ally') {
+    if (attack && ['attack', 'magic'].includes(type)) {
       const bonusStatsDamage = Object.values(stateCopy[player].stats[type]).reduce(
         (a, b) => a + b
       );
       totalDamageDealt += bonusStatsDamage;
-      if (!unblockable) {
-        const { shields } = stateCopy[opponent];
-        const enemyShieldsBlock = Math.max(shields - pierce, 0);
-        totalDamageDealt -= enemyShieldsBlock;
-      }
+    }
+    if (!unblockable) {
+      const { shields } = stateCopy[opponent];
+      const enemyShieldsBlock = Math.max(shields - pierce, 0);
+      totalDamageDealt -= enemyShieldsBlock;
     }
     totalDamageDealt = Math.max(totalDamageDealt, 0);
 
@@ -240,6 +279,25 @@ const genPlayCardActions = (card, index) => {
         actionGenerators.addCard(
           healedCard,
           player,
+          'deck',
+          'random'
+        )
+      ]);
+    }
+  }
+
+  if (healEnemy) {
+    for (let i = 0; i < healEnemy; i++) {
+      if (!stateCopy[opponent].discard.cards.length) {
+        break;
+      }
+
+      const healedCard = stateCopy[opponent].discard.getTopCard();
+      actions.push([
+        actionGenerators.removeCard(opponent, 'discard', 'top'),
+        actionGenerators.addCard(
+          healedCard,
+          opponent,
           'deck',
           'random'
         )

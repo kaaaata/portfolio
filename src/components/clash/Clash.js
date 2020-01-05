@@ -37,7 +37,6 @@ const ClashComponent = (props) => {
       return;
     }
 
-    console.log(`playing ${card.name}`);
     isAnimating = true;
     const t0 = performance.now();
     actions = playFirstCardInRound(card, index);

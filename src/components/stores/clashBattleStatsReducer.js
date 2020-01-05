@@ -20,7 +20,7 @@ const initialState = {
   },
   yourShields: 0,
 
-  enemyName: 'Harold the Red',
+  enemyName: 'Jolo the Goon',
   enemyImage: 'red_spear_guy',
   enemyStats: {
     attack: {
