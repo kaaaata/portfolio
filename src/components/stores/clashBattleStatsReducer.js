@@ -3,7 +3,7 @@ const initialState = {
   yourImage: 'mermaid',
   yourStats: {
     attack: {
-      permanent: 0,
+      permanent: 10,
       untilEndOfBattle: 0,
       untilEndOfTurn: 0
     },

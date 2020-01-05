@@ -31,54 +31,52 @@ const actionKeys = {
 let actions = [];
 let stateCopy = {};
 
-const wait = () => actions.push([]);
-
-const addCardToStack = (card, index) => {
-  let removeCardAction = {};
-
-  if (card.location === 'hand') {
-    stateCopy[card.player].hand.cards[index] = null;
-  } else {
-    stateCopy[card.player][card.location].removeCardAtIndex(index);
-  }
-
-  removeCardAction = {
-    actionKey: actionKeys[card.player][card.location],
-    payload: [...stateCopy[card.player][card.location].cards]
-  };
-
-  card.location = 'stack';
-  stateCopy.stack.addCardToTop(card);
-
-  actions.push([
-    {
+const actionGenerators = {
+  // these functions mutate stateCopy and return actions.
+  // "card" and "payload" values must be new objects, not references.
+  wait: () => [],
+  addCardToStack: (card) => {
+    const newCard = { ...card, location: 'stack' };
+    stateCopy.stack.addCardToTop(newCard);
+    return {
       actionKey: 'setStack',
       payload: [...stateCopy.stack.cards]
-    },
-    removeCardAction
-  ]);
-
-  wait();
-};
-
-const removeTopCardFromStack = () => {
-  const removedCard = stateCopy.stack.removeTopCard();
-  removedCard.location = removedCard.type === 'potion'
-    ? 'banish'
-    : 'discard';
-
-  stateCopy[removedCard.player][removedCard.location].addCardToTop(removedCard);
-
-  actions.push([
-    {
+    };
+  },
+  removeTopCardFromStack: () => {
+    stateCopy.stack.removeTopCard();
+    return {
       actionKey: 'setStack',
       payload: [...stateCopy.stack.cards]
-    },
-    {
-      actionKey: actionKeys[removedCard.player][removedCard.location],
-      payload: [...stateCopy[removedCard.player][removedCard.location].cards]
+    };
+  },
+  addCard: (card, player, location, index) => {
+    // index = number|'top'|'random'
+    const newCard = { ...card, location };
+    if (location === 'hand') {
+      stateCopy[player][location].cards[index] = newCard;
+    } else if (index === 'top') {
+      stateCopy[player][location].addCardToTop(newCard);
+    } else if (index === 'random') {
+      stateCopy[player][location].addCardAtRandomIndex(newCard);
     }
-  ]);
+    return {
+      actionKey: actionKeys[player][location],
+      payload: [...stateCopy[player][location].cards]
+    };
+  },
+  removeCard: (card, index) => {
+    // index = number|'top'
+    if (card.location === 'hand') {
+      stateCopy[card.player][card.location].cards[index] = null;
+    } else if (index === 'top') {
+      stateCopy[card.player][card.location].removeTopCard();
+    }
+    return {
+      actionKey: actionKeys[card.player][card.location],
+      payload: [...stateCopy[card.player][card.location].cards]
+    };
+  },
 };
 
 const customCardEffects = {
@@ -113,11 +111,16 @@ const genPlayCardActions = (card, index) => {
     pierce,
     type,
     isMockCard,
-    customEffect
+    customEffect,
   } = card;
 
+  // remove card from where it was played, and add to stack
   if (!isMockCard) {
-    addCardToStack(card, index);
+    actions.push([
+      actionGenerators.addCardToStack(card),
+      actionGenerators.removeCard(card, index)
+    ]);
+    actions.push([]);
   }
 
   // custom effects
@@ -129,7 +132,7 @@ const genPlayCardActions = (card, index) => {
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && type !== 'ally') {
-      const bonusStatsDamage = Object.values(stateCopy[player].stats.attack).reduce(
+      const bonusStatsDamage = Object.values(stateCopy[player].stats[type]).reduce(
         (a, b) => a + b
       );
       totalDamageDealt += bonusStatsDamage;
@@ -182,12 +185,15 @@ const genPlayCardActions = (card, index) => {
         }
       ]);
 
-      if (removedCard.onDiscard) {
-        addCardToStack(removedCard, stateCopy[opponent][destination].cards.length - 1);
+      if (removedCard.onDiscard && !banishes) {
+        actions.push([
+          actionGenerators.removeCard(removedCard, 'top'),
+          actionGenerators.addCardToStack(removedCard)
+        ]);
 
         const mockCard = createCard({
           ...removedCard.onDiscard,
-          player: opponent,
+          player: removedCard.player,
           isMockCard: true
         });
 
@@ -240,9 +246,19 @@ const genPlayCardActions = (card, index) => {
     }
   }
 
-  if (!isMockCard) {
-    removeTopCardFromStack();
-  }
+  const playedCard = isMockCard
+    ? stateCopy.stack.getTopCard()
+    : card;
+
+  actions.push([
+    actionGenerators.removeTopCardFromStack(),
+    actionGenerators.addCard(
+      playedCard,
+      playedCard.player,
+      playedCard.type === 'potion' ? 'banish' : 'discard',
+      'top'
+    )
+  ]);
 };
 
 const genStartOfTurnActions = (player) => {
@@ -274,8 +290,7 @@ const genStartOfTurnActions = (player) => {
   }
 
   actions.push(startOfTurnActions);
-
-  wait();
+  actions.push(actionGenerators.wait());
 };
 
 export const playFirstCardInRound = (card, index) => {

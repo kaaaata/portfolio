@@ -25,6 +25,7 @@ export class ArrayOfCards {
   removeTopCard() {
     return this.cards.pop();
   }
+  
 
   removeCardAtIndex(index) {
     const removedCard = this.cards.splice(index, 1);
@@ -39,6 +40,11 @@ export class ArrayOfCards {
   addCardAtRandomIndex(card) {
     const index = Math.floor(Math.random() * this.cards.length);
     this.cards.splice(index, 0, card);
+    return this.cards;
+  }
+
+  replaceCardAtIndex(card, index) {
+    this.cards[index] = card;
     return this.cards;
   }
 }

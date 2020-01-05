@@ -13,11 +13,12 @@ export const cards = {
 
 export const genRandomDeck = () => {
   const deck = [
+    ...allies,
     ...attacks,
-    ...magic,
     ...potions,
-    ...allies
+    ...magic,
   ].slice(0, 60);
 
-  return shuffle(deck);
+  // return shuffle(deck);
+  return deck;
 };
