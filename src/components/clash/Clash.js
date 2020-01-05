@@ -102,7 +102,9 @@ const mapDispatchToProps = dispatch => ({
   setEnemyDiscard: payload => dispatch(actions.setEnemyDiscard(payload)),
   setEnemyBanish: payload => dispatch(actions.setEnemyBanish(payload)),
   setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),
-  setStack: payload => dispatch(actions.setStack(payload))
+  setStack: payload => dispatch(actions.setStack(payload)),
+  setYourShields: payload => dispatch(actions.setYourShields(payload)),
+  setEnemyShields: payload => dispatch(actions.setEnemyShields(payload))
 });
 
 export const Clash = connect(null, mapDispatchToProps)(ClashComponent);

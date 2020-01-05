@@ -98,7 +98,7 @@ const Portrait = ({
     </Image>
   );
 
-  const shieldsDisplay = (
+  const shieldsDisplay = !!shields && (
     <Image
       className='shields'
       src='/clash/defense.png'
@@ -124,17 +124,6 @@ const Portrait = ({
     </div>
   );
 };
-
-const mapStateToProps = state => ({
-  yourName: state.clashBattleStats.yourName,
-  yourImage: state.clashBattleStats.yourImage,
-  yourStats: state.clashBattleStats.yourStats,
-  yourShields: state.clashBattleStats.yourShields,
-  enemyName: state.clashBattleStats.enemyName,
-  enemyImage: state.clashBattleStats.enemyImage,
-  enemyStats: state.clashBattleStats.enemyStats,
-  enemyShields: state.clashBattleStats.enemyShields,
-});
 
 const mapStateToPropsYou = state => ({
   name: state.clashBattleStats.yourName,

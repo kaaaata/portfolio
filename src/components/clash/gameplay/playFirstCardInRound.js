@@ -7,31 +7,40 @@ const actionKeys = {
     deck: 'setYourDeck',
     discard: 'setYourDiscard',
     banish: 'setYourBanish',
-    hand: 'setYourHand'
+    hand: 'setYourHand',
+    shields: 'setYourShields'
   },
   enemy: {
     deck: 'setEnemyDeck',
     discard: 'setEnemyDiscard',
     banish: 'setEnemyBanish',
-    hand: 'setEnemyHand'
+    hand: 'setEnemyHand',
+    shields: 'setEnemyShields'
   }
 };
 
 export const playFirstCardInRound = (card, index) => {
   const actions = [];
-  const state = store.getState().clashBattleCards;
+  const state = {
+    ...store.getState().clashBattleCards,
+    ...store.getState().clashBattleStats
+  };
   const stateCopy = {
     you: {
       deck: new ArrayOfCards(state.yourDeck),
       discard: new ArrayOfCards(state.yourDiscard),
       banish: new ArrayOfCards(state.yourBanish),
-      hand: new ArrayOfCards(state.yourHand)
+      hand: new ArrayOfCards(state.yourHand),
+      shields: state.yourShields,
+      stats: state.yourStats
     },
     enemy: {
       deck: new ArrayOfCards(state.enemyDeck),
       discard: new ArrayOfCards(state.enemyDiscard),
       banish: new ArrayOfCards(state.enemyBanish),
-      hand: new ArrayOfCards(state.enemyHand)
+      hand: new ArrayOfCards(state.enemyHand),
+      shields: state.enemyShields,
+      stats: state.enemyStats
     },
     stack: new ArrayOfCards(state.stack)
   };
@@ -91,27 +100,40 @@ export const playFirstCardInRound = (card, index) => {
   };
 
   const genPlayCardActions = (card, index) => {
+    const opponent = card.player === 'you' ? 'enemy' : 'you';
+
     addCardToStack(card, index);
 
     // attack
     if (typeof card.attack === 'number') {
-      let totalDamage = card.attack;
-      // add strength
-      if (!card.unblockble) {
-        // subtract enemy armor
-      }
-      if (card.necro) {
-        const bonusNecroDamage = Math.floor(
-          stateCopy.you.discard.cards.length / card.necro
+      let totalDamageDealt = card.attack;
+      if (card.attack) {
+        const bonusStatsDamage = Object.values(stateCopy[card.player].stats.attack).reduce(
+          (a, b) => a + b
         );
-        totalDamage += bonusNecroDamage;
-      }
-      if (card.meltsArmor) {
-        // for every point of enemy armor, damage += 2
+        totalDamageDealt += bonusStatsDamage;
+        if (!card.unblockble) {
+          const enemyShieldsBlock = stateCopy[opponent].shields;
+          totalDamageDealt -= enemyShieldsBlock;
+        }
+        if (card.necro) {
+          const bonusNecroDamage = Math.floor(
+            stateCopy[card.player].discard.cards.length / card.necro
+          );
+          totalDamageDealt += bonusNecroDamage;
+        }
       }
 
-      const opponent = card.player === 'you' ? 'enemy' : 'you';
-      for (let i = 0; i < totalDamage; i++) {
+      let totalShieldsGained = card.defense;
+      if (card.defense) {
+        const bonusShields = Object.values(stateCopy[card.player].stats.defense).reduce(
+          (a, b) => a + b
+        );
+        totalShieldsGained += bonusShields;
+        stateCopy[card.player].shields += totalShieldsGained;
+      }
+
+      for (let i = 0; i < totalDamageDealt; i++) {
         if (!stateCopy[opponent].deck.cards.length) {
           break;
         }
@@ -128,6 +150,10 @@ export const playFirstCardInRound = (card, index) => {
           {
             actionKey: actionKeys[opponent].discard,
             payload: [...stateCopy[opponent].discard.cards]
+          },
+          {
+            actionKey: actionKeys[card.player].shields,
+            payload: totalShieldsGained
           }
         ]);
 
@@ -136,7 +162,7 @@ export const playFirstCardInRound = (card, index) => {
 
           const mockCard = createCard({
             ...removedCard.onDiscard,
-            player: 'enemy',
+            player: opponent,
             isMockCard: true
           });
 
@@ -174,10 +200,16 @@ export const playFirstCardInRound = (card, index) => {
     removeTopCardFromStack();
   };
 
-  const genDrawToFullActions = (player) => {
-    if (player === 'you') {
-      console.log('asdf', stateCopy[player].hand.cards);
-    }
+  const genStartOfTurnActions = (player) => {
+    const startOfTurnActions = [];
+
+    // remove shields
+    startOfTurnActions.push({
+      actionKey: player === 'you' ? 'setYourShields' : 'setEnemyShields',
+      payload: 0
+    });
+
+    // draw
     while (stateCopy[player].hand.cards.includes(null)) {
       const cardToDraw = stateCopy[player].deck.removeTopCard();
       stateCopy[player].hand.cards[stateCopy[player].hand.cards.indexOf(null)] = (
@@ -186,29 +218,29 @@ export const playFirstCardInRound = (card, index) => {
           location: 'hand'
         }
       );
-      actions.push([
-        {
-          actionKey: player === 'you' ? 'setYourHand' : 'setEnemyHand',
-          payload: [...stateCopy[player].hand.cards]
-        },
-        {
-          actionKey: player === 'you' ? 'setYourDeck' : 'setEnemyDeck',
-          payload: [...stateCopy[player].deck.cards]
-        }
-      ]);
+      startOfTurnActions.push({
+        actionKey: player === 'you' ? 'setYourHand' : 'setEnemyHand',
+        payload: [...stateCopy[player].hand.cards]
+      });
+      startOfTurnActions.push({
+        actionKey: player === 'you' ? 'setYourDeck' : 'setEnemyDeck',
+        payload: [...stateCopy[player].deck.cards]
+      });
     }
+
+    actions.push(startOfTurnActions);
 
     wait();
   };
 
   genPlayCardActions(card, index);
-  genDrawToFullActions('enemy');
+  genStartOfTurnActions('enemy');
   const enemyHandRandomCardIndex = Math.floor(Math.random() * 3);
   const enemyHandRandomCard = stateCopy.enemy.hand.getCardAtIndex(enemyHandRandomCardIndex);
   // add placeholder
   stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = null;
   genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
-  genDrawToFullActions('you');
+  genStartOfTurnActions('you');
 
   return actions;
 };

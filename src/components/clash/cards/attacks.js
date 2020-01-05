@@ -63,15 +63,6 @@ export const attacks = [
     description: 'Unblockable.'
   }),
   createCard({
-    name: 'Cursed Blade',
-    image: 'purple_attack',
-    rarity: 'legendary',
-    attack: 1,
-    defense: 0,
-    meltsArmor: true,
-    description: 'Deals 2 extra damage per point of enemy\'s armor.'
-  }),
-  createCard({
     name: 'Necro Strike',
     image: 'necro_strike',
     rarity: 'uncommon',

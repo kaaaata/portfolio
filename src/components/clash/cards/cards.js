@@ -12,7 +12,7 @@ export const genRandomDeck = () => {
     ...attacks,
     ...attacks,
     ...attacks,
-    ...potions
+    // ...potions
   ].slice(0, 60);
 
   return shuffle(deck);
