@@ -1,6 +1,8 @@
+import { sample } from 'lodash';
+
 export class ArrayOfCards {
   constructor(cards = []) {
-    this.cards = cards;
+    this.cards = [...cards];
   }
 
   getTopCard() {
@@ -9,6 +11,11 @@ export class ArrayOfCards {
 
   getCardAtIndex(index) {
     return this.cards[index];
+  }
+
+  getRandomCardByFilter(filterFunc) {
+    const possibleCards = this.cards.filter(filterFunc);
+    return sample(possibleCards);
   }
 
   removeTopCard() {

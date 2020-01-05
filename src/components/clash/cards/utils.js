@@ -10,7 +10,8 @@ const cardTemplate = {
   description: '',
   damageSelf: null,
   isMockCard: false, // "pseudo" card for discard effects, etc.
-  banishes: false
+  banishes: false,
+  fetchCards: null
 };
 
 export const createCard = (properties = {}) => {

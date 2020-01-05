@@ -9,7 +9,7 @@ export const potions = [
     onDiscard: {
       heal: 3
     }
-  })
+  }),
 ].map(card => (
   { ...card, type: 'potion' }
 ));

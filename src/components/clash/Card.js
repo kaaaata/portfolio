@@ -6,8 +6,14 @@ import { cardBodyCss } from './cardCss';
 
 const genCardDescription = ({
   heal,
-  damageSelf
+  damageSelf,
+  pierce,
+  description
 }) => {
+  if (description) {
+    return description;
+  }
+
   const sentences = [];
 
   if (heal) {
@@ -15,6 +21,9 @@ const genCardDescription = ({
   }
   if (damageSelf) {
     sentences.push(`Discard ${damageSelf}.`);
+  }
+  if (pierce) {
+    sentences.push(`Pierces ${2}.`);
   }
 
   return sentences.join(' ');
@@ -97,6 +106,7 @@ export const Card = ({
         src={`/clash/${image}.png`}
         width={70}
         height={70}
+        size='contain'
         _css='position: absolute;'
       />
     </React.Fragment>
@@ -157,7 +167,7 @@ export const PileCardPlaceholder = ({ renderProps }) => (
   <div
     css={css`
       width: 120px;
-      height: 150px;
+      height: 170px;
       position: absolute;
       left: ${renderProps.x}px;
       top: ${renderProps.y}px;

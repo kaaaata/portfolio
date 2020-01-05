@@ -8,10 +8,18 @@ export const magic = [
     attack: 2,
     defense: 0
   }),
+  createCard({
+    name: 'Tentacles',
+    image: 'tentacles',
+    rarity: 'common',
+    attack: 1,
+    defense: 1
+  }),
 ].map(card => (
   {
     ...card,
     type: 'magic',
+    unblockable: true,
     banishes: true
   }
 ));

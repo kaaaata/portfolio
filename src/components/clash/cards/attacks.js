@@ -30,6 +30,22 @@ export const attacks = [
     defense: 2
   }),
   createCard({
+    name: 'Heavy Strike',
+    image: 'heavy_strike',
+    rarity: 'common',
+    attack: 2,
+    defense: 0,
+    pierce: 1
+  }),
+  createCard({
+    name: 'Piercing Blow',
+    image: 'piercing_blow',
+    rarity: 'uncommon',
+    attack: 3,
+    defense: 1,
+    pierce: 2
+  }),
+  createCard({
     name: 'Chop',
     image: 'chop',
     rarity: 'uncommon',
