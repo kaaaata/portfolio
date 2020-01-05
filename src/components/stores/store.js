@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { genRandomDeck } from '../clash/cards/cards';
+import { cards, genRandomDeck } from '../clash/cards/cards';
 
 const sampleDeck = genRandomDeck();
 
@@ -12,21 +12,21 @@ const initialState = {
   },
 
   // clash
-  yourDeck: sampleDeck
+  yourDeck: sampleDeck.slice(0, 25)
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourDiscard: sampleDeck
+  yourDiscard: []
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
-  yourBanish: sampleDeck
+  yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: sampleDeck.slice(0, 3)
+  yourHand: [cards['Healing Potion'], cards['Strike'], cards['Healing Strike']]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
-  enemyDeck: sampleDeck
+  enemyDeck: sampleDeck.slice(0, 25)
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
-  enemyDiscard: sampleDeck
+  enemyDiscard: []
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
-  enemyBanish: sampleDeck
+  enemyBanish: []
     .map(card => ({ ...card, player: 'enemy', location: 'banish' })),
-  enemyHand: sampleDeck.slice(0, 3)
+  enemyHand: Array(3).fill(cards['Strike'])
     .map(card => ({ ...card, player: 'enemy', location: 'hand' })),
   stack: []
 };

@@ -12,20 +12,10 @@ import {
   EnemyHand,
   Stack
 } from './PileOfCards';
+import { Image, Filter } from '../particles';
 import { Portrait } from './Portrait';
 import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
-
-const clashCss = css`
-  flex-shrink: 0;
-  width: 1000px;
-  height: 600px;
-  position: relative;
-  background: #B2967D;
-
-  .enemy_side, .your_side {
-    perspective: 2000px;
-  }
-`;
+import { colors } from '../styles';
 
 const ClashComponent = (props) => {
   let interval = null;
@@ -71,10 +61,20 @@ const ClashComponent = (props) => {
   };
 
   return (
-    <section css={clashCss}>
+    <Image
+      src='/clash/landscape.png'
+      width={1000}
+      height={600}
+      _css={css`
+        flex-shrink: 0;
+        position: relative;
+      `}
+    >
+      <Filter opacity={0.3} color={colors.white} />
+
       <Portrait player='sour_patch' location='top' />
       <EnemyHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
-      <div className='enemy_side'>
+      <div css={css`perspective: 2000px;`}>
         <EnemyDeck />
         <EnemyDiscard />
         <EnemyBanish />
@@ -84,12 +84,12 @@ const ClashComponent = (props) => {
 
       <Portrait player='cat' location='bottom' />
       <YourHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
-      <div className='your_side'>
+      <div css={css`perspective: 2000px;`}>
         <YourDeck />
         <YourDiscard />
         <YourBanish />
       </div>
-    </section>
+    </Image>
   );
 };
 
