@@ -9,7 +9,7 @@ const initialState = {
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
   yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: [cards['Healing Potion'], cards['Strike'], cards['Healing Strike']]
+  yourHand: [cards['Healing Potion'], cards['Strike'], cards['Fire']]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
   enemyDeck: sampleDeck.slice(0, 25)
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),

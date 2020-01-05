@@ -24,4 +24,10 @@ export class ArrayOfCards {
     this.cards.push(card);
     return this.cards;
   }
+
+  addCardAtRandomIndex(card) {
+    const index = Math.floor(Math.random() * this.cards.length);
+    this.cards.splice(index, 0, card);
+    return this.cards;
+  }
 }

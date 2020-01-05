@@ -1,9 +1,9 @@
 const initialState = {
-  yourName: 'Cat',
-  yourImage: 'cat',
+  yourName: 'Lyra the Blue',
+  yourImage: 'mermaid',
   yourStats: {
     attack: {
-      permanent: 2,
+      permanent: 0,
       untilEndOfBattle: 0,
       untilEndOfTurn: 0
     },
@@ -13,18 +13,18 @@ const initialState = {
       untilEndOfTurn: 0
     },
     defense: {
-      permanent: 0,
+      permanent: 1,
       untilEndOfBattle: 0,
       untilEndOfTurn: 0
     }
   },
   yourShields: 0,
 
-  enemyName: 'Sour Patch',
-  enemyImage: 'sour_patch',
+  enemyName: 'Harold the Red',
+  enemyImage: 'red_spear_guy',
   enemyStats: {
     attack: {
-      permanent: 2,
+      permanent: 0,
       untilEndOfBattle: 0,
       untilEndOfTurn: 0
     },
@@ -34,7 +34,7 @@ const initialState = {
       untilEndOfTurn: 0
     },
     defense: {
-      permanent: 0,
+      permanent: 1,
       untilEndOfBattle: 0,
       untilEndOfTurn: 0
     }

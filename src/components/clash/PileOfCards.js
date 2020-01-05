@@ -17,7 +17,7 @@ const PileOfCards = ({ cards, renderProps }) => {
     left: ${x - 5}px;
     top: ${y - 5}px;
     width: 130px;
-    height: 160px;
+    height: 180px;
     border: 2px solid ${themeColor};
     transform: rotate3d(1, 0, 0, 65deg);
   `;
@@ -27,7 +27,7 @@ const PileOfCards = ({ cards, renderProps }) => {
     left: ${countX}px;
     top: ${countY}px;
     width: 130px;
-    height: 160px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -75,7 +75,7 @@ export const YourDeck = connect(state => ({ cards: state.clashBattleCards.yourDe
   ({ cards }) => (
     <PileOfCards
       cards={cards}
-      renderProps={{ x: 150, y: 440, themeColor: colors.green, countX: 135, countY: 440 }}
+      renderProps={{ x: 150, y: 420, themeColor: colors.green, countX: 135, countY: 415 }}
     />
   )
 );
@@ -84,7 +84,7 @@ export const YourDiscard = connect(state => ({ cards: state.clashBattleCards.you
   ({ cards }) => (
     <PileOfCards
       cards={cards}
-      renderProps={{ x: 695, y: 440, themeColor: colors.red, countX: 705, countY: 440 }}
+      renderProps={{ x: 695, y: 420, themeColor: colors.red, countX: 705, countY: 415 }}
     />
   )
 );
@@ -93,7 +93,7 @@ export const YourBanish = connect(state => ({ cards: state.clashBattleCards.your
   ({ cards }) => (
     <PileOfCards
       cards={cards}
-      renderProps={{ x: 835, y: 440, themeColor: colors.black, countX: 850, countY: 440 }}
+      renderProps={{ x: 835, y: 420, themeColor: colors.black, countX: 850, countY: 415 }}
     />
   )
 );
@@ -104,7 +104,7 @@ export const YourHand = connect(state => ({ cards: state.clashBattleCards.yourHa
       <Card
         key={index}
         cardProps={card}
-        renderProps={{ x: 300 + 125 * index, y: 425 }}
+        renderProps={{ x: 300 + 125 * index, y: 400 }}
         onClick={() => onClick(card, index)}
       />
     ) : null
@@ -115,7 +115,7 @@ export const EnemyBanish = connect(state => ({ cards: state.clashBattleCards.ene
   ({ cards }) => (
     <PileOfCards
       cards={cards}
-      renderProps={{ x: 45, y: 80, themeColor: colors.black, countX: 25, countY: 70 }}
+      renderProps={{ x: 45, y: 80, themeColor: colors.black, countX: 25, countY: 60 }}
     />
   )
 );
@@ -124,7 +124,7 @@ export const EnemyDiscard = connect(state => ({ cards: state.clashBattleCards.en
   ({ cards }) => (
     <PileOfCards
       cards={cards}
-      renderProps={{ x: 185, y: 80, themeColor: colors.red, countX: 170, countY: 70 }}
+      renderProps={{ x: 185, y: 80, themeColor: colors.red, countX: 170, countY: 60 }}
     />
   )
 );
@@ -133,7 +133,7 @@ export const EnemyDeck = connect(state => ({ cards: state.clashBattleCards.enemy
   ({ cards }) => (
     <PileOfCards
       cards={cards}
-      renderProps={{ x: 725, y: 80, themeColor: colors.green, countX: 735, countY: 70 }}
+      renderProps={{ x: 725, y: 80, themeColor: colors.green, countX: 735, countY: 60 }}
     />
   )
 );
@@ -144,7 +144,7 @@ export const EnemyHand = connect(state => ({ cards: state.clashBattleCards.enemy
       <Card
         key={index}
         cardProps={card}
-        renderProps={{ x: 330 + 125 * index, y: 50 }}
+        renderProps={{ x: 330 + 125 * index, y: 45 }}
         onClick={() => onClick(card, index)}
       />
     ) : null
@@ -158,7 +158,7 @@ export const Stack = connect(state => ({ cards: state.clashBattleCards.stack }))
       cardProps={card}
       renderProps={{
         x: 350 + index * 15,
-        y: 250,
+        y: 225,
         isBlurred: cards.length >= 2 && index !== cards.length - 1
       }}
     />

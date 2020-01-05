@@ -7,7 +7,7 @@ import { colors, zIndex } from '../styles';
 const portraitCss = (location) => css`
   position: absolute;
   left: ${location === 'top' ? 885 : 22}px;
-  top: ${location === 'top' ? 60 : 435}px;
+  top: ${location === 'top' ? 35 : 410}px;
 
   .number {
     font-size: 36px;
@@ -60,8 +60,8 @@ const Portrait = ({
   const portrait = (
     <Image
       src={`/clash/portraits/${image}.png`}
-      width={96}
-      height={96}
+      width={100}
+      height={125}
     />
   );
 

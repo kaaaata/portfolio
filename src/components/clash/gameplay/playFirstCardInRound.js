@@ -101,36 +101,46 @@ export const playFirstCardInRound = (card, index) => {
 
   const genPlayCardActions = (card, index) => {
     const opponent = card.player === 'you' ? 'enemy' : 'you';
+    const {
+      attack,
+      defense,
+      heal,
+      damageSelf,
+      player,
+      necro,
+      unblockable,
+      banishes
+    } = card;
 
     addCardToStack(card, index);
 
     // attack
-    if (typeof card.attack === 'number') {
-      let totalDamageDealt = card.attack;
-      if (card.attack) {
-        const bonusStatsDamage = Object.values(stateCopy[card.player].stats.attack).reduce(
+    if (typeof attack === 'number') {
+      let totalDamageDealt = attack;
+      if (attack) {
+        const bonusStatsDamage = Object.values(stateCopy[player].stats.attack).reduce(
           (a, b) => a + b
         );
         totalDamageDealt += bonusStatsDamage;
-        if (!card.unblockble) {
+        if (!unblockable) {
           const enemyShieldsBlock = stateCopy[opponent].shields;
           totalDamageDealt -= enemyShieldsBlock;
         }
-        if (card.necro) {
+        if (necro) {
           const bonusNecroDamage = Math.floor(
-            stateCopy[card.player].discard.cards.length / card.necro
+            stateCopy[player].discard.cards.length / necro
           );
           totalDamageDealt += bonusNecroDamage;
         }
       }
 
-      let totalShieldsGained = card.defense;
-      if (card.defense) {
-        const bonusShields = Object.values(stateCopy[card.player].stats.defense).reduce(
+      let totalShieldsGained = defense;
+      if (defense) {
+        const bonusShields = Object.values(stateCopy[player].stats.defense).reduce(
           (a, b) => a + b
         );
         totalShieldsGained += bonusShields;
-        stateCopy[card.player].shields += totalShieldsGained;
+        stateCopy[player].shields += totalShieldsGained;
       }
 
       for (let i = 0; i < totalDamageDealt; i++) {
@@ -139,8 +149,9 @@ export const playFirstCardInRound = (card, index) => {
         }
 
         const removedCard = stateCopy[opponent].deck.removeTopCard();
-        removedCard.location = 'discard';
-        stateCopy[opponent].discard.addCardToTop(removedCard);
+        const destination = banishes ? 'banish' : 'discard';
+        removedCard.location = destination;
+        stateCopy[opponent][destination].addCardToTop(removedCard);
 
         actions.push([
           {
@@ -148,17 +159,17 @@ export const playFirstCardInRound = (card, index) => {
             payload: [...stateCopy[opponent].deck.cards]
           },
           {
-            actionKey: actionKeys[opponent].discard,
-            payload: [...stateCopy[opponent].discard.cards]
+            actionKey: actionKeys[opponent][destination],
+            payload: [...stateCopy[opponent][destination].cards]
           },
           {
-            actionKey: actionKeys[card.player].shields,
+            actionKey: actionKeys[player].shields,
             payload: totalShieldsGained
           }
         ]);
 
         if (removedCard.onDiscard) {
-          addCardToStack(removedCard, stateCopy[opponent].discard.cards.length - 1);
+          addCardToStack(removedCard, stateCopy[opponent][destination].cards.length - 1);
 
           const mockCard = createCard({
             ...removedCard.onDiscard,
@@ -172,9 +183,7 @@ export const playFirstCardInRound = (card, index) => {
     }
 
     // heal
-    const { heal } = card;
     if (heal) {
-      const player = card.player === 'you' ? 'you' : 'enemy';
       for (let i = 0; i < heal; i++) {
         if (!stateCopy[player].discard.cards.length) {
           break;
@@ -182,7 +191,27 @@ export const playFirstCardInRound = (card, index) => {
 
         const healedCard = stateCopy[player].discard.removeTopCard();
         healedCard.location = 'deck';
-        stateCopy[player].deck.addCardToTop(healedCard);
+        stateCopy[player].deck.addCardAtRandomIndex(healedCard);
+
+        actions.push([
+          {
+            actionKey: actionKeys[player].deck,
+            payload: [...stateCopy[player].deck.cards]
+          },
+          {
+            payload: [...stateCopy[player].discard.cards],
+            actionKey: actionKeys[player].discard
+          }
+        ]);
+      }
+    }
+
+    // damage self
+    if (damageSelf) {
+      for (let i = 0; i < damageSelf; i++) {
+        const removedCard = stateCopy[player].deck.removeTopCard();
+        removedCard.location = 'discard';
+        stateCopy[player].discard.addCardToTop(removedCard);
 
         actions.push([
           {

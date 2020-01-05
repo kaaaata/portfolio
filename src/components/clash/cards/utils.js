@@ -8,9 +8,9 @@ const cardTemplate = {
   onDiscard: null,
   type: '',
   description: '',
-  piercesArmor: false,
-  magical: false,
-  isMockCard: false // "pseudo" card for discard effects, etc.
+  damageSelf: null,
+  isMockCard: false, // "pseudo" card for discard effects, etc.
+  banishes: false
 };
 
 export const createCard = (properties = {}) => {

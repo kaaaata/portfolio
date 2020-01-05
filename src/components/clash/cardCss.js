@@ -17,10 +17,10 @@ export const cardBodyCss = css`
     display: flex;
     justify-content: center;
     position: relative;
-    padding: 10px;
-
+    padding: 5px;
+    
     .filter {
-      margin-top: -10px;
+      margin-top: -5px;
     }
 
     .attack, .defense {

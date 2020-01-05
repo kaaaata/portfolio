@@ -4,6 +4,22 @@ import { Image, Spacer, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
 import { cardBodyCss } from './cardCss';
 
+const genCardDescription = ({
+  heal,
+  damageSelf
+}) => {
+  const sentences = [];
+
+  if (heal) {
+    sentences.push(`Heal ${heal}.`);
+  }
+  if (damageSelf) {
+    sentences.push(`Discard ${damageSelf}.`);
+  }
+
+  return sentences.join(' ');
+};
+
 export const Card = ({
   cardProps,
   renderProps,
@@ -20,12 +36,13 @@ export const Card = ({
     heal,
     onDiscard,
     location,
-    player
+    player,
+    damageSelf
   } = cardProps;
 
   const {
     width = 120,
-    height = 150,
+    height = 170,
     x = 0,
     y = 0,
     isInPileOfCards = false,
@@ -75,20 +92,20 @@ export const Card = ({
 
   const cardArt = (
     <React.Fragment>
-      <Spacer height={48} />
+      <Spacer height={70} />
       <Image
         src={`/clash/${image}.png`}
-        width={48}
-        height={48}
+        width={70}
+        height={70}
         _css='position: absolute;'
       />
     </React.Fragment>
   );
 
-  const attackDisplay = typeof attack === 'number' && (
+  const attackDisplay = ['attack', 'magic'].includes(type) && (
     <Image
       className='attack'
-      src='/clash/attack.png'
+      src={`/clash/${type}.png`}
       width={20}
       height={20}
     >
@@ -106,12 +123,6 @@ export const Card = ({
       <div className='number'>{defense}</div>
     </Image>
   );
-
-  let descriptionText = '';
-  if (heal) {
-    descriptionText += `Heal ${heal}. `;
-  }
-  descriptionText += description;
 
   return (
     <Image
@@ -133,7 +144,7 @@ export const Card = ({
         </div>
         <div className='border' />
         <div className='description'>
-          {descriptionText}
+          {genCardDescription(cardProps)}
         </div>
       </div>
     </Image>
