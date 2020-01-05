@@ -1,5 +1,6 @@
 import { ArrayOfCards } from './arrayOfCards';
 import { createCard } from '../cards/utils';
+import { cards } from '../cards/cards';
 import { attacks } from '../cards/attacks';
 import { magic } from '../cards/magic';
 import { potions } from '../cards/potions';
@@ -67,7 +68,9 @@ const actionGenerators = {
   },
   removeCard: (player, location, index) => {
     // index = number|'top'
-    if (location === 'hand') {
+    if (!index && index !== 0) {
+      return;
+    } else if (location === 'hand') {
       stateCopy[player][location].cards[index] = null;
     } else if (index === 'top') {
       stateCopy[player][location].removeTopCard();
@@ -100,6 +103,30 @@ const customCardEffects = {
     });
 
     threeRandomAttacks.forEach(newCard => {
+      actions.push([
+        actionGenerators.removeTopCardFromStack(),
+        actionGenerators.addCard(newCard, card.player, 'deck', 'random')
+      ]);
+    });
+  },
+  'Catherine the Great': (card) => {
+    // Play a copy of Healing Blade.
+    // Shuffle 2 additional copies of Healing Blade into your draw pile.
+    genPlayCardActions({
+      ...cards['Healing Blade'],
+      player: card.player
+    });
+
+    const twoHealingBlades = [
+      cards['Healing Blade'],
+      cards['Healing Blade']
+    ];
+
+    twoHealingBlades.forEach(newCard => {
+      actions.push([actionGenerators.addCardToStack(newCard)]);
+    });
+
+    twoHealingBlades.forEach(newCard => {
       actions.push([
         actionGenerators.removeTopCardFromStack(),
         actionGenerators.addCard(newCard, card.player, 'deck', 'random')
@@ -150,10 +177,6 @@ const genPlayCardActions = (card, index) => {
     actions.push([]);
   }
 
-  if (customEffect) {
-    customCardEffects[name](card);
-  }
-
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && type !== 'ally') {
@@ -175,7 +198,10 @@ const genPlayCardActions = (card, index) => {
         (a, b) => a + b
       );
       totalShieldsGained += bonusShields;
-      stateCopy[player].shields += totalShieldsGained;
+      actions.push([actionGenerators.setShields(
+        player,
+        stateCopy[player].shields + Math.max(totalShieldsGained, 0)
+      )]);
     }
 
     for (let i = 0; i < totalDamageDealt; i++) {
@@ -238,6 +264,10 @@ const genPlayCardActions = (card, index) => {
         triggerDiscardEffect(player);
       }
     }
+  }
+
+  if (customEffect) {
+    customCardEffects[name](card);
   }
 
   const playedCard = isMockCard

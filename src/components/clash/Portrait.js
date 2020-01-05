@@ -1,8 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
-import * as actions from '../stores/actions';
-import { Image, Spacer, Filter, FlexContainer } from '../particles';
-import { colors, zIndex } from '../styles';
+import { Image, FlexContainer } from '../particles';
+import { colors } from '../styles';
 
 const portraitCss = (location) => css`
   position: absolute;

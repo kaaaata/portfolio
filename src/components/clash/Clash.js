@@ -23,9 +23,13 @@ const ClashComponent = (props) => {
   let isAnimating = false;
 
   const executeRenderAction = (action) => {
-    action.forEach(subAction => {
-      props[subAction.actionKey](subAction.payload);
-    });
+    if (action) {
+      action.forEach(subAction => {
+        if (subAction) {
+          props[subAction.actionKey](subAction.payload);
+        }
+      });
+    }
   };
 
   const handleClickCardInYourHand = (card, index) => {

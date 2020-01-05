@@ -33,7 +33,8 @@
     "no-shadow": "off",
     "arrow-parens": "off",
     "dot-notation": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-use-before-define": "off"
   },
   "env": {
     "browser": true,

@@ -28,6 +28,20 @@ const genCardDescription = ({
 
   return sentences.join(' ');
 };
+const genCardRarityColor = (rarity) => {
+  switch (rarity) {
+    case 'common':
+      return colors.white;
+    case 'uncommon':
+      return colors.green;
+    case 'rare':
+      return colors.blue;
+    case 'legendary':
+      return colors.yellow;
+    default:
+      return colors.grey;
+  }
+};
 
 export const Card = ({
   cardProps,
@@ -40,13 +54,7 @@ export const Card = ({
     rarity,
     attack,
     defense,
-    description,
-    type,
-    heal,
-    onDiscard,
-    location,
-    player,
-    damageSelf
+    type
   } = cardProps;
 
   const {
@@ -70,13 +78,12 @@ export const Card = ({
       : restingPositionTransformCss
   );
 
-  console.log('card rendering:', `${name}-${player}-${location}`);
-
+  const rarityColor = genCardRarityColor(rarity);
   const cardCss = css`
     position: absolute;
     left: ${x}px;
     top: ${y}px;
-    border: 2px solid ${colors.grey};
+    border: 2px solid ${rarityColor};
     border-radius: 5px;
     transition: transform 0.1s ease-out;
     ${onClick ? `
@@ -143,7 +150,7 @@ export const Card = ({
       _css={cardCss}
     >
       <Filter opacity={0.45} color={colors.black} />
-      <div css={cardBodyCss}>
+      <div css={cardBodyCss(rarityColor)}>
         <div className='name'>{name}</div>
         <div className='border' />
         <div className='image_container'>

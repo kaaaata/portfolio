@@ -68,7 +68,7 @@ export const attacks = [
     damageSelf: 3
   }),
   createCard({
-    name: 'Energizing Blade',
+    name: 'Healing Blade',
     image: 'fat_blue_sword',
     rarity: 'rare',
     attack: 3,
