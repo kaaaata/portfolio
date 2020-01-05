@@ -34,33 +34,31 @@ let stateCopy = {};
 const wait = () => actions.push([]);
 
 const addCardToStack = (card, index) => {
-  if (!card.isMockCard) {
-    let removeCardAction = {};
+  let removeCardAction = {};
 
-    if (card.location === 'hand') {
-      stateCopy[card.player].hand.cards[index] = null;
-    } else {
-      stateCopy[card.player][card.location].removeCardAtIndex(index);
-    }
-
-    removeCardAction = {
-      actionKey: actionKeys[card.player][card.location],
-      payload: [...stateCopy[card.player][card.location].cards]
-    };
-
-    card.location = 'stack';
-    stateCopy.stack.addCardToTop(card);
-
-    actions.push([
-      {
-        actionKey: 'setStack',
-        payload: [...stateCopy.stack.cards]
-      },
-      removeCardAction
-    ]);
-
-    wait();
+  if (card.location === 'hand') {
+    stateCopy[card.player].hand.cards[index] = null;
+  } else {
+    stateCopy[card.player][card.location].removeCardAtIndex(index);
   }
+
+  removeCardAction = {
+    actionKey: actionKeys[card.player][card.location],
+    payload: [...stateCopy[card.player][card.location].cards]
+  };
+
+  card.location = 'stack';
+  stateCopy.stack.addCardToTop(card);
+
+  actions.push([
+    {
+      actionKey: 'setStack',
+      payload: [...stateCopy.stack.cards]
+    },
+    removeCardAction
+  ]);
+
+  wait();
 };
 
 const removeTopCardFromStack = () => {
@@ -83,9 +81,27 @@ const removeTopCardFromStack = () => {
   ]);
 };
 
+const customCardEffects = {
+  'Weapons Guy': (card) => {
+    // Add 3 random attacks into your draw pile.
+    for (let i = 0; i < 3; i++) {
+      const randomAttackCard = {
+        ...masterCardList.attacks.getRandomCard(),
+        location: 'deck'
+      };
+      stateCopy[card.player].deck.addCardAtRandomIndex(randomAttackCard);
+      actions.push([{
+        actionKey: 'setYourDeck',
+        payload: [...stateCopy[card.player].deck.cards]
+      }]);
+    }
+  }
+};
+
 const genPlayCardActions = (card, index) => {
   const opponent = card.player === 'you' ? 'enemy' : 'you';
   const {
+    name,
     attack,
     defense,
     heal,
@@ -95,10 +111,14 @@ const genPlayCardActions = (card, index) => {
     unblockable,
     banishes,
     pierce,
-    type
+    type,
+    isMockCard,
+    customEffect
   } = card;
 
-  addCardToStack(card, index);
+  if (!isMockCard) {
+    addCardToStack(card, index);
+  }
 
   // attack
   if (typeof attack === 'number') {
@@ -215,7 +235,14 @@ const genPlayCardActions = (card, index) => {
     }
   }
 
-  removeTopCardFromStack();
+  // custom effects
+  if (customEffect) {
+    customCardEffects[name](card);
+  }
+
+  if (!isMockCard) {
+    removeTopCardFromStack();
+  }
 };
 
 const genStartOfTurnActions = (player) => {

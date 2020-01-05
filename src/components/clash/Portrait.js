@@ -6,8 +6,8 @@ import { colors, zIndex } from '../styles';
 
 const portraitCss = (location) => css`
   position: absolute;
-  left: ${location === 'top' ? 885 : 22}px;
-  top: ${location === 'top' ? 35 : 410}px;
+  left: ${location === 'top' ? 885 : 20}px;
+  top: ${location === 'top' ? 48 : 405}px;
 
   .number {
     font-size: 36px;
@@ -50,7 +50,7 @@ const portraitCss = (location) => css`
   }
 `;
 
-const Portrait = ({ 
+const Portrait = ({
   location,
   name,
   image,

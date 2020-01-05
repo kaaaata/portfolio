@@ -112,7 +112,7 @@ export const Card = ({
     </React.Fragment>
   );
 
-  const attackDisplay = ['attack', 'magic'].includes(type) && (
+  const attackDisplay = type !== 'potion' && (
     <Image
       className='attack'
       src={`/clash/${type}.png`}

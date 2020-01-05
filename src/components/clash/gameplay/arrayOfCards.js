@@ -13,6 +13,10 @@ export class ArrayOfCards {
     return this.cards[index];
   }
 
+  getRandomCard() {
+    return sample(this.cards);
+  }
+
   getRandomCardByFilter(filterFunc) {
     const possibleCards = this.cards.filter(filterFunc);
     return sample(possibleCards);
