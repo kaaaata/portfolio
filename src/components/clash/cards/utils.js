@@ -11,7 +11,8 @@ const cardTemplate = {
   damageSelf: null,
   isMockCard: false, // "pseudo" card for discard effects, etc.
   banishes: false,
-  customEffect: false
+  customEffect: false,
+  pierce: 0
 };
 
 export const createCard = (properties = {}) => {

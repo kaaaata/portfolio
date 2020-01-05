@@ -9,9 +9,13 @@ const initialState = {
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
   yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: [cards['Weapons Guy'], cards['Strike'], cards['Fire']]
+  yourHand: [cards['Weapons Guy'], cards['Strike'], cards['Sunder']]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
-  enemyDeck: [...sampleDeck, ...sampleDeck, ...sampleDeck]
+  enemyDeck: [
+    ...Array(15).fill(cards['Parry']),
+    cards['Healing Potion'],
+    ...Array(2).fill(cards['Parry']),
+  ]
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyDiscard: []
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),

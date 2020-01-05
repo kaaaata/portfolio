@@ -65,34 +65,46 @@ const actionGenerators = {
       payload: [...stateCopy[player][location].cards]
     };
   },
-  removeCard: (card, index) => {
+  removeCard: (player, location, index) => {
     // index = number|'top'
-    if (card.location === 'hand') {
-      stateCopy[card.player][card.location].cards[index] = null;
+    if (location === 'hand') {
+      stateCopy[player][location].cards[index] = null;
     } else if (index === 'top') {
-      stateCopy[card.player][card.location].removeTopCard();
+      stateCopy[player][location].removeTopCard();
     }
     return {
-      actionKey: actionKeys[card.player][card.location],
-      payload: [...stateCopy[card.player][card.location].cards]
+      actionKey: actionKeys[player][location],
+      payload: [...stateCopy[player][location].cards]
     };
   },
+  setShields: (player, value) => {
+    stateCopy[player].shields = value;
+    return {
+      actionKey: actionKeys[player].shields,
+      payload: value
+    };
+  }
 };
 
 const customCardEffects = {
   'Weapons Guy': (card) => {
-    // Add 3 random attacks into your draw pile.
-    for (let i = 0; i < 3; i++) {
-      const randomAttackCard = {
-        ...masterCardList.attacks.getRandomCard(),
-        location: 'deck'
-      };
-      stateCopy[card.player].deck.addCardAtRandomIndex(randomAttackCard);
-      actions.push([{
-        actionKey: 'setYourDeck',
-        payload: [...stateCopy[card.player].deck.cards]
-      }]);
-    }
+    // Shuffle 3 random attacks into your draw pile.
+    const threeRandomAttacks = [
+      masterCardList.attacks.getRandomCard(),
+      masterCardList.attacks.getRandomCard(),
+      masterCardList.attacks.getRandomCard()
+    ];
+
+    threeRandomAttacks.forEach(newCard => {
+      actions.push([actionGenerators.addCardToStack(newCard)]);
+    });
+
+    threeRandomAttacks.forEach(newCard => {
+      actions.push([
+        actionGenerators.removeTopCardFromStack(),
+        actionGenerators.addCard(newCard, card.player, 'deck', 'random')
+      ]);
+    });
   }
 };
 
@@ -105,7 +117,6 @@ const genPlayCardActions = (card, index) => {
     heal,
     damageSelf,
     player,
-    necro,
     unblockable,
     banishes,
     pierce,
@@ -114,21 +125,35 @@ const genPlayCardActions = (card, index) => {
     customEffect,
   } = card;
 
-  // remove card from where it was played, and add to stack
+  const triggerDiscardEffect = (player) => {
+    const discardedCard = stateCopy[player].discard.getTopCard();
+
+    actions.push([
+      actionGenerators.removeCard(player, 'discard', 'top'),
+      actionGenerators.addCardToStack(discardedCard)
+    ]);
+
+    const mockCard = createCard({
+      ...discardedCard.onDiscard,
+      player: discardedCard.player,
+      isMockCard: true
+    });
+
+    genPlayCardActions(mockCard);
+  };
+
   if (!isMockCard) {
     actions.push([
       actionGenerators.addCardToStack(card),
-      actionGenerators.removeCard(card, index)
+      actionGenerators.removeCard(player, 'hand', index)
     ]);
     actions.push([]);
   }
 
-  // custom effects
   if (customEffect) {
     customCardEffects[name](card);
   }
 
-  // attack
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && type !== 'ally') {
@@ -138,18 +163,11 @@ const genPlayCardActions = (card, index) => {
       totalDamageDealt += bonusStatsDamage;
       if (!unblockable) {
         const { shields } = stateCopy[opponent];
-        const enemyShieldsBlock = shields > 0
-          ? Math.floor(shields - pierce, 0)
-          : shields;
+        const enemyShieldsBlock = Math.max(shields - pierce, 0);
         totalDamageDealt -= enemyShieldsBlock;
       }
-      if (necro) {
-        const bonusNecroDamage = Math.floor(
-          stateCopy[player].discard.cards.length / necro
-        );
-        totalDamageDealt += bonusNecroDamage;
-      }
     }
+    totalDamageDealt = Math.max(totalDamageDealt, 0);
 
     let totalShieldsGained = defense;
     if (defense) {
@@ -165,84 +183,60 @@ const genPlayCardActions = (card, index) => {
         break;
       }
 
-      const removedCard = stateCopy[opponent].deck.removeTopCard();
+      const removedCard = stateCopy[opponent].deck.getTopCard();
       const destination = banishes ? 'banish' : 'discard';
-      removedCard.location = destination;
-      stateCopy[opponent][destination].addCardToTop(removedCard);
-
       actions.push([
-        {
-          actionKey: actionKeys[opponent].deck,
-          payload: [...stateCopy[opponent].deck.cards]
-        },
-        {
-          actionKey: actionKeys[opponent][destination],
-          payload: [...stateCopy[opponent][destination].cards]
-        },
-        {
-          actionKey: actionKeys[player].shields,
-          payload: totalShieldsGained
-        }
+        actionGenerators.removeCard(opponent, 'deck', 'top'),
+        actionGenerators.addCard(
+          removedCard,
+          opponent,
+          destination,
+          'top'
+        ),
+        actionGenerators.setShields(player, totalShieldsGained)
       ]);
 
-      if (removedCard.onDiscard && !banishes) {
-        actions.push([
-          actionGenerators.removeCard(removedCard, 'top'),
-          actionGenerators.addCardToStack(removedCard)
-        ]);
-
-        const mockCard = createCard({
-          ...removedCard.onDiscard,
-          player: removedCard.player,
-          isMockCard: true
-        });
-
-        genPlayCardActions(mockCard);
+      if (destination === 'discard' && removedCard.onDiscard) {
+        triggerDiscardEffect(opponent);
       }
     }
   }
 
-  // heal
   if (heal) {
     for (let i = 0; i < heal; i++) {
       if (!stateCopy[player].discard.cards.length) {
         break;
       }
 
-      const healedCard = stateCopy[player].discard.removeTopCard();
-      healedCard.location = 'deck';
-      stateCopy[player].deck.addCardAtRandomIndex(healedCard);
-
+      const healedCard = stateCopy[player].discard.getTopCard();
       actions.push([
-        {
-          actionKey: actionKeys[player].deck,
-          payload: [...stateCopy[player].deck.cards]
-        },
-        {
-          payload: [...stateCopy[player].discard.cards],
-          actionKey: actionKeys[player].discard
-        }
+        actionGenerators.removeCard(player, 'discard', 'top'),
+        actionGenerators.addCard(
+          healedCard,
+          player,
+          'deck',
+          'random'
+        )
       ]);
     }
   }
 
-  // damage self
   if (damageSelf) {
     for (let i = 0; i < damageSelf; i++) {
-      const removedCard = stateCopy[player].deck.removeTopCard();
-      removedCard.location = 'discard';
-      stateCopy[player].discard.addCardToTop(removedCard);
-
+      const removedCard = stateCopy[player].deck.getTopCard();
       actions.push([
-        {
-          actionKey: actionKeys[player].deck,
-          payload: [...stateCopy[player].deck.cards]
-        },
-        {
-          payload: [...stateCopy[player].discard.cards],
-          actionKey: actionKeys[player].discard
-        }
+        actionGenerators.removeCard(player, 'deck', 'top'),
+        actionGenerators.addCard(
+          removedCard,
+          player,
+          'discard',
+          'top'
+        )
       ]);
+
+      if (removedCard.onDiscard) {
+        triggerDiscardEffect(player);
+      }
     }
   }
 
@@ -262,35 +256,25 @@ const genPlayCardActions = (card, index) => {
 };
 
 const genStartOfTurnActions = (player) => {
-  const startOfTurnActions = [];
+  const startOfTurnActions = [actionGenerators.setShields(player, 0)];
 
-  // remove shields
-  startOfTurnActions.push({
-    actionKey: player === 'you' ? 'setYourShields' : 'setEnemyShields',
-    payload: 0
-  });
-
-  // draw
   while (stateCopy[player].hand.cards.includes(null)) {
-    const cardToDraw = stateCopy[player].deck.removeTopCard();
-    stateCopy[player].hand.cards[stateCopy[player].hand.cards.indexOf(null)] = (
-      {
-        ...cardToDraw,
-        location: 'hand'
-      }
-    );
-    startOfTurnActions.push({
-      actionKey: player === 'you' ? 'setYourHand' : 'setEnemyHand',
-      payload: [...stateCopy[player].hand.cards]
-    });
-    startOfTurnActions.push({
-      actionKey: player === 'you' ? 'setYourDeck' : 'setEnemyDeck',
-      payload: [...stateCopy[player].deck.cards]
-    });
+    const cardToDraw = stateCopy[player].deck.getTopCard();
+    startOfTurnActions.push(actionGenerators.removeCard(
+      player,
+      'deck',
+      'top'
+    ));
+    startOfTurnActions.push(actionGenerators.addCard(
+      cardToDraw,
+      player,
+      'hand',
+      stateCopy[player].hand.cards.indexOf(null)
+    ));
   }
 
   actions.push(startOfTurnActions);
-  actions.push(actionGenerators.wait());
+  actions.push([]);
 };
 
 export const playFirstCardInRound = (card, index) => {

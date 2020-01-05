@@ -8,7 +8,7 @@ export const allies = [
     attack: 2,
     defense: 1,
     customEffect: true,
-    description: 'Add 3 random attacks into your draw pile.'
+    description: 'Shuffle 3 random attacks into your draw pile.'
   }),
 ].map(card => (
   { ...card, type: 'ally' }
