@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { connect } from 'react-redux';
+import * as actions from '../stores/actions';
 import { Image, Spacer, Filter, FlexContainer } from '../particles';
 import { colors, zIndex } from '../styles';
-import { cardBodyCss } from './cardCss';
 
 const portraitCss = (location) => css`
   position: absolute;
@@ -50,10 +50,16 @@ const portraitCss = (location) => css`
   }
 `;
 
-const PortraitComponent = ({ player, location }) => {
+const Portrait = ({ 
+  location,
+  name,
+  image,
+  stats,
+  shields
+}) => {
   const portrait = (
     <Image
-      src={`/clash/portraits/${player}.png`}
+      src={`/clash/portraits/${image}.png`}
       width={96}
       height={96}
     />
@@ -66,7 +72,7 @@ const PortraitComponent = ({ player, location }) => {
       width={30}
       height={30}
     >
-      <div className='number'>2</div>
+      <div className='number'>{stats.attack.permanent}</div>
     </Image>
   );
 
@@ -77,7 +83,7 @@ const PortraitComponent = ({ player, location }) => {
       width={30}
       height={30}
     >
-      <div className='number'>0</div>
+      <div className='number'>{stats.magic.permanent}</div>
     </Image>
   );
 
@@ -88,7 +94,7 @@ const PortraitComponent = ({ player, location }) => {
       width={30}
       height={30}
     >
-      <div className='number'>1</div>
+      <div className='number'>{stats.defense.permanent}</div>
     </Image>
   );
 
@@ -99,7 +105,7 @@ const PortraitComponent = ({ player, location }) => {
       width={72}
       height={72}
     >
-      <div className='number'>5</div>
+      <div className='number'>{shields}</div>
     </Image>
   );
 
@@ -119,4 +125,31 @@ const PortraitComponent = ({ player, location }) => {
   );
 };
 
-export const Portrait = PortraitComponent;
+const mapStateToProps = state => ({
+  yourName: state.clashBattleStats.yourName,
+  yourImage: state.clashBattleStats.yourImage,
+  yourStats: state.clashBattleStats.yourStats,
+  yourShields: state.clashBattleStats.yourShields,
+  enemyName: state.clashBattleStats.enemyName,
+  enemyImage: state.clashBattleStats.enemyImage,
+  enemyStats: state.clashBattleStats.enemyStats,
+  enemyShields: state.clashBattleStats.enemyShields,
+});
+
+const mapStateToPropsYou = state => ({
+  name: state.clashBattleStats.yourName,
+  image: state.clashBattleStats.yourImage,
+  stats: state.clashBattleStats.yourStats,
+  shields: state.clashBattleStats.yourShields,
+  location: 'bottom'
+});
+const mapStateToPropsEnemy = state => ({
+  name: state.clashBattleStats.enemyName,
+  image: state.clashBattleStats.enemyImage,
+  stats: state.clashBattleStats.enemyStats,
+  shields: state.clashBattleStats.enemyShields,
+  location: 'top'
+});
+
+export const YourPortrait = connect(mapStateToPropsYou)(Portrait);
+export const EnemyPortrait = connect(mapStateToPropsEnemy)(Portrait);

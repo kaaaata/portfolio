@@ -13,7 +13,7 @@ import {
   Stack
 } from './PileOfCards';
 import { Image, Filter } from '../particles';
-import { Portrait } from './Portrait';
+import { YourPortrait, EnemyPortrait } from './Portrait';
 import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
 import { colors } from '../styles';
 
@@ -72,7 +72,7 @@ const ClashComponent = (props) => {
     >
       <Filter opacity={0.3} color={colors.white} />
 
-      <Portrait player='sour_patch' location='top' />
+      <EnemyPortrait />
       <EnemyHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
       <div css={css`perspective: 2000px;`}>
         <EnemyDeck />
@@ -82,7 +82,7 @@ const ClashComponent = (props) => {
 
       <Stack />
 
-      <Portrait player='cat' location='bottom' />
+      <YourPortrait />
       <YourHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
       <div css={css`perspective: 2000px;`}>
         <YourDeck />

@@ -81,7 +81,7 @@ const LinkComponent = (props) => {
 };
 
 const mapStateToProps = state => ({
-  currentRoute: state.currentRoute
+  currentRoute: state.coresite.currentRoute
 });
 const mapDispatchToProps = dispatch => ({
   setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),

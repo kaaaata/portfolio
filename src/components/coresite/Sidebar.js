@@ -50,7 +50,7 @@ const SidebarComponent = ({ isSidebarVisible }) => (
 );
 
 const mapStateToProps = state => ({
-  isSidebarVisible: state.isSidebarVisible,
+  isSidebarVisible: state.coresite.isSidebarVisible,
 });
 
 export const Sidebar = connect(mapStateToProps)(SidebarComponent);

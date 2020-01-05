@@ -19,7 +19,7 @@ const actionKeys = {
 
 export const playFirstCardInRound = (card, index) => {
   const actions = [];
-  const state = store.getState();
+  const state = store.getState().clashBattleCards;
   const stateCopy = {
     you: {
       deck: new ArrayOfCards(state.yourDeck),

@@ -46,7 +46,7 @@ const SidebarToggleComponent = ({ isSidebarVisible, setIsSidebarVisible }) => (
 );
 
 const mapStateToProps = state => ({
-  isSidebarVisible: state.isSidebarVisible,
+  isSidebarVisible: state.coresite.isSidebarVisible,
 });
 const mapDispatchToProps = dispatch => ({
   setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),

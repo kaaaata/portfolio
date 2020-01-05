@@ -1,7 +1,7 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { connect } from 'react-redux';
 import { colors } from '../styles';
 import { Card, PileCardPlaceholder } from './Card';
-import { connect } from 'react-redux';
 
 const PileOfCards = ({ cards, renderProps }) => {
   const {
@@ -71,7 +71,7 @@ const PileOfCards = ({ cards, renderProps }) => {
 };
 
 // "countX", "countY" cannot be derived from "x", "y" because of perspective.
-export const YourDeck = connect(state => ({ cards: state.yourDeck }))(
+export const YourDeck = connect(state => ({ cards: state.clashBattleCards.yourDeck }))(
   ({ cards }) => (
     <PileOfCards
       cards={cards}
@@ -80,7 +80,7 @@ export const YourDeck = connect(state => ({ cards: state.yourDeck }))(
   )
 );
 
-export const YourDiscard = connect(state => ({ cards: state.yourDiscard }))(
+export const YourDiscard = connect(state => ({ cards: state.clashBattleCards.yourDiscard }))(
   ({ cards }) => (
     <PileOfCards
       cards={cards}
@@ -89,7 +89,7 @@ export const YourDiscard = connect(state => ({ cards: state.yourDiscard }))(
   )
 );
 
-export const YourBanish = connect(state => ({ cards: state.yourBanish }))(
+export const YourBanish = connect(state => ({ cards: state.clashBattleCards.yourBanish }))(
   ({ cards }) => (
     <PileOfCards
       cards={cards}
@@ -98,7 +98,7 @@ export const YourBanish = connect(state => ({ cards: state.yourBanish }))(
   )
 );
 
-export const YourHand = connect(state => ({ cards: state.yourHand }))(
+export const YourHand = connect(state => ({ cards: state.clashBattleCards.yourHand }))(
   ({ cards, onClick }) => cards.map((card, index) => (
     card ? (
       <Card
@@ -111,7 +111,7 @@ export const YourHand = connect(state => ({ cards: state.yourHand }))(
   ))
 );
 
-export const EnemyBanish = connect(state => ({ cards: state.enemyBanish }))(
+export const EnemyBanish = connect(state => ({ cards: state.clashBattleCards.enemyBanish }))(
   ({ cards }) => (
     <PileOfCards
       cards={cards}
@@ -120,7 +120,7 @@ export const EnemyBanish = connect(state => ({ cards: state.enemyBanish }))(
   )
 );
 
-export const EnemyDiscard = connect(state => ({ cards: state.enemyDiscard }))(
+export const EnemyDiscard = connect(state => ({ cards: state.clashBattleCards.enemyDiscard }))(
   ({ cards }) => (
     <PileOfCards
       cards={cards}
@@ -129,7 +129,7 @@ export const EnemyDiscard = connect(state => ({ cards: state.enemyDiscard }))(
   )
 );
 
-export const EnemyDeck = connect(state => ({ cards: state.enemyDeck }))(
+export const EnemyDeck = connect(state => ({ cards: state.clashBattleCards.enemyDeck }))(
   ({ cards }) => (
     <PileOfCards
       cards={cards}
@@ -138,7 +138,7 @@ export const EnemyDeck = connect(state => ({ cards: state.enemyDeck }))(
   )
 );
 
-export const EnemyHand = connect(state => ({ cards: state.enemyHand }))(
+export const EnemyHand = connect(state => ({ cards: state.clashBattleCards.enemyHand }))(
   ({ cards, onClick }) => cards.map((card, index) => (
     card ? (
       <Card
@@ -151,7 +151,7 @@ export const EnemyHand = connect(state => ({ cards: state.enemyHand }))(
   ))
 );
 
-export const Stack = connect(state => ({ cards: state.stack }))(
+export const Stack = connect(state => ({ cards: state.clashBattleCards.stack }))(
   ({ cards }) => cards.map((card, index) => (
     <Card
       key={index}
