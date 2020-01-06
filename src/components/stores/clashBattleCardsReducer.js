@@ -11,7 +11,7 @@ const initialState = {
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
   yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: [cards['Wayne'], cards['Jolo the Goon'], cards['Catherine the Great']]
+  yourHand: [cards['Wayne'], cards['Fire Dragon'], cards['Catherine the Great']]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
   enemyDeck: [
     ...Array(25).fill(cards['Strike'])
@@ -21,7 +21,7 @@ const initialState = {
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyBanish: []
     .map(card => ({ ...card, player: 'enemy', location: 'banish' })),
-  enemyHand: Array(3).fill(cards['Strike'])
+  enemyHand: Array(3).fill(cards['Burn'])
     .map(card => ({ ...card, player: 'enemy', location: 'hand' })),
   stack: []
 };

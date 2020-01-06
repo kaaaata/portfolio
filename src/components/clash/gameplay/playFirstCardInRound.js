@@ -1,5 +1,5 @@
 import { ArrayOfCards } from './arrayOfCards';
-import { createCard } from '../cards/utils';
+import { createCard } from '../cards/createCard';
 import { cards } from '../cards/cards';
 import { attacks } from '../cards/attacks';
 import { magic } from '../cards/magic';
@@ -117,32 +117,6 @@ const customCardEffects = {
     ];
     shuffleCardsIntoDeck(threeRandomAttacks, card.player);
   },
-  'Catherine the Great': (card) => {
-    // Play a copy of Healing Blade.
-    // Shuffle 2 additional copies of Healing Blade into your draw pile.
-    genPlayCardActions({
-      ...cards['Healing Blade'],
-      player: card.player
-    });
-    const twoHealingBlades = [
-      cards['Healing Blade'],
-      cards['Healing Blade']
-    ];
-    shuffleCardsIntoDeck(twoHealingBlades, card.player);
-  },
-  'Jolo the Goon': (card) => {
-    // Shuffle a copy of Jolo the Goon into your draw pile.
-    shuffleCardsIntoDeck([cards['Jolo the Goon']], card.player);
-  },
-  'Wayne': (card) => {
-    // Shuffle 2 copies of Bomb into your opponent\'s draw pile.
-    const twoBombs = [
-      cards['Bomb'],
-      cards['Bomb']
-    ];
-    const opponent = card.player === 'you' ? 'enemy' : 'you';
-    shuffleCardsIntoDeck(twoBombs, opponent);
-  }
 };
 
 const genPlayCardActions = (card, index) => {
@@ -161,6 +135,9 @@ const genPlayCardActions = (card, index) => {
     type,
     isMockCard,
     customEffect,
+    playCopyOfCard,
+    shuffleCardCopiesIntoDeck,
+    shuffleCardCopiesIntoEnemyDeck
   } = card;
 
   const triggerDiscardEffect = (player) => {
@@ -210,14 +187,19 @@ const genPlayCardActions = (card, index) => {
 
     let totalShieldsGained = defense;
     if (defense) {
-      const bonusShields = Object.values(stateCopy[player].stats.defense).reduce(
-        (a, b) => a + b
-      );
-      totalShieldsGained += bonusShields;
-      actions.push([actionGenerators.setShields(
-        player,
-        stateCopy[player].shields + Math.max(totalShieldsGained, 0)
-      )]);
+      if (type !== 'ally') {
+        const bonusShields = Object.values(stateCopy[player].stats.defense).reduce(
+          (a, b) => a + b
+        );
+        totalShieldsGained += bonusShields;
+      }
+      stateCopy[player].shields = Math.max(totalShieldsGained, 0);
+      if (totalDamageDealt === 0) {
+        actions.push([actionGenerators.setShields(
+          player,
+          stateCopy[player].shields
+        )]);
+      }
     }
 
     for (let i = 0; i < totalDamageDealt; i++) {
@@ -227,16 +209,22 @@ const genPlayCardActions = (card, index) => {
 
       const removedCard = stateCopy[opponent].deck.getTopCard();
       const destination = banishes ? 'banish' : 'discard';
-      actions.push([
+      const damageAction = [
         actionGenerators.removeCard(opponent, 'deck', 'top'),
         actionGenerators.addCard(
           removedCard,
           opponent,
           destination,
           'top'
-        ),
-        actionGenerators.setShields(player, totalShieldsGained)
-      ]);
+        )
+      ];
+      if (i === 0) {
+        damageAction.push(actionGenerators.setShields(
+          player,
+          stateCopy[player].shields
+        ));
+      }
+      actions.push(damageAction);
 
       if (destination === 'discard' && removedCard.onDiscard) {
         triggerDiscardEffect(opponent);
@@ -299,6 +287,27 @@ const genPlayCardActions = (card, index) => {
         triggerDiscardEffect(player);
       }
     }
+  }
+
+  if (playCopyOfCard) {
+    genPlayCardActions({
+      ...cards[playCopyOfCard],
+      player: card.player
+    });
+  }
+
+  if (shuffleCardCopiesIntoEnemyDeck) {
+    shuffleCardsIntoDeck(
+      shuffleCardCopiesIntoEnemyDeck.map(cardName => cards[cardName]),
+      opponent
+    );
+  }
+
+  if (shuffleCardCopiesIntoDeck) {
+    shuffleCardsIntoDeck(
+      shuffleCardCopiesIntoDeck.map(cardName => cards[cardName]),
+      player
+    );
   }
 
   if (customEffect) {

@@ -1,25 +1,23 @@
-import { createCard } from './utils';
+import { createCard } from './createCard';
 
 export const magic = [
-  createCard({
+  {
     name: 'Fire',
     image: 'fire',
     rarity: 'common',
     attack: 2,
     defense: 0
-  }),
-  createCard({
+  },
+  {
     name: 'Tentacles',
     image: 'tentacles',
     rarity: 'common',
     attack: 1,
     defense: 1
-  }),
-].map(card => (
-  {
-    ...card,
-    type: 'magic',
-    unblockable: true,
-    banishes: true
-  }
-));
+  },
+].map(card => createCard({
+  ...card,
+  type: 'magic',
+  unblockable: true,
+  banishes: true
+}));

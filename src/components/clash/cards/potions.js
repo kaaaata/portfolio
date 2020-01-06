@@ -1,27 +1,36 @@
-import { createCard } from './utils';
+import { createCard } from './createCard';
 
 export const potions = [
-  createCard({
+  {
     name: 'Healing Potion',
     image: 'healing_potion',
     rarity: 'uncommon',
-    heal: 4,
+    heal: 3,
     onDiscard: {
-      heal: 2
+      heal: 3
     }
-  }),
-  createCard({
+  },
+  {
     name: 'Bomb',
     image: 'bomb',
-    rarity: 'uncommon',
+    rarity: 'common',
     buyable: false,
-    attack: 1,
-    unblockable: true,
+    damageSelf: 2,
     onDiscard: {
-      damageSelf: 3
-    },
-    description: 'Deal 1 damage. On discard: take 3 damage.'
-  }),
-].map(card => (
-  { ...card, type: 'potion' }
-));
+      damageSelf: 2
+    }
+  },
+  {
+    name: 'Burn',
+    image: 'burn',
+    rarity: 'common',
+    buyable: false,
+    damageSelf: 1,
+    onDiscard: {
+      damageSelf: 1
+    }
+  },
+].map(card => createCard({
+  ...card,
+  type: 'potion'
+}));

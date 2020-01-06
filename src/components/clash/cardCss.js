@@ -10,7 +10,7 @@ export const cardBodyCss = (rarityColor) => css`
   .name {
     color: ${rarityColor};
     text-align: center;
-    padding: 5px;
+    padding: 2px;
     font-size: 12px;
   }
 
@@ -18,11 +18,6 @@ export const cardBodyCss = (rarityColor) => css`
     display: flex;
     justify-content: center;
     position: relative;
-    padding: 5px;
-    
-    .filter {
-      margin-top: -5px;
-    }
 
     .attack, .defense {
       font-size: 24px;
@@ -52,8 +47,18 @@ export const cardBodyCss = (rarityColor) => css`
     background: ${rarityColor};
   }
 
+  .flair {
+    font-size: 10px;
+    padding: 2px 5px;
+
+    .rarity {
+      color: ${rarityColor};
+    }
+  }
+
   .description {
     font-size: 10px;
-    padding: 5px;
+    padding: 4px 5px;
+    position: relative;
   }
 `;

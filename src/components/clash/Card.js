@@ -1,43 +1,9 @@
 import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { Image, Spacer, Filter } from '../particles';
+import { Image, Spacer, Filter, FlexContainer } from '../particles';
 import { colors, zIndex } from '../styles';
 import { cardBodyCss } from './cardCss';
 
-const genCardDescription = (cardProps) => {
-  const {
-    heal,
-    healEnemy,
-    damageSelf,
-    pierce,
-    description,
-    onDiscard
-  } = cardProps;
-
-  if (description) {
-    return description;
-  }
-
-  const sentences = [];
-
-  if (heal) {
-    sentences.push(`Heal ${heal}.`);
-  }
-  if (healEnemy) {
-    sentences.push(`Heal enemy ${healEnemy}.`);
-  }
-  if (damageSelf) {
-    sentences.push(`Take ${damageSelf} damage.`);
-  }
-  if (pierce) {
-    sentences.push(`Pierce ${2} shields.`);
-  }
-  if (onDiscard) {
-    sentences.push(`On discard: ${genCardDescription(onDiscard)}`);
-  }
-
-  return sentences.join(' ');
-};
 const genCardRarityColor = (rarity) => {
   switch (rarity) {
     case 'common':
@@ -64,7 +30,9 @@ export const Card = ({
     rarity,
     attack,
     defense,
-    type
+    type,
+    description,
+    flairText
   } = cardProps;
 
   const {
@@ -121,7 +89,7 @@ export const Card = ({
       <Spacer height={70} />
       <Image
         src={`/clash/${image}.png`}
-        width={70}
+        width='100%'
         height={70}
         size='contain'
         _css='position: absolute;'
@@ -151,6 +119,15 @@ export const Card = ({
     </Image>
   );
 
+  const cardTypeFlair = (
+    <Image
+      className='type_flair'
+      src={`/clash/${type === 'potion' ? 'healing_potion' : type}.png`}
+      width={12}
+      height={12}
+    />
+  );
+
   return (
     <Image
       src='/clash/rock.png'
@@ -170,9 +147,21 @@ export const Card = ({
           {defenseDisplay}
         </div>
         <div className='border' />
-        <div className='description'>
-          {genCardDescription(cardProps)}
-        </div>
+        <FlexContainer
+          className='flair'
+          justifyContent='space-between'
+          alignItems='center'
+        >
+          <div>
+            {type[0].toUpperCase()}{type.slice(1)}{' - '}
+            <span className='rarity'>
+              {rarity[0].toUpperCase()}{rarity.slice(1)}
+            </span>
+          </div>
+          {cardTypeFlair}
+        </FlexContainer>
+        <div className='border' />
+        <div className='description'>{description}</div>
       </div>
     </Image>
   );
