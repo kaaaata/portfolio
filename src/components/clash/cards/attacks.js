@@ -43,7 +43,7 @@ export const attacks = [
     rarity: 'uncommon',
     attack: 3,
     defense: 1,
-    pierce: 2
+    pierce: 1
   },
   {
     name: 'Chop',

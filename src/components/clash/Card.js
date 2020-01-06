@@ -21,7 +21,7 @@ const genCardRarityColor = (rarity) => {
 
 export const Card = ({
   cardProps,
-  renderProps,
+  renderProps = {},
   onClick
 }) => {
   const {
@@ -31,8 +31,7 @@ export const Card = ({
     attack,
     defense,
     type,
-    description,
-    flairText
+    description
   } = cardProps;
 
   const {
@@ -58,9 +57,11 @@ export const Card = ({
 
   const rarityColor = genCardRarityColor(rarity);
   const cardCss = css`
-    position: absolute;
-    left: ${x}px;
-    top: ${y}px;
+    ${x && y ? `
+      position: absolute;
+      left: ${x}px;
+      top: ${y}px;
+    ` : 'position: relative;'}
     border: 2px solid ${rarityColor};
     border-radius: 5px;
     transition: transform 0.1s ease-out;
@@ -70,7 +71,7 @@ export const Card = ({
         z-index: ${zIndex.mouseEventArea5};
       }
     ` : transformCss}
-    ${onClick ? 'cursor: pointer;' : ''}
+    cursor: ${onClick ? 'pointer' : 'default'};
     ${isBlurred ? 'filter: blur(3px);' : ''}
   `;
 

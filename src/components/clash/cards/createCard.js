@@ -47,7 +47,7 @@ const genCardDescription = ({
     sentences.push(`Take ${damageSelf} damage.`);
   }
   if (pierce) {
-    sentences.push(`Pierce ${2} shields.`);
+    sentences.push(`Pierces ${pierce} shield${pierce === 1 ? '' : 's'}.`);
   }
   if (onDiscard && type !== 'potion') {
     sentences.push(`On discard: ${genCardDescription(onDiscard)}`);
