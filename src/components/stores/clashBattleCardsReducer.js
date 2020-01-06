@@ -4,27 +4,24 @@ const sampleDeck = genRandomDeck();
 
 const initialState = {
   yourDeck: [
-    ...sampleDeck.slice(0, 25),
-    cards['Lyra the Blue']
+    ...Array(25).fill(cards['Strike'])
   ]
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
   yourDiscard: sampleDeck.slice(0, 10)
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
   yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: [cards['Wayne'], cards['Two Handed Strike'], cards['Sunder']]
+  yourHand: [cards['Wayne'], cards['Jolo the Goon'], cards['Catherine the Great']]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
   enemyDeck: [
-    ...Array(15).fill(cards['Parry']),
-    cards['Healing Potion'],
-    ...Array(1).fill(cards['Bomb']),
+    ...Array(25).fill(cards['Strike'])
   ]
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyDiscard: sampleDeck.slice(0, 10)
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyBanish: []
     .map(card => ({ ...card, player: 'enemy', location: 'banish' })),
-  enemyHand: Array(3).fill(cards['Lyra the Blue'])
+  enemyHand: Array(3).fill(cards['Strike'])
     .map(card => ({ ...card, player: 'enemy', location: 'hand' })),
   stack: []
 };

@@ -92,6 +92,21 @@ const actionGenerators = {
   }
 };
 
+const shuffleCardsIntoDeck = (cards, player) => {
+  cards.forEach(card => {
+    actions.push([actionGenerators.addCardToStack(card)]);
+  });
+
+  actions.push([]);
+
+  cards.forEach(card => {
+    actions.push([
+      actionGenerators.removeTopCardFromStack(),
+      actionGenerators.addCard(card, player, 'deck', 'random')
+    ]);
+  });
+};
+
 const customCardEffects = {
   'Weapons Guy': (card) => {
     // Shuffle 3 random attacks into your draw pile.
@@ -100,19 +115,7 @@ const customCardEffects = {
       masterCardList.attacks.getRandomCard(),
       masterCardList.attacks.getRandomCard()
     ];
-
-    threeRandomAttacks.forEach(newCard => {
-      actions.push([actionGenerators.addCardToStack(newCard)]);
-    });
-
-    actions.push([]);
-
-    threeRandomAttacks.forEach(newCard => {
-      actions.push([
-        actionGenerators.removeTopCardFromStack(),
-        actionGenerators.addCard(newCard, card.player, 'deck', 'random')
-      ]);
-    });
+    shuffleCardsIntoDeck(threeRandomAttacks, card.player);
   },
   'Catherine the Great': (card) => {
     // Play a copy of Healing Blade.
@@ -121,33 +124,15 @@ const customCardEffects = {
       ...cards['Healing Blade'],
       player: card.player
     });
-
     const twoHealingBlades = [
       cards['Healing Blade'],
       cards['Healing Blade']
     ];
-
-    twoHealingBlades.forEach(newCard => {
-      actions.push([actionGenerators.addCardToStack(newCard)]);
-    });
-
-    actions.push([]);
-
-    twoHealingBlades.forEach(newCard => {
-      actions.push([
-        actionGenerators.removeTopCardFromStack(),
-        actionGenerators.addCard(newCard, card.player, 'deck', 'random')
-      ]);
-    });
+    shuffleCardsIntoDeck(twoHealingBlades, card.player);
   },
   'Jolo the Goon': (card) => {
     // Shuffle a copy of Jolo the Goon into your draw pile.
-    actions.push([actionGenerators.addCardToStack(cards['Jolo the Goon'])]);
-    actions.push([]);
-    actions.push([
-      actionGenerators.removeTopCardFromStack(),
-      actionGenerators.addCard(cards['Jolo the Goon'], card.player, 'deck', 'random')
-    ]);
+    shuffleCardsIntoDeck([cards['Jolo the Goon']], card.player);
   },
   'Wayne': (card) => {
     // Shuffle 2 copies of Bomb into your opponent\'s draw pile.
@@ -156,19 +141,7 @@ const customCardEffects = {
       cards['Bomb']
     ];
     const opponent = card.player === 'you' ? 'enemy' : 'you';
-
-    twoBombs.forEach(newCard => {
-      actions.push([actionGenerators.addCardToStack(newCard)]);
-    });
-
-    actions.push([]);
-
-    twoBombs.forEach(newCard => {
-      actions.push([
-        actionGenerators.removeTopCardFromStack(),
-        actionGenerators.addCard(newCard, opponent, 'deck', 'random')
-      ]);
-    });
+    shuffleCardsIntoDeck(twoBombs, opponent);
   }
 };
 
@@ -225,11 +198,15 @@ const genPlayCardActions = (card, index) => {
       totalDamageDealt += bonusStatsDamage;
     }
     if (!unblockable) {
-      const { shields } = stateCopy[opponent];
-      const enemyShieldsBlock = Math.max(shields - pierce, 0);
-      totalDamageDealt -= enemyShieldsBlock;
+      totalDamageDealt -= stateCopy[opponent].shields;
+      if (totalDamageDealt < 0) {
+        totalDamageDealt = 0;
+      }
     }
-    totalDamageDealt = Math.max(totalDamageDealt, 0);
+    const bonusPierceDamage = pierce > stateCopy[opponent].shields
+      ? stateCopy[opponent].shields
+      : pierce;
+    totalDamageDealt += bonusPierceDamage;
 
     let totalShieldsGained = defense;
     if (defense) {

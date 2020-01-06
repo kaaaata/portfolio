@@ -25,12 +25,8 @@ export const allies = [
     rarity: 'uncommon',
     attack: 0,
     defense: 4,
-    heal: 6,
-    healEnemy: 3,
-    onDiscard: {
-      heal: 2,
-      healEnemy: 1
-    }
+    heal: 4,
+    healEnemy: 2
   }),
   createCard({
     name: 'Jolo the Goon',
