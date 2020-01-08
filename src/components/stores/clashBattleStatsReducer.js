@@ -26,6 +26,8 @@ const initialState = {
     defense: 0
   },
   enemyShields: 0,
+
+  winner: null
 };
 
 export default (state = initialState, action) => {
@@ -55,6 +57,11 @@ export default (state = initialState, action) => {
           ...state.enemyTemporaryStats,
           ...action.payload
         }
+      };
+    case 'SET_WINNER':
+      return {
+        ...state,
+        winner: action.payload
       };
     default:
       return state;

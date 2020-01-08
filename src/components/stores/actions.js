@@ -16,3 +16,4 @@ export const setYourShields = payload => ({ type: 'SET_YOUR_SHIELDS', payload })
 export const setEnemyShields = payload => ({ type: 'SET_ENEMY_SHIELDS', payload });
 export const setYourTemporaryStats = payload => ({ type: 'SET_YOUR_TEMPORARY_STATS', payload });
 export const setEnemyTemporaryStats = payload => ({ type: 'SET_ENEMY_TEMPORARY_STATS', payload });
+export const setWinner = payload => ({ type: 'SET_WINNER', payload });

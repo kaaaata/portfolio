@@ -131,7 +131,7 @@ const Portrait = ({
   );
 };
 
-const mapStateToPropsYou = state => ({
+const mapStateToPropsYou = (state) => ({
   name: state.clashBattleStats.yourName,
   image: state.clashBattleStats.yourImage,
   temporaryStats: state.clashBattleStats.yourTemporaryStats,
@@ -139,7 +139,7 @@ const mapStateToPropsYou = state => ({
   shields: state.clashBattleStats.yourShields,
   location: 'bottom'
 });
-const mapStateToPropsEnemy = state => ({
+const mapStateToPropsEnemy = (state) => ({
   name: state.clashBattleStats.enemyName,
   image: state.clashBattleStats.enemyImage,
   temporaryStats: state.clashBattleStats.enemyTemporaryStats,

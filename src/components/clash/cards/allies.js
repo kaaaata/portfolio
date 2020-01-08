@@ -8,17 +8,16 @@ export const allies = [
     attack: 2,
     defense: 1,
     customEffect: true,
-    description: 'Shuffle 3 random attacks into your draw pile.'
+    description: 'Shuffle 2 random Attacks into your draw pile.'
   },
   {
-    name: 'Catherine the Great',
-    image: 'catherine_the_great',
-    rarity: 'legendary',
-    attack: 4,
-    defense: 6,
-    playCopyOfCard: 'Healing Blade',
-    shuffleCardCopiesIntoDeck: ['Healing Blade', 'Healing Blade'],
-    description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your draw pile.'
+    name: 'Recruiter',
+    image: 'recruiter',
+    rarity: 'common',
+    attack: 1,
+    defense: 1,
+    customEffect: true,
+    description: 'Play a random Ally from your discard pile, then banish them.'
   },
   {
     name: 'Mermaid',
@@ -32,7 +31,7 @@ export const allies = [
   {
     name: 'Spear Goon',
     image: 'red_spear_guy',
-    rarity: 'uncommon',
+    rarity: 'common',
     attack: 1,
     defense: 3,
     pierce: 1,
@@ -54,7 +53,16 @@ export const allies = [
     rarity: 'uncommon',
     attack: 1,
     defense: 0,
-    playCopyOfCard: 'Chop'
+    playCopyOfCard: 'Slice'
+  },
+  {
+    name: 'Brawler',
+    image: 'brawler',
+    rarity: 'uncommon',
+    attack: 2,
+    defense: 0,
+    customEffect: true,
+    description: 'Play 2 random Attacks from your discard pile, then banish them.'
   },
   {
     name: 'Fire Dragon',
@@ -74,7 +82,7 @@ export const allies = [
     temporaryStatGain: {
       attack: 1
     },
-    description: 'Gain +1 attack for the rest of the battle.'
+    description: 'Gain +1 Attack for the rest of the battle.'
   },
   {
     name: 'Elf',
@@ -85,7 +93,28 @@ export const allies = [
     temporaryStatGain: {
       defense: 1
     },
-    description: 'Gain +1 defense for the rest of the battle.'
+    description: 'Gain +1 Defense for the rest of the battle.'
+  },
+  {
+    name: 'Mage',
+    image: 'mage',
+    rarity: 'rare',
+    attack: 1,
+    defense: 1,
+    temporaryStatGain: {
+      magic: 1
+    },
+    description: 'Gain +1 Magic for the rest of the battle.'
+  },
+  {
+    name: 'Catherine the Great',
+    image: 'catherine_the_great',
+    rarity: 'legendary',
+    attack: 4,
+    defense: 6,
+    playCopyOfCard: 'Healing Blade',
+    shuffleCardCopiesIntoDeck: ['Healing Blade', 'Healing Blade'],
+    description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your draw pile.'
   },
 ].map(card => createCard({
   ...card,

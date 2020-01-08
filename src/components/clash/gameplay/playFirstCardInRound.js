@@ -101,6 +101,13 @@ const actionGenerators = {
       actionKey: actionKeys[player].temporaryStats,
       payload: stateCopy[player].temporaryStats
     };
+  },
+  setWinner: (player) => {
+    stateCopy.winner = stateCopy[player].name;
+    return {
+      actionKey: 'setWinner',
+      payload: stateCopy[player].name
+    };
   }
 };
 
@@ -129,6 +136,32 @@ const customCardEffects = {
     ];
     shuffleCardsIntoDeck(threeRandomAttacks, card.player);
   },
+  'Brawler': (card) => {
+    // Play 2 random attacks from your discard pile, then banish them.
+    for (let i = 0; i < 2; i++) {
+      const attack = stateCopy[card.player].discard.getRandomCardByFilter(
+        (card) => card.type === 'attack'
+      );
+      if (attack) {
+        genPlayCardActions({
+          ...attack,
+          banishesOnPlay: true
+        });
+      }
+    }
+  },
+  'Recruiter': (card) => {
+    // Play a random Ally from your discard pile, then banish them.
+    const ally = stateCopy[card.player].discard.getRandomCardByFilter(
+      (card) => card.type === 'ally'
+    );
+    if (ally) {
+      genPlayCardActions({
+        ...ally,
+        banishesOnPlay: true
+      });
+    }
+  }
 };
 
 const genPlayCardActions = (card, index) => {
@@ -142,7 +175,7 @@ const genPlayCardActions = (card, index) => {
     damageSelf,
     player,
     unblockable,
-    banishes,
+    dealsBanishingDamage,
     pierce,
     type,
     isMockCard,
@@ -219,11 +252,13 @@ const genPlayCardActions = (card, index) => {
 
     for (let i = 0; i < totalDamageDealt; i++) {
       if (!stateCopy[opponent].deck.cards.length) {
+        console.log(`${player} won!`);
+        actions.push([actionGenerators.setWinner(player)]);
         break;
       }
 
       const removedCard = stateCopy[opponent].deck.getTopCard();
-      const destination = banishes ? 'banish' : 'discard';
+      const destination = dealsBanishingDamage ? 'banish' : 'discard';
       const damageAction = [
         actionGenerators.removeCard(opponent, 'deck', 'top'),
         actionGenerators.addCard(
@@ -287,6 +322,12 @@ const genPlayCardActions = (card, index) => {
 
   if (damageSelf) {
     for (let i = 0; i < damageSelf; i++) {
+      if (!stateCopy[player].deck.cards.length) {
+        console.log(`${opponent} won!`);
+        actions.push([actionGenerators.setWinner(opponent)]);
+        break;
+      }
+
       const removedCard = stateCopy[player].deck.getTopCard();
       actions.push([
         actionGenerators.removeCard(player, 'deck', 'top'),
@@ -338,7 +379,7 @@ const genPlayCardActions = (card, index) => {
     actionGenerators.addCard(
       playedCard,
       playedCard.player,
-      playedCard.type === 'potion' ? 'banish' : 'discard',
+      playedCard.banishesOnPlay ? 'banish' : 'discard',
       'top'
     )
   ]);
@@ -374,6 +415,7 @@ export const playFirstCardInRound = (card, index) => {
   };
   stateCopy = {
     you: {
+      name: state.yourName,
       deck: new ArrayOfCards(state.yourDeck),
       discard: new ArrayOfCards(state.yourDiscard),
       banish: new ArrayOfCards(state.yourBanish),
@@ -383,6 +425,7 @@ export const playFirstCardInRound = (card, index) => {
       permanentStats: state.yourPermanentStats
     },
     enemy: {
+      name: state.enemyName,
       deck: new ArrayOfCards(state.enemyDeck),
       discard: new ArrayOfCards(state.enemyDiscard),
       banish: new ArrayOfCards(state.enemyBanish),
@@ -391,17 +434,23 @@ export const playFirstCardInRound = (card, index) => {
       temporaryStats: state.yourTemporaryStats,
       permanentStats: state.yourPermanentStats
     },
-    stack: new ArrayOfCards(state.stack)
+    stack: new ArrayOfCards(state.stack),
+    winner: state.winner
   };
 
   genPlayCardActions(card, index);
-  genStartOfTurnActions('enemy');
-  const enemyHandRandomCardIndex = Math.floor(Math.random() * 3);
-  const enemyHandRandomCard = stateCopy.enemy.hand.getCardAtIndex(enemyHandRandomCardIndex);
-  // add placeholder
-  stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = null;
-  genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
-  genStartOfTurnActions('you');
+  if (!stateCopy.winner) {
+    genStartOfTurnActions('enemy');
+    const enemyHandRandomCardIndex = Math.floor(Math.random() * 3);
+    const enemyHandRandomCard = stateCopy.enemy.hand.getCardAtIndex(enemyHandRandomCardIndex);
+    // add placeholder
+    stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = null;
+    genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
+    if (!stateCopy.winner) {
+      genStartOfTurnActions('you');
+    }
+  }
 
+  console.log('actions=', actions);
   return actions;
 };

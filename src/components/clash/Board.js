@@ -19,6 +19,7 @@ const BoardComponent = (props) => {
   let interval = null;
   let actions = [];
   let isAnimating = false;
+  console.log('board component props', props);
 
   const executeRenderAction = (action) => {
     if (action) {
@@ -31,7 +32,7 @@ const BoardComponent = (props) => {
   };
 
   const handleClickCardInYourHand = (card, index) => {
-    if (isAnimating) {
+    if (isAnimating || props.winner) {
       return;
     }
 
@@ -84,6 +85,9 @@ const BoardComponent = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  winner: state.clashBattleStats.winner
+});
 const mapDispatchToProps = dispatch => ({
   setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
   setYourDiscard: payload => dispatch(actions.setYourDiscard(payload)),
@@ -97,7 +101,8 @@ const mapDispatchToProps = dispatch => ({
   setYourShields: payload => dispatch(actions.setYourShields(payload)),
   setEnemyShields: payload => dispatch(actions.setEnemyShields(payload)),
   setYourTemporaryStats: payload => dispatch(actions.setYourTemporaryStats(payload)),
-  setEnemyTemporaryStats: payload => dispatch(actions.setEnemyTemporaryStats(payload))
+  setEnemyTemporaryStats: payload => dispatch(actions.setEnemyTemporaryStats(payload)),
+  setWinner: payload => dispatch(actions.setWinner(payload)),
 });
 
-export const Board = connect(null, mapDispatchToProps)(BoardComponent);
+export const Board = connect(mapStateToProps, mapDispatchToProps)(BoardComponent);

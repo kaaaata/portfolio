@@ -32,5 +32,6 @@ export const potions = [
   },
 ].map(card => createCard({
   ...card,
-  type: 'potion'
+  type: 'potion',
+  banishesOnPlay: true
 }));

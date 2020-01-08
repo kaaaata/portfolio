@@ -4,17 +4,27 @@ const sampleDeck = genRandomDeck();
 
 const initialState = {
   yourDeck: [
-    ...Array(25).fill(cards['Strike'])
+    ...Array(1).fill(cards['Strike'])
   ]
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourDiscard: sampleDeck.slice(0, 10)
+  yourDiscard: [
+    cards['Strike'],
+    cards['Chop'],
+    cards['Sunder']
+  ]
     .map(card => ({ ...card, player: 'you', location: 'discard' })),
   yourBanish: []
     .map(card => ({ ...card, player: 'you', location: 'deck' })),
-  yourHand: [cards['Elf'], cards['Minotaur'], cards['Fire Spear']]
+  yourHand: [
+    cards['Recruiter'],
+    cards['Sunder'],
+    cards['Slice']
+  ]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
   enemyDeck: [
-    ...Array(25).fill(cards['Strike'])
+    ...Array(13).fill(cards['Strike']),
+    cards['Healing Potion'],
+    ...Array(2).fill(cards['Strike'])
   ]
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyDiscard: sampleDeck.slice(0, 10)

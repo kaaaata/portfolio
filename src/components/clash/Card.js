@@ -98,6 +98,12 @@ export const Card = ({
     </React.Fragment>
   );
 
+  if (!type) {
+    console.log('no type, error???? cardprops=', cardProps);
+
+    return null;
+  }
+
   const attackDisplay = type !== 'potion' && (
     <Image
       className='attack'

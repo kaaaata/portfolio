@@ -11,7 +11,8 @@ const cardTemplate = {
   description: '',
   damageSelf: null,
   isMockCard: false, // "pseudo" card for discard effects, etc.
-  banishes: false,
+  dealsBanishingDamage: false,
+  banishesOnPlay: false,
   customEffect: false,
   pierce: 0,
   buyable: true,

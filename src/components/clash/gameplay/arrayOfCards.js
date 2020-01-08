@@ -18,8 +18,7 @@ export class ArrayOfCards {
   }
 
   getRandomCardByFilter(filterFunc) {
-    const possibleCards = this.cards.filter(filterFunc);
-    return sample(possibleCards);
+    return sample(this.cards.filter(filterFunc));
   }
 
   removeTopCard() {

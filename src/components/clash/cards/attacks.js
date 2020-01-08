@@ -30,6 +30,14 @@ export const attacks = [
     defense: 2
   },
   {
+    name: 'Chop',
+    image: 'chop',
+    rarity: 'common',
+    attack: 1,
+    defense: 1,
+    pierce: 1
+  },
+  {
     name: 'Heavy Strike',
     image: 'heavy_strike',
     rarity: 'common',
@@ -46,8 +54,8 @@ export const attacks = [
     pierce: 1
   },
   {
-    name: 'Chop',
-    image: 'chop',
+    name: 'Slice',
+    image: 'slice',
     rarity: 'uncommon',
     attack: 4,
     defense: 0

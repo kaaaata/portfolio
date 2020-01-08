@@ -19,5 +19,5 @@ export const magic = [
   ...card,
   type: 'magic',
   unblockable: true,
-  banishes: true
+  dealsBanishingDamage: true
 }));
