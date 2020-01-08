@@ -40,7 +40,7 @@ const PileOfCards = ({ cards, renderProps }) => {
   `;
 
   return (
-    <div>
+    <div css={css`cursor: pointer;`}>
       <div css={outlineCss} />
       {cards.map((card, index) => (
         (index >= cards.length - 2) ? (

@@ -28,6 +28,7 @@ const portraitCss = (location) => css`
 
   .stats {
     margin: -3px -5px 0 -5px;
+    cursor: default;
 
     .attack {
       .number {
