@@ -14,3 +14,5 @@ export const setEnemyHand = payload => ({ type: 'SET_ENEMY_HAND', payload });
 export const setStack = payload => ({ type: 'SET_STACK', payload });
 export const setYourShields = payload => ({ type: 'SET_YOUR_SHIELDS', payload });
 export const setEnemyShields = payload => ({ type: 'SET_ENEMY_SHIELDS', payload });
+export const setYourTemporaryStats = payload => ({ type: 'SET_YOUR_TEMPORARY_STATS', payload });
+export const setEnemyTemporaryStats = payload => ({ type: 'SET_ENEMY_TEMPORARY_STATS', payload });

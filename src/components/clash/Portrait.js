@@ -52,7 +52,8 @@ const portraitCss = (location) => css`
 const Portrait = ({
   location,
   image,
-  stats,
+  temporaryStats,
+  permanentStats,
   shields
 }) => {
   const portrait = (
@@ -70,7 +71,9 @@ const Portrait = ({
       width={30}
       height={30}
     >
-      <div className='number'>{stats.attack.permanent}</div>
+      <div className='number'>
+        {temporaryStats.attack + permanentStats.attack}
+      </div>
     </Image>
   );
 
@@ -81,7 +84,9 @@ const Portrait = ({
       width={30}
       height={30}
     >
-      <div className='number'>{stats.magic.permanent}</div>
+      <div className='number'>
+        {temporaryStats.magic + permanentStats.magic}
+      </div>
     </Image>
   );
 
@@ -92,7 +97,9 @@ const Portrait = ({
       width={30}
       height={30}
     >
-      <div className='number'>{stats.defense.permanent}</div>
+      <div className='number'>
+        {temporaryStats.defense + permanentStats.defense}
+      </div>
     </Image>
   );
 
@@ -126,14 +133,16 @@ const Portrait = ({
 const mapStateToPropsYou = state => ({
   name: state.clashBattleStats.yourName,
   image: state.clashBattleStats.yourImage,
-  stats: state.clashBattleStats.yourStats,
+  temporaryStats: state.clashBattleStats.yourTemporaryStats,
+  permanentStats: state.clashBattleStats.yourPermanentStats,
   shields: state.clashBattleStats.yourShields,
   location: 'bottom'
 });
 const mapStateToPropsEnemy = state => ({
   name: state.clashBattleStats.enemyName,
   image: state.clashBattleStats.enemyImage,
-  stats: state.clashBattleStats.enemyStats,
+  temporaryStats: state.clashBattleStats.enemyTemporaryStats,
+  permanentStats: state.clashBattleStats.enemyPermanentStats,
   shields: state.clashBattleStats.enemyShields,
   location: 'top'
 });

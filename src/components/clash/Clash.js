@@ -29,7 +29,8 @@ const clashCss = css`
 `;
 
 export const Clash = () => {
-  const [scene, setScene] = useState('masterCardList');
+  // const [scene, setScene] = useState('masterCardList');
+  const [scene, setScene] = useState('board');
   let sceneComponent;
 
   switch (scene) {

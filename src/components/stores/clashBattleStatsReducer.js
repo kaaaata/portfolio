@@ -1,43 +1,29 @@
 const initialState = {
   yourName: 'Lyra the Blue',
   yourImage: 'mermaid',
-  yourStats: {
-    attack: {
-      permanent: 0,
-      untilEndOfBattle: 0,
-      untilEndOfTurn: 0
-    },
-    magic: {
-      permanent: 0,
-      untilEndOfBattle: 0,
-      untilEndOfTurn: 0
-    },
-    defense: {
-      permanent: 1,
-      untilEndOfBattle: 0,
-      untilEndOfTurn: 0
-    }
+  yourPermanentStats: {
+    attack: 0,
+    magic: 0,
+    defense: 0
+  },
+  yourTemporaryStats: {
+    attack: 0,
+    magic: 0,
+    defense: 0
   },
   yourShields: 0,
 
   enemyName: 'Jolo the Goon',
   enemyImage: 'red_spear_guy',
-  enemyStats: {
-    attack: {
-      permanent: 0,
-      untilEndOfBattle: 0,
-      untilEndOfTurn: 0
-    },
-    magic: {
-      permanent: 0,
-      untilEndOfBattle: 0,
-      untilEndOfTurn: 0
-    },
-    defense: {
-      permanent: 0,
-      untilEndOfBattle: 0,
-      untilEndOfTurn: 0
-    }
+  enemyPermanentStats: {
+    attack: 0,
+    magic: 0,
+    defense: 0
+  },
+  enemyTemporaryStats: {
+    attack: 0,
+    magic: 0,
+    defense: 0
   },
   enemyShields: 0,
 };
@@ -53,6 +39,22 @@ export default (state = initialState, action) => {
       return {
         ...state,
         enemyShields: action.payload
+      };
+    case 'SET_YOUR_TEMPORARY_STATS':
+      return {
+        ...state,
+        yourTemporaryStats: {
+          ...state.yourTemporaryStats,
+          ...action.payload
+        }
+      };
+    case 'SET_ENEMY_TEMPORARY_STATS':
+      return {
+        ...state,
+        enemyTemporaryStats: {
+          ...state.enemyTemporaryStats,
+          ...action.payload
+        }
       };
     default:
       return state;

@@ -21,7 +21,7 @@ export const allies = [
     description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your draw pile.'
   },
   {
-    name: 'Lyra the Blue',
+    name: 'Mermaid',
     image: 'mermaid',
     rarity: 'uncommon',
     attack: 0,
@@ -30,14 +30,14 @@ export const allies = [
     healEnemy: 2
   },
   {
-    name: 'Jolo the Goon',
+    name: 'Spear Goon',
     image: 'red_spear_guy',
     rarity: 'uncommon',
     attack: 1,
     defense: 3,
     pierce: 1,
-    shuffleCardCopiesIntoDeck: ['Jolo the Goon'],
-    description: 'Pierce: 1. Shuffle a copy of Jolo the Goon into your draw pile.'
+    shuffleCardCopiesIntoDeck: ['Spear Goon'],
+    description: 'Pierce: 1. Shuffle a copy of Spear Goon into your draw pile.'
   },
   {
     name: 'Wayne',
@@ -64,6 +64,28 @@ export const allies = [
     defense: 0,
     shuffleCardCopiesIntoEnemyDeck: ['Burn', 'Burn'],
     description: 'Shuffle 2 copies of Burn into your opponent\'s draw pile.'
+  },
+  {
+    name: 'Minotaur',
+    image: 'minotaur',
+    rarity: 'rare',
+    attack: 3,
+    defense: 0,
+    temporaryStatGain: {
+      attack: 1
+    },
+    description: 'Gain +1 attack for the rest of the battle.'
+  },
+  {
+    name: 'Elf',
+    image: 'elf',
+    rarity: 'rare',
+    attack: 0,
+    defense: 3,
+    temporaryStatGain: {
+      defense: 1
+    },
+    description: 'Gain +1 defense for the rest of the battle.'
   },
 ].map(card => createCard({
   ...card,

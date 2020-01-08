@@ -19,14 +19,16 @@ const actionKeys = {
     discard: 'setYourDiscard',
     banish: 'setYourBanish',
     hand: 'setYourHand',
-    shields: 'setYourShields'
+    shields: 'setYourShields',
+    temporaryStats: 'setYourTemporaryStats'
   },
   enemy: {
     deck: 'setEnemyDeck',
     discard: 'setEnemyDiscard',
     banish: 'setEnemyBanish',
     hand: 'setEnemyHand',
-    shields: 'setEnemyShields'
+    shields: 'setEnemyShields',
+    temporaryStats: 'setEnemyTemporaryStats'
   }
 };
 let actions = [];
@@ -89,6 +91,16 @@ const actionGenerators = {
       actionKey: actionKeys[player].shields,
       payload: value
     };
+  },
+  setTemporaryStats: (player, temporaryStatGain) => {
+    // temporaryStatGain like { attack: 1, defense: 1 }
+    Object.keys(temporaryStatGain).forEach(stat => {
+      stateCopy[player].temporaryStats[stat] += temporaryStatGain[stat];
+    });
+    return {
+      actionKey: actionKeys[player].temporaryStats,
+      payload: stateCopy[player].temporaryStats
+    };
   }
 };
 
@@ -137,7 +149,8 @@ const genPlayCardActions = (card, index) => {
     customEffect,
     playCopyOfCard,
     shuffleCardCopiesIntoDeck,
-    shuffleCardCopiesIntoEnemyDeck
+    shuffleCardCopiesIntoEnemyDeck,
+    temporaryStatGain
   } = card;
 
   const triggerDiscardEffect = (player) => {
@@ -166,12 +179,15 @@ const genPlayCardActions = (card, index) => {
 
   actions.push([]);
 
+  if (temporaryStatGain) {
+    actions.push([actionGenerators.setTemporaryStats(player, temporaryStatGain)]);
+  }
+
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && ['attack', 'magic'].includes(type)) {
-      const bonusStatsDamage = Object.values(stateCopy[player].stats[type]).reduce(
-        (a, b) => a + b
-      );
+      const bonusStatsDamage = stateCopy[player].temporaryStats[type]
+        + stateCopy[player].permanentStats[type];
       totalDamageDealt += bonusStatsDamage;
     }
     if (!unblockable) {
@@ -188,9 +204,8 @@ const genPlayCardActions = (card, index) => {
     let totalShieldsGained = defense;
     if (defense) {
       if (type !== 'ally') {
-        const bonusShields = Object.values(stateCopy[player].stats.defense).reduce(
-          (a, b) => a + b
-        );
+        const bonusShields = stateCopy[player].temporaryStats.defense
+          + stateCopy[player].permanentStats.defense;
         totalShieldsGained += bonusShields;
       }
       stateCopy[player].shields = Math.max(totalShieldsGained, 0);
@@ -364,7 +379,8 @@ export const playFirstCardInRound = (card, index) => {
       banish: new ArrayOfCards(state.yourBanish),
       hand: new ArrayOfCards(state.yourHand),
       shields: state.yourShields,
-      stats: state.yourStats
+      temporaryStats: state.yourTemporaryStats,
+      permanentStats: state.yourPermanentStats
     },
     enemy: {
       deck: new ArrayOfCards(state.enemyDeck),
@@ -372,7 +388,8 @@ export const playFirstCardInRound = (card, index) => {
       banish: new ArrayOfCards(state.enemyBanish),
       hand: new ArrayOfCards(state.enemyHand),
       shields: state.enemyShields,
-      stats: state.enemyStats
+      temporaryStats: state.yourTemporaryStats,
+      permanentStats: state.yourPermanentStats
     },
     stack: new ArrayOfCards(state.stack)
   };

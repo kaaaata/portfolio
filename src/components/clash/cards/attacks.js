@@ -60,6 +60,15 @@ export const attacks = [
     defense: 1
   },
   {
+    name: 'Fire Spear',
+    image: 'fire_spear',
+    rarity: 'uncommon',
+    attack: 2,
+    defense: 1,
+    shuffleCardCopiesIntoEnemyDeck: ['Burn'],
+    description: 'Shuffle a copy of Burn into your opponent\'s draw pile.'
+  },
+  {
     name: 'Sunder',
     image: 'sunder',
     rarity: 'rare',

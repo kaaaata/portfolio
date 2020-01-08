@@ -18,7 +18,8 @@ const cardTemplate = {
   unblockable: false,
   playCopyOfCard: null,
   shuffleCardCopiesIntoDeck: null,
-  shuffleCardCopiesIntoEnemyDeck: null
+  shuffleCardCopiesIntoEnemyDeck: null,
+  temporaryStatGain: null
 };
 
 const genCardDescription = ({
@@ -51,6 +52,9 @@ const genCardDescription = ({
   }
   if (onDiscard && type !== 'potion') {
     sentences.push(`On discard: ${genCardDescription(onDiscard)}`);
+  }
+  if (playCopyOfCard) {
+    sentences.push(`Play a copy of ${playCopyOfCard}.`);
   }
   if (playCopyOfCard) {
     sentences.push(`Play a copy of ${playCopyOfCard}.`);

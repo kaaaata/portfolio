@@ -95,7 +95,9 @@ const mapDispatchToProps = dispatch => ({
   setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),
   setStack: payload => dispatch(actions.setStack(payload)),
   setYourShields: payload => dispatch(actions.setYourShields(payload)),
-  setEnemyShields: payload => dispatch(actions.setEnemyShields(payload))
+  setEnemyShields: payload => dispatch(actions.setEnemyShields(payload)),
+  setYourTemporaryStats: payload => dispatch(actions.setYourTemporaryStats(payload)),
+  setEnemyTemporaryStats: payload => dispatch(actions.setEnemyTemporaryStats(payload))
 });
 
 export const Board = connect(null, mapDispatchToProps)(BoardComponent);
