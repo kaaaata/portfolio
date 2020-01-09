@@ -19,7 +19,6 @@ const BoardComponent = (props) => {
   let interval = null;
   let actions = [];
   let isAnimating = false;
-  console.log('board component props', props);
 
   const executeRenderAction = (action) => {
     if (action) {

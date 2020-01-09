@@ -1,5 +1,5 @@
 const initialState = {
-  yourName: 'Lyra the Blue',
+  yourName: 'Mermaid',
   yourImage: 'mermaid',
   yourPermanentStats: {
     attack: 0,
@@ -13,7 +13,7 @@ const initialState = {
   },
   yourShields: 0,
 
-  enemyName: 'Jolo the Goon',
+  enemyName: 'Spear Goon',
   enemyImage: 'red_spear_guy',
   enemyPermanentStats: {
     attack: 0,
