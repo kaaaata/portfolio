@@ -1,56 +1,7 @@
-import { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import { colors, mixins } from '../styles';
 import { Card, PileCardPlaceholder } from './Card';
-
-const PileOfCardsCount = ({
-  count,
-  countX,
-  countY,
-  themeColor
-}) => {
-  const cardCountContainerCss = css`
-    position: absolute;
-    left: ${countX}px;
-    top: ${countY}px;
-    width: 130px;
-    text-align: center;
-
-    .card_count {
-      color: ${themeColor};
-      font-size: 60px;
-      text-shadow: 2px 2px 6px ${colors.black};
-    }
-
-    .card_count_increment {
-      position: absolute;
-      font-size: 36px;
-      text-shadow: 2px 2px 4px black;
-
-      ${mixins.keyframes('moveUpAndFadeOut', `
-        from {
-          opacity: 1;
-          top: 100px;
-        }
-        to {
-          opacity: 0;
-          top: 50px;
-        }
-      `)}
-
-      animation: moveUpAndFadeOut 0.25s ease-out;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-  `;
-
-  return (
-    <div key={Math.random()} css={cardCountContainerCss}>
-      <div className='card_count'>{count}</div>
-      <div className='card_count_increment'>+1</div>
-    </div>
-  );
-};
 
 const PileOfCards = ({ cards, renderProps }) => {
   const {
@@ -69,6 +20,20 @@ const PileOfCards = ({ cards, renderProps }) => {
     height: 180px;
     border: 2px solid ${themeColor};
     transform: rotate3d(1, 0, 0, 65deg);
+  `;
+
+  const cardCountCss = css`
+    position: absolute;
+    left: ${countX}px;
+    top: ${countY}px;
+    width: 130px;
+    text-align: center;
+
+    .count {
+      color: ${themeColor};
+      font-size: 60px;
+      text-shadow: 2px 2px 6px ${colors.black};
+    }
   `;
 
   return (
@@ -93,12 +58,9 @@ const PileOfCards = ({ cards, renderProps }) => {
           />
         )
       ))}
-      <PileOfCardsCount
-        count={cards.length}
-        countX={countX}
-        countY={countY}
-        themeColor={themeColor}
-      />
+      <div css={cardCountCss}>
+        <div className='count'>{cards.length}</div>
+      </div>
     </div>
   );
 };
