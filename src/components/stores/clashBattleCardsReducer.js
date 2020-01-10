@@ -20,8 +20,6 @@ const initialState = {
   ]
     .map(card => ({ ...card, player: 'you', location: 'hand' })),
   enemyDeck: [
-    ...Array(13).fill(cards['Strike']),
-    cards['Healing Potion'],
     ...Array(2).fill(cards['Strike'])
   ]
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),

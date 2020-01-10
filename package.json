@@ -37,9 +37,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-react": "^7.11.1"
-  },
   "proxy": "http://localhost:4000"
 }

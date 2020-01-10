@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Board } from './Board';
 import { MasterCardList } from './MasterCardList';
+import { CharSelection } from './modals/CharSelection';
 import { Image, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
 
@@ -29,16 +30,20 @@ const clashCss = css`
 `;
 
 export const Clash = () => {
-  // const [scene, setScene] = useState('masterCardList');
-  const [scene, setScene] = useState('board');
+  // const [scene, setScene] = useState('master_card_list');
+  // const [scene, setScene] = useState('board');
+  const [scene, setScene] = useState('char_selection');
   let sceneComponent;
 
   switch (scene) {
     case 'board':
       sceneComponent = <Board />;
       break;
-    case 'masterCardList':
+    case 'master_card_list':
       sceneComponent = <MasterCardList />;
+      break;
+    case 'char_selection':
+      sceneComponent = <CharSelection />;
       break;
     default:
       break;
