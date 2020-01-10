@@ -1,67 +1,104 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
+import { genMatchups } from '../gameplay/genMatchups';
+import { Modal } from './Modal';
 import { Image } from '../../particles';
 
-const playableCharacters = [
-  {
-    name: 'Spear Goon',
-    image: 'red_spear_guy'
-  },
-  {
-    name: 'Wayne',
-    image: 'goblin'
-  },
-  {
-    name: 'Elf',
-    image: 'elf'
-  },
-  {
-    name: 'Mage',
-    image: 'mage'
-  },
-  {
-    name: 'Mermaid',
-    image: 'mermaid'
-  },
-  {
-    name: 'Recruiter',
-    image: 'recruiter'
-  },
-  {
-    name: 'Weapons Guy',
-    image: 'weapons_guy'
-  },
-  {
-    name: 'Brawler',
-    image: 'brawler'
-  }
-];
-
 const charSelectionCss = css`
-  border: 3px solid red;
   display: grid;
   grid-template-columns: 100px 100px 100px 100px;
-  grid-gap: 20px;
+  grid-gap: 40px;
+
+  .image {
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
 `;
 
-const CharSelectionComponent = (props) => {
-  return (
+const CharSelectionComponent = ({
+  playableCharacters,
+  setPlayerId,
+  setMatchups,
+  setBattleInitialState,
+  goToNextScene
+}) => {
+  const handleSelectChar = (char) => {
+    setPlayerId(char.id);
+    const matchups = genMatchups();
+    setMatchups(matchups);
+    let enemy;
+    for (let i = 0; i < matchups.length; i++) {
+      if (matchups[i].includes(char.id)) {
+        const enemyId = matchups[i][matchups[i][0] === char.id ? 1 : 0];
+        enemy = playableCharacters[enemyId - 1];
+        break;
+      }
+    }
+    setBattleInitialState({
+      yourName: char.name,
+      yourImage: char.image,
+      yourPermanentStats: {
+        attack: char.attack,
+        magic: char.magic,
+        defense: char.defense
+      },
+      yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
+      yourShields: 0,
+    
+      enemyName: enemy.name,
+      enemyImage: enemy.image,
+      enemyPermanentStats: {
+        attack: enemy.attack,
+        magic: enemy.magic,
+        defense: enemy.defense
+      },
+      enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
+      enemyShields: 0,
+    
+      winner: null
+    });
+    goToNextScene();
+  };
+
+  const charSelection = (
     <div css={charSelectionCss}>
       {playableCharacters.map(char => (
         <Image
-          key={char.image}
+          key={char.id}
           src={`/clash/${char.image}.png`}
           width={100}
           height={125}
+          onClick={() => handleSelectChar(char)}
         />
       ))}
     </div>
   );
+
+  return (
+    <Modal title='Character Selection'>
+      {charSelection}
+    </Modal>
+  );
 };
 
-const mapDispatchToProps = dispatch => ({
-  setYourDeck: payload => dispatch(actions.setYourDeck(payload))
+const mapStateToProps = (state) => {
+  const playableCharacters = [1, 2, 3, 4, 5, 6, 7, 8].map(playerId => (
+    state.clashPlayers[playerId]
+  ));
+
+  return { playableCharacters };
+};
+const mapDispatchToProps = (dispatch) => ({
+  setPlayerId: payload => dispatch(actions.setPlayerId(payload)),
+  setMatchups: payload => dispatch(actions.setMatchups(payload)),
+  setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload))
 });
 
-export const CharSelection = connect(null, mapDispatchToProps)(CharSelectionComponent);
+export const CharSelection = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CharSelectionComponent);

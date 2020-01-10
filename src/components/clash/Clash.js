@@ -43,7 +43,7 @@ export const Clash = () => {
       sceneComponent = <MasterCardList />;
       break;
     case 'char_selection':
-      sceneComponent = <CharSelection />;
+      sceneComponent = <CharSelection goToNextScene={() => setScene('board')} />;
       break;
     default:
       break;

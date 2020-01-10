@@ -1,67 +1,43 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
-import * as actions from '../../stores/actions';
-import { Image, FlexContainer } from '../../particles';
+import { Spacer, FlexContainer, Filter } from '../../particles';
+import { colors } from '../../styles';
 
-const playableCharacters = [
-  {
-    name: 'Spear Goon',
-    image: 'red_spear_guy'
-  },
-  {
-    name: 'Wayne',
-    image: 'goblin'
-  },
-  {
-    name: 'Elf',
-    image: 'elf'
-  },
-  {
-    name: 'Mage',
-    image: 'mage'
-  },
-  {
-    name: 'Mermaid',
-    image: 'mermaid'
-  },
-  {
-    name: 'Recruiter',
-    image: 'recruiter'
-  },
-  {
-    name: 'Weapons Guy',
-    image: 'weapons_guy'
-  },
-  {
-    name: 'Brawler',
-    image: 'brawler'
+const modalCss = css`
+  border: 3px solid green;
+
+  .content {
+    position: absolute;
+    width: 100%;
+
+    .title {
+      font-size: 24px;
+    }
   }
-];
-
-const charSelectionCss = css`
-  border: 3px solid red;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px;
-  grid-gap: 20px;
 `;
 
-const CharSelectionComponent = (props) => {
+export const Modal = ({
+  title,
+  children
+}) => {
+  const modalTitle = (
+    <div className='title'>
+      {title}
+    </div>
+  );
+
   return (
-    <div css={charSelectionCss}>
-      {playableCharacters.map(char => (
-        <Image
-          key={char.image}
-          src={`/clash/${char.image}.png`}
-          width={100}
-          height={125}
-        />
-      ))}
+    <div css={modalCss}>
+      <Filter opacity={0.75} color={colors.black} />
+      <FlexContainer
+        className='content'
+        alignItems='center'
+        flexDirection='column'
+      >
+        <Spacer height={80} />
+        {modalTitle}
+        <Spacer height={40} />
+        {children}
+      </FlexContainer>
     </div>
   );
 };
-
-const mapDispatchToProps = dispatch => ({
-  setYourDeck: payload => dispatch(actions.setYourDeck(payload))
-});
-
-export const CharSelection = connect(null, mapDispatchToProps)(CharSelectionComponent);

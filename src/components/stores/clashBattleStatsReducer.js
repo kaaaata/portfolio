@@ -1,29 +1,15 @@
 const initialState = {
   yourName: 'Mermaid',
   yourImage: 'mermaid',
-  yourPermanentStats: {
-    attack: 0,
-    magic: 0,
-    defense: 0
-  },
-  yourTemporaryStats: {
-    attack: 0,
-    magic: 0,
-    defense: 0
+  yourPermanentStats: { attack: 0, magic: 0, defense: 0 },
+  yourTemporaryStats: { attack: 0, magic: 0, defense: 0
   },
   yourShields: 0,
 
   enemyName: 'Spear Goon',
   enemyImage: 'red_spear_guy',
-  enemyPermanentStats: {
-    attack: 0,
-    magic: 0,
-    defense: 0
-  },
-  enemyTemporaryStats: {
-    attack: 0,
-    magic: 0,
-    defense: 0
+  enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
+  enemyTemporaryStats: { attack: 0, magic: 0, defense: 0
   },
   enemyShields: 0,
 
@@ -62,6 +48,22 @@ export default (state = initialState, action) => {
       return {
         ...state,
         winner: action.payload
+      };
+    case 'SET_BATTLE_INITIAL_STATE':
+      return {
+        yourName: action.payload.yourName,
+        yourImage: action.payload.yourImage,
+        yourPermanentStats: action.payload.yourPermanentStats,
+        yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
+        yourShields: 0,
+      
+        enemyName: action.payload.enemyName,
+        enemyImage: action.payload.enemyImage,
+        enemyPermanentStats: action.payload.enemyPermanentStats,
+        enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
+        enemyShields: 0,
+      
+        winner: null
       };
     default:
       return state;
