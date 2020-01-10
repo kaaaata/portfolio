@@ -3,8 +3,6 @@ import { Spacer, FlexContainer, Filter } from '../../particles';
 import { colors } from '../../styles';
 
 const modalCss = css`
-  border: 3px solid green;
-
   .content {
     position: absolute;
     width: 100%;

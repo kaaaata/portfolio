@@ -30,8 +30,6 @@ const clashCss = css`
 `;
 
 export const Clash = () => {
-  // const [scene, setScene] = useState('master_card_list');
-  // const [scene, setScene] = useState('board');
   const [scene, setScene] = useState('char_selection');
   let sceneComponent;
 
@@ -58,7 +56,7 @@ export const Clash = () => {
     >
       <Filter opacity={0.5} color={colors.black} />
       <button type='button' onClick={() => setScene('board')}>Board</button>
-      <button type='button' onClick={() => setScene('masterCardList')}>All Cards</button>
+      <button type='button' onClick={() => setScene('master_card_list')}>All Cards</button>
     </Image>
   );
 

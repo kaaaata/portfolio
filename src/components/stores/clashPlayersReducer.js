@@ -1,3 +1,7 @@
+const startingDeck = [
+  
+];
+
 const initialState = {
   1: {
     id: 1,
@@ -7,7 +11,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   2: {
     id: 2,
@@ -17,7 +23,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   3: {
     id: 3,
@@ -27,7 +35,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   4: {
     id: 4,
@@ -37,7 +47,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   5: {
     id: 5,
@@ -47,7 +59,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   6: {
     id: 6,
@@ -57,7 +71,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   7: {
     id: 7,
@@ -67,7 +83,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
   8: {
     id: 8,
@@ -77,7 +95,9 @@ const initialState = {
     magic: 0,
     defense: 0,
     gold: 0,
-    score: 0
+    score: 0,
+    deck: [],
+    collection: []
   },
 
   playerId: null,
