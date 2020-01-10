@@ -28,7 +28,7 @@ const AppComponent = ({
       pathname: location.pathname,
       hash: location.hash
     });
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, setCurrentRoute]);
 
   return (
     <main id='app' css={appCss}>

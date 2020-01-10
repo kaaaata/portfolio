@@ -1,4 +1,4 @@
-import { keyBy, shuffle } from 'lodash';
+import { keyBy, /* shuffle */ } from 'lodash';
 import { attacks } from './attacks';
 import { magic } from './magic';
 import { potions } from './potions';

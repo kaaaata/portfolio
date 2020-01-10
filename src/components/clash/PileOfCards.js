@@ -1,6 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
-import { colors, mixins } from '../styles';
+import { colors } from '../styles';
 import { Card, PileCardPlaceholder } from './Card';
 
 const PileOfCards = ({ cards, renderProps }) => {
