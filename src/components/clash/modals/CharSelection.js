@@ -105,7 +105,4 @@ const mapDispatchToProps = (dispatch) => ({
   setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload))
 });
 
-export const CharSelection = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CharSelectionComponent);
+export const CharSelection = connect(mapStateToProps, mapDispatchToProps)(CharSelectionComponent);

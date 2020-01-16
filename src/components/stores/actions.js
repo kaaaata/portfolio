@@ -20,3 +20,4 @@ export const setBattleInitialState = payload => ({ type: 'SET_BATTLE_INITIAL_STA
 export const setWinner = payload => ({ type: 'SET_WINNER', payload });
 export const setPlayerId = payload => ({ type: 'SET_PLAYER_ID', payload });
 export const setMatchups = payload => ({ type: 'SET_MATCHUPS', payload });
+export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTY', payload });

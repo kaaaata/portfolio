@@ -1,24 +1,34 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { cards } from './cards/cards';
 import { Card } from './Card';
+import { connect } from 'react-redux';
+import * as actions from '../stores/actions';
 
-const masterCardListCss = css`
-  padding: 60px;
-  height: 550px;
-  overflow: scroll;
-
-  .card_container {
-    display: inline-block;
-    margin: 0 5px 5px 0;
+const collectionCss = css`
+  .title {
+    font-size: 24px;
   }
 `;
 
-export const Collection = () => (
-  <div css={masterCardListCss}>
-    {Object.values(cards).map((cardProps, index) => (
-      <div key={index} className='card_container'>
-        <Card cardProps={cardProps} />
-      </div>
-    ))}
-  </div>
-);
+const CollectionComponent = ({
+  collection,
+  deck,
+  setPlayerProperties
+}) => {
+  console.log('deck', deck.map(card => card.name));
+  console.log('collection', collection.map(card => card.name));
+  return (
+    <div css={collectionCss}>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  deck: state.clashPlayers[state.clashPlayers.playerId].deck,
+  collection: state.clashPlayers[state.clashPlayers.playerId].collection
+});
+const mapDispatchToProps = (dispatch) => ({
+  setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload))
+});
+
+export const Collection = connect(mapStateToProps, mapDispatchToProps)(CollectionComponent);

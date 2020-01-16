@@ -115,6 +115,14 @@ export default (state = initialState, action) => {
         ...state,
         matchups: action.payload
       };
+    case 'SET_PLAYER_PROPERTIES':
+      return {
+        ...state,
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          ...action.payload.properties
+        }
+      };
     default:
       return state;
   }
