@@ -1,6 +1,4 @@
-const startingDeck = [
-  
-];
+import { genStartingDeck } from '../clash/cards/cards';
 
 const initialState = {
   1: {
@@ -12,7 +10,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   2: {
@@ -24,7 +22,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   3: {
@@ -36,7 +34,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   4: {
@@ -48,7 +46,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   5: {
@@ -60,7 +58,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   6: {
@@ -72,7 +70,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   7: {
@@ -84,7 +82,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
   8: {
@@ -96,7 +94,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: [],
+    deck: genStartingDeck(),
     collection: []
   },
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Board } from './Board';
 import { MasterCardList } from './MasterCardList';
+import { Collection } from './Collection';
 import { CharSelection } from './modals/CharSelection';
 import { Image, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
@@ -41,7 +42,10 @@ export const Clash = () => {
       sceneComponent = <MasterCardList />;
       break;
     case 'char_selection':
-      sceneComponent = <CharSelection goToNextScene={() => setScene('board')} />;
+      sceneComponent = <CharSelection goToNextScene={() => setScene('collection')} />;
+      break;
+    case 'collection':
+      sceneComponent = <Collection goToNextScene={() => setScene('board')} />;
       break;
     default:
       break;

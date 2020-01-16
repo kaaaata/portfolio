@@ -24,6 +24,8 @@ const CharSelectionComponent = ({
   setPlayerId,
   setMatchups,
   setBattleInitialState,
+  setYourDeck,
+  setEnemyDeck,
   goToNextScene
 }) => {
   const handleSelectChar = (char) => {
@@ -31,6 +33,7 @@ const CharSelectionComponent = ({
     const matchups = genMatchups();
     setMatchups(matchups);
     let enemy;
+    console.log(matchups);
     for (let i = 0; i < matchups.length; i++) {
       if (matchups[i].includes(char.id)) {
         const enemyId = matchups[i][matchups[i][0] === char.id ? 1 : 0];
@@ -61,6 +64,8 @@ const CharSelectionComponent = ({
     
       winner: null
     });
+    setYourDeck(char.deck);
+    setEnemyDeck(enemy.deck);
     goToNextScene();
   };
 
@@ -95,7 +100,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   setPlayerId: payload => dispatch(actions.setPlayerId(payload)),
   setMatchups: payload => dispatch(actions.setMatchups(payload)),
-  setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload))
+  setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload)),
+  setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
+  setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload))
 });
 
 export const CharSelection = connect(

@@ -1,12 +1,7 @@
-import { cards, genRandomDeck } from '../clash/cards/cards';
-
-const sampleDeck = genRandomDeck();
+import { cards } from '../clash/cards/cards';
 
 const initialState = {
-  yourDeck: [
-    ...Array(1).fill(cards['Strike'])
-  ]
-    .map(card => ({ ...card, player: 'you', location: 'deck' })),
+  yourDeck: [],
   yourDiscard: [
     ...Array(16).fill(cards['Strike'])
   ]
@@ -23,7 +18,7 @@ const initialState = {
     ...Array(2).fill(cards['Strike'])
   ]
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
-  enemyDiscard: sampleDeck.slice(0, 10)
+  enemyDiscard: []
     .map(card => ({ ...card, player: 'enemy', location: 'discard' })),
   enemyBanish: []
     .map(card => ({ ...card, player: 'enemy', location: 'banish' })),
@@ -37,42 +32,42 @@ export default (state = initialState, action) => {
     case 'SET_YOUR_DECK':
       return {
         ...state,
-        yourDeck: action.payload
+        yourDeck: action.payload.map(card => ({ ...card, player: 'you', location: 'deck' }))
       };
     case 'SET_YOUR_DISCARD':
       return {
         ...state,
-        yourDiscard: action.payload
+        yourDiscard: action.payload.map(card => ({ ...card, player: 'you', location: 'discard' }))
       };
     case 'SET_YOUR_BANISH':
       return {
         ...state,
-        yourBanish: action.payload
+        yourBanish: action.payload.map(card => ({ ...card, player: 'you', location: 'banish' }))
       };
     case 'SET_YOUR_HAND':
       return {
         ...state,
-        yourHand: action.payload
+        yourHand: action.payload.map(card => ({ ...card, player: 'you', location: 'hand' }))
       };
     case 'SET_ENEMY_DECK':
       return {
         ...state,
-        enemyDeck: action.payload
+        enemyDeck: action.payload.map(card => ({ ...card, player: 'enemy', location: 'deck' }))
       };
     case 'SET_ENEMY_DISCARD':
       return {
         ...state,
-        enemyDiscard: action.payload
+        enemyDiscard: action.payload.map(card => ({ ...card, player: 'enemy', location: 'discard' }))
       };
     case 'SET_ENEMY_BANISH':
       return {
         ...state,
-        enemyBanish: action.payload
+        enemyBanish: action.payload.map(card => ({ ...card, player: 'enemy', location: 'banish' }))
       };
     case 'SET_ENEMY_HAND':
       return {
         ...state,
-        enemyHand: action.payload
+        enemyHand: action.payload.map(card => ({ ...card, player: 'enemy', location: 'hand' }))
       };
     case 'SET_STACK':
       return {

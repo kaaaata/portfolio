@@ -1,4 +1,4 @@
-import { keyBy, /* shuffle */ } from 'lodash';
+import { keyBy } from 'lodash';
 import { attacks } from './attacks';
 import { magic } from './magic';
 import { potions } from './potions';
@@ -11,14 +11,4 @@ export const cards = {
   ...keyBy(allies, 'name')
 };
 
-export const genRandomDeck = () => {
-  const deck = [
-    ...allies,
-    ...attacks,
-    ...potions,
-    ...magic,
-  ].slice(0, 60);
-
-  // return shuffle(deck);
-  return deck;
-};
+export const genStartingDeck = () => Array(16).fill(cards['Strike']);
