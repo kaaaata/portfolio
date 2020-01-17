@@ -32,14 +32,7 @@ const CharSelectionComponent = ({
     setPlayerId(char.id);
     const matchups = genMatchups();
     setMatchups(matchups);
-    let enemy;
-    for (let i = 0; i < matchups.length; i++) {
-      if (matchups[i].includes(char.id)) {
-        const enemyId = matchups[i][matchups[i][0] === char.id ? 1 : 0];
-        enemy = playableCharacters[enemyId - 1];
-        break;
-      }
-    }
+    let enemy = playableCharacters[matchups[char.id]];
     setBattleInitialState({
       yourName: char.name,
       yourImage: char.image,

@@ -1,14 +1,25 @@
-// todo: prevent matching against the same opponent twice in a row
+import { store } from '../../stores/store';
+
 export const genMatchups = () => {
   const playerIds = [1, 2, 3, 4, 5, 6, 7, 8];
-  const matchups = [];
+  const matchups = {};
+  const prevMatchups = store.getState().clashPlayers.matchups;
 
-  [0, 1, 2, 3].forEach(i => {
-    matchups.push([
-      playerIds.splice(playerIds.length * Math.random(), 1)[0],
-      playerIds.splice(playerIds.length * Math.random(), 1)[0],
-    ]);
-  });
+  while (playerIds.length) {
+    const playerId = playerIds.pop();
+    const possibilities = playerIds.filter(i => (
+      i !== prevMatchups[playerId]
+      && ((playerIds.length === 3 && matchups.hasOwnProperty(prevMatchups[playerId]))
+        // prevent a scenario where the last two playerIds previously faced eachother.
+        // hard to explain this logic; easier to draw it out.
+        ? !matchups.hasOwnProperty(prevMatchups[i])
+        : true)
+    ));
+    const opponentId = possibilities[Math.floor(Math.random() * possibilities.length)];
+    matchups[playerId] = opponentId;
+    matchups[opponentId] = playerId;
+    playerIds.splice(playerIds.indexOf(opponentId), 1);
+  }
 
   return matchups;
 };

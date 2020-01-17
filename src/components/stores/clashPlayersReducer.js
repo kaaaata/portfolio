@@ -100,7 +100,7 @@ const initialState = {
 
   playerId: null,
 
-  matchups: null
+  matchups: {}
 };
 
 export default (state = initialState, action) => {
