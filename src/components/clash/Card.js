@@ -64,6 +64,7 @@ export const Card = ({
     ` : 'position: relative;'}
     border: 2px solid ${rarityColor};
     border-radius: 5px;
+    ${isInPileOfCards ? '' : `box-shadow: 2px 2px 3px ${colors.black}`};
     transition: transform 0.1s ease-out;
     ${onClick ? `
       &:hover {
@@ -178,7 +179,7 @@ export const PileCardPlaceholder = ({ renderProps }) => (
       position: absolute;
       left: ${renderProps.x}px;
       top: ${renderProps.y}px;
-      border: 1px solid ${colors.grey};
+      border: 1px solid ${colors.white};
       border-radius: 5px;
       transform: rotate3d(1, 0, 0, 65deg);
     `}

@@ -33,7 +33,6 @@ const CharSelectionComponent = ({
     const matchups = genMatchups();
     setMatchups(matchups);
     let enemy;
-    console.log(matchups);
     for (let i = 0; i < matchups.length; i++) {
       if (matchups[i].includes(char.id)) {
         const enemyId = matchups[i][matchups[i][0] === char.id ? 1 : 0];
@@ -68,6 +67,9 @@ const CharSelectionComponent = ({
     setEnemyDeck(enemy.deck);
     goToNextScene();
   };
+
+  // testing: automatically select the 1st character (id = 1)
+  handleSelectChar(playableCharacters[0]);
 
   const charSelection = (
     <div css={charSelectionCss}>

@@ -1,4 +1,4 @@
-import { genStartingDeck } from '../clash/cards/cards';
+import { genStartingDeck, genSampleEndgameDeck } from '../clash/cards/cards';
 
 const initialState = {
   1: {
@@ -10,7 +10,7 @@ const initialState = {
     defense: 0,
     gold: 0,
     score: 0,
-    deck: genStartingDeck(),
+    deck: genSampleEndgameDeck(),
     collection: []
   },
   2: {

@@ -51,19 +51,6 @@ export const Clash = () => {
       break;
   }
 
-  const topNav = (
-    <Image
-      className='top_nav'
-      width='100%'
-      height={40}
-      src='/clash/rock.png'
-    >
-      <Filter opacity={0.5} color={colors.black} />
-      <button type='button' onClick={() => setScene('board')}>Board</button>
-      <button type='button' onClick={() => setScene('master_card_list')}>All Cards</button>
-    </Image>
-  );
-
   return (
     <Image
       src='/clash/landscape.png'
@@ -72,7 +59,6 @@ export const Clash = () => {
       css={clashCss}
     >
       <Filter opacity={0.3} color={colors.white} />
-      {topNav}
       {sceneComponent}
     </Image>
   );
