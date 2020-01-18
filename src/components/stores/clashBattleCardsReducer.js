@@ -47,7 +47,9 @@ export default (state = initialState, action) => {
     case 'SET_YOUR_HAND':
       return {
         ...state,
-        yourHand: action.payload.map(card => ({ ...card, player: 'you', location: 'hand' }))
+        yourHand: action.payload.map(card => card
+          ? { ...card, player: 'you', location: 'hand' }
+          : null)
       };
     case 'SET_ENEMY_DECK':
       return {
@@ -67,7 +69,9 @@ export default (state = initialState, action) => {
     case 'SET_ENEMY_HAND':
       return {
         ...state,
-        enemyHand: action.payload.map(card => ({ ...card, player: 'enemy', location: 'hand' }))
+        enemyHand: action.payload.map(card => card
+          ? { ...card, player: 'enemy', location: 'hand' }
+          : null)
       };
     case 'SET_STACK':
       return {

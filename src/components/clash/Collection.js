@@ -134,6 +134,9 @@ const CollectionComponent = ({
     goToNextScene();
   };
 
+  // testing: automatically continue
+  goToNextScene();
+
   return (
     <div css={collectionCss}>
       <div className='text title'>Edit your Deck</div>

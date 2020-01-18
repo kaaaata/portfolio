@@ -1,4 +1,4 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../stores/actions';
 import {
@@ -47,6 +47,7 @@ const BoardComponent = (props) => {
 
       // instantly execute the first action, which will always be "move to stack"
       executeRenderAction(actions[0]);
+
       let i = 1;
       interval = setInterval(() => {
         executeRenderAction(actions[i]);
@@ -65,7 +66,7 @@ const BoardComponent = (props) => {
     <div>
       <EnemyPortrait />
       <EnemyHand />
-      <div css={css`perspective: 2000px;`}>
+      <div style={{ perspective: '2000px' }}>
         <EnemyDeck />
         <EnemyDiscard />
         <EnemyBanish />
@@ -75,7 +76,7 @@ const BoardComponent = (props) => {
 
       <YourPortrait />
       <YourHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
-      <div css={css`perspective: 2000px;`}>
+      <div style={{ perspective: '2000px' }}>
         <YourDeck />
         <YourDiscard />
         <YourBanish />

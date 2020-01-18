@@ -64,7 +64,7 @@ export const Card = ({
         ${isInHand ? 'transform: scale(1.25);' : transformCss}
       }
     `}
-    ${isInHand ? 'transition: transform 0.1s ease-out;' : ''};
+    transition: transform ${isInHand ? '0.1s' : '0.2s'} ease-out;
     cursor: ${onClick ? 'pointer' : 'default'};
     ${isBlurred ? 'filter: blur(3px);' : ''}
   `;
@@ -123,7 +123,7 @@ export const Card = ({
     />
   );
 
-  return (
+  return name ? (
     <Image
       src='/clash/rock.png'
       width={width}
@@ -159,7 +159,7 @@ export const Card = ({
         <div className='description'>{description}</div>
       </div>
     </Image>
-  );
+  ) : null;
 };
 
 // in a card pile, only the top two cards need to actually render.
