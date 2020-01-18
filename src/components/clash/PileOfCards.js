@@ -99,7 +99,7 @@ export const YourHand = connect(state => ({ cards: state.clashBattleCards.yourHa
       <Card
         key={index}
         cardProps={card}
-        renderProps={{ x: 300 + 125 * index, y: 400 }}
+        renderProps={{ x: 300 + 125 * index, y: 400, isInHand: true }}
         onClick={() => onClick(card, index)}
       />
     ) : null
@@ -139,7 +139,7 @@ export const EnemyHand = connect(state => ({ cards: state.clashBattleCards.enemy
       <Card
         key={index}
         cardProps={card}
-        renderProps={{ x: 330 + 125 * index, y: 45 }}
+        renderProps={{ x: 330 + 125 * index, y: 45, isInHand: true }}
       />
     ) : null
   ))

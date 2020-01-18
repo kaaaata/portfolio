@@ -120,9 +120,8 @@ const CollectionComponent = ({
       collection: [...cardArrays.collection]
     };
     newCardArrays[origin].splice(index, 1);
-    const insertionIndex = findInsertionIndex(newCardArrays[destination], card);
+    const insertionIndex = findInsertionIndex(cardArrays[destination], card);
     newCardArrays[destination].splice(insertionIndex, 0, card);
-
     setCardArrays(newCardArrays);
   };
 
@@ -141,10 +140,10 @@ const CollectionComponent = ({
       {collectionColumns.map((col, colIndex) => col && (
         col.map((card, cardIndex) => (
           <Card
-            key={colIndex * 20 + cardIndex}
+            key={colIndex * 15 + cardIndex}
             cardProps={card}
             renderProps={{ x: 40 + 130 * colIndex, y: 60 + 18 * cardIndex }}
-            onClick={() => cardOnClick(card, 'collection', colIndex * 20 + cardIndex)}
+            onClick={() => cardOnClick(card, 'collection', colIndex * 15 + cardIndex)}
           />
         ))
       ))}
@@ -153,10 +152,10 @@ const CollectionComponent = ({
       {deckColumns.map((col, colIndex) => col && (
         col.map((card, cardIndex) => (
           <Card
-            key={colIndex * 20 + cardIndex}
+            key={colIndex * 15 + cardIndex}
             cardProps={card}
             renderProps={{ x: 700 + 130 * colIndex, y: 60 + 18 * cardIndex }}
-            onClick={() => cardOnClick(card, 'deck', colIndex * 20 + cardIndex)}
+            onClick={() => cardOnClick(card, 'deck', colIndex * 15 + cardIndex)}
           />
         ))
       ))}

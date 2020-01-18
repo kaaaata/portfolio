@@ -4,19 +4,11 @@ import { Image, Spacer, Filter, FlexContainer } from '../particles';
 import { colors, zIndex } from '../styles';
 import { cardBodyCss } from './cardCss';
 
-const genCardRarityColor = (rarity) => {
-  switch (rarity) {
-    case 'common':
-      return colors.white;
-    case 'uncommon':
-      return colors.green;
-    case 'rare':
-      return colors.blue;
-    case 'legendary':
-      return colors.yellow;
-    default:
-      return colors.grey;
-  }
+const rarityColors = {
+  common: colors.white,
+  uncommon: colors.green,
+  rare: colors.blue,
+  legendary: colors.yellow
 };
 
 export const Card = ({
@@ -40,6 +32,7 @@ export const Card = ({
     x = 0,
     y = 0,
     isInPileOfCards = false,
+    isInHand = false,
     shouldAnimateEntry = false,
     isBlurred = false
   } = renderProps;
@@ -55,23 +48,23 @@ export const Card = ({
       : restingPositionTransformCss
   );
 
-  const rarityColor = genCardRarityColor(rarity);
   const cardCss = css`
     ${x && y ? `
       position: absolute;
       left: ${x}px;
       top: ${y}px;
     ` : 'position: relative;'}
-    border: 2px solid ${rarityColor};
+    border: 2px solid ${rarityColors[rarity]};
     border-radius: 5px;
-    ${isInPileOfCards ? '' : `box-shadow: 2px 2px 3px ${colors.black}`};
-    transition: transform 0.1s ease-out;
-    ${onClick ? `
+    ${isInPileOfCards ? transformCss : `
+      box-shadow: 2px 2px 3px ${colors.black};
+
       &:hover {
-        transform: scale(1.25);
         z-index: ${zIndex.mouseEventArea5};
+        ${isInHand ? 'transform: scale(1.25);' : transformCss}
       }
-    ` : transformCss}
+    `}
+    ${isInHand ? 'transition: transform 0.1s ease-out;' : ''};
     cursor: ${onClick ? 'pointer' : 'default'};
     ${isBlurred ? 'filter: blur(3px);' : ''}
   `;
@@ -139,7 +132,7 @@ export const Card = ({
       _css={cardCss}
     >
       <Filter opacity={0.45} color={colors.black} />
-      <div css={cardBodyCss(rarityColor)}>
+      <div css={cardBodyCss(rarityColors[rarity])}>
         <div className='name'>{name}</div>
         <div className='border' />
         <div className='image_container'>
