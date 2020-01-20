@@ -21,6 +21,10 @@ export class ArrayOfCards {
     return sample(this.cards.filter(filterFunc));
   }
 
+  getCardNames() {
+    return this.cards.map(card => card.name);
+  }
+
   removeTopCard() {
     return this.cards.pop();
   }

@@ -30,14 +30,14 @@ const BoardComponent = (props) => {
     }
   };
 
-  const handleClickCardInYourHand = (card, index) => {
+  const handleClickCardInYourHand = (index) => {
     if (isAnimating || props.winner) {
       return;
     }
 
     isAnimating = true;
     const t0 = performance.now();
-    actions = playFirstCardInRound(card, index);
+    actions = playFirstCardInRound('you', 'hand', index);
     const t1 = performance.now();
     console.log(`playCard took ${t1 - t0} milliseconds.`);
 
@@ -75,7 +75,7 @@ const BoardComponent = (props) => {
       <Stack />
 
       <YourPortrait />
-      <YourHand onClick={(card, index) => handleClickCardInYourHand(card, index)} />
+      <YourHand onClick={(index) => handleClickCardInYourHand(index)} />
       <div style={{ perspective: '2000px' }}>
         <YourDeck />
         <YourDiscard />

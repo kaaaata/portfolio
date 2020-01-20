@@ -144,8 +144,9 @@ const CollectionComponent = ({
         col.map((card, cardIndex) => (
           <Card
             key={colIndex * 15 + cardIndex}
-            cardProps={card}
-            renderProps={{ x: 40 + 130 * colIndex, y: 60 + 18 * cardIndex }}
+            name={card}
+            x={40 + 130 * colIndex}
+            y={60 + 18 * cardIndex}
             onClick={() => cardOnClick(card, 'collection', colIndex * 15 + cardIndex)}
           />
         ))
@@ -156,8 +157,9 @@ const CollectionComponent = ({
         col.map((card, cardIndex) => (
           <Card
             key={colIndex * 15 + cardIndex}
-            cardProps={card}
-            renderProps={{ x: 700 + 130 * colIndex, y: 60 + 18 * cardIndex }}
+            name={card}
+            x={700 + 130 * colIndex}
+            y={60 + 18 * cardIndex}
             onClick={() => cardOnClick(card, 'deck', colIndex * 15 + cardIndex)}
           />
         ))

@@ -36,20 +36,20 @@ let stateCopy = {};
 
 const actionGenerators = {
   // these functions mutate stateCopy and return actions.
-  // "card" and "payload" values must be new objects, not references.
+  // "card" must be a new object, not a reference.
   addCardToStack: (card) => {
     const newCard = { ...card, location: 'stack' };
     stateCopy.stack.addCardToTop(newCard);
     return {
       actionKey: 'setStack',
-      payload: [...stateCopy.stack.cards]
+      payload: stateCopy.stack.getCardNames()
     };
   },
   removeTopCardFromStack: () => {
     stateCopy.stack.removeTopCard();
     return {
       actionKey: 'setStack',
-      payload: [...stateCopy.stack.cards]
+      payload: stateCopy.stack.getCardNames()
     };
   },
   addCard: (card, player, location, index) => {
@@ -68,7 +68,7 @@ const actionGenerators = {
     }
     return {
       actionKey: actionKeys[player][location],
-      payload: [...stateCopy[player][location].cards]
+      payload: stateCopy[player][location].getCardNames()
     };
   },
   removeCard: (player, location, index) => {
@@ -76,13 +76,13 @@ const actionGenerators = {
     if (!index && index !== 0) {
       return;
     } else if (location === 'hand') {
-      stateCopy[player][location].cards[index] = null;
+      stateCopy[player][location].cards[index] = {};
     } else if (index === 'top') {
       stateCopy[player][location].removeTopCard();
     }
     return {
       actionKey: actionKeys[player][location],
-      payload: [...stateCopy[player][location].cards]
+      payload: stateCopy[player][location].getCardNames()
     };
   },
   setShields: (player, value) => {
@@ -388,26 +388,28 @@ const genPlayCardActions = (card, index) => {
 const genStartOfTurnActions = (player) => {
   const startOfTurnActions = [actionGenerators.setShields(player, 0)];
 
-  while (stateCopy[player].hand.cards.includes(null)) {
-    const cardToDraw = stateCopy[player].deck.getTopCard();
-    startOfTurnActions.push(actionGenerators.removeCard(
-      player,
-      'deck',
-      'top'
-    ));
-    startOfTurnActions.push(actionGenerators.addCard(
-      cardToDraw,
-      player,
-      'hand',
-      stateCopy[player].hand.cards.indexOf(null)
-    ));
+  for (let i = 0; i < 3; i++) {
+    if (!stateCopy[player].hand.getCardAtIndex(i).name) {
+      const cardToDraw = stateCopy[player].deck.getTopCard();
+      startOfTurnActions.push(actionGenerators.removeCard(
+        player,
+        'deck',
+        'top'
+      ));
+      startOfTurnActions.push(actionGenerators.addCard(
+        cardToDraw,
+        player,
+        'hand',
+        i
+      ));
+    }
   }
 
   actions.push(startOfTurnActions);
   actions.push([]);
 };
 
-export const playFirstCardInRound = (card, index) => {
+export const playFirstCardInRound = (player, location, index) => {
   actions = [];
   const state = {
     ...store.getState().clashBattleCards,
@@ -416,35 +418,51 @@ export const playFirstCardInRound = (card, index) => {
   stateCopy = {
     you: {
       name: state.yourName,
-      deck: new ArrayOfCards(state.yourDeck),
-      discard: new ArrayOfCards(state.yourDiscard),
-      banish: new ArrayOfCards(state.yourBanish),
-      hand: new ArrayOfCards(state.yourHand),
+      deck: new ArrayOfCards(state.yourDeck.map(name => ({
+        ...cards[name], player: 'you', location: 'deck'
+      }))),
+      discard: new ArrayOfCards(state.yourDiscard.map(name => ({
+        ...cards[name], player: 'you', location: 'discard'
+      }))),
+      banish: new ArrayOfCards(state.yourBanish.map(name => ({
+        ...cards[name], player: 'you', location: 'banish'
+      }))),
+      hand: new ArrayOfCards(state.yourHand.map(name => ({
+        ...cards[name], player: 'you', location: 'hand'
+      }))),
       shields: state.yourShields,
       temporaryStats: state.yourTemporaryStats,
       permanentStats: state.yourPermanentStats
     },
     enemy: {
       name: state.enemyName,
-      deck: new ArrayOfCards(state.enemyDeck),
-      discard: new ArrayOfCards(state.enemyDiscard),
-      banish: new ArrayOfCards(state.enemyBanish),
-      hand: new ArrayOfCards(state.enemyHand),
+      deck: new ArrayOfCards(state.enemyDeck.map(name => ({
+        ...cards[name], player: 'enemy', location: 'deck'
+      }))),
+      discard: new ArrayOfCards(state.enemyDiscard.map(name => ({
+        ...cards[name], player: 'enemy', location: 'discard'
+      }))),
+      banish: new ArrayOfCards(state.enemyBanish.map(name => ({
+        ...cards[name], player: 'enemy', location: 'banish'
+      }))),
+      hand: new ArrayOfCards(state.enemyHand.map(name => ({
+        ...cards[name], player: 'enemy', location: 'hand'
+      }))),
       shields: state.enemyShields,
       temporaryStats: state.yourTemporaryStats,
       permanentStats: state.yourPermanentStats
     },
-    stack: new ArrayOfCards(state.stack),
+    stack: new ArrayOfCards(state.stack.map(name => cards[name])),
     winner: state.winner
   };
 
-  genPlayCardActions(card, index);
+  genPlayCardActions(stateCopy[player][location].getCardAtIndex(index), index);
   if (!stateCopy.winner) {
     genStartOfTurnActions('enemy');
     const enemyHandRandomCardIndex = Math.floor(Math.random() * 3);
     const enemyHandRandomCard = stateCopy.enemy.hand.getCardAtIndex(enemyHandRandomCardIndex);
     // add placeholder
-    stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = null;
+    stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = {};
     genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
     if (!stateCopy.winner) {
       genStartOfTurnActions('you');

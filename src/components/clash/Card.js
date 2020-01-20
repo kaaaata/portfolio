@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { cards } from './cards/cards';
 import { Image, Spacer, Filter, FlexContainer } from '../particles';
 import { colors, zIndex } from '../styles';
 import { cardBodyCss } from './cardCss';
@@ -12,30 +13,26 @@ const rarityColors = {
 };
 
 export const Card = ({
-  cardProps,
-  renderProps = {},
+  name,
+  width = 120,
+  height = 170,
+  x = 0,
+  y = 0,
+  isFaceDown,
+  isInPileOfCards = false,
+  isInHand = false,
+  shouldAnimateEntry = false,
+  isBlurred = false,
   onClick
 }) => {
   const {
-    name,
     image,
     rarity,
     attack,
     defense,
     type,
     description
-  } = cardProps;
-
-  const {
-    width = 120,
-    height = 170,
-    x = 0,
-    y = 0,
-    isInPileOfCards = false,
-    isInHand = false,
-    shouldAnimateEntry = false,
-    isBlurred = false
-  } = renderProps;
+  } = cards[name];
 
   const animatedEntryStartingTransformCss = 'transform: rotate3d(0, 1, 0, 65deg);';
   const restingPositionTransformCss = isInPileOfCards
@@ -123,7 +120,7 @@ export const Card = ({
     />
   );
 
-  return name ? (
+  return (
     <Image
       src='/clash/rock.png'
       width={width}
@@ -159,19 +156,17 @@ export const Card = ({
         <div className='description'>{description}</div>
       </div>
     </Image>
-  ) : null;
+  );
 };
 
-// in a card pile, only the top two cards need to actually render.
-// the others can just render as a placeholder outline.
-export const PileCardPlaceholder = ({ renderProps }) => (
+export const PileCardPlaceholder = ({ x, y }) => (
   <div
     css={css`
       width: 120px;
       height: 170px;
       position: absolute;
-      left: ${renderProps.x}px;
-      top: ${renderProps.y}px;
+      left: ${x}px;
+      top: ${y}px;
       border: 1px solid ${colors.white};
       border-radius: 5px;
       transform: rotate3d(1, 0, 0, 65deg);
