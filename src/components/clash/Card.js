@@ -159,7 +159,8 @@ export const Card = ({
   );
 };
 
-export const PileCardPlaceholder = ({ x, y }) => (
+// refactor this eventually to show the card back
+export const PileCardPlaceholder = ({ x, y, isInvisible }) => (
   <div
     css={css`
       width: 120px;

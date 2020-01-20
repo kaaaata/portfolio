@@ -1,18 +1,8 @@
 import { ArrayOfCards } from './arrayOfCards';
 import { createCard } from '../cards/createCard';
-import { cards } from '../cards/cards';
-import { attacks } from '../cards/attacks';
-import { magic } from '../cards/magic';
-import { potions } from '../cards/potions';
-import { allies } from '../cards/allies';
+import { cards, cardsArray } from '../cards/cards';
 import { store } from '../../stores/store';
 
-const masterCardList = {
-  attacks: new ArrayOfCards(attacks),
-  magic: new ArrayOfCards(magic),
-  potions: new ArrayOfCards(potions),
-  allies: new ArrayOfCards(allies),
-};
 const actionKeys = {
   you: {
     deck: 'setYourDeck',
@@ -128,13 +118,12 @@ const shuffleCardsIntoDeck = (cards, player) => {
 
 const customCardEffects = {
   'Weapons Guy': (card) => {
-    // Shuffle 3 random attacks into your draw pile.
-    const threeRandomAttacks = [
-      masterCardList.attacks.getRandomCard(),
-      masterCardList.attacks.getRandomCard(),
-      masterCardList.attacks.getRandomCard()
+    // Shuffle 2 random attacks into your draw pile.
+    const twoRandomAttacks = [
+      cardsArray.getRandomCardByFilter(card => card.type === 'attack'),
+      cardsArray.getRandomCardByFilter(card => card.type === 'attack')
     ];
-    shuffleCardsIntoDeck(threeRandomAttacks, card.player);
+    shuffleCardsIntoDeck(twoRandomAttacks, card.player);
   },
   'Brawler': (card) => {
     // Play 2 random attacks from your discard pile, then banish them.

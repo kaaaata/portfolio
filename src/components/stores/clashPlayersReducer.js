@@ -8,7 +8,7 @@ const initialState = {
     attack: 0,
     magic: 0,
     defense: 0,
-    gold: 0,
+    gold: 500,
     score: 0,
     deck: genSampleEndgameDeck(),
     collection: []

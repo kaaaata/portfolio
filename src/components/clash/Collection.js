@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { cards } from './cards/cards';
 import { Card } from './Card';
 import { colors } from '../styles';
 import { connect } from 'react-redux';
@@ -12,13 +13,15 @@ const rarities = {
   legendary: 3
 };
 const sortFunc = (a, b) => {
-  if (rarities[a.rarity] < rarities[b.rarity]) {
+  const cardA = cards[a];
+  const cardB = cards[b];
+  if (rarities[cardA.rarity] < rarities[cardB.rarity]) {
     return -1;
-  } else if (rarities[a.rarity] > rarities[b.rarity]) {
+  } else if (rarities[cardA.rarity] > rarities[cardB.rarity]) {
     return 1;
-  } else if (a.name < b.name) {
+  } else if (cardA.name < cardB.name) {
     return -1;
-  } else if (a.name > b.name) {
+  } else if (cardA.name > cardB.name) {
     return 1;
   }
 
@@ -135,7 +138,7 @@ const CollectionComponent = ({
   };
 
   // testing: automatically continue
-  goToNextScene();
+  // goToNextScene();
 
   return (
     <div css={collectionCss}>

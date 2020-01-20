@@ -4,6 +4,7 @@ import { Board } from './Board';
 import { MasterCardList } from './MasterCardList';
 import { Collection } from './Collection';
 import { CharSelection } from './modals/CharSelection';
+import { Store } from './modals/Store';
 import { Image, Filter } from '../particles';
 import { colors, zIndex } from '../styles';
 
@@ -35,17 +36,20 @@ export const Clash = () => {
   let sceneComponent;
 
   switch (scene) {
+    case 'char_selection':
+      sceneComponent = <CharSelection goToNextScene={() => setScene('store')} />;
+      break;
+    case 'store':
+      sceneComponent = <Store goToNextScene={() => setScene('collection')} />;
+      break;
+    case 'collection':
+      sceneComponent = <Collection goToNextScene={() => setScene('board')} />;
+      break;
     case 'board':
       sceneComponent = <Board />;
       break;
     case 'master_card_list':
       sceneComponent = <MasterCardList />;
-      break;
-    case 'char_selection':
-      sceneComponent = <CharSelection goToNextScene={() => setScene('collection')} />;
-      break;
-    case 'collection':
-      sceneComponent = <Collection goToNextScene={() => setScene('board')} />;
       break;
     default:
       break;

@@ -61,7 +61,6 @@ const CharSelectionComponent = ({
     goToNextScene();
   };
 
-  // testing: automatically select the 1st character (id = 1)
   handleSelectChar(playableCharacters[0]);
 
   const charSelection = (

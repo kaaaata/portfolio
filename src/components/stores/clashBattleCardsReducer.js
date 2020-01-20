@@ -2,7 +2,7 @@ const initialState = {
   yourDeck: [],
   yourDiscard: [...Array(16).fill('Strike')],
   yourBanish: [],
-  yourHand: ['Recruiter', 'Sunder', 'Slice'],
+  yourHand: ['Catherine the Great', 'Weapons Guy', 'Slice'],
   enemyDeck: [...Array(2).fill('Strike')],
   enemyDiscard: [],
   enemyBanish: [],
