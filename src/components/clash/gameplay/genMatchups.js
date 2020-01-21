@@ -15,7 +15,7 @@ export const genMatchups = () => {
         ? !matchups.hasOwnProperty(prevMatchups[i])
         : true)
     ));
-    const opponentId = possibilities[Math.floor(Math.random() * possibilities.length)];
+    const opponentId = possibilities[~~(Math.random() * possibilities.length)];
     matchups[playerId] = opponentId;
     matchups[opponentId] = playerId;
     playerIds.splice(playerIds.indexOf(opponentId), 1);

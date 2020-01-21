@@ -8,7 +8,7 @@ export const allies = [
     attack: 2,
     defense: 1,
     customEffect: true,
-    description: 'Shuffle 2 random Attacks into your draw pile.'
+    description: 'Shuffle 2 random Attacks into your deck.'
   },
   {
     name: 'Recruiter',
@@ -36,7 +36,7 @@ export const allies = [
     defense: 3,
     pierce: 1,
     shuffleCardCopiesIntoDeck: ['Spear Goon'],
-    description: 'Pierce: 1. Shuffle a copy of Spear Goon into your draw pile.'
+    description: 'Pierce: 1. Shuffle a copy of Spear Goon into your deck.'
   },
   {
     name: 'Wayne',
@@ -45,7 +45,7 @@ export const allies = [
     attack: 2,
     defense: 0,
     shuffleCardCopiesIntoEnemyDeck: ['Bomb', 'Bomb'],
-    description: 'Shuffle 2 copies of Bomb into your opponent\'s draw pile.'
+    description: 'Shuffle 2 copies of Bomb into your opponent\'s deck.'
   },
   {
     name: 'Hobgoblin',
@@ -71,7 +71,7 @@ export const allies = [
     attack: 4,
     defense: 0,
     shuffleCardCopiesIntoEnemyDeck: ['Burn', 'Burn'],
-    description: 'Shuffle 2 copies of Burn into your opponent\'s draw pile.'
+    description: 'Shuffle 2 copies of Burn into your opponent\'s deck.'
   },
   {
     name: 'Minotaur',
@@ -114,7 +114,7 @@ export const allies = [
     defense: 6,
     playCopyOfCard: 'Healing Blade',
     shuffleCardCopiesIntoDeck: ['Healing Blade', 'Healing Blade'],
-    description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your draw pile.'
+    description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your deck.'
   },
 ].map(card => createCard({
   ...card,

@@ -74,7 +74,7 @@ export const attacks = [
     attack: 2,
     defense: 1,
     shuffleCardCopiesIntoEnemyDeck: ['Burn'],
-    description: 'Shuffle a copy of Burn into your opponent\'s draw pile.'
+    description: 'Shuffle a copy of Burn into your opponent\'s deck.'
   },
   {
     name: 'Sunder',

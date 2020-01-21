@@ -1,4 +1,4 @@
-import { ArrayOfCards } from './arrayOfCards';
+import { CardsArray } from './CardsArray';
 import { createCard } from '../cards/createCard';
 import { cards, cardsArray } from '../cards/cards';
 import { store } from '../../stores/store';
@@ -50,7 +50,7 @@ const actionGenerators = {
       location
     };
     if (location === 'hand') {
-      stateCopy[player][location].cards[index] = newCard;
+      stateCopy[player][location][index] = newCard;
     } else if (index === 'top') {
       stateCopy[player][location].addCardToTop(newCard);
     } else if (index === 'random') {
@@ -66,7 +66,7 @@ const actionGenerators = {
     if (!index && index !== 0) {
       return;
     } else if (location === 'hand') {
-      stateCopy[player][location].cards[index] = {};
+      stateCopy[player][location][index] = {};
     } else if (index === 'top') {
       stateCopy[player][location].removeTopCard();
     }
@@ -118,7 +118,7 @@ const shuffleCardsIntoDeck = (cards, player) => {
 
 const customCardEffects = {
   'Weapons Guy': (card) => {
-    // Shuffle 2 random attacks into your draw pile.
+    // Shuffle 2 random attacks into your deck.
     const twoRandomAttacks = [
       cardsArray.getRandomCardByFilter(card => card.type === 'attack'),
       cardsArray.getRandomCardByFilter(card => card.type === 'attack')
@@ -240,7 +240,7 @@ const genPlayCardActions = (card, index) => {
     }
 
     for (let i = 0; i < totalDamageDealt; i++) {
-      if (!stateCopy[opponent].deck.cards.length) {
+      if (!stateCopy[opponent].deck.length) {
         console.log(`${player} won!`);
         actions.push([actionGenerators.setWinner(player)]);
         break;
@@ -273,7 +273,7 @@ const genPlayCardActions = (card, index) => {
 
   if (heal) {
     for (let i = 0; i < heal; i++) {
-      if (!stateCopy[player].discard.cards.length) {
+      if (!stateCopy[player].discard.length) {
         break;
       }
 
@@ -292,7 +292,7 @@ const genPlayCardActions = (card, index) => {
 
   if (healEnemy) {
     for (let i = 0; i < healEnemy; i++) {
-      if (!stateCopy[opponent].discard.cards.length) {
+      if (!stateCopy[opponent].discard.length) {
         break;
       }
 
@@ -311,7 +311,7 @@ const genPlayCardActions = (card, index) => {
 
   if (damageSelf) {
     for (let i = 0; i < damageSelf; i++) {
-      if (!stateCopy[player].deck.cards.length) {
+      if (!stateCopy[player].deck.length) {
         console.log(`${opponent} won!`);
         actions.push([actionGenerators.setWinner(opponent)]);
         break;
@@ -378,7 +378,7 @@ const genStartOfTurnActions = (player) => {
   const startOfTurnActions = [actionGenerators.setShields(player, 0)];
 
   for (let i = 0; i < 3; i++) {
-    if (!stateCopy[player].hand.getCardAtIndex(i).name) {
+    if (!stateCopy[player].hand[i].name) {
       const cardToDraw = stateCopy[player].deck.getTopCard();
       startOfTurnActions.push(actionGenerators.removeCard(
         player,
@@ -407,51 +407,35 @@ export const playFirstCardInRound = (player, location, index) => {
   stateCopy = {
     you: {
       name: state.yourName,
-      deck: new ArrayOfCards(state.yourDeck.map(name => ({
-        ...cards[name], player: 'you', location: 'deck'
-      }))),
-      discard: new ArrayOfCards(state.yourDiscard.map(name => ({
-        ...cards[name], player: 'you', location: 'discard'
-      }))),
-      banish: new ArrayOfCards(state.yourBanish.map(name => ({
-        ...cards[name], player: 'you', location: 'banish'
-      }))),
-      hand: new ArrayOfCards(state.yourHand.map(name => ({
-        ...cards[name], player: 'you', location: 'hand'
-      }))),
+      deck: CardsArray(state.yourDeck, { player: 'you', location: 'deck' }),
+      discard: CardsArray(state.yourDiscard, { player: 'you', location: 'discard' }),
+      banish: CardsArray(state.yourBanish, { player: 'you', location: 'banish' }),
+      hand: CardsArray(state.yourHand, { player: 'you', location: 'hand' }),
       shields: state.yourShields,
       temporaryStats: state.yourTemporaryStats,
       permanentStats: state.yourPermanentStats
     },
     enemy: {
       name: state.enemyName,
-      deck: new ArrayOfCards(state.enemyDeck.map(name => ({
-        ...cards[name], player: 'enemy', location: 'deck'
-      }))),
-      discard: new ArrayOfCards(state.enemyDiscard.map(name => ({
-        ...cards[name], player: 'enemy', location: 'discard'
-      }))),
-      banish: new ArrayOfCards(state.enemyBanish.map(name => ({
-        ...cards[name], player: 'enemy', location: 'banish'
-      }))),
-      hand: new ArrayOfCards(state.enemyHand.map(name => ({
-        ...cards[name], player: 'enemy', location: 'hand'
-      }))),
+      deck: CardsArray(state.enemyDeck, { player: 'enemy', location: 'deck' }),
+      discard: CardsArray(state.enemyDiscard, { player: 'enemy', location: 'discard' }),
+      banish: CardsArray(state.enemyBanish, { player: 'enemy', location: 'banish' }),
+      hand: CardsArray(state.enemyHand, { player: 'enemy', location: 'hand' }),
       shields: state.enemyShields,
       temporaryStats: state.yourTemporaryStats,
       permanentStats: state.yourPermanentStats
     },
-    stack: new ArrayOfCards(state.stack.map(name => cards[name])),
+    stack: CardsArray(state.stack.map(name => cards[name])),
     winner: state.winner
   };
 
-  genPlayCardActions(stateCopy[player][location].getCardAtIndex(index), index);
+  genPlayCardActions(stateCopy[player][location][index], index);
   if (!stateCopy.winner) {
     genStartOfTurnActions('enemy');
-    const enemyHandRandomCardIndex = Math.floor(Math.random() * 3);
-    const enemyHandRandomCard = stateCopy.enemy.hand.getCardAtIndex(enemyHandRandomCardIndex);
+    const enemyHandRandomCardIndex = ~~(Math.random() * 3);
+    const enemyHandRandomCard = stateCopy.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
-    stateCopy.enemy.hand.cards[enemyHandRandomCardIndex] = {};
+    stateCopy.enemy.hand[enemyHandRandomCardIndex] = {};
     genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
     if (!stateCopy.winner) {
       genStartOfTurnActions('you');

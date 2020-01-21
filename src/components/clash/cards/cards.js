@@ -3,16 +3,15 @@ import { attacks } from './attacks';
 import { magic } from './magic';
 import { potions } from './potions';
 import { allies } from './allies';
-import { ArrayOfCards } from '../gameplay/arrayOfCards';
+import { CardsArray } from '../gameplay/CardsArray';
 
-export const cardsArray = new ArrayOfCards([
+export const cardsArray = CardsArray([
   ...attacks,
   ...magic,
   ...potions,
   ...allies
 ]);
-
-export const cards = keyBy(cardsArray.cards, 'name');
+export const cards = keyBy(cardsArray, 'name');
 
 const storeCardsPrices = {
   common: 25,
@@ -31,7 +30,7 @@ export const genStoreCards = () => [
   cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable)
 ].map(card => ({
   name: card.name,
-  price: storeCardsPrices[card.rarity] - 10 + Math.floor(Math.random() * 21)
+  price: storeCardsPrices[card.rarity] - 10 + ~~(Math.random() * 21)
 }));
 
 export const genPackCards = () => {

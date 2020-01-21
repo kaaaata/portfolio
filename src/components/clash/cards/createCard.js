@@ -32,37 +32,15 @@ const genCardDescription = ({
   onDiscard,
   type,
   playCopyOfCard
-}) => {
-  if (description) {
-    return description;
-  }
-
-  const sentences = [];
-
-  if (heal) {
-    sentences.push(`Heal ${heal}.`);
-  }
-  if (healEnemy) {
-    sentences.push(`Heal enemy ${healEnemy}.`);
-  }
-  if (damageSelf) {
-    sentences.push(`Take ${damageSelf} damage.`);
-  }
-  if (pierce) {
-    sentences.push(`Pierces ${pierce} shield${pierce === 1 ? '' : 's'}.`);
-  }
-  if (onDiscard && type !== 'potion') {
-    sentences.push(`On discard: ${genCardDescription(onDiscard)}`);
-  }
-  if (playCopyOfCard) {
-    sentences.push(`Play a copy of ${playCopyOfCard}.`);
-  }
-  if (playCopyOfCard) {
-    sentences.push(`Play a copy of ${playCopyOfCard}.`);
-  }
-
-  return sentences.join(' ');
-};
+}) => description || [
+  type === 'magic' && 'Damage dealt banishes.',
+  heal && `Heal ${heal}.`,
+  healEnemy && `Heal enemy ${healEnemy}.`,
+  damageSelf && `Deal ${damageSelf} to yourself.`,
+  pierce && `Pierces ${pierce} shield${pierce === 1 ? '' : 's'}.`,
+  onDiscard && type !== 'potion' && `On discard: ${genCardDescription(onDiscard)}`,
+  playCopyOfCard && `Play a copy of ${playCopyOfCard}.`,
+].filter(Boolean).join(' ');
 
 export const createCard = (properties = {}) => {
   const card = {
