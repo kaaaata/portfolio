@@ -1,4 +1,4 @@
-import { keyBy, sampleSize } from 'lodash';
+import { keyBy } from 'lodash';
 import { attacks } from './attacks';
 import { magic } from './magic';
 import { potions } from './potions';
@@ -14,7 +14,51 @@ export const cardsArray = new ArrayOfCards([
 
 export const cards = keyBy(cardsArray.cards, 'name');
 
-export const genStoreCards = () => sampleSize(cardsArray.cards, 8).map(card => card.name);
+const storeCardsPrices = {
+  common: 25,
+  uncommon: 50,
+  rare: 75,
+  legendary: 175
+};
+export const genStoreCards = () => [
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'legendary' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'rare' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable)
+].map(card => ({
+  name: card.name,
+  price: storeCardsPrices[card.rarity] - 10 + Math.floor(Math.random() * 21)
+}));
+
+export const genPackCards = () => {
+  const cardRarities = ['rare', 'uncommon', 'common', 'common', 'common'];
+
+  for (let i = 0; i < 5; i++) {
+    let rarity = cardRarities[i];
+
+    while (rarity !== 'legendary') {
+      if (Math.random() < 0.1) {
+        rarity = rarity === 'common'
+          ? 'uncommon'
+          : rarity === 'uncommon'
+            ? 'rare'
+            : 'legendary'
+      } else {
+        break;
+      }
+    }
+
+    cardRarities[i] = rarity;
+  }
+
+  return cardRarities.map(rarity => (
+    cardsArray.getRandomCardByFilter(card => card.rarity === rarity && card.buyable).name
+  ));
+};
 
 export const genStartingDeck = () => Array(30).fill('Strike');
 

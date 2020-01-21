@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { genStoreCards } from '../cards/cards'
+import { genStoreCards, genPackCards } from '../cards/cards'
 import { Modal } from './Modal';
 import { YourPortrait } from '../Portrait';
 import { Image, Spacer, FlexContainer } from '../../particles';
@@ -78,14 +78,14 @@ const StoreComponent = ({
             className={`card_with_price ${cardsBoughtIndices.includes(index) ? 'hidden' : ''}`}
           >
             <Card
-              name={card}
+              name={card.name}
               onClick={() => {
                 console.log('bought', card);
                 setCardsBoughtIndices([...cardsBoughtIndices, index]);
               }}
             />
             <Spacer height={10} />
-            <Gold value={50} />
+            <Gold value={card.price} />
           </div>
         ))}
         <YourPortrait />
@@ -99,6 +99,7 @@ const mapStateToProps = (state) => ({
   playerId: state.clashPlayers.playerId,
   player: state.clashPlayers[state.clashPlayers.playerId],
   storeCards: genStoreCards()
+  // storeCards: genPackCards().map(card => ({ name: card, price: 100 }))
 });
 const mapDispatchToProps = (dispatch) => ({
   setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload))
