@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { cards } from './cards/cards';
-import { Card } from './Card';
-import { colors } from '../styles';
 import { connect } from 'react-redux';
-import * as actions from '../stores/actions';
+import * as actions from '../../stores/actions';
+import { cards } from '../cards/cards';
+import { Card } from '../Card';
+import { Modal } from './Modal';
 
 const rarities = {
   common: 0,
@@ -27,6 +27,7 @@ const sortFunc = (a, b) => {
 
   return 0;
 };
+
 // uses binary search to return the index in a sorted array
 // at which to insert an item, given a sorting function.
 const findInsertionIndex = (sortedArr, item) => {
@@ -52,16 +53,8 @@ const findInsertionIndex = (sortedArr, item) => {
 };
 
 const collectionCss = css`
-  position: relative;
-
   .text {
     font-size: 24px;
-    color: ${colors.black};
-  }
-
-  .title {
-    text-align: center;
-    margin-top: 20px;
   }
 
   .collection {
@@ -69,7 +62,6 @@ const collectionCss = css`
     top: 515px;
     left: 250px;
   }
-
   .deck {
     position: absolute;
     top: 515px;
@@ -77,16 +69,12 @@ const collectionCss = css`
   }
 
   .arrows {
-    position: absolute;
-    top: 240px;
-    left: 600px;
+    margin-top: 100px;
     font-size: 60px;
   }
 
   .continue {
-    position: absolute;
-    top: 525px;
-    left: 575px;
+    margin-top: 200px;
   }
 `;
 
@@ -129,47 +117,46 @@ const CollectionComponent = ({
   };
 
   const continueOnClick = () => {
+    goToNextScene();
+
     setPlayerProperties({
       properties: { ...cardArrays },
       id: playerId
     });
     setYourDeck(cardArrays.deck);
-    goToNextScene();
   };
 
-  // testing: automatically continue
-  // goToNextScene();
-
   return (
-    <div css={collectionCss}>
-      <div className='text title'>Edit your Deck</div>
-      {collectionColumns.map((col, colIndex) => col && (
-        col.map((card, cardIndex) => (
-          <Card
-            key={colIndex * 15 + cardIndex}
-            name={card}
-            x={40 + 130 * colIndex}
-            y={60 + 18 * cardIndex}
-            onClick={() => cardOnClick(card, 'collection', colIndex * 15 + cardIndex)}
-          />
-        ))
-      ))}
-      <div className='text collection'>Collection</div>
-      <div className='text arrows'>⇄</div>
-      {deckColumns.map((col, colIndex) => col && (
-        col.map((card, cardIndex) => (
-          <Card
-            key={colIndex * 15 + cardIndex}
-            name={card}
-            x={700 + 130 * colIndex}
-            y={60 + 18 * cardIndex}
-            onClick={() => cardOnClick(card, 'deck', colIndex * 15 + cardIndex)}
-          />
-        ))
-      ))}
-      <div className='text deck'>Deck</div>
-      <button className='continue' onClick={continueOnClick}>Continue</button>
-    </div>
+    <Modal title='Edit Your Deck'>
+      <div css={collectionCss}>
+        {collectionColumns.map((col, colIndex) => col && (
+          col.map((card, cardIndex) => (
+            <Card
+              key={colIndex * 15 + cardIndex}
+              name={card}
+              x={40 + 130 * colIndex}
+              y={60 + 18 * cardIndex}
+              onClick={() => cardOnClick(card, 'collection', colIndex * 15 + cardIndex)}
+            />
+          ))
+        ))}
+        <div className='text collection'>Collection</div>
+        <div className='text arrows'>⇄</div>
+        {deckColumns.map((col, colIndex) => col && (
+          col.map((card, cardIndex) => (
+            <Card
+              key={colIndex * 15 + cardIndex}
+              name={card}
+              x={700 + 130 * colIndex}
+              y={60 + 18 * cardIndex}
+              onClick={() => cardOnClick(card, 'deck', colIndex * 15 + cardIndex)}
+            />
+          ))
+        ))}
+        <div className='text deck'>Deck</div>
+        <button className='continue' onClick={continueOnClick}>Continue</button>
+      </div>
+    </Modal>
   );
 };
 

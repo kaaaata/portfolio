@@ -13,13 +13,13 @@ export const cardsArray = CardsArray([
 ]);
 export const cards = keyBy(cardsArray, 'name');
 
-const storeCardsPrices = {
+const shopCardsCosts = {
   common: 25,
   uncommon: 50,
   rare: 75,
   legendary: 175
 };
-export const genStoreCards = () => [
+export const genShopCards = () => [
   cardsArray.getRandomCardByFilter(card => card.rarity === 'legendary' && card.buyable),
   cardsArray.getRandomCardByFilter(card => card.rarity === 'rare' && card.buyable),
   cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.buyable),
@@ -30,7 +30,7 @@ export const genStoreCards = () => [
   cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable)
 ].map(card => ({
   name: card.name,
-  price: storeCardsPrices[card.rarity] - 10 + ~~(Math.random() * 21)
+  cost: shopCardsCosts[card.rarity] - 10 + ~~(Math.random() * 21)
 }));
 
 export const genPackCards = () => {

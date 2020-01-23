@@ -28,7 +28,10 @@ const CharSelectionComponent = ({
   setEnemyDeck,
   goToNextScene
 }) => {
+  console.log('CharSelection rendering');
   const handleSelectChar = (char) => {
+    goToNextScene();
+
     setPlayerId(char.id);
     const matchups = genMatchups();
     setMatchups(matchups);
@@ -58,28 +61,23 @@ const CharSelectionComponent = ({
     });
     setYourDeck(char.deck);
     setEnemyDeck(enemy.deck);
-    goToNextScene();
   };
 
   handleSelectChar(playableCharacters[0]);
 
-  const charSelection = (
-    <div css={charSelectionCss}>
-      {playableCharacters.map(char => (
-        <Image
-          key={char.id}
-          src={`/clash/${char.image}.png`}
-          width={100}
-          height={125}
-          onClick={() => handleSelectChar(char)}
-        />
-      ))}
-    </div>
-  );
-
   return (
     <Modal title='Character Selection'>
-      {charSelection}
+      <div css={charSelectionCss}>
+        {playableCharacters.map(char => (
+          <Image
+            key={char.id}
+            src={`/clash/${char.image}.png`}
+            width={100}
+            height={125}
+            onClick={() => handleSelectChar(char)}
+          />
+        ))}
+      </div>
     </Modal>
   );
 };

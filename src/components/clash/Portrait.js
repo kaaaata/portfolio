@@ -1,19 +1,12 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
-import { Image, FlexContainer } from '../particles';
-import { colors } from '../styles';
+import { Image } from '../particles';
+import { Attributes } from './Attributes';
 
 const portraitCss = (location) => css`
   position: absolute;
   left: ${location === 'top' ? 885 : 20}px;
   top: ${location === 'top' ? 48 : 405}px;
-
-  .number {
-    font-size: 36px;
-    text-align: center;
-    margin-top: 11px;
-    text-shadow: 2px 2px 4px ${colors.black};
-  }
 
   .shields {
     position: absolute;
@@ -26,27 +19,8 @@ const portraitCss = (location) => css`
     }
   }
 
-  .stats {
+  .attributes {
     margin: -3px -5px 0 -5px;
-    cursor: default;
-
-    .attack {
-      .number {
-        margin-left: -7px;
-      }
-    }
-
-    .magic {
-      .number {
-        margin-left: -2px;
-      }
-    }
-
-    .defense {
-      .number {
-        margin-left: -3px;
-      }
-    }
   }
 `;
 
@@ -65,45 +39,6 @@ const Portrait = ({
     />
   );
 
-  const attackDisplay = (
-    <Image
-      className='attack'
-      src='/clash/attack.png'
-      width={30}
-      height={30}
-    >
-      <div className='number'>
-        {temporaryStats.attack + permanentStats.attack}
-      </div>
-    </Image>
-  );
-
-  const magicDisplay = (
-    <Image
-      className='magic'
-      src='/clash/magic.png'
-      width={30}
-      height={30}
-    >
-      <div className='number'>
-        {temporaryStats.magic + permanentStats.magic}
-      </div>
-    </Image>
-  );
-
-  const defenseDisplay = (
-    <Image
-      className='defense'
-      src='/clash/defense.png'
-      width={30}
-      height={30}
-    >
-      <div className='number'>
-        {temporaryStats.defense + permanentStats.defense}
-      </div>
-    </Image>
-  );
-
   const shieldsDisplay = !!shields && (
     <Image
       className='shields'
@@ -119,14 +54,11 @@ const Portrait = ({
     <div css={portraitCss(location)}>
       {portrait}
       {shieldsDisplay}
-      <FlexContainer
-        className='stats'
-        justifyContent='space-between'
-      >
-        {attackDisplay}
-        {magicDisplay}
-        {defenseDisplay}
-      </FlexContainer>
+      <Attributes
+        attack={temporaryStats.attack + permanentStats.attack}
+        magic={temporaryStats.magic + permanentStats.magic}
+        defense={temporaryStats.defense + permanentStats.defense}
+      />
     </div>
   );
 };

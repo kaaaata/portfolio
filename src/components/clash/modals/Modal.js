@@ -2,14 +2,12 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, FlexContainer, Filter } from '../../particles';
 import { colors } from '../../styles';
 
-const modalCss = css`
-  .content {
-    position: absolute;
-    width: 100%;
+const modalContentCss = css`
+  position: absolute;
+  width: 100%;
 
-    .title {
-      font-size: 24px;
-    }
+  .title {
+    font-size: 24px;
   }
 `;
 
@@ -24,12 +22,12 @@ export const Modal = ({
   );
 
   return (
-    <div css={modalCss}>
+    <div>
       <Filter opacity={0.75} color={colors.black} />
       <FlexContainer
-        className='content'
         alignItems='center'
         flexDirection='column'
+        _css={modalContentCss}
       >
         <Spacer height={80} />
         {modalTitle}

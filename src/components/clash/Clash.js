@@ -2,33 +2,16 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Board } from './Board';
 import { MasterCardList } from './MasterCardList';
-import { Collection } from './Collection';
+import { TopNav } from './TopNav';
+import { Collection } from './modals/Collection';
 import { CharSelection } from './modals/CharSelection';
-import { Store } from './modals/Store';
+import { Shop } from './modals/Shop';
 import { Image, Filter } from '../particles';
-import { colors, zIndex } from '../styles';
+import { colors } from '../styles';
 
 const clashCss = css`
   position: relative;
   flex-shrink: 0;
-  
-  .top_nav {
-    position: absolute;
-    z-index: ${zIndex.mouseEventArea1};
-    padding-left: 200px;
-    display: flex;
-    align-items: center;
-
-    .filter {
-      margin-left: -200px;
-    }
-
-    button {
-      height: 20px;
-      width: 100px;
-      z-index: ${zIndex.mouseEventArea2};
-    }
-  }
 `;
 
 export const Clash = () => {
@@ -37,10 +20,10 @@ export const Clash = () => {
 
   switch (scene) {
     case 'char_selection':
-      sceneComponent = <CharSelection goToNextScene={() => setScene('store')} />;
+      sceneComponent = <CharSelection goToNextScene={() => setScene('shop')} />;
       break;
-    case 'store':
-      sceneComponent = <Store goToNextScene={() => setScene('collection')} />;
+    case 'shop':
+      sceneComponent = <Shop goToNextScene={() => setScene('collection')} />;
       break;
     case 'collection':
       sceneComponent = <Collection goToNextScene={() => setScene('board')} />;
@@ -64,6 +47,7 @@ export const Clash = () => {
     >
       <Filter opacity={0.3} color={colors.white} />
       {sceneComponent}
-    </Image>
+      <TopNav />
+    </Image>  
   );
 };
