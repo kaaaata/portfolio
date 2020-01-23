@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
+import { colors } from '../../styles';
 
 const rarities = {
   common: 0,
@@ -28,33 +28,34 @@ const sortFunc = (a, b) => {
   return 0;
 };
 
-// uses binary search to return the index in a sorted array
-// at which to insert an item, given a sorting function.
-const findInsertionIndex = (sortedArr, item) => {
-  let low = 0;
-  let mid = -1;
-  let high = sortedArr.length;
-  let sortScore = 0;
-
-  while (low < high)   {
-     mid = parseInt((low + high) / 2);
-     sortScore = sortFunc(sortedArr[mid], item);
-
-    if (sortScore < 0) {
-      low = mid + 1;
-    } else if (sortScore > 0) {
-      high = mid;
-    } else {
-      return mid;
-    }
-  }
-
-  return low;
-};
-
 const collectionCss = css`
   .text {
     font-size: 24px;
+  }
+
+  .collection_container {
+    position: absolute;
+    left: 50px;
+    top: 60px;
+    width: 320px;
+    height: 420px;
+    box-shadow: 0 8px 16px blue;
+    overflow: scroll;
+    
+    .collection_card {
+      width: 50%;
+      display: inline-block;
+
+      & > div {
+        display: inline-block;
+      }
+      
+      .collection_card_value {
+        margin-left: 5px;
+        font-size: 20px;
+        text-shadow: 2px 2px 4px ${colors.black};
+      }
+    }
   }
 
   .collection {
@@ -62,6 +63,7 @@ const collectionCss = css`
     top: 515px;
     left: 250px;
   }
+
   .deck {
     position: absolute;
     top: 515px;
@@ -86,60 +88,79 @@ const CollectionComponent = ({
   goToNextScene,
   playerId
 }) => {
-  const [cardArrays, setCardArrays] = useState({ collection, deck });
-
-  const collectionColumns = [
-    cardArrays.collection.slice(0, 15),
-    cardArrays.collection.slice(15, 30),
-    cardArrays.collection.slice(30, 45),
-    cardArrays.collection.slice(45)
-  ];
+  console.log('collection', collection);
   const deckColumns = [
-    cardArrays.deck.slice(0, 15),
-    cardArrays.deck.slice(15)
+    deck.slice(0, 15),
+    deck.slice(15)
   ];
 
-  const cardOnClick = (card, origin, index) => {
-    const destination = origin === 'deck' ? 'collection' : 'deck';
-    
-    if (destination === 'deck' && cardArrays.deck.length === 30) {
+  const moveCardToCollection = (card) => {
+    const newProperties = {
+      collection: { ...collection },
+      deck: [...deck]
+    };
+
+    if (collection.hasOwnProperty(card)) {
+      newProperties.collection[card]++;
+    } else {
+      newProperties.collection[card] = 1;
+    }
+
+    newProperties.deck.splice(deck.indexOf(card), 1);
+
+    setPlayerProperties({
+      id: playerId,
+      properties: newProperties
+    });
+  };
+
+  const moveCardToDeck = (card) => {
+    if (deck.length === 30) {
       return;
     }
-    
-    const newCardArrays = {
-      deck: [...cardArrays.deck],
-      collection: [...cardArrays.collection]
+
+    const newProperties = {
+      collection: { ...collection },
+      deck: [...deck]
     };
-    newCardArrays[origin].splice(index, 1);
-    const insertionIndex = findInsertionIndex(cardArrays[destination], card);
-    newCardArrays[destination].splice(insertionIndex, 0, card);
-    setCardArrays(newCardArrays);
+
+    if (collection[card] >= 2) {
+      newProperties.collection[card]--;
+    } else {
+      delete newProperties.collection[card];
+    }
+
+    newProperties.deck.push(card);
+
+    setPlayerProperties({
+      id: playerId,
+      properties: newProperties
+    });
   };
 
   const continueOnClick = () => {
-    goToNextScene();
+    setYourDeck(deck);
 
-    setPlayerProperties({
-      properties: { ...cardArrays },
-      id: playerId
-    });
-    setYourDeck(cardArrays.deck);
+    goToNextScene();
   };
 
   return (
     <Modal title='Edit Your Deck'>
       <div css={collectionCss}>
-        {collectionColumns.map((col, colIndex) => col && (
-          col.map((card, cardIndex) => (
-            <Card
-              key={colIndex * 15 + cardIndex}
-              name={card}
-              x={40 + 130 * colIndex}
-              y={60 + 18 * cardIndex}
-              onClick={() => cardOnClick(card, 'collection', colIndex * 15 + cardIndex)}
-            />
-          ))
-        ))}
+        <div className='collection_container'>
+          {console.log('todo: make this 2 cols arrays')}
+          {Object.keys(collection).sort(sortFunc).map((key, index) => (
+            <div
+              key={key}
+              className='collection_card'
+            >
+              <Card name={key} onClick={() => moveCardToDeck(key)} />
+              <div className='collection_card_value'>
+                x{collection[key]}
+              </div>
+            </div>
+          ))}
+        </div>
         <div className='text collection'>Collection</div>
         <div className='text arrows'>⇄</div>
         {deckColumns.map((col, colIndex) => col && (
@@ -149,7 +170,7 @@ const CollectionComponent = ({
               name={card}
               x={700 + 130 * colIndex}
               y={60 + 18 * cardIndex}
-              onClick={() => cardOnClick(card, 'deck', colIndex * 15 + cardIndex)}
+              onClick={() => moveCardToCollection(card)}
             />
           ))
         ))}
@@ -163,7 +184,7 @@ const CollectionComponent = ({
 const mapStateToProps = (state) => ({
   playerId: state.clashPlayers.playerId,
   deck: state.clashPlayers[state.clashPlayers.playerId].deck.sort(sortFunc),
-  collection: state.clashPlayers[state.clashPlayers.playerId].collection.sort(sortFunc)
+  collection: state.clashPlayers[state.clashPlayers.playerId].collection
 });
 const mapDispatchToProps = (dispatch) => ({
   setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload)),

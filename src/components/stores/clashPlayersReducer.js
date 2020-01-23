@@ -11,7 +11,7 @@ const initialState = {
     gold: 100,
     score: 0,
     deck: genSampleEndgameDeck(),
-    collection: []
+    collection: {}
   },
   2: {
     id: 2,
@@ -23,7 +23,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
   3: {
     id: 3,
@@ -35,7 +35,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
   4: {
     id: 4,
@@ -47,7 +47,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
   5: {
     id: 5,
@@ -59,7 +59,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
   6: {
     id: 6,
@@ -71,7 +71,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
   7: {
     id: 7,
@@ -83,7 +83,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
   8: {
     id: 8,
@@ -95,7 +95,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: []
+    collection: {}
   },
 
   playerId: null,
