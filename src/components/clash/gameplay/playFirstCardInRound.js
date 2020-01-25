@@ -240,12 +240,6 @@ const genPlayCardActions = (card, index) => {
     }
 
     for (let i = 0; i < totalDamageDealt; i++) {
-      if (!stateCopy[opponent].deck.length) {
-        console.log(`${player} won!`);
-        actions.push([actionGenerators.setWinner(player)]);
-        break;
-      }
-
       const removedCard = stateCopy[opponent].deck.getTopCard();
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       const damageAction = [
@@ -267,6 +261,16 @@ const genPlayCardActions = (card, index) => {
 
       if (destination === 'discard' && removedCard.onDiscard) {
         triggerDiscardEffect(opponent);
+      }
+
+      if (!stateCopy[opponent].deck.length) {
+        console.log(`${player} won!`);
+        actions.push([actionGenerators.setWinner(player)]);
+        return;
+      } else if (!stateCopy[opponent].deck.length) {
+        console.log(`${opponent} won!`);
+        actions.push([actionGenerators.setWinner(opponent)]);
+        return;
       }
     }
   }
@@ -311,12 +315,6 @@ const genPlayCardActions = (card, index) => {
 
   if (damageSelf) {
     for (let i = 0; i < damageSelf; i++) {
-      if (!stateCopy[player].deck.length) {
-        console.log(`${opponent} won!`);
-        actions.push([actionGenerators.setWinner(opponent)]);
-        break;
-      }
-
       const removedCard = stateCopy[player].deck.getTopCard();
       actions.push([
         actionGenerators.removeCard(player, 'deck', 'top'),
@@ -330,6 +328,16 @@ const genPlayCardActions = (card, index) => {
 
       if (removedCard.onDiscard) {
         triggerDiscardEffect(player);
+      }
+
+      if (!stateCopy[opponent].deck.length) {
+        console.log(`${player} won!`);
+        actions.push([actionGenerators.setWinner(player)]);
+        return;
+      } else if (!stateCopy[opponent].deck.length) {
+        console.log(`${opponent} won!`);
+        actions.push([actionGenerators.setWinner(opponent)]);
+        return;
       }
     }
   }

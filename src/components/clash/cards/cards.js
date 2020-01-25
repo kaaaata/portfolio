@@ -1,4 +1,4 @@
-import { keyBy } from 'lodash';
+import { keyBy, uniq } from 'lodash';
 import { attacks } from './attacks';
 import { magic } from './magic';
 import { potions } from './potions';
@@ -59,7 +59,28 @@ export const genPackCards = () => {
   ));
 };
 
-export const genStartingDeck = () => Array(30).fill('Strike');
+export const genStartingDeck = () => [
+  'Strike',
+  'Strike',
+  'Strike',
+  'Strike',
+  'Strike',
+  'Slash',
+  'Parry',
+  'Healing Potion',
+  'Fire',
+  'Weapons Guy'
+];
+
+export const genStartingCollection = () => {
+  const collection = {};
+
+  uniq(genStartingDeck()).forEach(key => {
+    collection[key] = 0;
+  });
+
+  return collection;
+};
 
 export const genSampleEndgameDeck = () => [
   'Healing Potion',

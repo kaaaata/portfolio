@@ -2,6 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import { Image } from '../particles';
 import { Attributes } from './Attributes';
+import { colors } from '../styles';
 
 const portraitCss = (location) => css`
   position: absolute;
@@ -14,6 +15,10 @@ const portraitCss = (location) => css`
     ${location === 'top' ? 'left: -15px;' : 'right: -15px;'}
     
     .number {
+      font-size: 36px;
+      text-align: center;
+      text-shadow: 2px 2px 4px ${colors.black};
+      color: black;
       margin-top: 18px;
       margin-left: -3px;
     }

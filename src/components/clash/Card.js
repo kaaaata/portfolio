@@ -51,6 +51,7 @@ export const Card = ({
       left: ${x}px;
       top: ${y}px;
     ` : 'position: relative;'}
+    user-select: none;
     border: 2px solid ${rarityColors[rarity]};
     border-radius: 5px;
     ${isInPileOfCards ? transformCss : `
@@ -127,6 +128,7 @@ export const Card = ({
       height={height}
       onClick={onClick}
       _css={cardCss}
+      className='card'
     >
       <Filter opacity={0.45} color={colors.black} />
       <div css={cardBodyCss(rarityColors[rarity])}>

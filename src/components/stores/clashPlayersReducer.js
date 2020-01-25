@@ -1,4 +1,7 @@
-import { genStartingDeck, genSampleEndgameDeck } from '../clash/cards/cards';
+import {
+  genStartingDeck,
+  genStartingCollection
+} from '../clash/cards/cards';
 
 const initialState = {
   1: {
@@ -10,8 +13,8 @@ const initialState = {
     defense: 0,
     gold: 100,
     score: 0,
-    deck: genSampleEndgameDeck(),
-    collection: {}
+    deck: genStartingDeck(),
+    collection: genStartingCollection()
   },
   2: {
     id: 2,
@@ -23,7 +26,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
   3: {
     id: 3,
@@ -35,7 +38,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
   4: {
     id: 4,
@@ -47,7 +50,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
   5: {
     id: 5,
@@ -59,7 +62,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
   6: {
     id: 6,
@@ -71,7 +74,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
   7: {
     id: 7,
@@ -83,7 +86,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
   8: {
     id: 8,
@@ -95,7 +98,7 @@ const initialState = {
     gold: 0,
     score: 0,
     deck: genStartingDeck(),
-    collection: {}
+    collection: genStartingCollection()
   },
 
   playerId: null,

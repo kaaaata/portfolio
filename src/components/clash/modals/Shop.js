@@ -30,11 +30,23 @@ const ShopComponent = ({
 }) => {
   const buyCard = (card, index) => {
     if (player.gold >= card.cost) {
+      const newCollection = {
+        ...player.collection
+      };
+
+      if (newCollection.hasOwnProperty(card.name)) {
+        newCollection[card.name]++;
+      } else {
+        newCollection[card.name] = 1;
+      }
+
+      console.log(newCollection);
+
       setPlayerProperties({
         id: playerId,
         properties: {
           gold: player.gold - card.cost,
-          collection: [...player.collection, card.name]
+          collection: newCollection
         }
       });
       setShopCards(shopCards.map((card, i) => i === index ? null : card));

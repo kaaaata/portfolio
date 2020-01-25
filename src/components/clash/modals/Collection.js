@@ -1,10 +1,12 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { shuffle } from 'lodash';
+import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
+import { genMatchups } from '../gameplay/genMatchups';
 import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
-import { colors } from '../../styles';
+import { collectionCss } from './collectionCss';
 
 const rarities = {
   common: 0,
@@ -28,73 +30,35 @@ const sortFunc = (a, b) => {
   return 0;
 };
 
-const collectionCss = css`
-  .text {
-    font-size: 24px;
-  }
-
-  .collection_container {
-    position: absolute;
-    left: 50px;
-    top: 60px;
-    width: 320px;
-    height: 420px;
-    box-shadow: 0 8px 16px blue;
-    overflow: scroll;
-    
-    .collection_card {
-      width: 50%;
-      display: inline-block;
-
-      & > div {
-        display: inline-block;
-      }
-      
-      .collection_card_value {
-        margin-left: 5px;
-        font-size: 20px;
-        text-shadow: 2px 2px 4px ${colors.black};
-      }
-    }
-  }
-
-  .collection {
-    position: absolute;
-    top: 515px;
-    left: 250px;
-  }
-
-  .deck {
-    position: absolute;
-    top: 515px;
-    left: 800px;
-  }
-
-  .arrows {
-    margin-top: 100px;
-    font-size: 60px;
-  }
-
-  .continue {
-    margin-top: 200px;
-  }
-`;
-
 const CollectionComponent = ({
-  collection,
-  deck,
-  setPlayerProperties,
-  setYourDeck,
+  player,
   goToNextScene,
-  playerId
+  playerId,
+  playableCharacters,
+  setPlayerProperties,
+  setMatchups,
+  setBattleInitialState,
+  setYourDeck,
+  setEnemyDeck,
+  setYourHand,
+  setEnemyHand
 }) => {
-  console.log('collection', collection);
+  const { collection } = player;
+  const deck = player.deck.sort(sortFunc);
+  const collectionArray = Object.keys(collection).sort(sortFunc);
+  const collectionColumns = [
+    collectionArray.filter((card, i) => !(i % 2)),
+    collectionArray.filter((card, i) => i % 2)
+  ];
   const deckColumns = [
     deck.slice(0, 15),
     deck.slice(15)
   ];
 
   const moveCardToCollection = (card) => {
+    if (deck.length <= 4) {
+      return;
+    }
     const newProperties = {
       collection: { ...collection },
       deck: [...deck]
@@ -115,7 +79,7 @@ const CollectionComponent = ({
   };
 
   const moveCardToDeck = (card) => {
-    if (deck.length === 30) {
+    if (deck.length === 30 || !collection[card]) {
       return;
     }
 
@@ -124,12 +88,7 @@ const CollectionComponent = ({
       deck: [...deck]
     };
 
-    if (collection[card] >= 2) {
-      newProperties.collection[card]--;
-    } else {
-      delete newProperties.collection[card];
-    }
-
+    newProperties.collection[card]--;
     newProperties.deck.push(card);
 
     setPlayerProperties({
@@ -139,25 +98,70 @@ const CollectionComponent = ({
   };
 
   const continueOnClick = () => {
-    setYourDeck(deck);
+    const matchups = genMatchups();
+    setMatchups(matchups);
+    const enemy = playableCharacters[matchups[playerId]];
+    setBattleInitialState({
+      yourName: player.name,
+      yourImage: player.image,
+      yourPermanentStats: {
+        attack: player.attack,
+        magic: player.magic,
+        defense: player.defense
+      },
+      yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
+      yourShields: 0,
+    
+      enemyName: enemy.name,
+      enemyImage: enemy.image,
+      enemyPermanentStats: {
+        attack: enemy.attack,
+        magic: enemy.magic,
+        defense: enemy.defense
+      },
+      enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
+      enemyShields: 0,
+    
+      winner: null
+    });
+    const yourDeck = shuffle([...deck]);
+    const yourHand = yourDeck.splice(yourDeck.length - 3, 3);
+    const enemyDeck = shuffle([...enemy.deck]);
+    const enemyHand = enemyDeck.splice(enemyDeck.length - 3, 3);
+    setYourDeck(yourDeck);
+    setYourHand(yourHand);
+    setEnemyDeck(enemyDeck);
+    setEnemyHand(enemyHand);
 
     goToNextScene();
   };
+
+  continueOnClick();
 
   return (
     <Modal title='Edit Your Deck'>
       <div css={collectionCss}>
         <div className='collection_container'>
-          {console.log('todo: make this 2 cols arrays')}
-          {Object.keys(collection).sort(sortFunc).map((key, index) => (
-            <div
-              key={key}
-              className='collection_card'
-            >
-              <Card name={key} onClick={() => moveCardToDeck(key)} />
-              <div className='collection_card_value'>
-                x{collection[key]}
-              </div>
+          {collectionColumns.map((col, index) => (
+            <div key={index} className='collection_col'>
+              {col.map((card, cardIndex) => (
+                <div
+                  key={card}
+                  style={{
+                    position: 'absolute',
+                    top: `${18 * cardIndex}px`
+                  }}
+                  className='collection_card'
+                >
+                  <Card name={card} onClick={() => moveCardToDeck(card)} />
+                  <div
+                    className='collection_card_value'
+                    style={{ opacity: !collection[card] ? 0.2 : 'unset' }}
+                  >
+                    x{collection[card]}
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -181,14 +185,25 @@ const CollectionComponent = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  playerId: state.clashPlayers.playerId,
-  deck: state.clashPlayers[state.clashPlayers.playerId].deck.sort(sortFunc),
-  collection: state.clashPlayers[state.clashPlayers.playerId].collection
-});
+const mapStateToProps = (state) => {
+  const playableCharacters = [1, 2, 3, 4, 5, 6, 7, 8].map(playerId => (
+    state.clashPlayers[playerId]
+  ));
+
+  return {
+    playableCharacters,
+    playerId: state.clashPlayers.playerId,
+    player: state.clashPlayers[state.clashPlayers.playerId]
+  };
+};
 const mapDispatchToProps = (dispatch) => ({
   setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload)),
-  setYourDeck: payload => dispatch(actions.setYourDeck(payload))
+  setMatchups: payload => dispatch(actions.setMatchups(payload)),
+  setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload)),
+  setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
+  setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload)),
+  setYourHand: payload => dispatch(actions.setYourHand(payload)),
+  setEnemyHand: payload => dispatch(actions.setEnemyHand(payload))
 });
 
 export const Collection = connect(mapStateToProps, mapDispatchToProps)(CollectionComponent);

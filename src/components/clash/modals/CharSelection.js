@@ -1,7 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { genMatchups } from '../gameplay/genMatchups';
 import { Modal } from './Modal';
 import { Image } from '../../particles';
 
@@ -22,45 +21,12 @@ const charSelectionCss = css`
 const CharSelectionComponent = ({
   playableCharacters,
   setPlayerId,
-  setMatchups,
-  setBattleInitialState,
-  setYourDeck,
-  setEnemyDeck,
   goToNextScene
 }) => {
   console.log('CharSelection rendering');
   const handleSelectChar = (char) => {
     goToNextScene();
-
     setPlayerId(char.id);
-    const matchups = genMatchups();
-    setMatchups(matchups);
-    let enemy = playableCharacters[matchups[char.id]];
-    setBattleInitialState({
-      yourName: char.name,
-      yourImage: char.image,
-      yourPermanentStats: {
-        attack: char.attack,
-        magic: char.magic,
-        defense: char.defense
-      },
-      yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
-      yourShields: 0,
-    
-      enemyName: enemy.name,
-      enemyImage: enemy.image,
-      enemyPermanentStats: {
-        attack: enemy.attack,
-        magic: enemy.magic,
-        defense: enemy.defense
-      },
-      enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
-      enemyShields: 0,
-    
-      winner: null
-    });
-    setYourDeck(char.deck);
-    setEnemyDeck(enemy.deck);
   };
 
   handleSelectChar(playableCharacters[0]);
@@ -90,11 +56,7 @@ const mapStateToProps = (state) => {
   return { playableCharacters };
 };
 const mapDispatchToProps = (dispatch) => ({
-  setPlayerId: payload => dispatch(actions.setPlayerId(payload)),
-  setMatchups: payload => dispatch(actions.setMatchups(payload)),
-  setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload)),
-  setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
-  setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload))
+  setPlayerId: payload => dispatch(actions.setPlayerId(payload))
 });
 
 export const CharSelection = connect(mapStateToProps, mapDispatchToProps)(CharSelectionComponent);
