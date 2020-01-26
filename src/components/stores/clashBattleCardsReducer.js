@@ -2,11 +2,11 @@ const initialState = {
   yourDeck: [],
   yourDiscard: [],
   yourBanish: [],
-  yourHand: [],
+  yourHand: [null, null, null],
   enemyDeck: [],
   enemyDiscard: [],
   enemyBanish: [],
-  enemyHand: [],
+  enemyHand: [null, null, null],
   stack: []
 };
 

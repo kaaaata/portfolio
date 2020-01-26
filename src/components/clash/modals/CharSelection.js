@@ -23,7 +23,6 @@ const CharSelectionComponent = ({
   setPlayerId,
   goToNextScene
 }) => {
-  console.log('CharSelection rendering');
   const handleSelectChar = (char) => {
     goToNextScene();
     setPlayerId(char.id);

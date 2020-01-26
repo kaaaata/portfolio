@@ -40,8 +40,6 @@ const ShopComponent = ({
         newCollection[card.name] = 1;
       }
 
-      console.log(newCollection);
-
       setPlayerProperties({
         id: playerId,
         properties: {
