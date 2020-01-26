@@ -20,7 +20,7 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
     type,
     isMockCard,
     customEffect,
-    playCopyOfCard,
+    playCopiesOfCards,
     shuffleCardCopiesIntoDeck,
     shuffleCardCopiesIntoEnemyDeck,
     temporaryStatGain
@@ -99,46 +99,44 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       }
     }
 
-    if (totalDamageDealt) {
-      logs.push(`${opponent} receives ${totalDamageDealt} damage`);
+    logs.push(`${opponent} receives ${totalDamageDealt} damage`);
 
-      for (let i = 0; i < totalDamageDealt; i++) {
-        const removedCard = stateCopy[opponent].deck.getTopCard();
-        const destination = dealsBanishingDamage ? 'banish' : 'discard';
-        const destinationVerb = dealsBanishingDamage ? 'banishes' : 'discards';
-        logs.push(`${opponent} ${destinationVerb}: ${removedCard.name}`);
-        const damageAction = [
-          actionGenerators.removeCard(stateCopy, opponent, 'deck', 'top'),
-          actionGenerators.addCard(
-            stateCopy,
-            removedCard,
-            opponent,
-            destination,
-            'top'
-          )
-        ];
-        if (i === 0) {
-          damageAction.push(actionGenerators.setShields(
-            stateCopy,
-            player,
-            stateCopy[player].shields
-          ));
-        }
-        actions.push(damageAction);
+    for (let i = 0; i < totalDamageDealt; i++) {
+      const removedCard = stateCopy[opponent].deck.getTopCard();
+      const destination = dealsBanishingDamage ? 'banish' : 'discard';
+      const destinationVerb = dealsBanishingDamage ? 'banishes' : 'discards';
+      logs.push(`${opponent} ${destinationVerb}: ${removedCard.name}`);
+      const damageAction = [
+        actionGenerators.removeCard(stateCopy, opponent, 'deck', 'top'),
+        actionGenerators.addCard(
+          stateCopy,
+          removedCard,
+          opponent,
+          destination,
+          'top'
+        )
+      ];
+      if (i === 0) {
+        damageAction.push(actionGenerators.setShields(
+          stateCopy,
+          player,
+          stateCopy[player].shields
+        ));
+      }
+      actions.push(damageAction);
 
-        if (destination === 'discard' && removedCard.onDiscard) {
-          triggerDiscardEffect(opponent);
-        }
+      if (destination === 'discard' && removedCard.onDiscard) {
+        triggerDiscardEffect(opponent);
+      }
 
-        if (!stateCopy[opponent].deck.length) {
-          logs.push(`${player} won!`);
-          actions.push([actionGenerators.setWinner(stateCopy, player)]);
-          return;
-        } else if (!stateCopy[opponent].deck.length) {
-          logs.push(`${opponent} won!`);
-          actions.push([actionGenerators.setWinner(stateCopy, opponent)]);
-          return;
-        }
+      if (!stateCopy[opponent].deck.length) {
+        logs.push(`${player} won!`);
+        actions.push([actionGenerators.setWinner(stateCopy, player)]);
+        return;
+      } else if (!stateCopy[opponent].deck.length) {
+        logs.push(`${opponent} won!`);
+        actions.push([actionGenerators.setWinner(stateCopy, opponent)]);
+        return;
       }
     }
   }
@@ -221,11 +219,13 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
     }
   }
 
-  if (playCopyOfCard) {
-    logs.push(`${player} plays a copy of ${playCopyOfCard}`);
-    genPlayCardActions(stateCopy, actions, logs, {
-      ...cards[playCopyOfCard],
-      player: card.player
+  if (playCopiesOfCards) {
+    playCopiesOfCards.forEach(card => {
+      logs.push(`${player} plays a copy of ${card}`);
+      genPlayCardActions(stateCopy, actions, logs, {
+        ...cards[card],
+        player
+      });
     });
   }
 
@@ -234,7 +234,10 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       stateCopy,
       actions,
       logs,
-      shuffleCardCopiesIntoEnemyDeck.map(cardName => cards[cardName]),
+      shuffleCardCopiesIntoEnemyDeck.map(cardName => ({
+        ...cards[cardName],
+        player: 'enemy'
+      })),
       opponent
     );
   }
@@ -244,7 +247,10 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       stateCopy,
       actions,
       logs,
-      shuffleCardCopiesIntoDeck.map(cardName => cards[cardName]),
+      shuffleCardCopiesIntoDeck.map(cardName => ({
+        ...cards[cardName],
+        player: 'you'
+      })),
       player
     );
   }

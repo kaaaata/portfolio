@@ -53,7 +53,8 @@ export const allies = [
     rarity: 'uncommon',
     attack: 1,
     defense: 0,
-    playCopyOfCard: 'Slice'
+    playCopiesOfCards: ['Slice'],
+    description: 'Play a copy of Slice.'
   },
   {
     name: 'Brawler',
@@ -63,6 +64,18 @@ export const allies = [
     defense: 0,
     customEffect: true,
     description: 'Play 2 random Attacks from your discard pile, then banish them.'
+  },
+  {
+    name: 'Crazy Mage',
+    image: 'crazy_mage',
+    rarity: 'uncommon',
+    attack: 0,
+    defense: 0,
+    temporaryStatGain: {
+      magic: -1
+    },
+    playCopiesOfCards: ['Fire', 'Fire'],
+    description: 'Lose 1 Magic for the rest of the battle. Play 2 copies of Fire.'
   },
   {
     name: 'Fire Dragon',
@@ -107,12 +120,22 @@ export const allies = [
     description: 'Gain +1 Magic for the rest of the battle.'
   },
   {
+    name: 'Vampire',
+    image: 'vampire',
+    rarity: 'rare',
+    attack: 4,
+    defense: 2,
+    damageSelf: 2,
+    banishes: true,
+    dealsBanishingDamage: true
+  },
+  {
     name: 'Catherine the Great',
     image: 'catherine_the_great',
     rarity: 'legendary',
     attack: 4,
     defense: 6,
-    playCopyOfCard: 'Healing Blade',
+    playCopiesOfCards: ['Healing Blade'],
     shuffleCardCopiesIntoDeck: ['Healing Blade', 'Healing Blade'],
     description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your deck.'
   },

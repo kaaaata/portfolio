@@ -17,7 +17,7 @@ const cardTemplate = {
   pierce: 0,
   buyable: true,
   unblockable: false,
-  playCopyOfCard: null,
+  playCopiesOfCards: null,
   shuffleCardCopiesIntoDeck: null,
   shuffleCardCopiesIntoEnemyDeck: null,
   temporaryStatGain: null
@@ -30,16 +30,14 @@ const genCardDescription = ({
   pierce,
   description,
   onDiscard,
-  type,
-  playCopyOfCard
+  type
 }) => description || [
   type === 'magic' && 'Damage dealt banishes.',
   heal && `Heal ${heal}.`,
   healEnemy && `Heal enemy ${healEnemy}.`,
   damageSelf && `Deal ${damageSelf} to yourself.`,
   pierce && `Pierces ${pierce} shield${pierce === 1 ? '' : 's'}.`,
-  onDiscard && type !== 'potion' && `On discard: ${genCardDescription(onDiscard)}`,
-  playCopyOfCard && `Play a copy of ${playCopyOfCard}.`,
+  onDiscard && type !== 'potion' && `On discard: ${genCardDescription(onDiscard)}`
 ].filter(Boolean).join(' ');
 
 export const createCard = (properties = {}) => {

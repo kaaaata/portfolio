@@ -30,6 +30,26 @@ export const potions = [
       damageSelf: 1
     }
   },
+  {
+    name: 'Slime Potion',
+    image: 'slime_potion',
+    rarity: 'rare',
+    damageSelf: 3,
+    temporaryStatGain: {
+      attack: 1,
+      magic: 1,
+      defense: 1
+    },
+    onDiscard: {
+      damageSelf: 3,
+      temporaryStatGain: {
+        attack: 1,
+        magic: 1,
+        defense: 1
+      },
+    },
+    description: 'Deal 3 damage to yourself. Gain +1 to Attack, Magic, and Defense for the rest of the battle.'
+  },
 ].map(card => createCard({
   ...card,
   type: 'potion',
