@@ -129,7 +129,8 @@ const CollectionComponent = ({
     const enemyDeck = shuffle([...enemy.deck]);
     const enemyHand = enemyDeck.splice(enemyDeck.length - 3, 3);
     setYourDeck(yourDeck);
-    setYourHand(yourHand);
+    // setYourHand(yourHand);
+    setYourHand(['Catherine the Great', 'Weapons Guy', 'Mage']);
     setEnemyDeck(enemyDeck);
     setEnemyHand(enemyHand);
 

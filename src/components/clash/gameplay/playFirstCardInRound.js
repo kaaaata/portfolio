@@ -41,7 +41,9 @@ export const playFirstCardInRound = (player, location, index) => {
     winner: state.winner
   };
 
-  genPlayCardActions(stateCopy, actions, logs, stateCopy[player][location][index], index);
+  const card = stateCopy[player][location][index];
+  logs.push(`you plays ${card.name}`);
+  genPlayCardActions(stateCopy, actions, logs, card, index);
 
   if (!stateCopy.winner) {
     genStartOfTurnActions(stateCopy, actions, logs, 'enemy');
@@ -49,13 +51,17 @@ export const playFirstCardInRound = (player, location, index) => {
     const enemyHandRandomCard = stateCopy.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
     stateCopy.enemy.hand[enemyHandRandomCardIndex] = {};
+    logs.push(`enemy plays ${enemyHandRandomCard.name}`);
     genPlayCardActions(stateCopy, actions, logs, enemyHandRandomCard, enemyHandRandomCardIndex);
     if (!stateCopy.winner) {
       genStartOfTurnActions(stateCopy, actions, logs, 'you');
     }
   }
 
-  console.log(logs);
+  console.log(logs.map(log => log.startsWith('you')
+    ? `Player${log.slice(3)}`
+    : `Enemy${log.slice(5)}`
+  ));
 
   return actions;
 };

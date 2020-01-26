@@ -28,9 +28,7 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
 
   const triggerDiscardEffect = (player) => {
     const discardedCard = stateCopy[player].discard.getTopCard();
-    logs.push(`
-      ${player} triggers discard effect of ${discardedCard.name}: ${discardedCard.description}
-    `);
+    logs.push(`${player} triggers discard effect of ${discardedCard.name}: ${discardedCard.description}`);
 
     actions.push([
       actionGenerators.removeCard(stateCopy, player, 'discard', 'top'),
@@ -145,14 +143,11 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
     }
   }
 
-  if (heal) {
-    logs.push(`${player} heals ${heal}`);
+  const totalHeal = heal && stateCopy[player].discard.length;
+  if (totalHeal) {
+    logs.push(`${player} heals ${totalHeal}`);
 
-    for (let i = 0; i < heal; i++) {
-      if (!stateCopy[player].discard.length) {
-        break;
-      }
-
+    for (let i = 0; i < totalHeal; i++) {
       const healedCard = stateCopy[player].discard.getTopCard();
       logs.push(`${player} heals: ${healedCard.name}`);
       actions.push([
