@@ -220,11 +220,11 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
   }
 
   if (playCopiesOfCards) {
-    playCopiesOfCards.forEach(card => {
-      logs.push(`${player} plays a copy of ${card}`);
+    playCopiesOfCards.forEach(cardName => {
+      logs.push(`${player} plays a copy of ${cardName}`);
       genPlayCardActions(stateCopy, actions, logs, {
-        ...cards[card],
-        player
+        ...cards[cardName],
+        player: card.player
       });
     });
   }
