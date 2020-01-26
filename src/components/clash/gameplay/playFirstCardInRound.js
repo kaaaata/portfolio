@@ -10,6 +10,7 @@ let logs = [];
 
 export const playFirstCardInRound = (player, location, index) => {
   actions = [];
+  logs = [];
 
   const state = {
     ...store.getState().clashBattleCards,
@@ -40,21 +41,17 @@ export const playFirstCardInRound = (player, location, index) => {
     winner: state.winner
   };
 
-  const card = stateCopy[player][location][index];
-
-  logs = [`${player} played ${card.name}`];
-
-  genPlayCardActions(stateCopy, actions, card, index);
+  genPlayCardActions(stateCopy, actions, logs, stateCopy[player][location][index], index);
 
   if (!stateCopy.winner) {
-    genStartOfTurnActions(stateCopy, actions, 'enemy');
+    genStartOfTurnActions(stateCopy, actions, logs, 'enemy');
     const enemyHandRandomCardIndex = ~~(Math.random() * 3);
     const enemyHandRandomCard = stateCopy.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
     stateCopy.enemy.hand[enemyHandRandomCardIndex] = {};
-    genPlayCardActions(stateCopy, actions, enemyHandRandomCard, enemyHandRandomCardIndex);
+    genPlayCardActions(stateCopy, actions, logs, enemyHandRandomCard, enemyHandRandomCardIndex);
     if (!stateCopy.winner) {
-      genStartOfTurnActions(stateCopy, actions, 'you');
+      genStartOfTurnActions(stateCopy, actions, logs, 'you');
     }
   }
 
