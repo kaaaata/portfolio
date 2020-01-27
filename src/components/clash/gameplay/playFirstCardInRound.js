@@ -3,58 +3,52 @@ import { cards } from '../cards/cards';
 import { store } from '../../stores/store';
 import { genStartOfTurnActions } from './genStartOfTurnActions';
 import { genPlayCardActions } from './genPlayCardActions';
+import { stateCopy, actions, logs, resetGlobalVariables } from './globalVariables';
 
-let actions = [];
-let stateCopy = {};
-let logs = [];
-
-export const playFirstCardInRound = (player, location, index) => {
-  actions = [];
-  logs = [];
+export const playFirstCardInRound = (index) => {
+  resetGlobalVariables();
 
   const state = {
     ...store.getState().clashBattleCards,
     ...store.getState().clashBattleStats
   };
-  stateCopy = {
-    you: {
-      name: state.yourName,
-      deck: CardsArray(state.yourDeck, { player: 'you', location: 'deck' }),
-      discard: CardsArray(state.yourDiscard, { player: 'you', location: 'discard' }),
-      banish: CardsArray(state.yourBanish, { player: 'you', location: 'banish' }),
-      hand: CardsArray(state.yourHand, { player: 'you', location: 'hand' }),
-      shields: state.yourShields,
-      temporaryStats: state.yourTemporaryStats,
-      permanentStats: state.yourPermanentStats
-    },
-    enemy: {
-      name: state.enemyName,
-      deck: CardsArray(state.enemyDeck, { player: 'enemy', location: 'deck' }),
-      discard: CardsArray(state.enemyDiscard, { player: 'enemy', location: 'discard' }),
-      banish: CardsArray(state.enemyBanish, { player: 'enemy', location: 'banish' }),
-      hand: CardsArray(state.enemyHand, { player: 'enemy', location: 'hand' }),
-      shields: state.enemyShields,
-      temporaryStats: state.yourTemporaryStats,
-      permanentStats: state.yourPermanentStats
-    },
-    stack: CardsArray(state.stack.map(name => cards[name])),
-    winner: state.winner
+  stateCopy.you = {
+    name: state.yourName,
+    deck: CardsArray(state.yourDeck, { player: 'you', location: 'deck' }),
+    discard: CardsArray(state.yourDiscard, { player: 'you', location: 'discard' }),
+    banish: CardsArray(state.yourBanish, { player: 'you', location: 'banish' }),
+    hand: CardsArray(state.yourHand, { player: 'you', location: 'hand' }),
+    shields: state.yourShields,
+    temporaryStats: state.yourTemporaryStats,
+    permanentStats: state.yourPermanentStats
   };
+  stateCopy.enemy = {
+    name: state.enemyName,
+    deck: CardsArray(state.enemyDeck, { player: 'enemy', location: 'deck' }),
+    discard: CardsArray(state.enemyDiscard, { player: 'enemy', location: 'discard' }),
+    banish: CardsArray(state.enemyBanish, { player: 'enemy', location: 'banish' }),
+    hand: CardsArray(state.enemyHand, { player: 'enemy', location: 'hand' }),
+    shields: state.enemyShields,
+    temporaryStats: state.yourTemporaryStats,
+    permanentStats: state.yourPermanentStats
+  };
+  stateCopy.stack = CardsArray(state.stack.map(name => cards[name]));
+  stateCopy.winner = state.winner;
 
-  const card = stateCopy[player][location][index];
+  const card = stateCopy.you.hand[index];
   logs.push(`you plays ${card.name}`);
-  genPlayCardActions(stateCopy, actions, logs, card, index);
+  genPlayCardActions(card, index);
 
   if (!stateCopy.winner) {
-    genStartOfTurnActions(stateCopy, actions, logs, 'enemy');
+    genStartOfTurnActions('enemy');
     const enemyHandRandomCardIndex = ~~(Math.random() * 3);
     const enemyHandRandomCard = stateCopy.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
     stateCopy.enemy.hand[enemyHandRandomCardIndex] = {};
     logs.push(`enemy plays ${enemyHandRandomCard.name}`);
-    genPlayCardActions(stateCopy, actions, logs, enemyHandRandomCard, enemyHandRandomCardIndex);
+    genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
     if (!stateCopy.winner) {
-      genStartOfTurnActions(stateCopy, actions, logs, 'you');
+      genStartOfTurnActions('you');
     }
   }
 

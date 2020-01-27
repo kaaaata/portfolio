@@ -15,9 +15,17 @@ export const magic = [
     attack: 1,
     defense: 1
   },
+  {
+    name: 'Candy Corn',
+    image: 'candy_corn',
+    rarity: 'uncommon',
+    attack: 1,
+    defense: 0,
+    playCopiesOfCards: ['Candy Corn'],
+    // description: 'Damage dealt banishes. Play a copy of Candy Corn.'
+  }
 ].map(card => createCard({
   ...card,
   type: 'magic',
-  unblockable: true,
   dealsBanishingDamage: true
 }));

@@ -16,7 +16,6 @@ const cardTemplate = {
   customEffect: false,
   pierce: 0,
   buyable: true,
-  unblockable: false,
   playCopiesOfCards: null,
   shuffleCardCopiesIntoDeck: null,
   shuffleCardCopiesIntoEnemyDeck: null,

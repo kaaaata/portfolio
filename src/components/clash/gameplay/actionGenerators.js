@@ -1,10 +1,10 @@
 import { actionKeys } from './actionKeys';
+import { stateCopy } from './globalVariables';
 
 export const actionGenerators = {
   // these functions mutate stateCopy and return actions.
   // "card" must be a new object, not a reference.
-  // each function should use stateCopy as the first arg.
-  addCardToStack: (stateCopy, card) => {
+  addCardToStack: (card) => {
     const newCard = { ...card, location: 'stack' };
     stateCopy.stack.addCardToTop(newCard);
     return {
@@ -12,14 +12,14 @@ export const actionGenerators = {
       payload: stateCopy.stack.getCardNames()
     };
   },
-  removeTopCardFromStack: (stateCopy) => {
+  removeTopCardFromStack: () => {
     stateCopy.stack.removeTopCard();
     return {
       actionKey: 'setStack',
       payload: stateCopy.stack.getCardNames()
     };
   },
-  addCard: (stateCopy, card, player, location, index) => {
+  addCard: (card, player, location, index) => {
     // index = number|'top'|'random'
     const newCard = {
       ...card,
@@ -38,7 +38,7 @@ export const actionGenerators = {
       payload: stateCopy[player][location].getCardNames()
     };
   },
-  removeCard: (stateCopy, player, location, index) => {
+  removeCard: (player, location, index) => {
     // index = number|'top'
     if (!index && index !== 0) {
       return;
@@ -52,14 +52,14 @@ export const actionGenerators = {
       payload: stateCopy[player][location].getCardNames()
     };
   },
-  setShields: (stateCopy, player, value) => {
+  setShields: (player, value) => {
     stateCopy[player].shields = value;
     return {
       actionKey: actionKeys[player].shields,
       payload: value
     };
   },
-  setTemporaryStats: (stateCopy, player, temporaryStatGain) => {
+  setTemporaryStats: (player, temporaryStatGain) => {
     // temporaryStatGain like { attack: 1, defense: 1 }
     Object.keys(temporaryStatGain).forEach(stat => {
       stateCopy[player].temporaryStats[stat] += temporaryStatGain[stat];
@@ -69,7 +69,7 @@ export const actionGenerators = {
       payload: stateCopy[player].temporaryStats
     };
   },
-  setWinner: (stateCopy, player) => {
+  setWinner: (player) => {
     stateCopy.winner = stateCopy[player].name;
     return {
       actionKey: 'setWinner',

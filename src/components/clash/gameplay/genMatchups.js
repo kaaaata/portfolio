@@ -12,6 +12,10 @@ export const genMatchups = () => {
       && ((playerIds.length === 3 && matchups.hasOwnProperty(prevMatchups[playerId]))
         // prevent a scenario where the last two playerIds previously faced eachother.
         // hard to explain this logic; easier to draw it out.
+        // 12
+        // 34
+        // 56
+        // 78
         ? !matchups.hasOwnProperty(prevMatchups[i])
         : true)
     ));

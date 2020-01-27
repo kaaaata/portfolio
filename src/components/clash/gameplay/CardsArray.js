@@ -30,10 +30,5 @@ export const CardsArray = (_cards, properties) => {
     return arr;
   };
 
-  arr.replaceCardAtIndex = (card, index) => {
-    arr[index] = card;
-    return arr;
-  };
-
   return arr;
 };

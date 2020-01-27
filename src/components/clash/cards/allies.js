@@ -75,7 +75,7 @@ export const allies = [
       magic: -1
     },
     playCopiesOfCards: ['Fire', 'Fire', 'Fire'],
-    description: 'Lose 1 Magic for the rest of the battle. Play 4 copies of Fire.'
+    description: 'Lose 1 Magic for the rest of the battle. Play 3 copies of Fire.'
   },
   {
     name: 'Fire Dragon',

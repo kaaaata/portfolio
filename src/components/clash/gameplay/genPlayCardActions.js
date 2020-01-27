@@ -3,8 +3,9 @@ import { createCard } from '../cards/createCard';
 import { cards } from '../cards/cards';
 import { customCardEffects } from './customCardEffects';
 import { genShuffleCardsIntoDeckActions } from './genShuffleCardsIntoDeckActions';
+import { stateCopy, actions, logs } from './globalVariables';
 
-export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
+export const genPlayCardActions = (card, index) => {
   const opponent = card.player === 'you' ? 'enemy' : 'you';
   const {
     name,
@@ -14,7 +15,6 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
     healEnemy,
     damageSelf,
     player,
-    unblockable,
     dealsBanishingDamage,
     pierce,
     type,
@@ -31,8 +31,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
     logs.push(`${player} triggers discard effect of ${discardedCard.name}: ${discardedCard.description}`);
 
     actions.push([
-      actionGenerators.removeCard(stateCopy, player, 'discard', 'top'),
-      actionGenerators.addCardToStack(stateCopy, discardedCard)
+      actionGenerators.removeCard(player, 'discard', 'top'),
+      actionGenerators.addCardToStack(discardedCard)
     ]);
 
     const mockCard = createCard({
@@ -41,13 +41,13 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       isMockCard: true
     });
 
-    genPlayCardActions(stateCopy, actions, logs, mockCard);
+    genPlayCardActions(mockCard);
   };
 
   if (!isMockCard) {
     actions.push([
-      actionGenerators.addCardToStack(stateCopy, card),
-      actionGenerators.removeCard(stateCopy, player, 'hand', index)
+      actionGenerators.addCardToStack(card),
+      actionGenerators.removeCard(player, 'hand', index)
     ]);
   }
 
@@ -59,7 +59,7 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       const sign = amount > 0 ? '+' : '-';
       logs.push(`${player} receives ${sign}${amount} ${stat} until end of battle`);
     })
-    actions.push([actionGenerators.setTemporaryStats(stateCopy, player, temporaryStatGain)]);
+    actions.push([actionGenerators.setTemporaryStats(player, temporaryStatGain)]);
   }
 
   if (typeof attack === 'number') {
@@ -69,12 +69,7 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
         + stateCopy[player].permanentStats[type];
       totalDamageDealt += bonusStatsDamage;
     }
-    if (!unblockable) {
-      totalDamageDealt -= stateCopy[opponent].shields;
-      if (totalDamageDealt < 0) {
-        totalDamageDealt = 0;
-      }
-    }
+    totalDamageDealt = Math.max(totalDamageDealt - stateCopy[opponent].shields, 0);
     const bonusPierceDamage = pierce > stateCopy[opponent].shields
       ? stateCopy[opponent].shields
       : pierce;
@@ -91,8 +86,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       logs.push(`${player} gains ${totalShieldsGained} shields`);
       stateCopy[player].shields = totalShieldsGained;
       if (totalDamageDealt === 0) {
+        // if no damage is dealt, set shields independently of damage ticks.
         actions.push([actionGenerators.setShields(
-          stateCopy,
           player,
           stateCopy[player].shields
         )]);
@@ -107,9 +102,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       const destinationVerb = dealsBanishingDamage ? 'banishes' : 'discards';
       logs.push(`${opponent} ${destinationVerb}: ${removedCard.name}`);
       const damageAction = [
-        actionGenerators.removeCard(stateCopy, opponent, 'deck', 'top'),
+        actionGenerators.removeCard(opponent, 'deck', 'top'),
         actionGenerators.addCard(
-          stateCopy,
           removedCard,
           opponent,
           destination,
@@ -117,8 +111,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
         )
       ];
       if (i === 0) {
+        // set the shields on the same tick as the first instance of damage
         damageAction.push(actionGenerators.setShields(
-          stateCopy,
           player,
           stateCopy[player].shields
         ));
@@ -131,11 +125,11 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
 
       if (!stateCopy[opponent].deck.length) {
         logs.push(`${player} won!`);
-        actions.push([actionGenerators.setWinner(stateCopy, player)]);
+        actions.push([actionGenerators.setWinner(player)]);
         return;
       } else if (!stateCopy[opponent].deck.length) {
         logs.push(`${opponent} won!`);
-        actions.push([actionGenerators.setWinner(stateCopy, opponent)]);
+        actions.push([actionGenerators.setWinner(opponent)]);
         return;
       }
     }
@@ -149,9 +143,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       const healedCard = stateCopy[player].discard.getTopCard();
       logs.push(`${player} heals: ${healedCard.name}`);
       actions.push([
-        actionGenerators.removeCard(stateCopy, player, 'discard', 'top'),
+        actionGenerators.removeCard(player, 'discard', 'top'),
         actionGenerators.addCard(
-          stateCopy,
           healedCard,
           player,
           'deck',
@@ -172,9 +165,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       const healedCard = stateCopy[opponent].discard.getTopCard();
       logs.push(`${opponent} heals: ${healedCard}`);
       actions.push([
-        actionGenerators.removeCard(stateCopy, opponent, 'discard', 'top'),
+        actionGenerators.removeCard(opponent, 'discard', 'top'),
         actionGenerators.addCard(
-          stateCopy,
           healedCard,
           opponent,
           'deck',
@@ -193,9 +185,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
       const destinationVerb = dealsBanishingDamage ? 'banishes' : 'discards';
       logs.push(`${opponent} ${destinationVerb}: ${removedCard.name}`);
       actions.push([
-        actionGenerators.removeCard(stateCopy, player, 'deck', 'top'),
+        actionGenerators.removeCard(player, 'deck', 'top'),
         actionGenerators.addCard(
-          stateCopy,
           removedCard,
           player,
           destination,
@@ -209,11 +200,11 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
 
       if (!stateCopy[opponent].deck.length) {
         logs.push(`${player} won!`);
-        actions.push([actionGenerators.setWinner(stateCopy, player)]);
+        actions.push([actionGenerators.setWinner(player)]);
         return;
       } else if (!stateCopy[opponent].deck.length) {
         logs.push(`${opponent} won!`);
-        actions.push([actionGenerators.setWinner(stateCopy, opponent)]);
+        actions.push([actionGenerators.setWinner(opponent)]);
         return;
       }
     }
@@ -222,7 +213,7 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
   if (playCopiesOfCards) {
     playCopiesOfCards.forEach(cardName => {
       logs.push(`${player} plays a copy of ${cardName}`);
-      genPlayCardActions(stateCopy, actions, logs, {
+      genPlayCardActions({
         ...cards[cardName],
         player: card.player
       });
@@ -231,9 +222,6 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
 
   if (shuffleCardCopiesIntoEnemyDeck) {
     genShuffleCardsIntoDeckActions(
-      stateCopy,
-      actions,
-      logs,
       shuffleCardCopiesIntoEnemyDeck.map(cardName => ({
         ...cards[cardName],
         player: 'enemy'
@@ -244,9 +232,6 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
 
   if (shuffleCardCopiesIntoDeck) {
     genShuffleCardsIntoDeckActions(
-      stateCopy,
-      actions,
-      logs,
       shuffleCardCopiesIntoDeck.map(cardName => ({
         ...cards[cardName],
         player: 'you'
@@ -256,7 +241,7 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
   }
 
   if (customEffect) {
-    customCardEffects[name](stateCopy, actions, logs, card);
+    customCardEffects[name](card);
   }
 
   const playedCard = isMockCard
@@ -264,9 +249,8 @@ export const genPlayCardActions = (stateCopy, actions, logs, card, index) => {
     : card;
 
   actions.push([
-    actionGenerators.removeTopCardFromStack(stateCopy),
+    actionGenerators.removeTopCardFromStack(),
     actionGenerators.addCard(
-      stateCopy,
       playedCard,
       playedCard.player,
       playedCard.banishesOnPlay ? 'banish' : 'discard',

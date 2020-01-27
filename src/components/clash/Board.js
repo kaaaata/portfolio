@@ -37,7 +37,7 @@ const BoardComponent = (props) => {
 
     isAnimating = true;
     const t0 = performance.now();
-    actions = playFirstCardInRound('you', 'hand', index);
+    actions = playFirstCardInRound(index);
     const t1 = performance.now();
     console.log(`playCard took ${t1 - t0} milliseconds.`);
 
