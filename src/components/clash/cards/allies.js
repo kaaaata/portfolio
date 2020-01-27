@@ -35,7 +35,7 @@ export const allies = [
     attack: 1,
     defense: 3,
     pierce: 1,
-    shuffleCardCopiesIntoDeck: ['Spear Goon'],
+    shuffleCardCopiesIntoYourPiles: [{ card: 'Spear Goon', pile: 'deck' }],
     description: 'Pierce: 1. Shuffle a copy of Spear Goon into your deck.'
   },
   {
@@ -44,7 +44,10 @@ export const allies = [
     rarity: 'common',
     attack: 2,
     defense: 0,
-    shuffleCardCopiesIntoEnemyDeck: ['Bomb', 'Bomb'],
+    shuffleCardCopiesIntoOpponentsPiles: [
+      { card: 'Bomb', pile: 'deck' },
+      { card: 'Bomb', pile: 'deck' },
+    ],
     description: 'Shuffle 2 copies of Bomb into your opponent\'s deck.'
   },
   {
@@ -83,7 +86,10 @@ export const allies = [
     rarity: 'rare',
     attack: 4,
     defense: 0,
-    shuffleCardCopiesIntoEnemyDeck: ['Burn', 'Burn'],
+    shuffleCardCopiesIntoOpponentsPiles: [
+      { card: 'Burn', pile: 'deck' },
+      { card: 'Burn', pile: 'deck' },
+    ],
     description: 'Shuffle 2 copies of Burn into your opponent\'s deck.'
   },
   {
@@ -136,8 +142,11 @@ export const allies = [
     attack: 4,
     defense: 6,
     playCopiesOfCards: ['Healing Blade'],
-    shuffleCardCopiesIntoDeck: ['Healing Blade', 'Healing Blade'],
-    description: 'Play a copy of Healing Blade. Shuffle 2 additional copies of Healing Blade into your deck.'
+    shuffleCardCopiesIntoYourPiles: [
+      { card: 'Healing Blade', pile: 'deck' },
+      { card: 'Healing Blade', pile: 'deck' }
+    ],
+    description: 'Shuffle 2 copies of Healing Blade into your deck. Play an additional copy of Healing Blade.'
   },
 ].map(card => createCard({
   ...card,

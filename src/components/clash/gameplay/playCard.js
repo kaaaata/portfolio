@@ -2,10 +2,10 @@ import { actionGenerators } from './actionGenerators';
 import { createCard } from '../cards/createCard';
 import { cards } from '../cards/cards';
 import { customCardEffects } from './customCardEffects';
-import { genShuffleCardsIntoDeckActions } from './genShuffleCardsIntoDeckActions';
+import { addCardCopiesIntoPiles } from './addCardCopiesIntoPiles';
 import { stateCopy, actions, logs } from './globalVariables';
 
-export const genPlayCardActions = (card, index) => {
+export const playCard = (card, index) => {
   const opponent = card.player === 'you' ? 'enemy' : 'you';
   const {
     name,
@@ -21,8 +21,8 @@ export const genPlayCardActions = (card, index) => {
     isMockCard,
     customEffect,
     playCopiesOfCards,
-    shuffleCardCopiesIntoDeck,
-    shuffleCardCopiesIntoEnemyDeck,
+    shuffleCardCopiesIntoOpponentsPiles,
+    shuffleCardCopiesIntoYourPiles,
     temporaryStatGain
   } = card;
 
@@ -41,7 +41,7 @@ export const genPlayCardActions = (card, index) => {
       isMockCard: true
     });
 
-    genPlayCardActions(mockCard);
+    playCard(mockCard);
   };
 
   if (!isMockCard) {
@@ -53,6 +53,10 @@ export const genPlayCardActions = (card, index) => {
 
   actions.push([]);
 
+  if (customEffect) {
+    customCardEffects[name](card);
+  }
+
   if (temporaryStatGain) {
     Object.keys(temporaryStatGain).forEach(stat => {
       const amount = temporaryStatGain[stat];
@@ -60,6 +64,24 @@ export const genPlayCardActions = (card, index) => {
       logs.push(`${player} receives ${sign}${amount} ${stat} until end of battle`);
     })
     actions.push([actionGenerators.setTemporaryStats(player, temporaryStatGain)]);
+  }
+
+  if (shuffleCardCopiesIntoOpponentsPiles) {
+    addCardCopiesIntoPiles(shuffleCardCopiesIntoOpponentsPiles, opponent);
+  }
+
+  if (shuffleCardCopiesIntoYourPiles) {
+    addCardCopiesIntoPiles(shuffleCardCopiesIntoYourPiles, player);
+  }
+
+  if (playCopiesOfCards) {
+    playCopiesOfCards.forEach(cardName => {
+      logs.push(`${player} plays a copy of ${cardName}`);
+      playCard({
+        ...cards[cardName],
+        player: card.player
+      });
+    });
   }
 
   if (typeof attack === 'number') {
@@ -74,6 +96,8 @@ export const genPlayCardActions = (card, index) => {
       ? stateCopy[opponent].shields
       : pierce;
     totalDamageDealt += bonusPierceDamage;
+    totalDamageDealt = Math.min(totalDamageDealt, stateCopy[opponent].deck.length);
+    logs.push(`${opponent} receives ${totalDamageDealt} damage`);
 
     let totalShieldsGained = defense;
     if (defense) {
@@ -93,8 +117,6 @@ export const genPlayCardActions = (card, index) => {
         )]);
       }
     }
-
-    logs.push(`${opponent} receives ${totalDamageDealt} damage`);
 
     for (let i = 0; i < totalDamageDealt; i++) {
       const removedCard = stateCopy[opponent].deck.getTopCard();
@@ -122,21 +144,11 @@ export const genPlayCardActions = (card, index) => {
       if (destination === 'discard' && removedCard.onDiscard) {
         triggerDiscardEffect(opponent);
       }
-
-      if (!stateCopy[opponent].deck.length) {
-        logs.push(`${player} won!`);
-        actions.push([actionGenerators.setWinner(player)]);
-        return;
-      } else if (!stateCopy[opponent].deck.length) {
-        logs.push(`${opponent} won!`);
-        actions.push([actionGenerators.setWinner(opponent)]);
-        return;
-      }
     }
   }
-
-  const totalHeal = heal && stateCopy[player].discard.length;
-  if (totalHeal) {
+  
+  if (heal) {
+    const totalHeal = Math.min(heal, stateCopy[player].discard.length);
     logs.push(`${player} heals ${totalHeal}`);
 
     for (let i = 0; i < totalHeal; i++) {
@@ -155,9 +167,10 @@ export const genPlayCardActions = (card, index) => {
   }
 
   if (healEnemy) {
-    logs.push(`${opponent} heals ${heal}`);
+    const totalHeal = Math.min(healEnemy, stateCopy[player].discard.length);
+    logs.push(`${opponent} heals ${totalHeal}`);
 
-    for (let i = 0; i < healEnemy; i++) {
+    for (let i = 0; i < totalHeal; i++) {
       if (!stateCopy[opponent].discard.length) {
         break;
       }
@@ -177,9 +190,10 @@ export const genPlayCardActions = (card, index) => {
   }
 
   if (damageSelf) {
-    logs.push(`${player} receives ${damageSelf} damage`);
+    const totalSelfDamage = Math.min(damageSelf, stateCopy[player].deck.length);
+    logs.push(`${player} receives ${totalSelfDamage} damage`);
 
-    for (let i = 0; i < damageSelf; i++) {
+    for (let i = 0; i < totalSelfDamage; i++) {
       const removedCard = stateCopy[player].deck.getTopCard();
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       const destinationVerb = dealsBanishingDamage ? 'banishes' : 'discards';
@@ -197,51 +211,7 @@ export const genPlayCardActions = (card, index) => {
       if (destination === 'discard' && removedCard.onDiscard) {
         triggerDiscardEffect(player);
       }
-
-      if (!stateCopy[opponent].deck.length) {
-        logs.push(`${player} won!`);
-        actions.push([actionGenerators.setWinner(player)]);
-        return;
-      } else if (!stateCopy[opponent].deck.length) {
-        logs.push(`${opponent} won!`);
-        actions.push([actionGenerators.setWinner(opponent)]);
-        return;
-      }
     }
-  }
-
-  if (playCopiesOfCards) {
-    playCopiesOfCards.forEach(cardName => {
-      logs.push(`${player} plays a copy of ${cardName}`);
-      genPlayCardActions({
-        ...cards[cardName],
-        player: card.player
-      });
-    });
-  }
-
-  if (shuffleCardCopiesIntoEnemyDeck) {
-    genShuffleCardsIntoDeckActions(
-      shuffleCardCopiesIntoEnemyDeck.map(cardName => ({
-        ...cards[cardName],
-        player: 'enemy'
-      })),
-      opponent
-    );
-  }
-
-  if (shuffleCardCopiesIntoDeck) {
-    genShuffleCardsIntoDeckActions(
-      shuffleCardCopiesIntoDeck.map(cardName => ({
-        ...cards[cardName],
-        player: 'you'
-      })),
-      player
-    );
-  }
-
-  if (customEffect) {
-    customCardEffects[name](card);
   }
 
   const playedCard = isMockCard

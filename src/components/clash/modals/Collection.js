@@ -130,7 +130,7 @@ const CollectionComponent = ({
     const enemyHand = enemyDeck.splice(enemyDeck.length - 3, 3);
     setYourDeck(yourDeck);
     // setYourHand(yourHand);
-    setYourHand(['Candy Corn', 'Brawler', 'Healing Blade']);
+    setYourHand(['Weapons Guy', 'Brawler', 'Catherine the Great']);
     setEnemyDeck(enemyDeck);
     setEnemyHand(enemyHand);
 

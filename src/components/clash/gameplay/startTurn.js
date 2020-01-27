@@ -1,7 +1,7 @@
 import { actionGenerators } from './actionGenerators';
 import { stateCopy, actions, logs } from './globalVariables';
 
-export const genStartOfTurnActions = (player) => {
+export const startTurn = (player) => {
   logs.push(`${player}'s turn begins`);
 
   const startOfTurnActions = [actionGenerators.setShields(player, 0)];

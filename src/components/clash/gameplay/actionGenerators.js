@@ -69,11 +69,8 @@ export const actionGenerators = {
       payload: stateCopy[player].temporaryStats
     };
   },
-  setWinner: (player) => {
-    stateCopy.winner = stateCopy[player].name;
-    return {
-      actionKey: 'setWinner',
-      payload: stateCopy[player].name
-    };
-  }
+  setWinner: (player) => ({
+    actionKey: 'setWinner',
+    payload: stateCopy[player].name
+  })
 };

@@ -1,16 +1,16 @@
 import { cardsArray } from '../cards/cards';
-import { genShuffleCardsIntoDeckActions } from './genShuffleCardsIntoDeckActions';
-import { genPlayCardActions } from './genPlayCardActions';
+import { addCardCopiesIntoPiles } from './addCardCopiesIntoPiles';
+import { playCard } from './playCard';
 import { stateCopy } from './globalVariables';
 
 export const customCardEffects = {
   'Weapons Guy': (card) => {
     // Shuffle 2 random attacks into your deck.
     const twoRandomAttacks = [
-      cardsArray.getRandomCardByFilter(card => card.type === 'attack'),
-      cardsArray.getRandomCardByFilter(card => card.type === 'attack')
+      { card: cardsArray.getRandomCardByFilter(card => card.type === 'attack').name, pile: 'deck' },
+      { card: cardsArray.getRandomCardByFilter(card => card.type === 'attack').name, pile: 'deck' }
     ];
-    genShuffleCardsIntoDeckActions(twoRandomAttacks, card.player);
+    addCardCopiesIntoPiles(twoRandomAttacks, card.player);
   },
   'Brawler': (card) => {
     // Play 2 random attacks from your discard pile, then banish them.
@@ -19,7 +19,7 @@ export const customCardEffects = {
         (card) => card.type === 'attack'
       );
       if (attack) {
-        genPlayCardActions({
+        playCard({
           ...attack,
           banishesOnPlay: true
         });
@@ -32,7 +32,7 @@ export const customCardEffects = {
       (card) => card.type === 'ally'
     );
     if (ally) {
-      genPlayCardActions({
+      playCard({
         ...ally,
         banishesOnPlay: true
       });

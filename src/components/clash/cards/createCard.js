@@ -17,8 +17,8 @@ const cardTemplate = {
   pierce: 0,
   buyable: true,
   playCopiesOfCards: null,
-  shuffleCardCopiesIntoDeck: null,
-  shuffleCardCopiesIntoEnemyDeck: null,
+  shuffleCardCopiesIntoYourPiles: null,
+  shuffleCardCopiesIntoOpponentsPiles: null,
   temporaryStatGain: null
 };
 

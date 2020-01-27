@@ -21,8 +21,11 @@ export const magic = [
     rarity: 'uncommon',
     attack: 1,
     defense: 0,
-    playCopiesOfCards: ['Candy Corn'],
-    // description: 'Damage dealt banishes. Play a copy of Candy Corn.'
+    shuffleCardCopiesIntoYourPiles: [
+      { card: 'Candy Corn', pile: 'discard', index: 'top' },
+      { card: 'Candy Corn', pile: 'discard', index: 'top' }
+    ],
+    description: 'Damage dealt banishes. Add two copies of Candy Corn into your discard.'
   }
 ].map(card => createCard({
   ...card,

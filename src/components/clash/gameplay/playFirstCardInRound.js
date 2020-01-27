@@ -1,9 +1,10 @@
 import { CardsArray } from './CardsArray';
 import { cards } from '../cards/cards';
 import { store } from '../../stores/store';
-import { genStartOfTurnActions } from './genStartOfTurnActions';
-import { genPlayCardActions } from './genPlayCardActions';
+import { startTurn } from './startTurn';
+import { playCard } from './playCard';
 import { stateCopy, actions, logs, resetGlobalVariables } from './globalVariables';
+import { isThereAWinner } from './isThereAWinner';
 
 export const playFirstCardInRound = (index) => {
   resetGlobalVariables();
@@ -37,18 +38,19 @@ export const playFirstCardInRound = (index) => {
 
   const card = stateCopy.you.hand[index];
   logs.push(`you plays ${card.name}`);
-  genPlayCardActions(card, index);
+  playCard(card, index);
 
-  if (!stateCopy.winner) {
-    genStartOfTurnActions('enemy');
+  if (!isThereAWinner('enemy')) {
+    startTurn('enemy');
     const enemyHandRandomCardIndex = ~~(Math.random() * 3);
     const enemyHandRandomCard = stateCopy.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
     stateCopy.enemy.hand[enemyHandRandomCardIndex] = {};
     logs.push(`enemy plays ${enemyHandRandomCard.name}`);
-    genPlayCardActions(enemyHandRandomCard, enemyHandRandomCardIndex);
-    if (!stateCopy.winner) {
-      genStartOfTurnActions('you');
+    playCard(enemyHandRandomCard, enemyHandRandomCardIndex);
+
+    if (!isThereAWinner('you')) {
+      startTurn('you');
     }
   }
 
