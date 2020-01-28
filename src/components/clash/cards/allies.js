@@ -14,19 +14,10 @@ export const allies = [
     name: 'Recruiter',
     image: 'recruiter',
     rarity: 'common',
-    attack: 1,
+    attack: 0,
     defense: 1,
     customEffect: true,
     description: 'Play a random Ally from your discard pile, then banish them.'
-  },
-  {
-    name: 'Mermaid',
-    image: 'mermaid',
-    rarity: 'uncommon',
-    attack: 0,
-    defense: 4,
-    heal: 4,
-    healEnemy: 2
   },
   {
     name: 'Spear Goon',
@@ -49,6 +40,27 @@ export const allies = [
       { card: 'Bomb', pile: 'deck' },
     ],
     description: 'Shuffle 2 copies of Bomb into your opponent\'s deck.'
+  },
+  {
+    name: 'Cleric',
+    image: 'cleric',
+    rarity: 'common',
+    attack: 0,
+    defense: 2,
+    customEffect: true,
+    onDiscard: {
+      customEffect: true
+    },
+    description: 'When played or discarded, shuffle a random Potion from your banish into your deck.'
+  },
+  {
+    name: 'Mermaid',
+    image: 'mermaid',
+    rarity: 'uncommon',
+    attack: 0,
+    defense: 4,
+    heal: 4,
+    healEnemy: 2
   },
   {
     name: 'Hobgoblin',
@@ -140,14 +152,32 @@ export const allies = [
     image: 'catherine_the_great',
     rarity: 'legendary',
     attack: 4,
-    defense: 6,
+    defense: 4,
     playCopiesOfCards: ['Healing Blade'],
     shuffleCardCopiesIntoYourPiles: [
       { card: 'Healing Blade', pile: 'deck' },
       { card: 'Healing Blade', pile: 'deck' }
     ],
-    description: 'Shuffle 2 copies of Healing Blade into your deck. Play an additional copy of Healing Blade.'
+    description: 'Shuffle two copies of Healing Blade into your deck. Play an additional copy of Healing Blade.'
   },
+  {
+    name: 'Ice Queen',
+    image: 'ice_queen',
+    rarity: 'legendary',
+    attack: 2,
+    defense: 5,
+    shuffleCardCopiesIntoYourPiles: [
+      { card: 'Ice Blade', pile: 'deck', index: 'top' },
+      { card: 'Ice Blade', pile: 'deck', index: 'top' }
+    ],
+    onDiscard: {
+      shuffleCardCopiesIntoYourPiles: [
+        { card: 'Ice Blade', pile: 'deck', index: 'top' },
+        { card: 'Ice Blade', pile: 'deck', index: 'top' }
+      ],
+    },
+    description: 'When played or discarded, add two copies of Ice Blade to the top of your deck.'
+  }
 ].map(card => createCard({
   ...card,
   type: 'ally'

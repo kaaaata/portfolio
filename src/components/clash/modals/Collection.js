@@ -125,12 +125,13 @@ const CollectionComponent = ({
       winner: null
     });
     const yourDeck = shuffle([...deck]);
-    const yourHand = yourDeck.splice(yourDeck.length - 3, 3);
+    // const yourDeck = shuffle(['Strike', 'Strike', 'Healing Potion', 'Healing Potion', 'Healing Potion']);
+    // const yourHand = yourDeck.splice(yourDeck.length - 3, 3);
+    const yourHand = ['Brawler', 'Ice Queen', 'Sunder'];
     const enemyDeck = shuffle([...enemy.deck]);
     const enemyHand = enemyDeck.splice(enemyDeck.length - 3, 3);
     setYourDeck(yourDeck);
-    // setYourHand(yourHand);
-    setYourHand(['Weapons Guy', 'Brawler', 'Catherine the Great']);
+    setYourHand(yourHand);
     setEnemyDeck(enemyDeck);
     setEnemyHand(enemyHand);
 

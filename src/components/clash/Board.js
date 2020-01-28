@@ -39,7 +39,7 @@ const BoardComponent = (props) => {
     const t0 = performance.now();
     actions = playFirstCardInRound(index);
     const t1 = performance.now();
-    console.log(`playCard took ${t1 - t0} milliseconds.`);
+    console.log(`playCard took ${(t1 - t0).toFixed(3)} milliseconds.`);
 
     if (actions.length > 1) {
       // later, if we want to allow pausing mid-animation, actions should be

@@ -11,7 +11,16 @@ export const CardsArray = (_cards, properties) => {
 
   arr.getRandomCard = () => sample(arr);
 
+  arr.getRandomCardIndex = () => arr.length ? ~~(Math.random() * arr.length) : -1;
+
   arr.getRandomCardByFilter = (filterFunc) => sample(arr.filter(filterFunc));
+
+  arr.getRandomCardIndexByFilter = (filterFunc) => {
+    const filteredCardsWithIndices = arr
+      .map((card, index) => ({ ...card, index }))
+      .filter(filterFunc);
+    return filteredCardsWithIndices.length ? sample(filteredCardsWithIndices).index : -1;
+  };
 
   arr.getCardNames = () => arr.map(card => card.name);
 

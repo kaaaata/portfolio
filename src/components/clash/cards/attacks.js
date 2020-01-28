@@ -46,6 +46,14 @@ export const attacks = [
     pierce: 1
   },
   {
+    name: 'Arrow',
+    image: 'arrow',
+    rarity: 'common',
+    attack: 2,
+    defense: 0,
+    isBuyable: false
+  },
+  {
     name: 'Piercing Blow',
     image: 'piercing_blow',
     rarity: 'uncommon',
@@ -77,6 +85,24 @@ export const attacks = [
     description: 'Shuffle a copy of Burn into your opponent\'s deck.'
   },
   {
+    name: 'Multishot',
+    image: 'multishot',
+    rarity: 'uncommon',
+    attack: 0,
+    defense: 0,
+    playCopiesOfCards: ['Arrow', 'Arrow', 'Arrow'],
+    description: 'Play three copies of Arrow.'
+  },
+  {
+    name: 'Protect',
+    image: 'block',
+    rarity: 'uncommon',
+    attack: 0,
+    defense: 4,
+    temporaryStatGain: { defense: 1 },
+    description: 'Gain +1 defense for the rest of the battle.'
+  },
+  {
     name: 'Sunder',
     image: 'sunder',
     rarity: 'rare',
@@ -92,6 +118,23 @@ export const attacks = [
     defense: 0,
     heal: 3
   },
+  {
+    name: 'Spiky Shot',
+    image: 'spiky_bow',
+    rarity: 'rare',
+    attack: 0,
+    defense: 0,
+    playCopiesOfCards: ['Arrow', 'Arrow'],
+    temporaryStatGain: { attack: 1 },
+    description: 'Gain +1 Attack for the rest of the battle. Play two copies of Arrow.'
+  },
+  {
+    name: 'Ice Blade',
+    image: 'ice_sword',
+    rarity: 'rare',
+    attack: 2,
+    defense: 5
+  }
 ].map(card => createCard({
   ...card,
   type: 'attack'

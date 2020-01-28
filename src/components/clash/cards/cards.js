@@ -20,14 +20,14 @@ const shopCardsCosts = {
   legendary: 175
 };
 export const genShopCards = () => [
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'legendary' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'rare' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable),
-  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.buyable)
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'legendary' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'rare' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'uncommon' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.isBuyable),
+  cardsArray.getRandomCardByFilter(card => card.rarity === 'common' && card.isBuyable)
 ].map(card => ({
   name: card.name,
   cost: shopCardsCosts[card.rarity] - 10 + ~~(Math.random() * 21)
@@ -55,7 +55,7 @@ export const genPackCards = () => {
   }
 
   return cardRarities.map(rarity => (
-    cardsArray.getRandomCardByFilter(card => card.rarity === rarity && card.buyable).name
+    cardsArray.getRandomCardByFilter(card => card.rarity === rarity && card.isBuyable).name
   ));
 };
 

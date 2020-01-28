@@ -14,7 +14,7 @@ export const potions = [
     name: 'Bomb',
     image: 'bomb',
     rarity: 'common',
-    buyable: false,
+    isBuyable: false,
     damageSelf: 2,
     onDiscard: {
       damageSelf: 2
@@ -24,7 +24,7 @@ export const potions = [
     name: 'Burn',
     image: 'burn',
     rarity: 'common',
-    buyable: false,
+    isBuyable: false,
     damageSelf: 1,
     onDiscard: {
       damageSelf: 1

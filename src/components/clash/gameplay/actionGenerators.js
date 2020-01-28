@@ -41,11 +41,13 @@ export const actionGenerators = {
   removeCard: (player, location, index) => {
     // index = number|'top'
     if (!index && index !== 0) {
-      return;
+      return null;
     } else if (location === 'hand') {
       stateCopy[player][location][index] = {};
     } else if (index === 'top') {
       stateCopy[player][location].removeTopCard();
+    } else {
+      stateCopy[player][location].removeCardAtIndex(index);
     }
     return {
       actionKey: actionKeys[player][location],

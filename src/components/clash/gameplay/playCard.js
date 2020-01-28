@@ -47,7 +47,7 @@ export const playCard = (card, index) => {
   if (!isMockCard) {
     actions.push([
       actionGenerators.addCardToStack(card),
-      actionGenerators.removeCard(player, 'hand', index)
+      actionGenerators.removeCard(player, card.location, index)
     ]);
   }
 

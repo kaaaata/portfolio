@@ -16,6 +16,15 @@ export const magic = [
     defense: 1
   },
   {
+    name: 'Magic Scroll',
+    image: 'scroll',
+    rarity: 'common',
+    attack: 0,
+    defense: 0,
+    customEffect: true,
+    description: 'Play a copy of a random magic attack.'
+  },
+  {
     name: 'Candy Corn',
     image: 'candy_corn',
     rarity: 'uncommon',
@@ -26,7 +35,7 @@ export const magic = [
       { card: 'Candy Corn', pile: 'discard', index: 'top' }
     ],
     description: 'Damage dealt banishes. Add two copies of Candy Corn into your discard.'
-  }
+  },
 ].map(card => createCard({
   ...card,
   type: 'magic',

@@ -15,21 +15,21 @@ export const customCardEffects = {
   'Brawler': (card) => {
     // Play 2 random attacks from your discard pile, then banish them.
     for (let i = 0; i < 2; i++) {
-      const attack = stateCopy[card.player].discard.getRandomCardByFilter(
-        (card) => card.type === 'attack'
+      const attackIndex = stateCopy[card.player].discard.getRandomCardIndexByFilter(
+        card => card.type === 'attack'
       );
-      if (attack) {
+      if (attackIndex !== -1) {
         playCard({
-          ...attack,
+          ...stateCopy[card.player].discard[attackIndex],
           banishesOnPlay: true
-        });
+        }, attackIndex);
       }
     }
   },
   'Recruiter': (card) => {
     // Play a random Ally from your discard pile, then banish them.
     const ally = stateCopy[card.player].discard.getRandomCardByFilter(
-      (card) => card.type === 'ally'
+      card => card.type === 'ally'
     );
     if (ally) {
       playCard({
@@ -38,4 +38,27 @@ export const customCardEffects = {
       });
     }
   },
+  'Cleric': (card) => {
+    // When played or discarded, shuffle a random Potion from your banish into your deck.
+    const potionIndex = stateCopy[card.player].banish.getRandomCardIndexByFilter(
+      card => card.type === 'potion'
+    );
+    if (potionIndex !== -1) {
+      addCardCopiesIntoPiles(
+        [{ card: stateCopy[card.player].banish[potionIndex].name, pile: 'deck' }],
+        card.player,
+        { player: card.player, location: 'banish', index: potionIndex }
+      );
+    }
+  },
+  'Magic Scroll': (card) => {
+    // Play a copy of a random magic attack.
+    const magic = cardsArray.getRandomCardByFilter(
+      card => card.type === 'magic' && card.name !== 'Magic Scroll'
+    );
+    playCard({
+      ...magic,
+      player: card.player
+    });
+  }
 };

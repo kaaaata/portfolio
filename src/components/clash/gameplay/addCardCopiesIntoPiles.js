@@ -2,12 +2,22 @@ import { actionGenerators } from './actionGenerators';
 import { actions, logs } from './globalVariables';
 import { cards } from '../cards/cards';
 
-export const addCardCopiesIntoPiles = (copies, player) => {
-  copies.forEach(({ card, pile }) => {
-    actions.push([actionGenerators.addCardToStack({
-      ...cards[card],
-      player
-    })]);
+export const addCardCopiesIntoPiles = (copies, player, removeCardArgs) => {
+  copies.forEach(({ card }) => {
+    const action = [
+      actionGenerators.addCardToStack({
+        ...cards[card],
+        player
+      })
+    ];
+    if (removeCardArgs) {
+      action.push(actionGenerators.removeCard(
+        removeCardArgs.player,
+        removeCardArgs.location,
+        removeCardArgs.index
+      ));
+    }
+    actions.push(action);
   });
 
   actions.push([]);
