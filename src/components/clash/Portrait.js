@@ -3,11 +3,28 @@ import { connect } from 'react-redux';
 import { Image } from '../particles';
 import { Attributes } from './Attributes';
 import { colors } from '../styles';
+import { useState, useEffect } from 'react';
 
 const portraitCss = (location) => css`
   position: absolute;
   left: ${location === 'top' ? 885 : 20}px;
   top: ${location === 'top' ? 48 : 405}px;
+
+  .portrait {
+    position: absolute;
+    transition: transform 2s ease-in, width 2s ease-in, height 2s ease-in;
+
+    &.dead {
+      transform: rotate(1260deg);
+      width: 0px;
+      height: 0px;
+    }
+  }
+
+  .portrait_placeholder {
+    width: 100px;
+    height: 125px;
+  }
 
   .shields {
     position: absolute;
@@ -34,14 +51,29 @@ const Portrait = ({
   image,
   temporaryStats,
   permanentStats,
-  shields
+  shields,
+  isDead
 }) => {
+  const [portraitClassName, setPortraitClassName] = useState('portrait');
+
+  useEffect(() => {
+    if (isDead) {
+      setPortraitClassName('portrait dead');
+    }
+  }, [isDead]);
+
   const portrait = (
     <Image
       src={`/clash/${image}.png`}
       width={100}
       height={125}
+      className={portraitClassName}
     />
+  );
+
+  // hold the place during the spinny death animation
+  const portraitPlaceholder = (
+    <div className='portrait_placeholder' />
   );
 
   const shieldsDisplay = !!shields && (
@@ -58,6 +90,7 @@ const Portrait = ({
   return (
     <div css={portraitCss(location)}>
       {portrait}
+      {portraitPlaceholder}
       {shieldsDisplay}
       <Attributes
         attack={temporaryStats.attack + permanentStats.attack}
@@ -68,22 +101,24 @@ const Portrait = ({
   );
 };
 
-const mapStateToPropsYou = (state) => ({
+const mapStateToPropsYourPortrait = (state) => ({
   name: state.clashBattleStats.yourName,
   image: state.clashBattleStats.yourImage,
   temporaryStats: state.clashBattleStats.yourTemporaryStats,
   permanentStats: state.clashBattleStats.yourPermanentStats,
   shields: state.clashBattleStats.yourShields,
-  location: 'bottom'
+  location: 'bottom',
+  isDead: state.clashBattleStats.winner === state.clashBattleStats.enemyName
 });
-const mapStateToPropsEnemy = (state) => ({
+const mapStateToPropsEnemyPortrait = (state) => ({
   name: state.clashBattleStats.enemyName,
   image: state.clashBattleStats.enemyImage,
   temporaryStats: state.clashBattleStats.enemyTemporaryStats,
   permanentStats: state.clashBattleStats.enemyPermanentStats,
   shields: state.clashBattleStats.enemyShields,
-  location: 'top'
+  location: 'top',
+  isDead: state.clashBattleStats.winner === state.clashBattleStats.yourName
 });
 
-export const YourPortrait = connect(mapStateToPropsYou)(Portrait);
-export const EnemyPortrait = connect(mapStateToPropsEnemy)(Portrait);
+export const YourPortrait = connect(mapStateToPropsYourPortrait)(Portrait);
+export const EnemyPortrait = connect(mapStateToPropsEnemyPortrait)(Portrait);

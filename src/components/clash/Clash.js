@@ -29,7 +29,7 @@ export const Clash = () => {
       sceneComponent = <Collection goToNextScene={() => setScene('board')} />;
       break;
     case 'board':
-      sceneComponent = <Board />;
+      sceneComponent = <Board goToNextScene={() => setScene('shop')} />;
       break;
     case 'master_card_list':
       sceneComponent = <MasterCardList />;
