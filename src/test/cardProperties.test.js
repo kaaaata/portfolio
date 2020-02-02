@@ -21,7 +21,7 @@ test('all cards are valid', () => {
       if (!['common', 'uncommon', 'rare', 'legendary'].includes(card.rarity)) {
         errorMessages.push(`${name} has invalid rarity ${card.rarity}`);
       }
-      if (!['attack', 'magic', 'potion'].includes(card.type)) {
+      if (!['attack', 'magic', 'potion', 'ally'].includes(card.type)) {
         errorMessages.push(`${name} has invalid type ${card.type}`);
       }
     }

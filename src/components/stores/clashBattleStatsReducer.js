@@ -1,16 +1,14 @@
 const initialState = {
-  yourName: 'Mermaid',
-  yourImage: 'mermaid',
+  yourName: '',
+  yourImage: '',
   yourPermanentStats: { attack: 0, magic: 0, defense: 0 },
-  yourTemporaryStats: { attack: 0, magic: 0, defense: 0
-  },
+  yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
   yourShields: 0,
 
-  enemyName: 'Spear Goon',
-  enemyImage: 'red_spear_guy',
+  enemyName: '',
+  enemyImage: '',
   enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
-  enemyTemporaryStats: { attack: 0, magic: 0, defense: 0
-  },
+  enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
   enemyShields: 0,
 
   winner: null

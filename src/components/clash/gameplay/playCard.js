@@ -5,7 +5,7 @@ import { customCardEffects } from './customCardEffects';
 import { addCardCopiesIntoPiles } from './addCardCopiesIntoPiles';
 import { stateCopy, actions, logs } from './globalVariables';
 
-export const playCard = (card, index) => {
+export const playCard = (card = {}, index) => {
   const opponent = card.player === 'you' ? 'enemy' : 'you';
   const {
     name,
@@ -214,17 +214,21 @@ export const playCard = (card, index) => {
     }
   }
 
-  const playedCard = isMockCard
-    ? stateCopy.stack.getTopCard()
-    : card;
+  // stateCopy.stack.length should usually be truthy
+  // but it could be falsy if a mock card is played before a real card is played.
+  if (stateCopy.stack.length) {
+    const playedCard = isMockCard
+      ? stateCopy.stack.getTopCard()
+      : card;
 
-  actions.push([
-    actionGenerators.removeTopCardFromStack(),
-    actionGenerators.addCard(
-      playedCard,
-      playedCard.player,
-      playedCard.banishesOnPlay ? 'banish' : 'discard',
-      'top'
-    )
-  ]);
+    actions.push([
+      actionGenerators.removeTopCardFromStack(),
+      actionGenerators.addCard(
+        playedCard,
+        playedCard.player,
+        playedCard.banishesOnPlay ? 'banish' : 'discard',
+        'top'
+      )
+    ]);
+  }
 };

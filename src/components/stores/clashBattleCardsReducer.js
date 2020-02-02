@@ -1,6 +1,6 @@
 const initialState = {
   yourDeck: [],
-  yourDiscard: ['Strike', 'Strike'],
+  yourDiscard: ['Mage'],
   yourBanish: [],
   yourHand: [null, null, null],
   enemyDeck: [],

@@ -33,7 +33,7 @@ export const allies = [
     name: 'Wayne',
     image: 'goblin',
     rarity: 'common',
-    attack: 2,
+    attack: 0,
     defense: 0,
     shuffleCardCopiesIntoOpponentsPiles: [
       { card: 'Bomb', pile: 'deck' },
@@ -75,7 +75,7 @@ export const allies = [
     name: 'Brawler',
     image: 'brawler',
     rarity: 'uncommon',
-    attack: 2,
+    attack: 0,
     defense: 0,
     customEffect: true,
     description: 'Play 2 random Attacks from your discard pile, then banish them.'

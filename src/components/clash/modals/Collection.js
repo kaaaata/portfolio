@@ -109,9 +109,6 @@ const CollectionComponent = ({
         magic: player.magic,
         defense: player.defense
       },
-      yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
-      yourShields: 0,
-    
       enemyName: enemy.name,
       enemyImage: enemy.image,
       enemyPermanentStats: {
@@ -119,15 +116,11 @@ const CollectionComponent = ({
         magic: enemy.magic,
         defense: enemy.defense
       },
-      enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
-      enemyShields: 0,
-    
       winner: null
     });
     const yourDeck = shuffle([...deck]);
-    // const yourDeck = shuffle(['Strike', 'Strike', 'Healing Potion', 'Healing Potion', 'Healing Potion']);
     // const yourHand = yourDeck.splice(yourDeck.length - 3, 3);
-    const yourHand = ['Brawler', 'Ice Queen', 'Sunder'];
+    const yourHand = ['Fire Dragon', 'Recruiter', 'Magic Scroll'];
     const enemyDeck = shuffle([...enemy.deck]);
     const enemyHand = enemyDeck.splice(enemyDeck.length - 3, 3);
     setYourDeck(yourDeck);

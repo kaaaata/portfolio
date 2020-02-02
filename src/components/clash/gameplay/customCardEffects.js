@@ -28,14 +28,14 @@ export const customCardEffects = {
   },
   'Recruiter': (card) => {
     // Play a random Ally from your discard pile, then banish them.
-    const ally = stateCopy[card.player].discard.getRandomCardByFilter(
+    const allyIndex = stateCopy[card.player].discard.getRandomCardIndexByFilter(
       card => card.type === 'ally'
     );
-    if (ally) {
+    if (allyIndex !== -1) {
       playCard({
-        ...ally,
+        ...stateCopy[card.player].discard[allyIndex],
         banishesOnPlay: true
-      });
+      }, allyIndex);
     }
   },
   'Cleric': (card) => {
