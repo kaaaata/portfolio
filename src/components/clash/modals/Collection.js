@@ -120,8 +120,8 @@ const CollectionComponent = ({
     });
     const yourDeck = shuffle([...deck]);
     // const yourHand = yourDeck.splice(yourDeck.length - 3, 3);
-    const yourHand = ['Fire Dragon', 'Recruiter', 'Magic Scroll'];
-    const enemyDeck = shuffle([...enemy.deck]);
+    const yourHand = ['Slice', 'Slice', 'Slice'];
+    const enemyDeck = shuffle([...enemy.deck]).slice(0, 4);
     const enemyHand = enemyDeck.splice(enemyDeck.length - 3, 3);
     setYourDeck(yourDeck);
     setYourHand(yourHand);

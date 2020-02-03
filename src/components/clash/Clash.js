@@ -12,6 +12,7 @@ import { colors } from '../styles';
 const clashCss = css`
   position: relative;
   flex-shrink: 0;
+  user-select: none;
 `;
 
 export const Clash = () => {

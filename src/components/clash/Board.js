@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../stores/actions';
@@ -14,11 +15,21 @@ import {
 } from './PileOfCards';
 import { YourPortrait, EnemyPortrait } from './Portrait';
 import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
+import { HalfModal } from './modals/HalfModal';
+import { Score } from './modals/Score';
 
 const BoardComponent = (props) => {
+  const [activeModal, setActiveModal] = useState('score');
+  let modalComponent = null;
   let interval = null;
   let actions = [];
   let isAnimating = false;
+
+  useEffect(() => {
+    if (props.winner) {
+      setActiveModal('winner');
+    }
+  }, [props.winner]);
 
   const executeRenderAction = (action) => {
     if (action) {
@@ -62,6 +73,24 @@ const BoardComponent = (props) => {
     }
   };
 
+  switch (activeModal) {
+    case 'winner':
+      modalComponent = (
+        <HalfModal
+          title={`${props.winner} wins!`}
+          continueOnClick={() => setActiveModal('score')}
+        />
+      );
+      break;
+    case 'score':
+      modalComponent = (
+        <Score goToNextScene={props.goToNextScene} />
+      );
+      break;
+    default:
+      break;
+  }
+
   return (
     <div>
       <EnemyPortrait />
@@ -81,6 +110,8 @@ const BoardComponent = (props) => {
         <YourDiscard />
         <YourBanish />
       </div>
+
+      {modalComponent}
     </div>
   );
 };

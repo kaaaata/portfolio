@@ -7,7 +7,7 @@ import { Gold } from './Gold';
 
 const topNavCss = css`
   height: 40px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   padding: 0 20px;
   position: absolute;
   width: 100%;
@@ -26,25 +26,28 @@ const topNavCss = css`
 export const TopNavComponent = ({
   player
 }) => {
-
-  return player ? (
+  return (
     <FlexContainer
       alignItems='center'
       _css={topNavCss}
     >
-      <Image
-        src={`/clash/${player.image}.png`}
-        width={20}
-        height={35}
-      />
-      <Attributes
-        attack={player.attack}
-        magic={player.magic}
-        defense={player.defense}
-      />
-      <Gold value={player.gold} />
+      {player && (
+        <Image
+          src={`/clash/${player.image}.png`}
+          width={20}
+          height={35}
+        />
+      )}
+      {player && (
+        <Attributes
+          attack={player.attack}
+          magic={player.magic}
+          defense={player.defense}
+        />
+      )}
+      {player && <Gold value={player.gold} />}
     </FlexContainer>
-  ) : null;
+  );
 };
 
 const mapStateToProps = (state) => ({
