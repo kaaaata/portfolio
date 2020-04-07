@@ -126,6 +126,23 @@ export default (state = initialState, action) => {
           ...action.payload.properties
         }
       };
+    case 'SET_AI_MATCH_RESULTS':
+      const newState = {};
+      const idsAlreadyPlayed = [];
+      Object.keys(state.matchups).forEach(id => {
+        if (
+          ![parseInt(id), state.matchups[id]].includes(state.playerId)
+          && !idsAlreadyPlayed.includes(parseInt(id))
+        ) {
+          console.log(`ai playing game: ${id} vs. ${state.matchups[id]}`);
+          idsAlreadyPlayed.push(parseInt(id));
+          idsAlreadyPlayed.push(state.matchups[id]);
+        }
+      });
+      return {
+        ...state,
+        ...newState
+      };
     default:
       return state;
   }

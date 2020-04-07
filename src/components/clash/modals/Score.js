@@ -10,13 +10,14 @@ const ScoreComponent = ({
   player,
   winner,
   setPlayerProperties,
-  goToNextScene
+  goToNextScene,
+  setAIMatchResults
 }) => {
   const bonuses = {
     'Base Gold': 100
   };
 
-  if (player.name === winner || true) {
+  if (player.name === winner) {
     bonuses['Win Bonus'] = 25
   }
 
@@ -32,8 +33,9 @@ const ScoreComponent = ({
             gold: player.gold + totalGoldEarned
           }
         });
+        setAIMatchResults();
 
-        goToNextScene();
+        // goToNextScene();
       }}
     >
       {Object.keys(bonuses).map(key => (
@@ -57,7 +59,8 @@ const mapStateToProps = (state) => ({
   winner: state.clashBattleStats.winner
 });
 const mapDispatchToProps = (dispatch) => ({
-  setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload))
+  setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload)),
+  setAIMatchResults: payload => dispatch(actions.setAIMatchResults(payload))
 });
 
 export const Score = connect(mapStateToProps, mapDispatchToProps)(ScoreComponent);

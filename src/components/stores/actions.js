@@ -22,3 +22,4 @@ export const setPlayerId = payload => ({ type: 'SET_PLAYER_ID', payload });
 export const setMatchups = payload => ({ type: 'SET_MATCHUPS', payload });
 export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTIES', payload });
 export const setShopCards = payload => ({ type: 'SET_SHOP_CARDS', payload });
+export const setAIMatchResults = payload => ({ type: 'SET_AI_MATCH_RESULTS', payload });

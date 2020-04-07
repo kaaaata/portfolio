@@ -28,7 +28,6 @@ const ShopComponent = ({
   setShopCards,
   setPlayerProperties
 }) => {
-  console.log('shop rendering');
   const buyCard = (card, index) => {
     if (player.gold >= card.cost) {
       const newCollection = {
