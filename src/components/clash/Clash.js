@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { MainMenu } from './scenes/MainMenu';
-import { Map } from './scenes/Map';
+import { Map } from './scenes';
 import { Board } from './Board';
 import { MasterCardList } from './MasterCardList';
 import { TopNav } from './TopNav';
 import { Collection } from './modals/Collection';
 import { CharSelection } from './modals/CharSelection';
 import { Shop } from './modals/Shop';
-import { Image, Filter } from '../particles';
-import { colors } from '../styles';
+import { Image } from '../particles';
 
 const clashCss = css`
   position: relative;
@@ -54,6 +53,7 @@ export const Clash = () => {
       css={clashCss}
     >
       {scene && <TopNav />}
+      <button onClick={() => setScene(scene === 'map' ? null : 'map')} />
       {sceneComponent}
     </Image>  
   );

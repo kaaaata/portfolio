@@ -1,24 +1,8 @@
-import { useState } from 'react';
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { sample, sampleSize, range, shuffle } from 'lodash';
-import { FlexContainer } from '../../particles';
-import { colors } from '../../styles';
-
-const mapCss = css`
-  display: inline-grid;
-  grid-template-columns: repeat(7, 70px);
-  grid-auto-rows: 70px;
-  grid-gap: 5px;
-  margin-top: 20px;
-
-  .node {
-    background: ${colors.grey};
-  }
-
-`;
 
 const mapNode = {
   isRevealed: false,
+  isVisited: false,
   isPlayerHere: false,
   monsterId: null,
   eventId: null
@@ -27,7 +11,7 @@ const mapNode = {
 const testMonsterIds = range(0, 40);
 const testEventIds = range(0, 40);
 
-const createMap = () => {
+export const createMap = () => {
   const map = Array.from(Array(7)).map(i => Array(7));
   const mapEventIds = sampleSize(testEventIds, 6);
 
@@ -94,29 +78,4 @@ const createMap = () => {
   }
 
   return map;
-};
-
-export const Map = () => {
-  const [map, setMap] = useState(createMap());
-  console.log(map);
-
-  return (
-    <FlexContainer justifyContent='center'>
-      <div css={mapCss}>
-        {map.map((row, y) => (
-          row.map((node, x) => (
-            <div
-              key={`${x}${y}`}
-              className='node'
-              onClick={() => console.log('clicked', [x, y])}
-            >
-              {node.isPlayerHere && 'P'}
-              {node.monsterId !== null && `M${node.monsterId}`}
-              {node.eventId !== null && `E${node.eventId}`}
-            </div>
-          ))
-        ))}
-      </div>
-    </FlexContainer>
-  );
 };
