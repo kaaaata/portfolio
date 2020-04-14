@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { MainMenu } from './scenes/MainMenu';
+import { Map } from './scenes/Map';
 import { Board } from './Board';
 import { MasterCardList } from './MasterCardList';
 import { TopNav } from './TopNav';
@@ -16,10 +18,10 @@ const clashCss = css`
 `;
 
 export const Clash = () => {
-  const [scene, setScene] = useState('char_selection');
+  const [scene, setScene] = useState('map');
   let sceneComponent;
 
-  switch (scene) {
+  switch (scene) { 
     case 'char_selection':
       sceneComponent = <CharSelection goToNextScene={() => setScene('shop')} />;
       break;
@@ -35,7 +37,11 @@ export const Clash = () => {
     case 'master_card_list':
       sceneComponent = <MasterCardList />;
       break;
+    case 'map':
+      sceneComponent = <Map />;
+      break;
     default:
+      sceneComponent = <MainMenu goToNextScene={() => setScene('map')} />;
       break;
   }
 
@@ -44,11 +50,11 @@ export const Clash = () => {
       src='/clash/landscape.png'
       width={1000}
       height={600}
+      rgbaFilter='rgba(255, 255, 255, 0.3)'
       css={clashCss}
     >
-      <Filter opacity={0.3} color={colors.white} />
+      {scene && <TopNav />}
       {sceneComponent}
-      <TopNav />
     </Image>  
   );
 };

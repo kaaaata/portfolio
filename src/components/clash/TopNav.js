@@ -9,7 +9,6 @@ const topNavCss = css`
   height: 40px;
   background: rgba(0, 0, 0, 0.8);
   padding: 0 20px;
-  position: absolute;
   width: 100%;
 
   .attributes {

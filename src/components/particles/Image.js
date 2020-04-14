@@ -8,6 +8,7 @@ export const Image = (props) => {
     height,
     size = 'cover',
     circular,
+    rgbaFilter,
     external = false,
     className = '',
     _css = '',
@@ -17,10 +18,11 @@ export const Image = (props) => {
 
   const widthCss = mq.genResponsiveCss('width', width);
   const heightCss = mq.genResponsiveCss('height', height);
+  const linearGradientCss = rgbaFilter ? `linear-gradient(${rgbaFilter}, ${rgbaFilter}), ` : '';
   const url = `${external ? '' : 'assets/'}${src}`;
 
   const imageCss = css`
-    background: url("${url}") no-repeat center center;
+    background: ${linearGradientCss}url("${url}") no-repeat center center;
     background-size: ${size};
     ${widthCss}
     ${heightCss}
