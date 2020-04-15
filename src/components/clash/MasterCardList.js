@@ -15,9 +15,9 @@ const masterCardListCss = css`
 
 export const MasterCardList = () => (
   <div css={masterCardListCss}>
-    {Object.values(cards).map((cardProps, index) => (
+    {Object.values(cards).map((card, index) => (
       <div key={index} className='card_container'>
-        <Card cardProps={cardProps} />
+        <Card name={card.name} />
       </div>
     ))}
   </div>

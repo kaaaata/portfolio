@@ -17,19 +17,28 @@ export default (state = initialState, action) => {
       if (y - 1 >= 0 && !state.map[y - 1][x].isVisited) tilesToUpdate.push(`${x}${y - 1}`);
       if (y + 1 <= 6 && !state.map[y + 1][x].isVisited) tilesToUpdate.push(`${x}${y + 1}`);
 
-      const newMap = state.map.map((row, y) => row.map((node, x) => (
-        tilesToUpdate.includes(`${x}${y}`) ? {
-          ...node,
-          isRevealed: true,
-          isVisited: node.isPlayerHere,
-          isPlayerHere: x === action.payload.x && y === action.payload.y
-        } : node
-      )));
+      const newMap = state.map.map((row, y) => row.map((node, x) => {
+        if (tilesToUpdate.includes(`${x}${y}`)) {
+          return {
+            ...node,
+            isRevealed: true,
+            isVisited: node.isPlayerHere,
+            isPlayerHere: x === action.payload.x && y === action.payload.y
+          };
+        } else if (state.map[y][x].isPlayerHere) {
+          return {
+            ...node,
+            isPlayerHere: false
+          };
+        } else {
+          return node;
+        }
+      }));
 
       return {
         ...state,
         map: newMap,
-        energy: state.energy - (state.map[y][x].monsterId ? 10 : 0)
+        energy: state.energy - (state.map[y][x].monsterId === null ? 0 : 10)
       };
     case 'SET_MAP_ENERGY':
       return {

@@ -1,9 +1,23 @@
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { FlexContainer } from '../../../particles';
+import { FlexContainer, Image } from '../../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../../stores/actions';
+import { monsters } from '../../monsters/monsters';
 import { mapCss } from './mapCss';
-import { colors } from '../../../styles';
+
+const genMapNodeImageSrc = (node) => {
+  const { monsterId, eventId, isRevealed } = node;
+  let image = 'rock';
+  if (isRevealed) {
+    if (monsterId !== null) {
+      image = monsters[node.monsterId].image;
+    } else if (eventId) {
+      image = 'chest';
+    }
+  }
+  
+  return `/clash/${image}.png`;
+};
 
 const MapComponent = ({ map, energy, visitMapTile }) => (
   <FlexContainer justifyContent='center' _css={mapCss}>
@@ -13,25 +27,32 @@ const MapComponent = ({ map, energy, visitMapTile }) => (
     <div className='map'>
       {map.map((row, y) => (
         row.map((node, x) => (
-          <div
+          <Image
             key={`${x}${y}`}
-            className='node'
+            className={`
+              node
+              ${node.isPlayerHere ? 'player_node' : ''}
+              ${x === 3 && y === 3 ? 'starting_node' : ''}
+            `}
             onClick={() => {
               if (node.isRevealed && !node.isPlayerHere && (energy >= 10 || node.eventId)) {
                 visitMapTile({ x, y });
               }
             }}
-            style={{ background: node.isRevealed ? 'transparent' : colors.grey }}
-          >
-            {node.isPlayerHere && 'P'}
-            {node.monsterId !== null && `M${node.monsterId}`}
-            {node.eventId !== null && `E${node.eventId}`}
-          </div>
+            src={genMapNodeImageSrc(node)}
+            width='100%'
+            height='100%'
+          />
         ))
       ))}
     </div>
     <aside>
-      <div className='lightning_bolt'>&#9889;</div>
+      <Image
+        src={`/clash/energy.png`}
+        width={75}
+        height={75}
+        className='energy'
+      />
       <FlexContainer
         justifyContent='center'
         alignItems='center'

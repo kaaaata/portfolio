@@ -8,10 +8,18 @@ export const mapCss = css`
     display: inline-grid;
     grid-template-columns: repeat(7, 70px);
     grid-auto-rows: 70px;
-    grid-gap: 5px;  
+    grid-gap: 1px;
 
     .node {
       border: 2px solid ${colors.grey};
+
+      &.player_node {
+        border-color: ${colors.yellowLight};
+      }
+
+      &.starting_node {
+        background: transparent;
+      }
     }
   }
 
@@ -19,11 +27,8 @@ export const mapCss = css`
     width: 200px;
     flex: none;
 
-    .lightning_bolt {
-      margin-top: 25px;
-      margin-bottom: 5px;
-      font-size: 60px;
-      text-align: center;
+    .energy {
+      margin: 10px auto;
     }
 
     .energy_meter {
@@ -37,7 +42,7 @@ export const mapCss = css`
 
       .fill {
         position: absolute;
-        background: ${colors.green};
+        background: ${colors.yellowLight};
         width: 100%;
         bottom: 0;
         transition: height 0.5s ease-out;

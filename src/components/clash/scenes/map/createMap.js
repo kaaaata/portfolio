@@ -1,4 +1,5 @@
 import { sample, sampleSize, range, shuffle } from 'lodash';
+import { monsters } from '../../monsters/monsters';
 
 const mapNode = {
   isRevealed: false,
@@ -8,7 +9,7 @@ const mapNode = {
   eventId: null
 };
 
-const testMonsterIds = range(0, 40);
+const testMonsterIds = range(0, monsters.length);
 const testEventIds = range(0, 40);
 
 export const createMap = () => {
