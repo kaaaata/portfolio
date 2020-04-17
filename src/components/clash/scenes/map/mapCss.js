@@ -2,7 +2,7 @@ import { css } from '@emotion/core';
 import { colors, zIndex } from '../../../styles';
 
 export const mapCss = css`
-  margin-top: 20px;
+  padding-top: 20px;
 
   .map {
     display: inline-grid;

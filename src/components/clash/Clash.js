@@ -53,7 +53,6 @@ export const Clash = () => {
       css={clashCss}
     >
       {scene && <TopNav />}
-      <button onClick={() => setScene(scene === 'map' ? null : 'map')} />
       {sceneComponent}
     </Image>  
   );

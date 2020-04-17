@@ -23,5 +23,6 @@ export const setMatchups = payload => ({ type: 'SET_MATCHUPS', payload });
 export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTIES', payload });
 export const setShopCards = payload => ({ type: 'SET_SHOP_CARDS', payload });
 export const setAIMatchResults = payload => ({ type: 'SET_AI_MATCH_RESULTS', payload });
-export const visitMapTile = payload => ({ type: 'VISIT_MAP_TILE', payload });
+export const visitMapNode = payload => ({ type: 'VISIT_MAP_NODE', payload });
 export const setMapEnergy = payload => ({ type: 'SET_MAP_ENERGY', payload });
+export const closeMapNodePreviewModal = payload => ({ type: 'CLOSE_MAP_NODE_PREVIEW_MODAL', payload });
