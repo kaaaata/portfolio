@@ -18,8 +18,8 @@ import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
 import { HalfModal } from './modals/HalfModal';
 import { Score } from './modals/Score';
 
-const BoardComponent = (props) => {
-  const [activeModal, setActiveModal] = useState('score');
+const BattleComponent = (props) => {
+  const [activeModal, setActiveModal] = useState(null);
   let modalComponent = null;
   let interval = null;
   let actions = [];
@@ -136,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
   setWinner: payload => dispatch(actions.setWinner(payload)),
 });
 
-export const Board = connect(mapStateToProps, mapDispatchToProps)(BoardComponent);
+export const Battle = connect(mapStateToProps, mapDispatchToProps)(BattleComponent);

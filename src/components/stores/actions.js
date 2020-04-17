@@ -18,11 +18,10 @@ export const setYourTemporaryStats = payload => ({ type: 'SET_YOUR_TEMPORARY_STA
 export const setEnemyTemporaryStats = payload => ({ type: 'SET_ENEMY_TEMPORARY_STATS', payload });
 export const setBattleInitialState = payload => ({ type: 'SET_BATTLE_INITIAL_STATE', payload });
 export const setWinner = payload => ({ type: 'SET_WINNER', payload });
-export const setPlayerId = payload => ({ type: 'SET_PLAYER_ID', payload });
-export const setMatchups = payload => ({ type: 'SET_MATCHUPS', payload });
 export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTIES', payload });
 export const setShopCards = payload => ({ type: 'SET_SHOP_CARDS', payload });
-export const setAIMatchResults = payload => ({ type: 'SET_AI_MATCH_RESULTS', payload });
 export const visitMapNode = payload => ({ type: 'VISIT_MAP_NODE', payload });
 export const setMapEnergy = payload => ({ type: 'SET_MAP_ENERGY', payload });
-export const closeMapNodePreviewModal = payload => ({ type: 'CLOSE_MAP_NODE_PREVIEW_MODAL', payload });
+export const openMapNodePreview = payload => ({ type: 'OPEN_MAP_NODE_PREVIEW', payload });
+export const closeMapNodePreview = payload => ({ type: 'CLOSE_MAP_NODE_PREVIEW', payload });
+export const setScene = payload => ({ type: 'SET_SCENE', payload });

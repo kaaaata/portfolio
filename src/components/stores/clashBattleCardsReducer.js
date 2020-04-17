@@ -1,6 +1,6 @@
 const initialState = {
   yourDeck: [],
-  yourDiscard: ['Mage'],
+  yourDiscard: [],
   yourBanish: [],
   yourHand: [null, null, null],
   enemyDeck: [],
@@ -56,6 +56,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         stack: action.payload
+      };
+    case 'SET_BATTLE_INITIAL_STATE':
+      return {
+        yourDeck: [],
+        yourDiscard: [],
+        yourBanish: [],
+        yourHand: [null, null, null],
+        enemyDeck: [],
+        enemyDiscard: [],
+        enemyBanish: [],
+        enemyHand: [null, null, null],
+        stack: []
       };
     default:
       return state;

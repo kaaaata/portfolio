@@ -50,23 +50,7 @@ export const TopNavComponent = ({
 };
 
 const mapStateToProps = (state) => ({
-  player: state.clashPlayers[state.clashPlayers.playerId]
-});
-const mapDispatchToProps = dispatch => ({
-  setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
-  setYourDiscard: payload => dispatch(actions.setYourDiscard(payload)),
-  setYourBanish: payload => dispatch(actions.setYourBanish(payload)),
-  setYourHand: payload => dispatch(actions.setYourHand(payload)),
-  setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload)),
-  setEnemyDiscard: payload => dispatch(actions.setEnemyDiscard(payload)),
-  setEnemyBanish: payload => dispatch(actions.setEnemyBanish(payload)),
-  setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),
-  setStack: payload => dispatch(actions.setStack(payload)),
-  setYourShields: payload => dispatch(actions.setYourShields(payload)),
-  setEnemyShields: payload => dispatch(actions.setEnemyShields(payload)),
-  setYourTemporaryStats: payload => dispatch(actions.setYourTemporaryStats(payload)),
-  setEnemyTemporaryStats: payload => dispatch(actions.setEnemyTemporaryStats(payload)),
-  setWinner: payload => dispatch(actions.setWinner(payload)),
+  player: state.clashPlayer
 });
 
-export const TopNav = connect(mapStateToProps, mapDispatchToProps)(TopNavComponent);
+export const TopNav = connect(mapStateToProps)(TopNavComponent);

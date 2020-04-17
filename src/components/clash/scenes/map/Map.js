@@ -25,16 +25,17 @@ const MapComponent = ({
   energy,
   modalMonsterId,
   modalEventId,
-  closeMapNodePreviewModal,
-  visitMapNode
+  openMapNodePreview,
+  closeMapNodePreview
 }) => {
   let nodePreviewModal = null;
+  modalMonsterId = 0; // testing
 
   if (typeof modalMonsterId === 'number') {
     nodePreviewModal = (
       <MonsterNodePreview
         monsterId={modalMonsterId}
-        closeModal={() => closeMapNodePreviewModal(null)}
+        closeModal={() => closeMapNodePreview()}
       />
     );
   } else if (typeof modalEventId === 'number') {
@@ -58,7 +59,7 @@ const MapComponent = ({
               `}
               onClick={() => {
                 if (node.isRevealed && !node.isPlayerHere) {
-                  visitMapNode({ x, y });
+                  openMapNodePreview({ x, y });
                 }
               }}
               src={genMapNodeImageSrc(node)}
@@ -99,8 +100,8 @@ const mapStateToProps = (state) => ({
   modalEventId: state.clashMap.modalEventId,
 });
 const mapDispatchToProps = dispatch => ({
-  visitMapNode: payload => dispatch(actions.visitMapNode(payload)),
-  closeMapNodePreviewModal: payload => dispatch(actions.closeMapNodePreviewModal(payload))
+  openMapNodePreview: payload => dispatch(actions.openMapNodePreview(payload)),
+  closeMapNodePreview: payload => dispatch(actions.closeMapNodePreview(payload))
 });
 
 export const Map = connect(mapStateToProps, mapDispatchToProps)(MapComponent);

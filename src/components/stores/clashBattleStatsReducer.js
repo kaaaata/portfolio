@@ -49,15 +49,15 @@ export default (state = initialState, action) => {
       };
     case 'SET_BATTLE_INITIAL_STATE':
       return {
-        yourName: action.payload.yourName,
-        yourImage: action.payload.yourImage,
+        yourName: 'Spear Goon',
+        yourImage: 'red_spear_guy',
         yourPermanentStats: action.payload.yourPermanentStats,
         yourTemporaryStats: { attack: 0, magic: 0, defense: 0 },
         yourShields: 0,
       
         enemyName: action.payload.enemyName,
         enemyImage: action.payload.enemyImage,
-        enemyPermanentStats: action.payload.enemyPermanentStats,
+        enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
         enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
         enemyShields: 0,
       

@@ -6,12 +6,10 @@ import { Gold } from '../Gold';
 import { FlexContainer } from '../../particles';
 
 const ScoreComponent = ({
-  playerId,
   player,
   winner,
   setPlayerProperties,
-  goToNextScene,
-  setAIMatchResults
+  goToNextScene
 }) => {
   const bonuses = {
     'Base Gold': 100
@@ -26,17 +24,14 @@ const ScoreComponent = ({
   return (
     <Modal
       title='Rewards'
-      continueOnClick={() => {
-        setPlayerProperties({
-          id: playerId,
-          properties: {
-            gold: player.gold + totalGoldEarned
-          }
-        });
-        setAIMatchResults();
+      continueOptions={[]}
+      // continueOnClick={() => {
+      //   setPlayerProperties({
+      //     gold: player.gold + totalGoldEarned
+      //   });
 
-        // goToNextScene();
-      }}
+      //   // goToNextScene();
+      // }}
     >
       {Object.keys(bonuses).map(key => (
         <FlexContainer key={key} alignItems='center'>
@@ -54,13 +49,11 @@ const ScoreComponent = ({
 };
 
 const mapStateToProps = (state) => ({
-  playerId: state.clashPlayers.playerId,
-  player: state.clashPlayers[state.clashPlayers.playerId],
+  player: state.clashPlayer,
   winner: state.clashBattleStats.winner
 });
 const mapDispatchToProps = (dispatch) => ({
-  setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload)),
-  setAIMatchResults: payload => dispatch(actions.setAIMatchResults(payload))
+  setPlayerProperties: payload => dispatch(actions.setPlayerProperties(payload))
 });
 
 export const Score = connect(mapStateToProps, mapDispatchToProps)(ScoreComponent);

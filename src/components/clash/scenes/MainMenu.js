@@ -1,4 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { connect } from 'react-redux';
+import * as actions from '../../stores/actions';
 
 const mainMenuCss = css`
   h1 {
@@ -10,8 +12,14 @@ const mainMenuCss = css`
   }
 `;
 
-export const MainMenu = ({ goToNextScene }) => (
+const MainMenuComponent = ({ setScene }) => (
   <div css={mainMenuCss}>
-    <h1 onClick={() => goToNextScene()}>Play</h1>
+    <h1 onClick={() => setScene('map')}>Play</h1>
   </div>
 );
+
+const mapDispatchToProps = dispatch => ({
+  setScene: payload => dispatch(actions.setScene(payload))
+});
+
+export const MainMenu = connect(null, mapDispatchToProps)(MainMenuComponent);

@@ -21,7 +21,6 @@ const shopCss = css`
 `;
 
 const ShopComponent = ({
-  playerId,
   player,
   shopCards,
   goToNextScene,
@@ -41,11 +40,8 @@ const ShopComponent = ({
       }
 
       setPlayerProperties({
-        id: playerId,
-        properties: {
-          gold: player.gold - card.cost,
-          collection: newCollection
-        }
+        gold: player.gold - card.cost,
+        collection: newCollection
       });
       setShopCards(shopCards.map((card, i) => i === index ? null : card));
     }
@@ -76,8 +72,7 @@ const ShopComponent = ({
 };
 
 const mapStateToProps = (state) => ({
-  playerId: state.clashPlayers.playerId,
-  player: state.clashPlayers[state.clashPlayers.playerId],
+  player: state.clashPlayer,
   shopCards: state.clashShop.cards
   // shopCards: genPackCards().map(card => ({ name: card, price: 100 }))
 });

@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'VISIT_MAP_NODE':
+    case 'VISIT_MAP_NODE': {
       // action.payload like { x, y }
       const { x, y } = action.payload;
       const nodesToUpdate = [`${x}${y}`]; // `${x}${y}` so we can use [].includes
@@ -40,15 +40,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         map: newMap,
-        modalMonsterId: state.map[y][x].monsterId,
-        modalEventId: state.map[y][x].eventId
+        modalMonsterId: null,
+        modalEventId: null
       };
+    }
     case 'SET_MAP_ENERGY':
       return {
         ...state,
         energy: action.payload
       };
-    case 'CLOSE_MAP_NODE_PREVIEW_MODAL':
+    case 'OPEN_MAP_NODE_PREVIEW': {
+      const { x, y } = action.payload;
+
+      return {
+        ...state,
+        modalMonsterId: state.map[y][x].monsterId,
+        modalEventId: state.map[y][x].eventId
+      };
+    }
+    case 'CLOSE_MAP_NODE_PREVIEW':
       return {
         ...state,
         modalMonsterId: null,

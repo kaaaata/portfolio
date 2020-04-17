@@ -69,10 +69,10 @@ export const YourDeck = connect(state => ({ cards: state.clashBattleCards.yourDe
     <PileOfCards
       cards={cards}
       x={150}
-      y={420}
+      y={385}
       themeColor={colors.green}
       countX={135}
-      countY={535}
+      countY={500}
     />
   )
 );
@@ -82,10 +82,10 @@ export const YourDiscard = connect(state => ({ cards: state.clashBattleCards.you
     <PileOfCards
       cards={cards}
       x={695}
-      y={420}
+      y={385}
       themeColor={colors.red}
       countX={705}
-      countY={535}
+      countY={500}
     />
   )
 );
@@ -95,10 +95,10 @@ export const YourBanish = connect(state => ({ cards: state.clashBattleCards.your
     <PileOfCards
       cards={cards}
       x={835}
-      y={420}
+      y={385}
       themeColor={colors.black}
       countX={850}
-      countY={535}
+      countY={500}
     />
   )
 );
@@ -123,10 +123,10 @@ export const EnemyBanish = connect(state => ({ cards: state.clashBattleCards.ene
     <PileOfCards
       cards={cards}
       x={45}
-      y={80}
+      y={45}
       themeColor={colors.black}
       countX={25}
-      countY={180}
+      countY={145}
     />
   )
 );
@@ -136,10 +136,10 @@ export const EnemyDiscard = connect(state => ({ cards: state.clashBattleCards.en
     <PileOfCards
       cards={cards}
       x={185}
-      y={80}
+      y={45}
       themeColor={colors.red}
       countX={170}
-      countY={180}
+      countY={145}
     />
   )
 );
@@ -149,10 +149,10 @@ export const EnemyDeck = connect(state => ({ cards: state.clashBattleCards.enemy
     <PileOfCards
       cards={cards}
       x={725}
-      y={80}
+      y={45}
       themeColor={colors.green}
       countX={735}
-      countY={180}
+      countY={145}
     />
   )
 );

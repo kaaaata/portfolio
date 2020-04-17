@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { MainMenu } from './scenes/MainMenu';
 import { Map } from './scenes';
-import { Board } from './Board';
+import { Battle } from './Battle';
 import { MasterCardList } from './MasterCardList';
 import { TopNav } from './TopNav';
-import { Collection } from './modals/Collection';
-import { CharSelection } from './modals/CharSelection';
 import { Shop } from './modals/Shop';
 import { Image } from '../particles';
+import { connect } from 'react-redux';
 
 const clashCss = css`
   position: relative;
@@ -16,22 +14,15 @@ const clashCss = css`
   user-select: none;
 `;
 
-export const Clash = () => {
-  const [scene, setScene] = useState('map');
+const ClashComponent = ({ scene }) => {
   let sceneComponent;
 
-  switch (scene) { 
-    case 'char_selection':
-      sceneComponent = <CharSelection goToNextScene={() => setScene('shop')} />;
-      break;
+  switch (scene) {
     case 'shop':
-      sceneComponent = <Shop goToNextScene={() => setScene('collection')} />;
+      sceneComponent = <Shop />;
       break;
-    case 'collection':
-      sceneComponent = <Collection goToNextScene={() => setScene('board')} />;
-      break;
-    case 'board':
-      sceneComponent = <Board goToNextScene={() => setScene('shop')} />;
+    case 'battle':
+      sceneComponent = <Battle />;
       break;
     case 'master_card_list':
       sceneComponent = <MasterCardList />;
@@ -40,7 +31,7 @@ export const Clash = () => {
       sceneComponent = <Map />;
       break;
     default:
-      sceneComponent = <MainMenu goToNextScene={() => setScene('map')} />;
+      sceneComponent = <MainMenu />;
       break;
   }
 
@@ -57,3 +48,9 @@ export const Clash = () => {
     </Image>  
   );
 };
+
+const mapStateToProps = (state) => ({
+  scene: state.clashScene.scene
+});
+
+export const Clash = connect(mapStateToProps)(ClashComponent);

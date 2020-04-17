@@ -1,6 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
-import { Image } from '../particles';
+import { Image, Spacer } from '../particles';
 import { Attributes } from './Attributes';
 import { colors } from '../styles';
 import { useState, useEffect } from 'react';
@@ -13,11 +13,13 @@ const portraitCss = (location) => css`
   .portrait {
     position: absolute;
     transition: transform 2s ease-in, width 2s ease-in, height 2s ease-in;
+    margin-left: -25px;
 
     &.dead {
       transform: rotate(1260deg);
       width: 0px;
       height: 0px;
+      margin-left: 0;
     }
   }
 
@@ -65,9 +67,10 @@ const Portrait = ({
   const portrait = (
     <Image
       src={`/clash/${image}.png`}
-      width={100}
+      width={150}
       height={125}
       className={portraitClassName}
+      size='contain'
     />
   );
 
@@ -91,6 +94,7 @@ const Portrait = ({
     <div css={portraitCss(location)}>
       {portrait}
       {portraitPlaceholder}
+      <Spacer height={5} />
       {shieldsDisplay}
       <Attributes
         attack={temporaryStats.attack + permanentStats.attack}
