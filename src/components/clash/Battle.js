@@ -15,21 +15,23 @@ import {
 } from './PileOfCards';
 import { YourPortrait, EnemyPortrait } from './Portrait';
 import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
-import { HalfModal } from './modals/HalfModal';
-import { Score } from './modals/Score';
+import { Modal } from './modals/Modal';
+import { BattleRewards } from './modals/BattleRewards';
+import { Image } from '../particles';
 
 const BattleComponent = (props) => {
-  const [activeModal, setActiveModal] = useState(null);
+  const [activeModal, setActiveModal] = useState('battle_rewards');
+  const { winner, winnerImage } = props;
   let modalComponent = null;
   let interval = null;
   let actions = [];
   let isAnimating = false;
 
   useEffect(() => {
-    if (props.winner) {
-      setActiveModal('winner');
+    if (winner) {
+      setActiveModal('win_or_lose');
     }
-  }, [props.winner]);
+  }, [winner]);
 
   const executeRenderAction = (action) => {
     if (action) {
@@ -42,7 +44,7 @@ const BattleComponent = (props) => {
   };
 
   const handleClickCardInYourHand = (index) => {
-    if (isAnimating || props.winner) {
+    if (isAnimating || winner) {
       return;
     }
 
@@ -74,18 +76,25 @@ const BattleComponent = (props) => {
   };
 
   switch (activeModal) {
-    case 'winner':
+    case 'win_or_lose':
       modalComponent = (
-        <HalfModal
-          title={`${props.winner} wins!`}
-          continueOnClick={() => setActiveModal('score')}
-        />
+        <Modal
+          title={`${winner} wins!`}
+          continueOptions={[
+            { text: 'Battle Rewards', color: 'green', onClick: () => setActiveModal('battle_rewards') }
+          ]}
+        >
+          <Image
+            src={`/clash/${winnerImage}.png`}
+            height={200}
+            width={200}
+            size='contain'
+          />
+        </Modal>
       );
       break;
-    case 'score':
-      modalComponent = (
-        <Score goToNextScene={props.goToNextScene} />
-      );
+    case 'battle_rewards':
+      modalComponent = <BattleRewards />;
       break;
     default:
       break;
@@ -117,9 +126,11 @@ const BattleComponent = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  winner: state.clashBattleStats.winner
+  winner: state.clashBattleStats.winner,
+  winnerImage: state.clashBattleStats.winnerImage,
 });
 const mapDispatchToProps = dispatch => ({
+  // these are called from executeRenderAction
   setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
   setYourDiscard: payload => dispatch(actions.setYourDiscard(payload)),
   setYourBanish: payload => dispatch(actions.setYourBanish(payload)),

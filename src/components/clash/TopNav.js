@@ -12,7 +12,7 @@ const topNavCss = css`
   width: 100%;
 
   .attributes {
-    margin-left: 20px;
+    margin-left: 40px;
     width: 110px;
     font-size: 26px;
   }

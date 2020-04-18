@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { cards } from './cards/cards';
-import { Image, Spacer, Filter, FlexContainer } from '../particles';
+import { Image, Spacer, FlexContainer } from '../particles';
 import { colors, zIndex } from '../styles';
-import { cardBodyCss } from './cardCss';
+import { cardBodyCss } from './cardBodyCss';
 
 const rarityColors = {
-  common: colors.white,
+  common: colors.sand,
   uncommon: colors.green,
   rare: colors.blue,
-  legendary: colors.yellow
+  legendary: colors.red
 };
 
 export const Card = ({
@@ -20,7 +20,6 @@ export const Card = ({
   y = 0,
   isFaceDown,
   isInPileOfCards = false,
-  isInHand = false,
   shouldAnimateEntry = false,
   isBlurred = false,
   onClick
@@ -52,17 +51,17 @@ export const Card = ({
       top: ${y}px;
     ` : 'position: relative;'}
     user-select: none;
-    border: 2px solid ${rarityColors[rarity]};
+    border: 2px solid ${isFaceDown ? colors.steel : rarityColors[rarity]};
     border-radius: 5px;
     ${isInPileOfCards ? transformCss : `
       box-shadow: 2px 2px 3px ${colors.black};
 
       &:hover {
         z-index: ${zIndex.mouseEventArea5};
-        ${isInHand ? 'transform: scale(1.25);' : transformCss}
+        ${onClick ? 'transform: scale(1.25);' : transformCss}
       }
     `}
-    transition: transform ${isInHand ? '0.1s' : '0.2s'} ease-out;
+    transition: transform ${onClick ? '0.1s' : '0.2s'} ease-out;
     cursor: ${onClick ? 'pointer' : 'default'};
     ${isBlurred ? 'filter: blur(3px);' : ''}
   `;
@@ -121,21 +120,41 @@ export const Card = ({
     />
   );
 
-  return (
+  return isFaceDown ? (
+    <div
+      css={css`
+        width: ${width}px;
+        height: ${height}px;
+        background: ${colors.blackMediumDark};
+        ${cardCss}
+      `}
+      onClick={onClick}
+      className='card'
+    >
+      <Image
+        src='/clash/card_back.png'
+        width={width}
+        height={height}
+        _css={css`
+          margin: -2px 0 0 -2px;
+          border-radius: 5px;
+        `}
+      />
+    </div>
+  ) : (
     <Image
       src='/clash/rock.png'
       width={width}
       height={height}
       onClick={onClick}
       _css={cardCss}
+      rgbaFilter='rgba(0, 0, 0, 0.45)'
       className='card'
     >
-      <Filter opacity={0.45} color={colors.black} />
       <div css={cardBodyCss(rarityColors[rarity])}>
         <div className='name'>{name}</div>
         <div className='border' />
         <div className='image_container'>
-          <Filter opacity={0.25} color={colors.white} />
           {cardArt}
           {attackDisplay}
           {defenseDisplay}

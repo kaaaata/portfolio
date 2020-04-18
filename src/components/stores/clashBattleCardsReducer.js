@@ -1,16 +1,17 @@
-const initialState = {
+const genInitialState = () => ({
   yourDeck: [],
   yourDiscard: [],
   yourBanish: [],
   yourHand: [null, null, null],
+  battleRewardCards: [],
   enemyDeck: [],
   enemyDiscard: [],
   enemyBanish: [],
   enemyHand: [null, null, null],
   stack: []
-};
+});
 
-export default (state = initialState, action) => {
+export default (state = genInitialState(), action) => {
   switch (action.type) {
     case 'SET_YOUR_DECK':
       return {
@@ -57,18 +58,18 @@ export default (state = initialState, action) => {
         ...state,
         stack: action.payload
       };
-    case 'SET_BATTLE_INITIAL_STATE':
+    case 'SET_BATTLE_REWARD_CARDS':
       return {
-        yourDeck: [],
-        yourDiscard: [],
-        yourBanish: [],
-        yourHand: [null, null, null],
-        enemyDeck: [],
-        enemyDiscard: [],
-        enemyBanish: [],
-        enemyHand: [null, null, null],
-        stack: []
+        ...state,
+        battleRewardCards: action.payload
       };
+    case 'SET_BATTLE_REWARD_GOLD':
+      return {
+        ...state,
+        battleRewardGold: action.payload
+      };
+    case 'SET_BATTLE_INITIAL_STATE':
+      return genInitialState();
     default:
       return state;
   }

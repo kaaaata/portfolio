@@ -2,7 +2,7 @@ export const monsters = [
   {
     name: 'Minotaur',
     image: 'minotaur',
-    tier: 1,
+    level: 1,
     deck: [
       'Minotaur',
       'Strike',

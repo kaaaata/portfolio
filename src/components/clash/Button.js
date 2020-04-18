@@ -6,12 +6,12 @@ import { colors, zIndex } from '../styles';
 
 
 export const Button = ({
-  text,
   color = 'white',
-  cb
+  onClick,
+  children
 }) => (
   <button
-    onClick={cb}
+    onClick={onClick}
     css={css`
       min-width: 120px;
       height: 40px;
@@ -24,6 +24,6 @@ export const Button = ({
       cursor: pointer;
     `}
   >
-    {text}
+    {children}
   </button>
 );

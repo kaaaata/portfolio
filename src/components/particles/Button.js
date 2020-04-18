@@ -38,7 +38,6 @@ export const Button = ({
   const button = (
     <button
       css={buttonCss(isSelected, isDisabled, _css)}
-      type='button'
       onClick={isDisabled ? noop : onClick}
     >
       {children}

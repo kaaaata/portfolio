@@ -18,6 +18,7 @@ export const cardBodyCss = (rarityColor) => css`
     display: flex;
     justify-content: center;
     position: relative;
+    background: rgba(255, 255, 255, 0.25);
 
     .attack, .defense {
       font-size: 24px;

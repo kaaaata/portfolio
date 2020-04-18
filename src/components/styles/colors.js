@@ -5,13 +5,17 @@ export const colors = {
 
   grey: '#bababa',
 
+  sand: '#FFF8E8',
+
   white: '#FFFFFF',
 
-  green: '#3EE9A7',
+  green: '#3DE5A5',
 
-  blue: '#7291FF',
+  steel: 'lightsteelblue',
 
-  red: '#F7484E',
+  blue: '#829DFF',
+
+  red: '#FC5863',
 
   yellow: '#FFC147',
   yellowLight: '#ffdd30'

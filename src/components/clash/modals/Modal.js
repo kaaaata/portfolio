@@ -1,7 +1,6 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { Spacer, FlexContainer, Filter } from '../../particles';
+import { Spacer, FlexContainer } from '../../particles';
 import { Button } from '../Button';
-import { colors } from '../../styles';
 
 const modalCss = css`
   position: absolute;
@@ -31,20 +30,26 @@ const modalCss = css`
 
 export const Modal = ({
   title,
-  continueOptions, // [{ text, color, cb }]
+  continueOptions, // [{ text, color, onClick }]
   children
 }) => {
   const modalTitle = title && (
     <div className='title'>
       {title}
-      <Spacer height={40} />
+      <Spacer height={30} />
     </div>
   );
 
   const modalContinueOptions = (
     <div className='continue_options'>
       {continueOptions.map(i => (
-        <Button key={i.text} {...i} />
+        <Button
+          key={i.text}
+          color={i.color}
+          onClick={i.onClick}
+        >
+          {i.text}
+        </Button>
       ))}
     </div>
   );
@@ -56,10 +61,10 @@ export const Modal = ({
         alignItems='center'
         flexDirection='column'
       >
-        <Spacer height={80} />
+        <Spacer height={30} />
         {modalTitle}
         {children}
-        <Spacer height={40} />
+        <Spacer height={30} />
         {modalContinueOptions}
       </FlexContainer>
     </div>

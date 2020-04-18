@@ -1,11 +1,10 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Modal } from './Modal';
-import { Spacer, FlexContainer, Filter, Image } from '../../particles';
-import { colors } from '../../styles';
+import { Spacer, Image } from '../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { monsters } from '../monsters/monsters';
-import { shuffle } from 'lodash';
+import { shuffle, sampleSize, random } from 'lodash';
 
 const MonsterNodePreviewComponent = ({
   monsterId,
@@ -13,12 +12,14 @@ const MonsterNodePreviewComponent = ({
   player,
   setBattleInitialState,
   setYourDeck,
+  setBattleRewardCards,
+  setBattleRewardGold,
   setEnemyDeck,
   setYourHand,
   setEnemyHand,
   setScene
 }) => {
-  const { name, image, tier, deck } = monsters[monsterId];
+  const { name, image, level, deck } = monsters[monsterId];
 
   const fightOnClick = () => {
     setBattleInitialState({
@@ -29,26 +30,28 @@ const MonsterNodePreviewComponent = ({
       },
       enemyName: name,
       enemyImage: image,
+      enemyLevel: level,
       winner: null
     });
     const yourDeck = shuffle(player.deck);
-    // const enemyDeck = shuffle(deck);
-    const enemyDeck = []; // testing
+    const enemyDeck = shuffle(deck);
 
     setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
     setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
     setYourHand(yourDeck.slice(yourDeck.length - 3));
     setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
+    setBattleRewardCards(sampleSize(enemyDeck, 4));
+    setBattleRewardGold(25 * level + random(0, 25));
     setScene('battle');
   };
   fightOnClick(); // testing
 
   return (
     <Modal
-      title={`${name} Lv. ${tier}`}
+      title={`${name} Lv. ${level}`}
       continueOptions={[
-        { text: 'Fight', color: 'green', cb: fightOnClick },
-        { text: 'Go Back', color: 'red', cb: closeModal },
+        { text: 'Fight', color: 'green', onClick: fightOnClick },
+        { text: 'Go Back', color: 'red', onClick: closeModal },
       ]}
     >
       <Image
@@ -72,6 +75,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload)),
   setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
+  setBattleRewardCards: payload => dispatch(actions.setBattleRewardCards(payload)),
+  setBattleRewardGold: payload => dispatch(actions.setBattleRewardGold(payload)),
   setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload)),
   setYourHand: payload => dispatch(actions.setYourHand(payload)),
   setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),

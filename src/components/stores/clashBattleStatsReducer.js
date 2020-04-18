@@ -10,8 +10,10 @@ const initialState = {
   enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
   enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
   enemyShields: 0,
+  enemyLevel: 1,
 
-  winner: null
+  winner: null,
+  winnerImage: ''
 };
 
 export default (state = initialState, action) => {
@@ -45,7 +47,8 @@ export default (state = initialState, action) => {
     case 'SET_WINNER':
       return {
         ...state,
-        winner: action.payload
+        winner: action.payload,
+        winnerImage: action.payload === state.yourName ? state.yourImage : state.enemyImage
       };
     case 'SET_BATTLE_INITIAL_STATE':
       return {
@@ -60,6 +63,7 @@ export default (state = initialState, action) => {
         enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
         enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
         enemyShields: 0,
+        enemyLevel: action.payload.enemyLevel,
       
         winner: null
       };

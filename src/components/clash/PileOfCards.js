@@ -111,7 +111,6 @@ export const YourHand = connect(state => ({ cards: state.clashBattleCards.yourHa
         name={card}
         x={300 + 125 * index}
         y={400}
-        isInHand
         onClick={() => onClick(index)}
       />
     ) : null
@@ -165,7 +164,6 @@ export const EnemyHand = connect(state => ({ cards: state.clashBattleCards.enemy
         name={card}
         x={330 + 125 * index}
         y={45}
-        isInHand
       />
     ) : null
   ))
