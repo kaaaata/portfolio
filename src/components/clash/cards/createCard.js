@@ -14,7 +14,7 @@ const cardTemplate = {
   dealsBanishingDamage: false,
   banishesOnPlay: false,
   customEffect: false,
-  pierce: 0,
+  pierces: false,
   isBuyable: true,
   playCopiesOfCards: null,
   shuffleCardCopiesIntoYourPiles: null,
@@ -26,16 +26,15 @@ const genCardDescription = ({
   heal,
   healEnemy,
   damageSelf,
-  pierce,
+  pierces,
   description,
   onDiscard,
   type
 }) => description || [
-  type === 'magic' && 'Damage dealt banishes.',
   heal && `Heal ${heal}.`,
   healEnemy && `Heal enemy ${healEnemy}.`,
   damageSelf && `Deal ${damageSelf} to yourself.`,
-  pierce && `Pierces ${pierce} shield${pierce === 1 ? '' : 's'}.`,
+  pierces && `Damage dealt pierces shields.`,
   onDiscard && type !== 'potion' && `On discard: ${genCardDescription(onDiscard)}`
 ].filter(Boolean).join(' ');
 

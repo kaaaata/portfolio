@@ -3,7 +3,7 @@ export const monsters = [
     name: 'Minotaur',
     image: 'minotaur',
     level: 1,
-    deck: [
+    baseDeck: [
       'Minotaur',
       'Strike',
       'Strike',

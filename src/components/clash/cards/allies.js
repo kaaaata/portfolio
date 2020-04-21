@@ -24,10 +24,10 @@ export const allies = [
     image: 'red_spear_guy',
     rarity: 'common',
     attack: 1,
-    defense: 3,
-    pierce: 1,
+    defense: 4,
+    pierces: true,
     shuffleCardCopiesIntoYourPiles: [{ card: 'Spear Goon', pile: 'deck' }],
-    description: 'Pierce: 1. Shuffle a copy of Spear Goon into your deck.'
+    description: 'Damage dealt pierces shields. Shuffle a copy of Spear Goon into your deck.'
   },
   {
     name: 'Wayne',
@@ -38,8 +38,9 @@ export const allies = [
     shuffleCardCopiesIntoOpponentsPiles: [
       { card: 'Bomb', pile: 'deck' },
       { card: 'Bomb', pile: 'deck' },
+      { card: 'Bomb', pile: 'deck' },
     ],
-    description: 'Shuffle 2 copies of Bomb into your opponent\'s deck.'
+    description: 'Shuffle 3 copies of Bomb into your opponent\'s deck.'
   },
   {
     name: 'Cleric',
@@ -60,7 +61,7 @@ export const allies = [
     attack: 0,
     defense: 4,
     heal: 4,
-    healEnemy: 2
+    healEnemy: 4
   },
   {
     name: 'Hobgoblin',
@@ -108,7 +109,7 @@ export const allies = [
     name: 'Minotaur',
     image: 'minotaur',
     rarity: 'rare',
-    attack: 3,
+    attack: 4,
     defense: 0,
     temporaryStatGain: {
       attack: 1
@@ -120,7 +121,7 @@ export const allies = [
     image: 'elf',
     rarity: 'rare',
     attack: 0,
-    defense: 3,
+    defense: 4,
     temporaryStatGain: {
       defense: 1
     },
@@ -130,8 +131,8 @@ export const allies = [
     name: 'Mage',
     image: 'mage',
     rarity: 'rare',
-    attack: 1,
-    defense: 1,
+    attack: 2,
+    defense: 2,
     temporaryStatGain: {
       magic: 1
     },
@@ -164,7 +165,7 @@ export const allies = [
     name: 'Ice Queen',
     image: 'ice_queen',
     rarity: 'legendary',
-    attack: 2,
+    attack: 3,
     defense: 5,
     shuffleCardCopiesIntoYourPiles: [
       { card: 'Ice Blade', pile: 'deck', index: 'top' },

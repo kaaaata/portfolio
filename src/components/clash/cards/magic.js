@@ -28,16 +28,16 @@ export const magic = [
     name: 'Candy Corn',
     image: 'candy_corn',
     rarity: 'uncommon',
-    attack: 1,
+    attack: 3,
     defense: 0,
     shuffleCardCopiesIntoYourPiles: [
       { card: 'Candy Corn', pile: 'discard', index: 'top' },
       { card: 'Candy Corn', pile: 'discard', index: 'top' }
     ],
-    description: 'Damage dealt banishes. Add two copies of Candy Corn into your discard.'
+    description: 'Damage dealt pierces shields. Add two copies of Candy Corn into your discard.'
   },
 ].map(card => createCard({
   ...card,
   type: 'magic',
-  dealsBanishingDamage: true
+  pierces: true
 }));

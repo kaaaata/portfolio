@@ -29,37 +29,37 @@ export const attacks = [
     attack: 1,
     defense: 2
   },
+  // {
+  //   name: 'Chop',
+  //   image: 'chop',
+  //   rarity: 'common',
+  //   attack: 1,
+  //   defense: 1,
+  //   pierce: 1
+  // },
+  // {
+  //   name: 'Heavy Strike',
+  //   image: 'heavy_strike',
+  //   rarity: 'common',
+  //   attack: 2,
+  //   defense: 0,
+  //   pierce: 1
+  // },
+  // {
+  //   name: 'Arrow',
+  //   image: 'arrow',
+  //   rarity: 'common',
+  //   attack: 2,
+  //   defense: 0,
+  //   isBuyable: false
+  // },
   {
-    name: 'Chop',
-    image: 'chop',
-    rarity: 'common',
-    attack: 1,
-    defense: 1,
-    pierce: 1
-  },
-  {
-    name: 'Heavy Strike',
-    image: 'heavy_strike',
-    rarity: 'common',
-    attack: 2,
-    defense: 0,
-    pierce: 1
-  },
-  {
-    name: 'Arrow',
-    image: 'arrow',
-    rarity: 'common',
-    attack: 2,
-    defense: 0,
-    isBuyable: false
-  },
-  {
-    name: 'Piercing Blow',
+    name: 'Devastating Blow',
     image: 'piercing_blow',
     rarity: 'uncommon',
     attack: 3,
-    defense: 1,
-    pierce: 1
+    defense: 0,
+    dealsBanishingDamage: true
   },
   {
     name: 'Slice',
@@ -90,8 +90,8 @@ export const attacks = [
     rarity: 'uncommon',
     attack: 0,
     defense: 0,
-    playCopiesOfCards: ['Arrow', 'Arrow', 'Arrow'],
-    description: 'Play three copies of Arrow.'
+    playCopiesOfCards: ['Arrow', 'Arrow'],
+    description: 'Play two copies of Arrow.'
   },
   {
     name: 'Protect',
@@ -106,9 +106,9 @@ export const attacks = [
     name: 'Sunder',
     image: 'sunder',
     rarity: 'rare',
-    attack: 6,
+    attack: 8,
     defense: 0,
-    damageSelf: 3
+    damageSelf: 2
   },
   {
     name: 'Healing Blade',

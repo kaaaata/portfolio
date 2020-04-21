@@ -16,7 +16,7 @@ export const playCard = (card = {}, index) => {
     damageSelf,
     player,
     dealsBanishingDamage,
-    pierce,
+    pierces,
     type,
     isMockCard,
     customEffect,
@@ -91,11 +91,9 @@ export const playCard = (card = {}, index) => {
         + stateCopy[player].permanentStats[type];
       totalDamageDealt += bonusStatsDamage;
     }
-    totalDamageDealt = Math.max(totalDamageDealt - stateCopy[opponent].shields, 0);
-    const bonusPierceDamage = pierce > stateCopy[opponent].shields
-      ? stateCopy[opponent].shields
-      : pierce;
-    totalDamageDealt += bonusPierceDamage;
+    if (!pierces) {
+      totalDamageDealt = Math.max(totalDamageDealt - stateCopy[opponent].shields, 0);
+    }
     totalDamageDealt = Math.min(totalDamageDealt, stateCopy[opponent].deck.length);
     logs.push(`${opponent} receives ${totalDamageDealt} damage`);
 
