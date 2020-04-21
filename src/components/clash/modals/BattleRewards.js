@@ -57,7 +57,6 @@ const BattleRewardsComponent = ({
             // isFaceDown
             onClick={cardsLootedCount === 3 ? null : () => {
               if (cardsLootedCount < 3) {
-                console.log(`adding ${i} to deck`);
                 setCardsLootedIndices(`${cardsLootedIndices}${index}`);
               }
             }}

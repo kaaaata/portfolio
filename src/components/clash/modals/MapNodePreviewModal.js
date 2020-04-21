@@ -10,6 +10,7 @@ const MonsterNodePreviewComponent = ({
   monsterId,
   closeModal,
   player,
+  energy,
   setBattleInitialState,
   setYourDeck,
   setBattleRewardCards,
@@ -17,34 +18,39 @@ const MonsterNodePreviewComponent = ({
   setEnemyDeck,
   setYourHand,
   setEnemyHand,
-  setScene
+  setScene,
+  adjustMapEnergy
 }) => {
   const { name, image, level, deck } = monsters[monsterId];
 
   const fightOnClick = () => {
-    setBattleInitialState({
-      yourPermanentStats: {
-        attack: player.attack,
-        magic: player.magic,
-        defense: player.defense
-      },
-      enemyName: name,
-      enemyImage: image,
-      enemyLevel: level,
-      winner: null
-    });
-    const yourDeck = shuffle(player.deck);
-    const enemyDeck = shuffle(deck);
+    if (energy >= 10) {
+      setBattleInitialState({
+        yourPermanentStats: {
+          attack: player.attack,
+          magic: player.magic,
+          defense: player.defense
+        },
+        enemyName: name,
+        enemyImage: image,
+        enemyLevel: level,
+        winner: null
+      });
+      const yourDeck = shuffle(player.deck);
+      const enemyDeck = shuffle(deck);
 
-    setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
-    setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-    setYourHand(yourDeck.slice(yourDeck.length - 3));
-    setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
-    setBattleRewardCards(sampleSize(enemyDeck, 4));
-    setBattleRewardGold(25 * level + random(0, 25));
-    setScene('battle');
+      setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
+      // setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
+      setEnemyDeck([]); // testing
+      setYourHand(yourDeck.slice(yourDeck.length - 3));
+      setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
+      setBattleRewardCards(sampleSize(enemyDeck, 4));
+      setBattleRewardGold(25 * level + random(0, 25));
+      setScene('battle');
+      closeModal();
+      adjustMapEnergy(-10);
+    }
   };
-  fightOnClick(); // testing
 
   return (
     <Modal
@@ -68,8 +74,8 @@ const MonsterNodePreviewComponent = ({
 const mapStateToProps = (state) => ({
   map: state.clashMap.map,
   energy: state.clashMap.energy,
-  modalMonsterId: state.clashMap.modalMonsterId,
-  modalEventId: state.clashMap.modalEventId,
+  previewMonsterId: state.clashMap.previewMonsterId,
+  previewEventId: state.clashMap.previewEventId,
   player: state.clashPlayer
 });
 const mapDispatchToProps = dispatch => ({
@@ -80,7 +86,8 @@ const mapDispatchToProps = dispatch => ({
   setEnemyDeck: payload => dispatch(actions.setEnemyDeck(payload)),
   setYourHand: payload => dispatch(actions.setYourHand(payload)),
   setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),
-  setScene: payload => dispatch(actions.setScene(payload))
+  setScene: payload => dispatch(actions.setScene(payload)),
+  adjustMapEnergy: payload => dispatch(actions.adjustMapEnergy(payload))
 });
 
 export const MonsterNodePreview = connect(mapStateToProps, mapDispatchToProps)(MonsterNodePreviewComponent);

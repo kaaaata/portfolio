@@ -1,4 +1,4 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { FlexContainer, Image } from '../../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../../stores/actions';
@@ -23,30 +23,27 @@ const genMapNodeImageSrc = (node) => {
 const MapComponent = ({
   map,
   energy,
-  modalMonsterId,
-  modalEventId,
+  previewMonsterId,
+  previewEventId,
   openMapNodePreview,
   closeMapNodePreview
 }) => {
   let nodePreviewModal = null;
-  modalMonsterId = 0; // testing
+  // previewMonsterId = 0; // testing
 
-  if (typeof modalMonsterId === 'number') {
+  if (typeof previewMonsterId === 'number') {
     nodePreviewModal = (
       <MonsterNodePreview
-        monsterId={modalMonsterId}
+        monsterId={previewMonsterId}
         closeModal={() => closeMapNodePreview()}
       />
     );
-  } else if (typeof modalEventId === 'number') {
-    // nodePreviewModal = <EventNodePreview eventId={modalEventId} />;
+  } else if (typeof previewEventId === 'number') {
+    // nodePreviewModal = <EventNodePreview eventId={previewEventId} />;
   }
 
   return (
     <FlexContainer justifyContent='center' _css={mapCss}>
-      <aside>
-        PORTRAIT
-      </aside>
       <div className='map'>
         {map.map((row, y) => (
           row.map((node, x) => (
@@ -69,25 +66,6 @@ const MapComponent = ({
           ))
         ))}
       </div>
-      <aside>
-        <Image
-          src={`/clash/energy.png`}
-          width={75}
-          height={75}
-          className='energy'
-        />
-        <FlexContainer
-          justifyContent='center'
-          alignItems='center'
-          flexDirection='column'
-          className='energy_meter'
-        >
-          <div className='fill' style={{ height: `${energy}%` }} />
-          <div className='numerator'>{energy}</div>
-          <div className='fraction_line'>|</div>
-          <div className='denominator'>100</div>
-        </FlexContainer>
-      </aside>
       {nodePreviewModal}
     </FlexContainer>
   );
@@ -95,9 +73,8 @@ const MapComponent = ({
 
 const mapStateToProps = (state) => ({
   map: state.clashMap.map,
-  energy: state.clashMap.energy,
-  modalMonsterId: state.clashMap.modalMonsterId,
-  modalEventId: state.clashMap.modalEventId,
+  previewMonsterId: state.clashMap.previewMonsterId,
+  previewEventId: state.clashMap.previewEventId,
 });
 const mapDispatchToProps = dispatch => ({
   openMapNodePreview: payload => dispatch(actions.openMapNodePreview(payload)),

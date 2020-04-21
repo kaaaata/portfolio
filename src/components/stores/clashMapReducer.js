@@ -2,9 +2,11 @@ import { createMap } from '../clash/scenes/map/createMap';
 
 const initialState = {
   map: createMap(),
-  energy: 100,
-  modalMonsterId: null,
-  modalEventId: null
+  energy: 10,
+  previewMonsterId: null,
+  previewEventId: null,
+  previewX: null,
+  previewY: null
 };
 
 export default (state = initialState, action) => {
@@ -40,29 +42,31 @@ export default (state = initialState, action) => {
       return {
         ...state,
         map: newMap,
-        modalMonsterId: null,
-        modalEventId: null
+        previewMonsterId: null,
+        previewEventId: null
       };
     }
-    case 'SET_MAP_ENERGY':
+    case 'ADJUST_MAP_ENERGY':
       return {
         ...state,
-        energy: action.payload
+        energy: state.energy + action.payload
       };
     case 'OPEN_MAP_NODE_PREVIEW': {
       const { x, y } = action.payload;
-
+      console.log('openmapnodepreview', { x,y });
       return {
         ...state,
-        modalMonsterId: state.map[y][x].monsterId,
-        modalEventId: state.map[y][x].eventId
+        previewMonsterId: state.map[y][x].monsterId,
+        previewEventId: state.map[y][x].eventId,
+        previewX: x,
+        previewY: y
       };
     }
     case 'CLOSE_MAP_NODE_PREVIEW':
       return {
         ...state,
-        modalMonsterId: null,
-        modalEventId: null
+        previewMonsterId: null,
+        previewEventId: null
       };
     default:
       return state;
