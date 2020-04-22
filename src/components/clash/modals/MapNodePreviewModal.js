@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { monsters } from '../monsters/monsters';
 import { shuffle, sampleSize, random } from 'lodash';
+import { genMonsterDeck } from '../monsters/genMonsterDeck';
 
 const MonsterNodePreviewComponent = ({
   monsterId,
@@ -21,7 +22,8 @@ const MonsterNodePreviewComponent = ({
   setScene,
   adjustMapEnergy
 }) => {
-  const { name, image, level, deck } = monsters[monsterId];
+  const { name, image, tier, deck } = monsters[monsterId];
+  const enemyDeck = genMonsterDeck(tier, deck);
 
   const fightOnClick = () => {
     if (energy >= 10) {
@@ -33,19 +35,18 @@ const MonsterNodePreviewComponent = ({
         },
         enemyName: name,
         enemyImage: image,
-        enemyLevel: level,
+        enemyTier: tier,
         winner: null
       });
       const yourDeck = shuffle(player.deck);
-      const enemyDeck = shuffle(deck);
 
       setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
       // setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-      setEnemyDeck([]); // testing
+      setEnemyDeck([]);
       setYourHand(yourDeck.slice(yourDeck.length - 3));
       setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
       setBattleRewardCards(sampleSize(enemyDeck, 4));
-      setBattleRewardGold(25 * level + random(0, 25));
+      setBattleRewardGold(25 * tier + random(0, 25));
       setScene('battle');
       closeModal();
       adjustMapEnergy(-10);
@@ -54,7 +55,7 @@ const MonsterNodePreviewComponent = ({
 
   return (
     <Modal
-      title={`${name} Lv. ${level}`}
+      title={`${name} (Tier ${tier})`}
       continueOptions={[
         { text: 'Fight', color: 'green', onClick: fightOnClick },
         { text: 'Go Back', color: 'red', onClick: closeModal },
@@ -66,7 +67,7 @@ const MonsterNodePreviewComponent = ({
         width={200}
       />
       <Spacer height={40} />
-      <div>Deck Size: {deck.length}</div>
+      <div>Deck Size: {enemyDeck.length}</div>
     </Modal>
   );
 };

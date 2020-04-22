@@ -26,10 +26,10 @@ const MapComponent = ({
   previewMonsterId,
   previewEventId,
   openMapNodePreview,
-  closeMapNodePreview
+  closeMapNodePreview,
+  visitMapNode
 }) => {
   let nodePreviewModal = null;
-  // previewMonsterId = 0; // testing
 
   if (typeof previewMonsterId === 'number') {
     nodePreviewModal = (
@@ -56,7 +56,11 @@ const MapComponent = ({
               `}
               onClick={() => {
                 if (node.isRevealed && !node.isPlayerHere) {
-                  openMapNodePreview({ x, y });
+                  if ((node.monsterId === null && node.eventId === null) || node.isVisited) {
+                    visitMapNode({ x, y });
+                  } else {
+                    openMapNodePreview({ x, y });
+                  }
                 }
               }}
               src={genMapNodeImageSrc(node)}
@@ -78,7 +82,8 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = dispatch => ({
   openMapNodePreview: payload => dispatch(actions.openMapNodePreview(payload)),
-  closeMapNodePreview: payload => dispatch(actions.closeMapNodePreview(payload))
+  closeMapNodePreview: payload => dispatch(actions.closeMapNodePreview(payload)),
+  visitMapNode: payload => dispatch(actions.visitMapNode(payload)),
 });
 
 export const Map = connect(mapStateToProps, mapDispatchToProps)(MapComponent);

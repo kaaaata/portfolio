@@ -29,13 +29,15 @@ const genCardDescription = ({
   pierces,
   description,
   onDiscard,
-  type
+  type,
+  dealsBanishingDamage
 }) => description || [
   heal && `Heal ${heal}.`,
   healEnemy && `Heal enemy ${healEnemy}.`,
   damageSelf && `Deal ${damageSelf} to yourself.`,
   pierces && `Damage dealt pierces shields.`,
-  onDiscard && type !== 'potion' && `On discard: ${genCardDescription(onDiscard)}`
+  onDiscard && type !== 'potion' && `On discard: ${genCardDescription(onDiscard)}`,
+  dealsBanishingDamage && 'Damage dealt banishes.'
 ].filter(Boolean).join(' ');
 
 export const createCard = (properties = {}) => {

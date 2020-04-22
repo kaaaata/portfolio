@@ -36,6 +36,7 @@ export const playCard = (card = {}, index) => {
     ]);
 
     const mockCard = createCard({
+      name: discardedCard.name,
       ...discardedCard.onDiscard,
       player: discardedCard.player,
       isMockCard: true
@@ -54,6 +55,10 @@ export const playCard = (card = {}, index) => {
   actions.push([]);
 
   if (customEffect) {
+    console.log('asdf custom effect logging', {
+      name,
+      card
+    });
     customCardEffects[name](card);
   }
 
@@ -215,16 +220,12 @@ export const playCard = (card = {}, index) => {
   // stateCopy.stack.length should usually be truthy
   // but it could be falsy if a mock card is played before a real card is played.
   if (stateCopy.stack.length) {
-    const playedCard = isMockCard
-      ? stateCopy.stack.getTopCard()
-      : card;
-
     actions.push([
       actionGenerators.removeTopCardFromStack(),
       actionGenerators.addCard(
-        playedCard,
-        playedCard.player,
-        playedCard.banishesOnPlay ? 'banish' : 'discard',
+        card,
+        card.player,
+        card.banishesOnPlay ? 'banish' : 'discard',
         'top'
       )
     ]);

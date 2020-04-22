@@ -31,7 +31,7 @@ const rowOfCardsCss = css`
 const BattleRewardsComponent = ({
   player,
   winner,
-  enemyLevel,
+  enemyTier,
   battleRewardCards,
   battleRewardGold,
   setPlayerProperties,
@@ -54,7 +54,6 @@ const BattleRewardsComponent = ({
         >
           <Card
             name={i}
-            // isFaceDown
             onClick={cardsLootedCount === 3 ? null : () => {
               if (cardsLootedCount < 3) {
                 setCardsLootedIndices(`${cardsLootedIndices}${index}`);
@@ -96,7 +95,7 @@ const BattleRewardsComponent = ({
 const mapStateToProps = (state) => ({
   player: state.clashPlayer,
   winner: state.clashBattleStats.winner,
-  enemyLevel: state.clashBattleStats.enemyLevel,
+  enemyTier: state.clashBattleStats.enemyTier,
   battleRewardCards: state.clashBattleCards.battleRewardCards,
   battleRewardGold: state.clashBattleCards.battleRewardGold
 });

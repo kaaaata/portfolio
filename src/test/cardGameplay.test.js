@@ -71,8 +71,8 @@ test('Shield works (Slash, Strike)', () => {
   expect(stateCopy.you.deck.length).toBe(10 - (strike.attack - slash.defense));
 });
 
-test('Banishing damage works (Fire)', () => {
-  const card = cards['Fire'];
+test('Banishing damage works (Devastating Blow)', () => {
+  const card = cards['Devastating Blow'];
   simulatePlayCard(card);
   expect(stateCopy.enemy.deck.length).toBe(10 - card.attack);
   expect(stateCopy.enemy.discard.length).toBe(10);
@@ -87,10 +87,10 @@ test('Banishes on play works (Healing Potion)', () => {
   expect(stateCopy.you.discard.length).toBe(10 - card.heal);
 });
 
-test('Pierce works (Chop)', () => {
-  stateCopy.enemy.shields = 2;
+test('Pierces works (Fire)', () => {
+  stateCopy.enemy.shields = 10;
   
-  const card = cards['Chop'];
+  const card = cards['Fire'];
   simulatePlayCard(card);
   expect(stateCopy.enemy.deck.length).toBe(10 - card.attack);
 });
@@ -148,10 +148,10 @@ test('Play copies of cards works (Hobgoblin)', () => {
 });
 
 test('Shuffle card copies into pile works (Wayne, Catherine the Great)', () => {
-  const dragon = cards['Wayne'];
+  const wayne = cards['Wayne'];
   const catherine = cards['Catherine the Great'];
-  simulatePlayCard(dragon);
-  expect(stateCopy.enemy.deck.filter(card => card.name === 'Bomb').length).toBe(2);
+  simulatePlayCard(wayne);
+  expect(stateCopy.enemy.deck.filter(card => card.name === 'Bomb').length).toBe(3);
   simulatePlayCard(catherine);
   expect(stateCopy.you.deck.filter(card => card.name === 'Healing Blade').length).toBe(2);
 });

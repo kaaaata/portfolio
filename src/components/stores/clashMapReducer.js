@@ -53,7 +53,6 @@ export default (state = initialState, action) => {
       };
     case 'OPEN_MAP_NODE_PREVIEW': {
       const { x, y } = action.payload;
-      console.log('openmapnodepreview', { x,y });
       return {
         ...state,
         previewMonsterId: state.map[y][x].monsterId,

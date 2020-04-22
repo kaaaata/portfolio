@@ -13,6 +13,11 @@ export const cardsArray = CardsArray([
 ]);
 export const cards = keyBy(cardsArray, 'name');
 
+export const commons = cardsArray.filter(card => card.rarity === 'common');
+export const uncommons = cardsArray.filter(card => card.rarity === 'uncommon');
+export const rares = cardsArray.filter(card => card.rarity === 'rare');
+export const legendaries = cardsArray.filter(card => card.rarity === 'legendary');
+
 const shopCardsCosts = {
   common: 25,
   uncommon: 50,
@@ -65,11 +70,18 @@ export const genStartingDeck = () => [
   'Strike',
   'Strike',
   'Strike',
-  'Slash',
+
+  'Crush',
+  'Crush',
+  'Slice',
+  'Fire',
+  'Fire',
+
   'Parry',
   'Healing Potion',
   'Fire',
-  'Weapons Guy'
+  'Weapons Guy',
+  'Protect'
 ];
 
 export const genStartingCollection = () => {

@@ -175,7 +175,7 @@ export const Stack = connect(state => ({ cards: state.clashBattleCards.stack }))
       key={index}
       name={card}
       x={350 + index * 15}
-      y={225}
+      y={222}
       isBlurred={cards.length >= 2 && index !== cards.length - 1}
     />
   ))

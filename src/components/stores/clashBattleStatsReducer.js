@@ -10,7 +10,7 @@ const initialState = {
   enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
   enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
   enemyShields: 0,
-  enemyLevel: 1,
+  enemyTier: 1,
 
   winner: null,
   winnerImage: ''
@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
         enemyPermanentStats: { attack: 0, magic: 0, defense: 0 },
         enemyTemporaryStats: { attack: 0, magic: 0, defense: 0 },
         enemyShields: 0,
-        enemyLevel: action.payload.enemyLevel,
+        enemyTier: action.payload.enemyTier,
       
         winner: null
       };
