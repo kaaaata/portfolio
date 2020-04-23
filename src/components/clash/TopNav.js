@@ -1,60 +1,9 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import { FlexContainer, Image } from '../particles';
 import { Attributes } from './Attributes';
 import { Gold } from './Gold';
-import { colors } from '../styles';
-
-const topNavCss = css`
-  height: 40px;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 0 20px;
-  width: 100%;
-
-  & > div {
-    border: 1px solid red;
-  }
-
-  .left, .right {
-    width: 250px;
-  }
-
-  .attributes {
-    margin-left: 40px;
-    width: 110px;
-    font-size: 26px;
-  }
-
-  .gold {
-    margin-left: 40px;
-  }
-`;
-
-const energyMeterCss = css`
-  position: relative;
-  width: 400px;
-  height: 24px;
-  border: 2px solid ${colors.yellowLight};
-  border-radius: 3px;
-  margin-left: 3px;
-
-  .fill {
-    background: ${colors.yellowLight};
-    width: 100%;
-    height: 100%;
-    transition: width 1s ease-out;
-  }
-
-  .energy_count {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    color: ${colors.white};
-    text-shadow: 1px 1px 2px black;
-    font-size: 16px;
-  }
-`;
+import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 
 export const TopNavComponent = ({
   player,
@@ -80,6 +29,18 @@ export const TopNavComponent = ({
             magic={player.magic}
             defense={player.defense}
           />
+        )}
+        {player && (
+          <div css={collectionCss}>
+            {[0, 1].map(i => (
+              <Image
+                key={i}
+                src='/clash/card_back.png'
+                width={24}
+                height={34}
+              />
+            ))}
+          </div>
         )}
       </FlexContainer>
 
