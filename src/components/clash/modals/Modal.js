@@ -30,7 +30,7 @@ const modalCss = css`
 
 export const Modal = ({
   title,
-  continueOptions, // [{ text, color, onClick }]
+  continueOptions = [], // [{ text, color, onClick }]
   children
 }) => {
   const modalTitle = title && (

@@ -2,7 +2,6 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { MainMenu } from './scenes/MainMenu';
 import { Map } from './scenes';
 import { Battle } from './Battle';
-import { MasterCardList } from './MasterCardList';
 import { TopNav } from './TopNav';
 import { Shop } from './modals/Shop';
 import { Image } from '../particles';
@@ -23,9 +22,6 @@ const ClashComponent = ({ scene }) => {
       break;
     case 'battle':
       sceneComponent = <Battle />;
-      break;
-    case 'master_card_list':
-      sceneComponent = <MasterCardList />;
       break;
     case 'map':
       sceneComponent = <Map />;

@@ -68,7 +68,7 @@ export const collectionCss = css`
     border: 1px solid ${colors.steel};
     border-radius: 2px;
 
-    &:first-child {
+    &:first-of-type {
       position: absolute;
       left: 9px;
       transform: rotate(-35deg);
