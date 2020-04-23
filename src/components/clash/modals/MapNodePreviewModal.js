@@ -1,17 +1,17 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Modal } from './Modal';
 import { Spacer, Image } from '../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { monsters } from '../monsters/monsters';
 import { shuffle, sampleSize, random } from 'lodash';
-import { genMonsterDeck } from '../monsters/genMonsterDeck';
 
 const MonsterNodePreviewComponent = ({
-  monsterId,
-  closeModal,
+  monster,
   player,
   energy,
+  previewNode,
+  setMapActiveNode,
+  setMapPreviewNode,
   setBattleInitialState,
   setYourDeck,
   setBattleRewardCards,
@@ -22,8 +22,7 @@ const MonsterNodePreviewComponent = ({
   setScene,
   adjustMapEnergy
 }) => {
-  const { name, image, tier, deck } = monsters[monsterId];
-  const enemyDeck = genMonsterDeck(tier, deck);
+  const { name, image, tier, deck } = monster;
 
   const fightOnClick = () => {
     if (energy >= 10) {
@@ -39,16 +38,18 @@ const MonsterNodePreviewComponent = ({
         winner: null
       });
       const yourDeck = shuffle(player.deck);
+      const enemyDeck = deck;
 
       setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
-      // setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-      setEnemyDeck([]);
+      setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
+      setEnemyDeck([]); // testing
       setYourHand(yourDeck.slice(yourDeck.length - 3));
       setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
       setBattleRewardCards(sampleSize(enemyDeck, 4));
       setBattleRewardGold(25 * tier + random(0, 25));
       setScene('battle');
-      closeModal();
+      setMapActiveNode(previewNode);
+      setMapPreviewNode(null);
       adjustMapEnergy(-10);
     }
   };
@@ -58,26 +59,25 @@ const MonsterNodePreviewComponent = ({
       title={`${name} (Tier ${tier})`}
       continueOptions={[
         { text: 'Fight', color: 'green', onClick: fightOnClick },
-        { text: 'Go Back', color: 'red', onClick: closeModal },
+        { text: 'Go Back', color: 'red', onClick: () => setMapPreviewNode(null) },
       ]}
     >
       <Image
         src={`/clash/${image}.png`}
         height={200}
         width={200}
+        size='contain'
       />
       <Spacer height={40} />
-      <div>Deck Size: {enemyDeck.length}</div>
+      <div>Deck Size: {deck.length}</div>
     </Modal>
   );
 };
 
 const mapStateToProps = (state) => ({
-  map: state.clashMap.map,
   energy: state.clashMap.energy,
-  previewMonsterId: state.clashMap.previewMonsterId,
-  previewEventId: state.clashMap.previewEventId,
-  player: state.clashPlayer
+  player: state.clashPlayer,
+  previewNode: state.clashMap.previewNode
 });
 const mapDispatchToProps = dispatch => ({
   setBattleInitialState: payload => dispatch(actions.setBattleInitialState(payload)),
@@ -88,7 +88,9 @@ const mapDispatchToProps = dispatch => ({
   setYourHand: payload => dispatch(actions.setYourHand(payload)),
   setEnemyHand: payload => dispatch(actions.setEnemyHand(payload)),
   setScene: payload => dispatch(actions.setScene(payload)),
-  adjustMapEnergy: payload => dispatch(actions.adjustMapEnergy(payload))
+  adjustMapEnergy: payload => dispatch(actions.adjustMapEnergy(payload)),
+  setMapPreviewNode: payload => dispatch(actions.setMapPreviewNode(payload)),
+  setMapActiveNode: payload => dispatch(actions.setMapActiveNode(payload))
 });
 
 export const MonsterNodePreview = connect(mapStateToProps, mapDispatchToProps)(MonsterNodePreviewComponent);

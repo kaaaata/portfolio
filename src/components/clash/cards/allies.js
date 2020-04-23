@@ -82,7 +82,7 @@ export const allies = [
     description: 'Play 2 random Attacks from your discard pile, then banish them.'
   },
   {
-    name: 'Crazy Mage',
+    name: 'Warlock',
     image: 'crazy_mage',
     rarity: 'uncommon',
     attack: 0,

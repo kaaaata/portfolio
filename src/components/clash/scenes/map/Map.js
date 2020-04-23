@@ -3,16 +3,15 @@ import { FlexContainer, Image } from '../../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../../stores/actions';
 import { MonsterNodePreview } from '../../modals/MapNodePreviewModal';
-import { monsters } from '../../monsters/monsters';
 import { mapCss } from './mapCss';
+import { range } from 'lodash';
 
 const genMapNodeImageSrc = (node) => {
-  const { monsterId, eventId, isRevealed } = node;
   let image = 'rock';
-  if (isRevealed) {
-    if (typeof monsterId === 'number') {
-      image = monsters[node.monsterId].image;
-    } else if (eventId) {
+  if (node) {
+    if (node.monster) {
+      image = node.monster.image;
+    } else if (node.event) {
       image = 'chest';
     }
   }
@@ -21,53 +20,58 @@ const genMapNodeImageSrc = (node) => {
 };
 
 const MapComponent = ({
-  map,
-  energy,
-  previewMonsterId,
-  previewEventId,
-  openMapNodePreview,
-  closeMapNodePreview,
+  nodes,
+  previewNode,
+  playerNode,
+  setMapPreviewNode,
   visitMapNode
 }) => {
   let nodePreviewModal = null;
 
-  if (typeof previewMonsterId === 'number') {
-    nodePreviewModal = (
-      <MonsterNodePreview
-        monsterId={previewMonsterId}
-        closeModal={() => closeMapNodePreview()}
-      />
-    );
-  } else if (typeof previewEventId === 'number') {
-    // nodePreviewModal = <EventNodePreview eventId={previewEventId} />;
+  if (previewNode) {
+    if (nodes[previewNode].monster) {
+      nodePreviewModal = (
+        <MonsterNodePreview monster={nodes[previewNode].monster} />
+      );
+    } else if (nodes[previewNode].event) {
+      // nodePreviewModal = <EventNodePreview eventId={previewEventId} />;
+    }
   }
 
   return (
     <FlexContainer justifyContent='center' _css={mapCss}>
       <div className='map'>
-        {map.map((row, y) => (
-          row.map((node, x) => (
-            <Image
-              key={`${x}${y}`}
-              className={`
-                node
-                ${node.isPlayerHere ? 'player_node' : ''}
-                ${x === 3 && y === 3 ? 'starting_node' : ''}
-              `}
-              onClick={() => {
-                if (node.isRevealed && !node.isPlayerHere) {
-                  if ((node.monsterId === null && node.eventId === null) || node.isVisited) {
-                    visitMapNode({ x, y });
-                  } else {
-                    openMapNodePreview({ x, y });
+        {range(0, 7).map(y => (
+          range(0, 7).map(x => {
+            const node = `${x}${y}`;
+            const isUnrevealedNode = !nodes[node];
+            const isMonsterNode = nodes[node] && nodes[node].monster;
+            const isEventNode = nodes[node] && nodes[node].event;
+            const isBlankNode = nodes[node] && !isMonsterNode && !isEventNode;
+            const isVisitedNode = nodes[node] && nodes[node.isVisited];
+
+            return (
+              <Image
+                key={node}
+                className={[
+                  'node',
+                  node === playerNode ? 'player_node' : '',
+                  isBlankNode ? 'blank_node' : ''
+                ].join(' ')}
+                onClick={() => {
+                  if ((isMonsterNode || isEventNode) && !isVisitedNode) {
+                    setMapPreviewNode(node);
+                  } else if (nodes[node]) {
+                    visitMapNode(node);
                   }
-                }
-              }}
-              src={genMapNodeImageSrc(node)}
-              width='100%'
-              height='100%'
-            />
-          ))
+                }}
+                src={genMapNodeImageSrc(nodes[node])}
+                width='100%'
+                height='100%'
+                size={isUnrevealedNode ? 'cover' : 'contain'}
+              />
+            );
+          })
         ))}
       </div>
       {nodePreviewModal}
@@ -76,14 +80,13 @@ const MapComponent = ({
 };
 
 const mapStateToProps = (state) => ({
-  map: state.clashMap.map,
-  previewMonsterId: state.clashMap.previewMonsterId,
-  previewEventId: state.clashMap.previewEventId,
+  nodes: state.clashMap.nodes,
+  previewNode: state.clashMap.previewNode,
+  playerNode: state.clashMap.playerNode
 });
 const mapDispatchToProps = dispatch => ({
-  openMapNodePreview: payload => dispatch(actions.openMapNodePreview(payload)),
-  closeMapNodePreview: payload => dispatch(actions.closeMapNodePreview(payload)),
-  visitMapNode: payload => dispatch(actions.visitMapNode(payload)),
+  setMapPreviewNode: payload => dispatch(actions.setMapPreviewNode(payload)),
+  visitMapNode: payload => dispatch(actions.visitMapNode(payload))
 });
 
 export const Map = connect(mapStateToProps, mapDispatchToProps)(MapComponent);

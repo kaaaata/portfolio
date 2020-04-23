@@ -17,7 +17,7 @@ export const mapCss = css`
         border-color: ${colors.yellowLight};
       }
 
-      &.starting_node {
+      &.blank_node {
         background: transparent;
       }
     }

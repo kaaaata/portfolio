@@ -26,7 +26,7 @@ export const setShopCards = payload => ({ type: 'SET_SHOP_CARDS', payload });
 
 export const visitMapNode = payload => ({ type: 'VISIT_MAP_NODE', payload });
 export const adjustMapEnergy = payload => ({ type: 'ADJUST_MAP_ENERGY', payload });
-export const openMapNodePreview = payload => ({ type: 'OPEN_MAP_NODE_PREVIEW', payload });
-export const closeMapNodePreview = payload => ({ type: 'CLOSE_MAP_NODE_PREVIEW', payload });
+export const setMapPreviewNode = payload => ({ type: 'SET_MAP_PREVIEW_NODE', payload });
+export const setMapActiveNode = payload => ({ type: 'SET_MAP_ACTIVE_NODE', payload });
 
 export const setScene = payload => ({ type: 'SET_SCENE', payload });
