@@ -21,8 +21,13 @@ export const topNavCss = css`
     font-size: 24px;
   }
 
-  .gold {
-    margin-left: 40px;
+  .shop {
+    margin-left: 15px;
+    transition: transform 0.1s ease-out;
+
+    &:hover {
+      transform: scale(1.25);
+    }
   }
 
   .deck_count {

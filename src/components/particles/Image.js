@@ -26,7 +26,8 @@ export const Image = (props) => {
     background-size: ${size};
     ${widthCss}
     ${heightCss}
-    ${circular && 'border-radius: 50%;'}
+    ${circular ? 'border-radius: 50%;' : ''}
+    ${onClick ? 'cursor: pointer;' : ''}
 
     ${_css}
   `;

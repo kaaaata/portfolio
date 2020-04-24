@@ -27,33 +27,34 @@ export const TopNavComponent = ({
         alignItems='center'
         _css={topNavCss}
       >
-        {player && (
-          <FlexContainer alignItems='center' className='left'>
-            <Image
-              src={`/clash/${player.image}.png`}
-              width={20}
-              height={35}
-            />
-            <Attributes
-              attack={player.attack}
-              magic={player.magic}
-              defense={player.defense}
-            />
-            <div css={collectionCss}>
-              {[0, 1].map(i => (
-                <Image
-                  key={i}
-                  src='/clash/card_back.png'
-                  width={24}
-                  height={34}
-                  onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
-                  className={`card_${i}`}
-                />
-              ))}
-            </div>
-            <div className='deck_count'>{player.deck.length}</div>
-          </FlexContainer>
-        )}
+        <FlexContainer
+          className='left'
+          alignItems='center'
+        >
+          <Image
+            src={`/clash/${player.image}.png`}
+            width={20}
+            height={35}
+          />
+          <Attributes
+            attack={player.attack}
+            magic={player.magic}
+            defense={player.defense}
+          />
+          <div css={collectionCss}>
+            {[0, 1].map(i => (
+              <Image
+                key={i}
+                src='/clash/card_back.png'
+                width={24}
+                height={34}
+                onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
+                className={`card_${i}`}
+              />
+            ))}
+          </div>
+          <div className='deck_count'>{player.deck.length}</div>
+        </FlexContainer>
 
         <FlexContainer
           className='center'
@@ -72,8 +73,18 @@ export const TopNavComponent = ({
           </div>
         </FlexContainer>
 
-        <FlexContainer className='right' justifyContent='flex-end'>
-          {player && <Gold value={player.gold} />}
+        <FlexContainer
+          className='right'
+          justifyContent='flex-start'
+          alignItems='center'
+        >
+          <Gold value={player.gold} />
+          <Image
+            src='/clash/shop.png'
+            width={30}
+            height={30}
+            className='shop'
+          />
         </FlexContainer>
       </FlexContainer>
 
