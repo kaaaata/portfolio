@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
-import { FlexContainer } from '../../particles';
 
 const rarities = {
   common: 0,
@@ -28,18 +27,11 @@ const sortFunc = (a, b) => {
 };
 
 const collectionCss = css`
-  width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
   height: 425px;
   overflow: scroll;
-
-  .card {
-    margin: 5px;
-  }
-
-  .card_container {
-    display: inline-block;
-    margin: 0 10px 1px 0;
-  }
 `;
 
 
@@ -47,16 +39,12 @@ const CollectionComponent = ({
   deck,
   closeModal
 }) => (
-  <Modal title='Your Deck'>
-    <FlexContainer
-      justifyContent='center'
-      flexWrap='wrap'
-      _css={collectionCss}
-    >
+  <Modal title={`Your Cards (${deck.length})`}>
+    <div css={collectionCss}>
       {deck.sort(sortFunc).map((card, index) => (
         <Card key={index} name={card} />
       ))}
-    </FlexContainer>
+    </div>
   </Modal>
 );
 

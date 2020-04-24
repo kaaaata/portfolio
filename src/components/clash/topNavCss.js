@@ -16,13 +16,19 @@ export const topNavCss = css`
   }
 
   .attributes {
-    margin-left: 30px;
+    margin-left: 20px;
     width: 110px;
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .gold {
     margin-left: 40px;
+  }
+
+  .deck_count {
+    line-height: 40px;
+    margin-left: 3px;
+    font-size: 24px;
   }
 `;
 
@@ -54,7 +60,7 @@ export const energyMeterCss = css`
 
 export const collectionCss = css`
   position: relative;
-  margin-left: 21px;
+  margin-left: 15px;
   transition: transform 0.1s ease-out;
   cursor: pointer;
   width: 55px;
@@ -68,13 +74,13 @@ export const collectionCss = css`
     border: 1px solid ${colors.steel};
     border-radius: 2px;
 
-    &:first-of-type {
+    &.card_0 {
       position: absolute;
       left: 9px;
       transform: rotate(-35deg);
     }
 
-    &:last-child {
+    &.card_1 {
       position: absolute;
       left: 22px;
       transform: rotate(25deg);

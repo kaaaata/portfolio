@@ -27,22 +27,18 @@ export const TopNavComponent = ({
         alignItems='center'
         _css={topNavCss}
       >
-        <FlexContainer className='left'>
-          {player && (
+        {player && (
+          <FlexContainer alignItems='center' className='left'>
             <Image
               src={`/clash/${player.image}.png`}
               width={20}
               height={35}
             />
-          )}
-          {player && (
             <Attributes
               attack={player.attack}
               magic={player.magic}
               defense={player.defense}
             />
-          )}
-          {player && (
             <div css={collectionCss}>
               {[0, 1].map(i => (
                 <Image
@@ -51,11 +47,13 @@ export const TopNavComponent = ({
                   width={24}
                   height={34}
                   onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
+                  className={`card_${i}`}
                 />
               ))}
             </div>
-          )}
-        </FlexContainer>
+            <div className='deck_count'>{player.deck.length}</div>
+          </FlexContainer>
+        )}
 
         <FlexContainer
           className='center'
