@@ -3,19 +3,14 @@ import { connect } from 'react-redux';
 import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
+import { rarityScore } from '../cards/rarity';
 
-const rarities = {
-  common: 0,
-  uncommon: 1,
-  rare: 2,
-  legendary: 3
-};
 const sortFunc = (a, b) => {
   const cardA = cards[a];
   const cardB = cards[b];
-  if (rarities[cardA.rarity] > rarities[cardB.rarity]) {
+  if (rarityScore[cardA.rarity] > rarityScore[cardB.rarity]) {
     return -1;
-  } else if (rarities[cardA.rarity] < rarities[cardB.rarity]) {
+  } else if (rarityScore[cardA.rarity] < rarityScore[cardB.rarity]) {
     return 1;
   } else if (cardA.name < cardB.name) {
     return -1;
@@ -33,7 +28,6 @@ const collectionCss = css`
   height: 425px;
   overflow: scroll;
 `;
-
 
 const CollectionComponent = ({
   deck,

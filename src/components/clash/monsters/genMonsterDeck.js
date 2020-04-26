@@ -1,10 +1,4 @@
-import {
-  cards,
-  commons,
-  uncommons,
-  rares,
-  legendaries
-} from '../cards/cards';
+import { cards, cardsByRarity } from '../cards/cards';
 import { range, sample, shuffle } from 'lodash';
 
 export const tierBalancing = {
@@ -51,9 +45,9 @@ export const genMonsterDeck = (tier, deck) => {
 
   return shuffle([
     ...deck,
-    ...range(0, cardsToAdd.legendary).map(i => sample(legendaries).name),
-    ...range(0, cardsToAdd.rare).map(i => sample(rares).name),
-    ...range(0, cardsToAdd.uncommon).map(i => sample(uncommons).name),
-    ...range(0, cardsToAdd.common).map(i => sample(commons).name)
+    ...range(0, cardsToAdd.legendary).map(i => sample(cardsByRarity.legendary).name),
+    ...range(0, cardsToAdd.rare).map(i => sample(cardsByRarity.rare).name),
+    ...range(0, cardsToAdd.uncommon).map(i => sample(cardsByRarity.uncommon).name),
+    ...range(0, cardsToAdd.common).map(i => sample(cardsByRarity.common).name)
   ]);
 };

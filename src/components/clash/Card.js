@@ -3,14 +3,8 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { cards } from './cards/cards';
 import { Image, Spacer, FlexContainer } from '../particles';
 import { colors, zIndex } from '../styles';
+import { rarityColors } from './cards/rarity';
 import { cardBodyCss } from './cardBodyCss';
-
-const rarityColors = {
-  common: colors.sand,
-  uncommon: colors.green,
-  rare: colors.blue,
-  legendary: colors.red
-};
 
 export const Card = ({
   name,
@@ -22,6 +16,7 @@ export const Card = ({
   isInPileOfCards = false,
   shouldAnimateEntry = false,
   isBlurred = false,
+  _css = '',
   onClick
 }) => {
   const {
@@ -64,6 +59,8 @@ export const Card = ({
     transition: transform ${onClick ? '0.1s' : '0.2s'} ease-out;
     cursor: ${onClick ? 'pointer' : 'default'};
     ${isBlurred ? 'filter: blur(3px);' : ''}
+
+    ${_css}
   `;
 
   useEffect(() => {

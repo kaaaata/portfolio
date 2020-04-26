@@ -21,8 +21,11 @@ export const setYourTemporaryStats = payload => ({ type: 'SET_YOUR_TEMPORARY_STA
 export const setEnemyTemporaryStats = payload => ({ type: 'SET_ENEMY_TEMPORARY_STATS', payload });
 export const setBattleInitialState = payload => ({ type: 'SET_BATTLE_INITIAL_STATE', payload });
 export const setWinner = payload => ({ type: 'SET_WINNER', payload });
+
 export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTIES', payload });
-export const setShopCards = payload => ({ type: 'SET_SHOP_CARDS', payload });
+export const adjustPlayerStats = payload => ({ type: 'ADJUST_PLAYER_STATS', payload });
+export const adjustPlayerGold = payload => ({ type: 'ADJUST_PLAYER_GOLD', payload });
+export const addCardsToCollection = payload => ({ type: 'ADD_CARDS_TO_COLLECTION', payload });
 
 export const visitMapNode = payload => ({ type: 'VISIT_MAP_NODE', payload });
 export const adjustMapEnergy = payload => ({ type: 'ADJUST_MAP_ENERGY', payload });

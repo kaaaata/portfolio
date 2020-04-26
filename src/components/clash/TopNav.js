@@ -5,20 +5,14 @@ import { FlexContainer, Image } from '../particles';
 import { Attributes } from './Attributes';
 import { Gold } from './Gold';
 import { Collection } from './modals/Collection';
+import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 
 export const TopNavComponent = ({
   player,
   energy
 }) => {
-  const [activeModal, setActiveModal] = useState(null);
-
-  let modal;
-  if (activeModal === 'collection') {
-    modal = <Collection />;
-  } else if (activeModal === 'shop') {
-    // modal = <Shop />;
-  }
+  const [activeModal, setActiveModal] = useState('shop');
 
   return (
     <React.Fragment>
@@ -78,17 +72,26 @@ export const TopNavComponent = ({
           justifyContent='flex-start'
           alignItems='center'
         >
-          <Gold value={player.gold} />
           <Image
             src='/clash/shop.png'
             width={30}
             height={30}
+            onClick={() => setActiveModal(activeModal === 'shop' ? null : 'shop')}
             className='shop'
-          />
+          >
+            $
+          </Image>
+          <Gold gold={player.gold} />
         </FlexContainer>
       </FlexContainer>
 
-      {modal}
+      <div style={{ display: activeModal === 'collection' ? 'unset' : 'none' }}>
+        <Collection />
+      </div>
+
+      <div style={{ display: activeModal === 'shop' ? 'unset' : 'none' }}>
+        <Shop />
+      </div>
     </React.Fragment>
   );
 };

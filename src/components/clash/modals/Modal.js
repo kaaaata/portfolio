@@ -1,14 +1,17 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, FlexContainer } from '../../particles';
 import { Button } from '../Button';
+import { colors } from '../../styles';
 
-const modalCss = css`
+const modalCss = (halfModal, transparent) => css`
   position: absolute;
   width: 100%;
-  height: calc(100% - 40px);
+  height: ${halfModal ? '65%' : `calc(100% - 40px)`};
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, ${transparent ? 0.8 : 1});
   font-size: 20px;
+  ${halfModal ? 'transform: translateY(-22%);' : ''}
+  ${halfModal ? `box-shadow: 4px 4px 8px ${colors.black};` : ''}
 
   .content {
     .title {
@@ -30,7 +33,9 @@ const modalCss = css`
 
 export const Modal = ({
   title,
-  continueOptions = [], // [{ text, color, onClick }]
+  continueOptions = [], // [{ text, color, onClick }],
+  halfModal = false,
+  transparent = true,
   children
 }) => {
   const modalTitle = title && (
@@ -55,7 +60,7 @@ export const Modal = ({
   );
 
   return (
-    <div css={modalCss}>
+    <div css={modalCss(halfModal, transparent)}>
       <FlexContainer
         className='content'
         alignItems='center'

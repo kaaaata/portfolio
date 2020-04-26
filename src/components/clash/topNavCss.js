@@ -6,10 +6,7 @@ export const topNavCss = css`
   background: rgba(0, 0, 0, 0.8);
   padding: 0 20px;
   width: 100%;
-
-  & > div {
-    border: 1px solid red;
-  }
+  box-shadow: 4px 4px 8px ${colors.black};
 
   .left, .right {
     width: 250px;
@@ -22,8 +19,12 @@ export const topNavCss = css`
   }
 
   .shop {
-    margin-left: 15px;
+    margin-right: 15px;
     transition: transform 0.1s ease-out;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    color: ${colors.yellow};
 
     &:hover {
       transform: scale(1.25);

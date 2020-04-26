@@ -3,7 +3,6 @@ import { MainMenu } from './scenes/MainMenu';
 import { Map } from './scenes';
 import { Battle } from './Battle';
 import { TopNav } from './TopNav';
-import { Shop } from './modals/Shop';
 import { Image } from '../particles';
 import { connect } from 'react-redux';
 
@@ -17,9 +16,6 @@ const ClashComponent = ({ scene }) => {
   let sceneComponent;
 
   switch (scene) {
-    case 'shop':
-      sceneComponent = <Shop />;
-      break;
     case 'battle':
       sceneComponent = <Battle />;
       break;

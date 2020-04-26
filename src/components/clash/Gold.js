@@ -3,7 +3,7 @@ import { Image, FlexContainer } from '../particles';
 import { colors } from '../styles';
 
 export const Gold = ({
-  value,
+  gold,
   color = colors.yellow,
   big
 }) => (
@@ -22,7 +22,7 @@ export const Gold = ({
       color: ${color};
       margin-left: ${big ? 20 : 5}px;
     `}>
-      {value}
+      {gold}
     </div>
   </FlexContainer>
 );

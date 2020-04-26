@@ -12,7 +12,7 @@ export const Image = (props) => {
     external = false,
     className = '',
     _css = '',
-    onClick = () => {},
+    onClick,
     children
   } = props;
 

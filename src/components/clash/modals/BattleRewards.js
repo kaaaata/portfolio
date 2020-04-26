@@ -83,7 +83,7 @@ const BattleRewardsComponent = ({
         }
       }]}
     >
-      <Gold value={goldReward} big />
+      <Gold gold={goldReward} big />
       <Spacer height={30} />
       <h1>Take up to 3 cards from the enemy's deck! {cardsLootedCountComponent}</h1>
       <Spacer height={30} />
