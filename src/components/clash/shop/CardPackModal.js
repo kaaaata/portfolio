@@ -25,6 +25,9 @@ const CardPackModalComponent = ({ cards, addCardsToCollection, closeModal }) => 
           text: 'Take All',
           color: 'green',
           onClick: () => {
+            if (Object.keys(selectedCards).length === 5) {
+              return;
+            }
             addCardsToCollection(cards.filter((_, index) => !selectedCards.hasOwnProperty(index)));
             setSelectedCards({ 0: true, 1: true, 2: true, 3: true, 4: true });
           }

@@ -55,10 +55,6 @@ export const playCard = (card = {}, index) => {
   actions.push([]);
 
   if (customEffect) {
-    console.log('asdf custom effect logging', {
-      name,
-      card
-    });
     customCardEffects[name](card);
   }
 

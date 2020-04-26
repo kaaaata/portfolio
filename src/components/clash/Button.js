@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from 'react'; // eslint-ignore-line
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { Image, Spacer, Filter, FlexContainer } from '../particles';
-import { colors, zIndex } from '../styles';
-
-
+import { colors } from '../styles';
 
 export const Button = ({
   color = 'white',
