@@ -189,10 +189,13 @@ export const playCard = (card = {}, index) => {
   }
 
   if (damageSelf) {
+    // TODO: refactor damage dealing to deal full amount but stop when deck is empty
+    // to account for bombs/shuffles in deck.
     const totalSelfDamage = Math.min(damageSelf, stateCopy[player].deck.length);
     logs.push(`${player} receives ${totalSelfDamage} damage`);
 
     for (let i = 0; i < totalSelfDamage; i++) {
+      console.log('asdf', { i, statecopydeck: stateCopy[player].deck });
       const removedCard = stateCopy[player].deck.getTopCard();
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       const destinationVerb = dealsBanishingDamage ? 'banishes' : 'discards';

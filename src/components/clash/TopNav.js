@@ -12,7 +12,7 @@ export const TopNavComponent = ({
   player,
   energy
 }) => {
-  const [activeModal, setActiveModal] = useState('shop');
+  const [activeModal, setActiveModal] = useState(null);
 
   return (
     <React.Fragment>

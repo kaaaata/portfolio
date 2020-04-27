@@ -13,10 +13,10 @@ export const cardsArray = CardsArray([
 ]);
 export const cards = keyBy(cardsArray, 'name');
 export const cardsByRarity = {
-  common: cardsArray.filter(card => card.rarity === 'common' && card.isBuyable),
-  uncommon: cardsArray.filter(card => card.rarity === 'uncommon' && card.isBuyable),
-  rare: cardsArray.filter(card => card.rarity === 'rare' && card.isBuyable),
-  legendary: cardsArray.filter(card => card.rarity === 'legendary' && card.isBuyable)
+  common: cardsArray.filter(card => card.rarity === 'common' && card.isToken),
+  uncommon: cardsArray.filter(card => card.rarity === 'uncommon' && card.isToken),
+  rare: cardsArray.filter(card => card.rarity === 'rare' && card.isToken),
+  legendary: cardsArray.filter(card => card.rarity === 'legendary' && card.isToken)
 };
 
 export const genStartingDeck = () => [

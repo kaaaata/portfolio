@@ -55,6 +55,15 @@ export const allies = [
     description: 'When played or discarded, shuffle a random Potion from your banish into your deck.'
   },
   {
+    name: 'Paladin',
+    image: 'paladin',
+    rarity: 'uncommon',
+    attack: 3,
+    defense: 0,
+    shuffleCardCopiesIntoYourPiles: [{ card: 'Healing Blade', pile: 'deck' }],
+    description: 'Shuffle a copy of Healing Blade into your deck.'
+  },
+  {
     name: 'Mermaid',
     image: 'mermaid',
     rarity: 'uncommon',
@@ -62,6 +71,18 @@ export const allies = [
     defense: 4,
     heal: 4,
     healEnemy: 4
+  },
+  {
+    name: 'Ice Whelp',
+    image: 'ice_whelp',
+    rarity: 'uncommon',
+    attack: 3,
+    defense: 1,
+    shuffleCardCopiesIntoOpponentsPiles: [
+      { card: 'Freeze', pile: 'deck' },
+      { card: 'Freeze', pile: 'deck' }
+    ],
+    description: 'Shuffle 2 copies of Freeze into your opponent\'s deck.'
   },
   {
     name: 'Hobgoblin',
@@ -95,15 +116,24 @@ export const allies = [
   },
   {
     name: 'Fire Dragon',
-    image: 'fire_dragon_head',
+    image: 'fire_dragon',
     rarity: 'rare',
-    attack: 4,
+    attack: 5,
     defense: 0,
     shuffleCardCopiesIntoOpponentsPiles: [
       { card: 'Burn', pile: 'deck' },
       { card: 'Burn', pile: 'deck' },
     ],
     description: 'Shuffle 2 copies of Burn into your opponent\'s deck.'
+  },
+  {
+    name: 'Mimic',
+    image: 'mimic',
+    rarity: 'rare',
+    attack: 2,
+    defense: 2,
+    playCopiesOfCards: ['Tentacles', 'Tentacles'],
+    description: 'Play 2 copies of Tentacles'
   },
   {
     name: 'Minotaur',
@@ -147,6 +177,22 @@ export const allies = [
     damageSelf: 2,
     banishes: true,
     dealsBanishingDamage: true
+  },
+  {
+    name: 'Cryopyromancer',
+    image: 'cryopyromancer',
+    rarity: 'rare',
+    attack: 2,
+    defense: 2,
+    shuffleCardCopiesIntoYourPiles: [
+      { card: 'Fire', pile: 'deck' },
+      { card: 'Ice Punch', pile: 'deck' }
+    ],
+    shuffleCardCopiesIntoOpponentsPiles: [
+      { card: 'Freeze', pile: 'deck' },
+      { card: 'Burn', pile: 'deck' }
+    ],
+    description: 'Shuffle copies of Fire and Ice Punch into your deck. Shuffle copies of Freeze and Burn into your opponent\'s deck.'
   },
   {
     name: 'Catherine the Great',

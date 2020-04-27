@@ -29,30 +29,23 @@ export const attacks = [
     attack: 1,
     defense: 2
   },
-  // {
-  //   name: 'Chop',
-  //   image: 'chop',
-  //   rarity: 'common',
-  //   attack: 1,
-  //   defense: 1,
-  //   pierce: 1
-  // },
-  // {
-  //   name: 'Heavy Strike',
-  //   image: 'heavy_strike',
-  //   rarity: 'common',
-  //   attack: 2,
-  //   defense: 0,
-  //   pierce: 1
-  // },
-  // {
-  //   name: 'Arrow',
-  //   image: 'arrow',
-  //   rarity: 'common',
-  //   attack: 2,
-  //   defense: 0,
-  //   isBuyable: false
-  // },
+  {
+    name: 'Ice Punch',
+    image: 'ice_punch',
+    rarity: 'common',
+    attack: 1,
+    defense: 0,
+    shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Freeze', pile: 'deck' }],
+    description: 'Shuffle a copy of Freeze into your opponent\'s deck.'
+  },
+  {
+    name: 'Arrow',
+    image: 'arrow',
+    rarity: 'common',
+    attack: 2,
+    defense: 0,
+    isToken: false
+  },
   {
     name: 'Devastating Blow',
     image: 'piercing_blow',
@@ -103,6 +96,13 @@ export const attacks = [
     description: 'Gain +1 defense for the rest of the battle.'
   },
   {
+    name: 'Lotus',
+    image: 'lotus',
+    rarity: 'uncommon',
+    attack: 3,
+    defense: 2
+  },
+  {
     name: 'Sunder',
     image: 'sunder',
     rarity: 'rare',
@@ -133,7 +133,9 @@ export const attacks = [
     image: 'ice_sword',
     rarity: 'rare',
     attack: 2,
-    defense: 5
+    defense: 4,
+    shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Freeze', pile: 'deck' }],
+    description: 'Shuffle a copy of Freeze into your opponent\'s deck.'
   }
 ].map(card => createCard({
   ...card,

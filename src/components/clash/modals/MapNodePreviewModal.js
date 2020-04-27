@@ -41,9 +41,11 @@ const MonsterNodePreviewComponent = ({
       const enemyDeck = deck;
 
       setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
+      setYourDeck(['Bomb', 'Bomb']); // testing
       setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-      setEnemyDeck([]); // testing
+      // setEnemyDeck([]); // testing
       setYourHand(yourDeck.slice(yourDeck.length - 3));
+      setYourHand(['Bomb', 'Paladin', 'Lotus']); // testing
       setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
       setBattleRewardCards(sampleSize(enemyDeck, 4));
       setBattleRewardGold(25 * tier + random(0, 25));

@@ -58,7 +58,7 @@ const MapComponent = ({
                   node === playerNode ? 'player_node' : '',
                   isBlankNode ? 'blank_node' : ''
                 ].join(' ')}
-                onClick={() => {
+                onClick={isUnrevealedNode ? null : () => {
                   if ((isMonsterNode || isEventNode) && !isVisitedNode) {
                     setMapPreviewNode(node);
                   } else if (nodes[node]) {

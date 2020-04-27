@@ -41,7 +41,7 @@ export const customCardEffects = {
   'Cleric': (card) => {
     // When played or discarded, shuffle a random Potion from your banish into your deck.
     const potionIndex = stateCopy[card.player].banish.getRandomCardIndexByFilter(
-      card => card.type === 'potion'
+      card => card.type === 'potion' && !card.isToken
     );
     if (potionIndex !== -1) {
       addCardCopiesIntoPiles(
@@ -49,6 +49,19 @@ export const customCardEffects = {
         card.player,
         { player: card.player, location: 'banish', index: potionIndex }
       );
+    }
+  },
+  'Golden Goblet': (card) => {
+    // Shuffle 7 cards from your banish into your discard. Heal 7.
+    for (let i = 0; i < 7; i++) {
+      const banishCardIndex = stateCopy[card.player].banish.getRandomCardIndex();
+      if (banishCardIndex !== -1) {
+        addCardCopiesIntoPiles(
+          [{ card: stateCopy[card.player].banish[banishCardIndex].name, pile: 'discard' }],
+          card.player,
+          { player: card.player, location: 'banish', index: banishCardIndex }
+        );
+      }
     }
   },
   'Magic Scroll': (card) => {
