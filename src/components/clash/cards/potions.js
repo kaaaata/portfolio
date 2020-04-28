@@ -14,7 +14,7 @@ export const potions = [
     name: 'Bomb',
     image: 'bomb',
     rarity: 'common',
-    isToken: false,
+    isToken: true,
     damageSelf: 2,
     onDiscard: {
       damageSelf: 2
@@ -24,7 +24,7 @@ export const potions = [
     name: 'Burn',
     image: 'burn',
     rarity: 'common',
-    isToken: false,
+    isToken: true,
     damageSelf: 1,
     onDiscard: {
       damageSelf: 1
@@ -34,7 +34,7 @@ export const potions = [
     name: 'Freeze',
     image: 'freeze',
     rarity: 'common',
-    isToken: false
+    isToken: true
   },
   {
     name: 'Slime Potion',

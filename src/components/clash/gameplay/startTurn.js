@@ -8,17 +8,8 @@ export const startTurn = (player) => {
   for (let i = 0; i < 3; i++) {
     if (!stateCopy[player].hand[i].name) {
       const cardToDraw = stateCopy[player].deck.getTopCard();
-      startOfTurnActions.push(actionGenerators.removeCard(
-        player,
-        'deck',
-        'top'
-      ));
-      startOfTurnActions.push(actionGenerators.addCard(
-        cardToDraw,
-        player,
-        'hand',
-        i
-      ));
+      startOfTurnActions.push(actionGenerators.removeCard(player, 'deck', 'top'));
+      startOfTurnActions.push(actionGenerators.addCard(cardToDraw, player, 'hand', i));
     }
   }
 

@@ -5,7 +5,7 @@ export const allies = [
     name: 'Weapons Guy',
     image: 'weapons_guy',
     rarity: 'common',
-    attack: 2,
+    attack: 0,
     defense: 1,
     customEffect: true,
     description: 'Shuffle 2 random Attacks into your deck.'

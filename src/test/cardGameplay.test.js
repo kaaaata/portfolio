@@ -187,6 +187,33 @@ test('Mock cards disappear after being played', () => {
   expect(stateCopy.enemy.banish.length).toBe(10);
 });
 
+test('Dealing damage greater than deck size should be handled well', () => {
+  stateCopy.enemy.deck = CardsArray(
+    Array(10).fill('Bomb'),
+    { player: 'enemy', location: 'deck' }
+  );
+  const damageCard = createCard({
+    attack: 20,
+    player: 'you',
+    isMockCard: true
+  });
+  simulatePlayCard(damageCard);
+  expect(stateCopy.enemy.deck.length).toBe(0);
+
+  stateCopy.you.deck = CardsArray(
+    Array(10).fill('Bomb'),
+    { player: 'you', location: 'deck' }
+  );
+  const damageSelfCard = createCard({
+    damageSelf: 20,
+    player: 'you',
+    isMockCard: true
+  });
+  simulatePlayCard(damageSelfCard);
+  expect(stateCopy.you.deck.length).toBe(0);
+});
+
+
 test('CUSTOM CARD EFFECT (Weapons Guy)', () => {
   const card = cards['Weapons Guy'];
   simulatePlayCard(card);
@@ -236,4 +263,12 @@ test('CUSTOM CARD EFFECT (Magic Scroll)', () => {
   simulatePlayCard(card);
   expect(stateCopy.you.discard.getRandomCardIndexByFilter(card => card.type === 'magic'))
     .not.toBe(-1);
+});
+
+test('CUSTOM CARD EFFECT (Golden Goblet)', () => {
+  const card = cards['Golden Goblet'];
+  simulatePlayCard(card);
+  expect(stateCopy.you.banish.length).toBe(4);
+  expect(stateCopy.you.discard.length).toBe(10);
+  expect(stateCopy.you.deck.length).toBe(17);
 });

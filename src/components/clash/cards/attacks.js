@@ -44,7 +44,7 @@ export const attacks = [
     rarity: 'common',
     attack: 2,
     defense: 0,
-    isToken: false
+    isToken: true
   },
   {
     name: 'Devastating Blow',

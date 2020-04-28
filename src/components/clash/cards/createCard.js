@@ -15,7 +15,7 @@ const cardTemplate = {
   banishesOnPlay: false,
   customEffect: false,
   pierces: false,
-  isToken: true,
+  isToken: false,
   playCopiesOfCards: null,
   shuffleCardCopiesIntoYourPiles: null,
   shuffleCardCopiesIntoOpponentsPiles: null,
