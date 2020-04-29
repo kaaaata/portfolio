@@ -78,7 +78,7 @@ const MapComponent = ({
                 size={isUnrevealedNode ? 'cover' : 'contain'}
                 rgbaFilter={isVisitedNode ? 'rgba(0, 0, 0, 0.35)' : null}
               >
-                {isVisitedNode && node !== '33' && (
+                {isVisitedNode && (isMonsterNode || isEventNode) && (
                   <div className='checkmark'>&#10003;</div>
                 )}
               </Image>
