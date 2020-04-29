@@ -14,14 +14,15 @@ export const topNavCss = css`
 
   .attributes {
     margin-left: 20px;
+    margin-right: 20px;
     width: 110px;
     font-size: 24px;
   }
 
   .shop {
-    margin-right: 15px;
+    margin-left: 20px;
     transition: transform 0.1s ease-out;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 40px;
     text-align: center;
     color: ${colors.yellow};
@@ -66,10 +67,10 @@ export const energyMeterCss = css`
 
 export const collectionCss = css`
   position: relative;
-  margin-left: 15px;
+  margin-left: 10px;
   transition: transform 0.1s ease-out;
   cursor: pointer;
-  width: 55px;
+  width: 53px;
   height: 40px;
   
   &:hover {
@@ -83,12 +84,14 @@ export const collectionCss = css`
     &.card_0 {
       position: absolute;
       left: 9px;
+      top: 4px;
       transform: rotate(-35deg);
     }
 
     &.card_1 {
       position: absolute;
       left: 22px;
+      top: 3px;
       transform: rotate(25deg);
     }
   }

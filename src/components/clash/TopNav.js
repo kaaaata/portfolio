@@ -35,19 +35,7 @@ export const TopNavComponent = ({
             magic={player.magic}
             defense={player.defense}
           />
-          <div css={collectionCss}>
-            {[0, 1].map(i => (
-              <Image
-                key={i}
-                src='/clash/card_back.png'
-                width={24}
-                height={34}
-                onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
-                className={`card_${i}`}
-              />
-            ))}
-          </div>
-          <div className='deck_count'>{player.deck.length}</div>
+          <Gold gold={player.gold} />
         </FlexContainer>
 
         <FlexContainer
@@ -72,16 +60,28 @@ export const TopNavComponent = ({
           justifyContent='flex-start'
           alignItems='center'
         >
+          <div css={collectionCss}>
+            {[0, 1].map(i => (
+              <Image
+                key={i}
+                src='/clash/card_back.png'
+                width={24}
+                height={34}
+                onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
+                className={`card_${i}`}
+              />
+            ))}
+          </div>
+          <div className='deck_count'>{player.deck.length}</div>
           <Image
             src='/clash/shop.png'
-            width={30}
-            height={30}
+            width={35}
+            height={35}
             onClick={() => setActiveModal(activeModal === 'shop' ? null : 'shop')}
             className='shop'
           >
             $
           </Image>
-          <Gold gold={player.gold} />
         </FlexContainer>
       </FlexContainer>
 
