@@ -31,7 +31,6 @@ const rowOfCardsCss = css`
 const BattleRewardsComponent = ({
   player,
   winner,
-  enemyTier,
   battleRewardCards,
   battleRewardGold,
   setPlayerProperties,
@@ -55,9 +54,8 @@ const BattleRewardsComponent = ({
           <Card
             name={i}
             onClick={cardsLootedCount === 3 ? null : () => {
-              if (cardsLootedCount < 3) {
-                setCardsLootedIndices(`${cardsLootedIndices}${index}`);
-              }
+              setCardsLootedIndices(`${cardsLootedIndices}${index}`);
+              setPlayerProperties({ deck: [...player.deck, i] });
             }}
           />
         </div>
@@ -65,7 +63,7 @@ const BattleRewardsComponent = ({
     </FlexContainer>
   );
 
-  const cardsLootedCountComponent = (
+  const cardsLootedCountText = (
     <span css={cardsLootedCountCss(cardsLootedCount === 3)}>
       ({cardsLootedCount}/3)
     </span>
@@ -85,7 +83,7 @@ const BattleRewardsComponent = ({
     >
       <Gold gold={goldReward} big />
       <Spacer height={30} />
-      <h1>Take up to 3 cards from the enemy's deck! {cardsLootedCountComponent}</h1>
+      <h1>Take up to 3 cards from the enemy's deck! {cardsLootedCountText}</h1>
       <Spacer height={30} />
       {rowOfCards}
     </Modal>
@@ -95,7 +93,6 @@ const BattleRewardsComponent = ({
 const mapStateToProps = (state) => ({
   player: state.clashPlayer,
   winner: state.clashBattleStats.winner,
-  enemyTier: state.clashBattleStats.enemyTier,
   battleRewardCards: state.clashBattleCards.battleRewardCards,
   battleRewardGold: state.clashBattleCards.battleRewardGold
 });

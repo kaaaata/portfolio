@@ -86,11 +86,11 @@ export const TopNavComponent = ({
       </FlexContainer>
 
       <div style={{ display: activeModal === 'collection' ? 'unset' : 'none' }}>
-        <Collection />
+        <Collection zIndex='mouseEventArea1' />
       </div>
 
       <div style={{ display: activeModal === 'shop' ? 'unset' : 'none' }}>
-        <Shop />
+        <Shop zIndex='mouseEventArea1' />
       </div>
     </React.Fragment>
   );

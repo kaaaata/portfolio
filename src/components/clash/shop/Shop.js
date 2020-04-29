@@ -59,16 +59,13 @@ const shopCss = css`
   }
 `;
 
-const ShopComponent = ({
-  gold,
-  adjustPlayerGold
-}) => {
+const ShopComponent = ({ gold, adjustPlayerGold, zIndex }) => {
   const [isCardPackModalOpen, setIsCardPackModalOpen] = useState(false);
   const [cardPackModalCards, setCardPackModalCards] = useState([]);
   
   return (
     <React.Fragment>
-      <Modal title='Shop'>
+      <Modal title='Shop' zIndex={zIndex}>
         <FlexContainer css={shopCss}>
           {Object.keys(packs).map(i => {
             const pack = packs[i];

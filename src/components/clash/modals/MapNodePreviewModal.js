@@ -43,7 +43,7 @@ const MonsterNodePreviewComponent = ({
       setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
       // setYourDeck(['Bomb', 'Bomb']); // testing
       setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-      // setEnemyDeck(['Cleric']); // testing
+      setEnemyDeck([]); // testing
       setYourHand(yourDeck.slice(yourDeck.length - 3));
       setYourHand(['Weapons Guy', 'Catherine the Great', 'Magic Scroll']); // testing
       setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));

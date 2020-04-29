@@ -1,9 +1,9 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, FlexContainer } from '../../particles';
 import { Button } from '../Button';
-import { colors } from '../../styles';
+import { colors, zIndex } from '../../styles';
 
-const modalCss = (halfModal, transparent) => css`
+const modalCss = (halfModal, transparent, _zIndex) => css`
   position: absolute;
   width: 100%;
   height: ${halfModal ? '65%' : `calc(100% - 40px)`};
@@ -12,6 +12,7 @@ const modalCss = (halfModal, transparent) => css`
   font-size: 20px;
   ${halfModal ? 'transform: translateY(-22%);' : ''}
   ${halfModal ? `box-shadow: 4px 4px 8px ${colors.black};` : ''}
+  ${_zIndex ? `z-index: ${zIndex[_zIndex]};` : ''}
 
   .content {
     .title {
@@ -36,6 +37,7 @@ export const Modal = ({
   continueOptions = [], // [{ text, color, onClick }],
   halfModal = false,
   transparent = true,
+  zIndex,
   children
 }) => {
   const modalTitle = title && (
@@ -60,7 +62,7 @@ export const Modal = ({
   );
 
   return (
-    <div css={modalCss(halfModal, transparent)}>
+    <div css={modalCss(halfModal, transparent, zIndex)}>
       <FlexContainer
         className='content'
         alignItems='center'
