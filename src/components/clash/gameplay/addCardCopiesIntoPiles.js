@@ -1,37 +1,33 @@
 import { actionGenerators } from './actionGenerators';
-import { actions, logs } from './globalVariables';
 import { cards } from '../cards/cards';
 
-export const addCardCopiesIntoPiles = (copies, player, removeCardArgs) => {
+export const addCardCopiesIntoPiles = (
+  state,
+  copies, // { card, pile, index = 'random' }
+  player,
+  removeCardArgs // move cards b/t piles: { player, location, index }. shuffle cards into piles: undefined
+) => {
+  const { logs, renderActions } = state;
   copies.forEach(({ card }) => {
-    const action = [
-      actionGenerators.addCardToStack({
-        ...cards[card],
-        player
-      })
-    ];
+    const renderAction = [actionGenerators.addCardToStack(state, { state, ...cards[card], player })];
     if (removeCardArgs) {
-      action.push(actionGenerators.removeCard(
+      renderAction.push(actionGenerators.removeCard(
+        state,
         removeCardArgs.player,
         removeCardArgs.location,
         removeCardArgs.index
       ));
     }
-    actions.push(action);
+    renderActions.push(renderAction);
   });
 
-  actions.push([]);
+  renderActions.push([]);
 
   copies.forEach(({ card, pile, index = 'random' }) => {
     logs.push(`${player} shuffles card into their ${pile}: ${card}`);
-    actions.push([
-      actionGenerators.removeTopCardFromStack(),
-      actionGenerators.addCard(
-        cards[card],
-        player,
-        pile,
-        index
-      )
+    renderActions.push([
+      actionGenerators.removeTopCardFromStack(state),
+      actionGenerators.addCard(state, cards[card], player, pile, index)
     ]);
   });
 };

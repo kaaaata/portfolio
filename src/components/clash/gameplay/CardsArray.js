@@ -1,10 +1,9 @@
 import { sample } from 'lodash';
 import { cards } from '../cards/cards';
 
-export const CardsArray = (_cards, properties) => {
+export const CardsArray = (_cards) => {
   const arr = _cards.map(card => ({
-    ...(typeof card === 'string' ? cards[card] : card),
-    ...properties
+    ...(typeof card === 'string' ? cards[card] : card)
   }));
 
   arr.getTopCard = () => arr[arr.length - 1];

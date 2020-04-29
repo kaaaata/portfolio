@@ -1,17 +1,20 @@
 import { actionGenerators } from './actionGenerators';
-import { createCard } from '../cards/createCard';
 import { cards } from '../cards/cards';
+import { createCard } from '../cards/createCard';
 import { customCardEffects } from './customCardEffects';
 import { addCardCopiesIntoPiles } from './addCardCopiesIntoPiles';
-import { stateCopy, actions, logs } from './globalVariables';
 
-const triggerDiscardEffect = (player) => {
-  const discardedCard = stateCopy[player].discard.getTopCard();
-  logs.push(`${player} triggers discard effect of ${discardedCard.name}: ${discardedCard.description}`);
+// can't move triggerDiscardEffect into new file because it calls playCard (import loop)
+const triggerDiscardEffect = (state, player) => {
+  const { logs, renderActions } = state;
+  const discardedCard = state[player].discard.getTopCard();
+  logs.push(
+    `${player} triggers discard effect of ${discardedCard.name}: ${discardedCard.description}`
+  );
 
-  actions.push([
-    actionGenerators.removeCard(player, 'discard', 'top'),
-    actionGenerators.addCardToStack(discardedCard)
+  renderActions.push([
+    actionGenerators.removeCard(state, player, 'discard', 'top'),
+    actionGenerators.addCardToStack(state, discardedCard)
   ]);
 
   const mockCard = createCard({
@@ -21,11 +24,12 @@ const triggerDiscardEffect = (player) => {
     isMockCard: true
   });
 
-  playCard(mockCard);
+  playCard(state, mockCard, player);
 
-  actions.push([
-    actionGenerators.removeTopCardFromStack(),
+  renderActions.push([
+    actionGenerators.removeTopCardFromStack(state),
     actionGenerators.addCard(
+      state,
       discardedCard,
       player,
       discardedCard.banishesOnPlay ? 'banish' : 'discard',
@@ -35,7 +39,8 @@ const triggerDiscardEffect = (player) => {
 };
 
 // if a player loses (receives damage while deck size = 0), playCard returns.
-export const playCard = (card, index) => {
+export const playCard = (state, card, player, location, index) => {
+  const { logs, renderActions } = state;
   const {
     name,
     attack,
@@ -43,8 +48,6 @@ export const playCard = (card, index) => {
     heal,
     healEnemy,
     damageSelf,
-    player,
-    location,
     dealsBanishingDamage,
     banishesOnPlay,
     pierces,
@@ -58,17 +61,17 @@ export const playCard = (card, index) => {
   } = card;
   const opponent = player === 'you' ? 'enemy' : 'you';
 
-  if (!isMockCard) {
-    actions.push([
-      actionGenerators.addCardToStack(card),
-      actionGenerators.removeCard(player, location, index)
+  if (!isMockCard && location) {
+    renderActions.push([
+      actionGenerators.addCardToStack(state, card),
+      actionGenerators.removeCard(state, player, location, index)
     ]);
   }
 
-  actions.push([]);
+  renderActions.push([]);
 
   if (customEffect) {
-    customCardEffects[name](card);
+    customCardEffects[name](state, card, player);
   }
 
   if (temporaryStatGain) {
@@ -77,134 +80,131 @@ export const playCard = (card, index) => {
       const sign = amount > 0 ? '+' : '-';
       logs.push(`${player} receives ${sign}${amount} ${stat} until end of battle`);
     });
-    actions.push([actionGenerators.setTemporaryStats(player, temporaryStatGain)]);
+    renderActions.push([actionGenerators.setTemporaryStats(state, player, temporaryStatGain)]);
   }
 
   if (shuffleCardCopiesIntoOpponentsPiles) {
-    addCardCopiesIntoPiles(shuffleCardCopiesIntoOpponentsPiles, opponent);
+    addCardCopiesIntoPiles(state, shuffleCardCopiesIntoOpponentsPiles, opponent);
   }
 
   if (shuffleCardCopiesIntoYourPiles) {
-    addCardCopiesIntoPiles(shuffleCardCopiesIntoYourPiles, player);
+    addCardCopiesIntoPiles(state, shuffleCardCopiesIntoYourPiles, player);
   }
 
   if (playCopiesOfCards) {
     playCopiesOfCards.forEach(cardName => {
       logs.push(`${player} plays a copy of ${cardName}`);
-      playCard({
-        ...cards[cardName],
-        player
-      });
+      playCard(state, { ...cards[cardName], player }, player);
     });
   }
 
   if (typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && ['attack', 'magic'].includes(type)) {
-      totalDamageDealt += stateCopy[player].temporaryStats[type];
-      totalDamageDealt += stateCopy[player].permanentStats[type];
+      totalDamageDealt += state[player].temporaryStats[type];
+      totalDamageDealt += state[player].permanentStats[type];
     }
     if (!pierces) {
-      totalDamageDealt = Math.max(totalDamageDealt - stateCopy[opponent].shields, 0);
+      totalDamageDealt = Math.max(totalDamageDealt - state[opponent].shields, 0);
     }
     logs.push(`${opponent} receives ${totalDamageDealt} damage`);
 
     let totalShieldsGained = defense;
     if (defense) {
       if (['attack', 'magic'].includes(type)) {
-        totalShieldsGained += stateCopy[player].temporaryStats.defense;
-        totalShieldsGained += stateCopy[player].permanentStats.defense;
+        totalShieldsGained += state[player].temporaryStats.defense;
+        totalShieldsGained += state[player].permanentStats.defense;
       }
       logs.push(`${player} gains ${totalShieldsGained} shields`);
       if (totalDamageDealt === 0) {
         // if no damage is dealt, set shields independently of damage ticks.
         // otherwise, set the shields on the same tick as the first instance of damage. (below)
-        actions.push([actionGenerators.setShields(player, totalShieldsGained)]);
+        renderActions.push([actionGenerators.setShields(state, player, totalShieldsGained)]);
       }
     }
 
     for (let i = 0; i < totalDamageDealt; i++) {
-      const removedCard = stateCopy[opponent].deck.getTopCard();
+      const removedCard = state[opponent].deck.getTopCard();
       if (!removedCard) {
         return;
       }
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       logs.push(`${opponent} ${dealsBanishingDamage ? 'banishes' : 'discards'}: ${removedCard.name}`);
       const damageAction = [
-        actionGenerators.removeCard(opponent, 'deck', 'top'),
-        actionGenerators.addCard(removedCard, opponent, destination, 'top')
+        actionGenerators.removeCard(state, opponent, 'deck', 'top'),
+        actionGenerators.addCard(state, removedCard, opponent, destination, 'top')
       ];
       if (i === 0) {
         // if damage is dealt, set the shields on the same tick as the first instance of damage.
         // otherwise, set shields independently of damage ticks (above)
-        damageAction.push(actionGenerators.setShields(player, totalShieldsGained));
+        damageAction.push(actionGenerators.setShields(state, player, totalShieldsGained));
       }
-      actions.push(damageAction);
+      renderActions.push(damageAction);
 
       if (destination === 'discard' && removedCard.onDiscard) {
-        triggerDiscardEffect(opponent);
+        triggerDiscardEffect(state, opponent);
       }
     }
   }
   
   if (heal) {
-    const totalHeal = Math.min(heal, stateCopy[player].discard.length);
+    const totalHeal = Math.min(heal, state[player].discard.length);
     logs.push(`${player} heals ${totalHeal}`);
 
     for (let i = 0; i < totalHeal; i++) {
-      const healedCard = stateCopy[player].discard.getTopCard();
+      const healedCard = state[player].discard.getTopCard();
       logs.push(`${player} heals: ${healedCard.name}`);
-      actions.push([
-        actionGenerators.removeCard(player, 'discard', 'top'),
-        actionGenerators.addCard(healedCard, player, 'deck', 'random')
+      renderActions.push([
+        actionGenerators.removeCard(state, player, 'discard', 'top'),
+        actionGenerators.addCard(state, healedCard, player, 'deck', 'random')
       ]);
     }
   }
 
   if (healEnemy) {
-    const totalHeal = Math.min(healEnemy, stateCopy[player].discard.length);
+    const totalHeal = Math.min(healEnemy, state[player].discard.length);
     logs.push(`${opponent} heals ${totalHeal}`);
 
     for (let i = 0; i < totalHeal; i++) {
-      if (!stateCopy[opponent].discard.length) {
+      if (!state[opponent].discard.length) {
         break;
       }
 
-      const healedCard = stateCopy[opponent].discard.getTopCard();
+      const healedCard = state[opponent].discard.getTopCard();
       logs.push(`${opponent} heals: ${healedCard}`);
-      actions.push([
-        actionGenerators.removeCard(opponent, 'discard', 'top'),
-        actionGenerators.addCard(healedCard, opponent, 'deck', 'random')
+      renderActions.push([
+        actionGenerators.removeCard(state, opponent, 'discard', 'top'),
+        actionGenerators.addCard(state, healedCard, opponent, 'deck', 'random')
       ]);
     }
   }
 
   if (damageSelf) {
-    const totalSelfDamage = Math.min(damageSelf, stateCopy[player].deck.length);
+    const totalSelfDamage = Math.min(damageSelf, state[player].deck.length);
     logs.push(`${player} receives ${totalSelfDamage} damage`);
 
     for (let i = 0; i < totalSelfDamage; i++) {
-      const removedCard = stateCopy[player].deck.getTopCard();
+      const removedCard = state[player].deck.getTopCard();
       if (!removedCard) {
         return;
       }
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       logs.push(`${opponent} ${dealsBanishingDamage ? 'banishes' : 'discards'}: ${removedCard.name}`);
-      actions.push([
-        actionGenerators.removeCard(player, 'deck', 'top'),
-        actionGenerators.addCard(removedCard, player, destination, 'top')
+      renderActions.push([
+        actionGenerators.removeCard(state, player, 'deck', 'top'),
+        actionGenerators.addCard(state, removedCard, player, destination, 'top')
       ]);
 
       if (destination === 'discard' && removedCard.onDiscard) {
-        triggerDiscardEffect(player);
+        triggerDiscardEffect(state, player);
       }
     }
   }
 
-  if (stateCopy.stack.length && !isMockCard) {
-    actions.push([
-      actionGenerators.removeTopCardFromStack(),
-      actionGenerators.addCard(card, player, banishesOnPlay ? 'banish' : 'discard', 'top')
+  if (state.stack.length && !isMockCard) {
+    renderActions.push([
+      actionGenerators.removeTopCardFromStack(state),
+      actionGenerators.addCard(state, card, player, banishesOnPlay ? 'banish' : 'discard', 'top')
     ]);
   }
 };

@@ -3,61 +3,65 @@ import { cards } from '../cards/cards';
 import { store } from '../../stores/store';
 import { startTurn } from './startTurn';
 import { playCard } from './playCard';
-import { stateCopy, actions, logs, resetGlobalVariables } from './globalVariables';
 import { isThereAWinner } from './isThereAWinner';
 
 export const playFirstCardInRound = (index) => {
-  resetGlobalVariables();
-
+  const _state = {
+    clashBattleCards: store.getState().clashBattleCards,
+    clashBattleStats: store.getState().clashBattleStats
+  };
+  const { clashBattleCards, clashBattleStats } = _state;
   const state = {
-    ...store.getState().clashBattleCards,
-    ...store.getState().clashBattleStats
+    you: {
+      name: clashBattleStats.yourName,
+      deck: CardsArray(clashBattleCards.yourDeck),
+      discard: CardsArray(clashBattleCards.yourDiscard),
+      banish: CardsArray(clashBattleCards.yourBanish),
+      hand: CardsArray(clashBattleCards.yourHand),
+      shields: clashBattleStats.yourShields,
+      temporaryStats: clashBattleStats.yourTemporaryStats,
+      permanentStats: clashBattleStats.yourPermanentStats
+    },
+    enemy: {
+      name: clashBattleStats.enemyName,
+      deck: CardsArray(clashBattleCards.enemyDeck),
+      discard: CardsArray(clashBattleCards.enemyDiscard),
+      banish: CardsArray(clashBattleCards.enemyBanish),
+      hand: CardsArray(clashBattleCards.enemyHand),
+      shields: clashBattleStats.enemyShields,
+      temporaryStats: clashBattleStats.yourTemporaryStats,
+      permanentStats: clashBattleStats.yourPermanentStats
+    },
+    stack: CardsArray(clashBattleCards.stack),
+    winner: clashBattleStats.winner,
+    logs: [],
+    renderActions: []
   };
-  stateCopy.you = {
-    name: state.yourName,
-    deck: CardsArray(state.yourDeck, { player: 'you', location: 'deck' }),
-    discard: CardsArray(state.yourDiscard, { player: 'you', location: 'discard' }),
-    banish: CardsArray(state.yourBanish, { player: 'you', location: 'banish' }),
-    hand: CardsArray(state.yourHand, { player: 'you', location: 'hand' }),
-    shields: state.yourShields,
-    temporaryStats: state.yourTemporaryStats,
-    permanentStats: state.yourPermanentStats
-  };
-  stateCopy.enemy = {
-    name: state.enemyName,
-    deck: CardsArray(state.enemyDeck, { player: 'enemy', location: 'deck' }),
-    discard: CardsArray(state.enemyDiscard, { player: 'enemy', location: 'discard' }),
-    banish: CardsArray(state.enemyBanish, { player: 'enemy', location: 'banish' }),
-    hand: CardsArray(state.enemyHand, { player: 'enemy', location: 'hand' }),
-    shields: state.enemyShields,
-    temporaryStats: state.yourTemporaryStats,
-    permanentStats: state.yourPermanentStats
-  };
-  stateCopy.stack = CardsArray(state.stack.map(name => cards[name]));
-  stateCopy.winner = state.winner;
+  const { logs, renderActions } = state;
 
-  const card = stateCopy.you.hand[index];
-  logs.push(`you plays ${card.name}`);
-  playCard(card, index);
+  const card = state.you.hand[index];
+  logs.push(`You played: ${card.name}`);
+  // any function that uses stateCopy should put its reference as the first arg
+  playCard(state, card, 'you', 'hand', index);
 
-  if (!isThereAWinner('enemy')) {
-    startTurn('enemy');
+  if (!isThereAWinner(state, 'enemy')) {
+    startTurn(state, 'enemy');
     const enemyHandRandomCardIndex = ~~(Math.random() * 3);
-    const enemyHandRandomCard = stateCopy.enemy.hand[enemyHandRandomCardIndex];
+    const enemyHandRandomCard = state.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
-    stateCopy.enemy.hand[enemyHandRandomCardIndex] = {};
-    logs.push(`enemy plays ${enemyHandRandomCard.name}`);
-    playCard(enemyHandRandomCard, enemyHandRandomCardIndex);
+    state.enemy.hand[enemyHandRandomCardIndex] = {};
+    logs.push(`${state.enemy.name} plays: ${enemyHandRandomCard.name}`);
+    playCard(state, enemyHandRandomCard, 'enemy', 'hand', enemyHandRandomCardIndex);
 
-    if (!isThereAWinner('you')) {
-      startTurn('you');
+    if (!isThereAWinner(state, 'you')) {
+      startTurn(state, 'you');
     }
   }
 
   console.log(logs.map(log => log.startsWith('you')
-    ? `Player${log.slice(3)}`
+    ? `You${log.slice(3)}`
     : `Enemy${log.slice(5)}`
   ));
 
-  return actions;
+  return renderActions;
 };

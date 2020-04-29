@@ -1,18 +1,18 @@
 import { actionGenerators } from './actionGenerators';
-import { stateCopy, actions, logs } from './globalVariables';
 
-export const startTurn = (player) => {
+export const startTurn = (state, player) => {
+  const { logs, renderActions } = state;
   logs.push(`${player}'s turn begins`);
 
-  const startOfTurnActions = [actionGenerators.setShields(player, 0)];
+  const startOfTurnActions = [actionGenerators.setShields(state, player, 0)];
   for (let i = 0; i < 3; i++) {
-    if (!stateCopy[player].hand[i].name) {
-      const cardToDraw = stateCopy[player].deck.getTopCard();
-      startOfTurnActions.push(actionGenerators.removeCard(player, 'deck', 'top'));
-      startOfTurnActions.push(actionGenerators.addCard(cardToDraw, player, 'hand', i));
+    if (!state[player].hand[i].name) {
+      const cardToDraw = state[player].deck.getTopCard();
+      startOfTurnActions.push(actionGenerators.removeCard(state, player, 'deck', 'top'));
+      startOfTurnActions.push(actionGenerators.addCard(state, cardToDraw, player, 'hand', i));
     }
   }
 
-  actions.push(startOfTurnActions);
-  actions.push([]);
+  renderActions.push(startOfTurnActions);
+  renderActions.push([]);
 };

@@ -45,7 +45,7 @@ const MonsterNodePreviewComponent = ({
       setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
       // setEnemyDeck(['Cleric']); // testing
       setYourHand(yourDeck.slice(yourDeck.length - 3));
-      // setYourHand(['Bomb', 'Parry', 'Lotus']); // testing
+      setYourHand(['Weapons Guy', 'Catherine the Great', 'Magic Scroll']); // testing
       setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
       setBattleRewardCards(sampleSize(enemyDeck, 4));
       setBattleRewardGold(25 * tier + random(0, 25));

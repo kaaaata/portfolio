@@ -1,78 +1,70 @@
 import { actionKeys } from './actionKeys';
-import { stateCopy } from './globalVariables';
 
 export const actionGenerators = {
-  // these functions mutate stateCopy and return actions.
-  // "card" must be a new object, not a reference.
-  addCardToStack: (card) => {
-    const newCard = { ...card, location: 'stack' };
-    stateCopy.stack.addCardToTop(newCard);
+  // these functions mutate state and return actions.
+  addCardToStack: (state, card) => {
+    state.stack.addCardToTop(card);
     return {
       actionKey: 'setStack',
-      payload: stateCopy.stack.getCardNames()
+      payload: state.stack.getCardNames()
     };
   },
-  removeTopCardFromStack: () => {
-    stateCopy.stack.removeTopCard();
+  removeTopCardFromStack: (state) => {
+    state.stack.removeTopCard();
     return {
       actionKey: 'setStack',
-      payload: stateCopy.stack.getCardNames()
+      payload: state.stack.getCardNames()
     };
   },
-  addCard: (card, player, location, index) => {
+  addCard: (state, card, player, location, index) => {
     // index = number|'top'|'random'
-    const newCard = {
-      ...card,
-      player,
-      location
-    };
     if (location === 'hand') {
-      stateCopy[player][location][index] = newCard;
+      state[player][location][index] = card;
     } else if (index === 'top') {
-      stateCopy[player][location].addCardToTop(newCard);
+      state[player][location].addCardToTop(card);
     } else if (index === 'random') {
-      stateCopy[player][location].addCardAtRandomIndex(newCard);
+      state[player][location].addCardAtRandomIndex(card);
     }
     return {
       actionKey: actionKeys[player][location],
-      payload: stateCopy[player][location].getCardNames()
+      payload: state[player][location].getCardNames()
     };
   },
-  removeCard: (player, location, index) => {
+  removeCard: (state, player, location, index) => {
     // index = number|'top'
     if (!index && index !== 0) {
       return null;
     } else if (location === 'hand') {
-      stateCopy[player][location][index] = {};
+      state[player][location][index] = {};
     } else if (index === 'top') {
-      stateCopy[player][location].removeTopCard();
+      state[player][location].removeTopCard();
     } else {
-      stateCopy[player][location].removeCardAtIndex(index);
+      state[player][location].removeCardAtIndex(index);
     }
     return {
       actionKey: actionKeys[player][location],
-      payload: stateCopy[player][location].getCardNames()
+      payload: state[player][location].getCardNames()
     };
   },
-  setShields: (player, value) => {
-    stateCopy[player].shields = value;
+  setShields: (state, player, value) => {
+    state[player].shields = value;
     return {
       actionKey: actionKeys[player].shields,
       payload: value
     };
   },
-  setTemporaryStats: (player, temporaryStatGain) => {
+  setTemporaryStats: (state, player, temporaryStatGain) => {
     // temporaryStatGain like { attack: 1, defense: 1 }
     Object.keys(temporaryStatGain).forEach(stat => {
-      stateCopy[player].temporaryStats[stat] += temporaryStatGain[stat];
+      state[player].temporaryStats[stat] += temporaryStatGain[stat];
     });
     return {
       actionKey: actionKeys[player].temporaryStats,
-      payload: stateCopy[player].temporaryStats
+      payload: state[player].temporaryStats
     };
   },
-  setWinner: (player) => ({
+  setWinner: (state, player) => ({
     actionKey: 'setWinner',
-    payload: stateCopy[player].name
+    payload: state[player].name
   })
 };
