@@ -21,7 +21,7 @@ import { Image } from '../particles';
 
 const BattleComponent = (props) => {
   const [activeModal, setActiveModal] = useState(null);
-  const { winner, winnerImage, visitMapNode, activeNode } = props;
+  const { winner, winnerImage, visitActiveMapNode } = props;
   let modalComponent = null;
   let interval = null;
   let actions = [];
@@ -30,9 +30,9 @@ const BattleComponent = (props) => {
   useEffect(() => {
     if (winner) {
       setActiveModal('win_or_lose');
-      visitMapNode(activeNode);
+      visitActiveMapNode();
     }
-  }, [winner, visitMapNode, activeNode]);
+  }, [winner, visitActiveMapNode]);
 
   const executeRenderAction = (action) => {
     if (action) {
@@ -128,11 +128,10 @@ const BattleComponent = (props) => {
 
 const mapStateToProps = (state) => ({
   winner: state.clashBattleStats.winner,
-  winnerImage: state.clashBattleStats.winnerImage,
-  activeNode: state.clashMap.activeNode
+  winnerImage: state.clashBattleStats.winnerImage
 });
 const mapDispatchToProps = dispatch => ({
-  visitMapNode: payload => dispatch(actions.visitMapNode(payload)),
+  visitActiveMapNode: payload => dispatch(actions.visitActiveMapNode(payload)),
 
   // these are called from executeRenderAction
   setYourDeck: payload => dispatch(actions.setYourDeck(payload)),

@@ -6,14 +6,12 @@ import { MonsterNodePreview } from '../../modals/MapNodePreviewModal';
 import { mapCss } from './mapCss';
 import { range } from 'lodash';
 
-const genMapNodeImageSrc = (node) => {
+const genMapNodeImageSrc = (node = {}) => {
   let image = 'rock';
-  if (node) {
-    if (node.monster) {
-      image = node.monster.image;
-    } else if (node.event) {
-      image = 'chest';
-    }
+  if (node.monster) {
+    image = node.monster.image;
+  } else if (node.event) {
+    image = 'chest';
   }
   
   return `/clash/${image}.png`;
@@ -24,7 +22,7 @@ const MapComponent = ({
   previewNode,
   playerNode,
   setMapPreviewNode,
-  visitMapNode
+  visitActiveMapNode
 }) => {
   let nodePreviewModal = null;
 
@@ -38,6 +36,14 @@ const MapComponent = ({
     }
   }
 
+  console.log('mapcomponent rendering', {
+    nodes,
+    previewNode,
+    playerNode,
+    setMapPreviewNode,
+    visitActiveMapNode
+  });
+
   return (
     <FlexContainer justifyContent='center' _css={mapCss}>
       <div className='map'>
@@ -48,7 +54,8 @@ const MapComponent = ({
             const isMonsterNode = nodes[node] && nodes[node].monster;
             const isEventNode = nodes[node] && nodes[node].event;
             const isBlankNode = nodes[node] && !isMonsterNode && !isEventNode;
-            const isVisitedNode = nodes[node] && nodes[node.isVisited];
+            const isVisitedNode = nodes[node] && nodes[node].isVisited;
+            const isPlayerNode = node === playerNode;
 
             return (
               <Image
@@ -58,18 +65,23 @@ const MapComponent = ({
                   node === playerNode ? 'player_node' : '',
                   isBlankNode ? 'blank_node' : ''
                 ].join(' ')}
-                onClick={isUnrevealedNode ? null : () => {
+                onClick={(isUnrevealedNode || isPlayerNode) ? null : () => {
                   if ((isMonsterNode || isEventNode) && !isVisitedNode) {
                     setMapPreviewNode(node);
                   } else if (nodes[node]) {
-                    visitMapNode(node);
+                    visitActiveMapNode(node);
                   }
                 }}
                 src={genMapNodeImageSrc(nodes[node])}
                 width='100%'
                 height='100%'
                 size={isUnrevealedNode ? 'cover' : 'contain'}
-              />
+                rgbaFilter={isVisitedNode ? 'rgba(0, 0, 0, 0.35)' : null}
+              >
+                {isVisitedNode && node !== '33' && (
+                  <div className='checkmark'>&#10003;</div>
+                )}
+              </Image>
             );
           })
         ))}
@@ -86,7 +98,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = dispatch => ({
   setMapPreviewNode: payload => dispatch(actions.setMapPreviewNode(payload)),
-  visitMapNode: payload => dispatch(actions.visitMapNode(payload))
+  visitActiveMapNode: payload => dispatch(actions.visitActiveMapNode(payload))
 });
 
 export const Map = connect(mapStateToProps, mapDispatchToProps)(MapComponent);

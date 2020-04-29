@@ -80,9 +80,9 @@ export default (state = genInitialState(), action) => {
         ...state,
         activeNode: action.payload
       };
-    case 'VISIT_MAP_NODE': {
-      const x = parseInt(action.payload[0]);
-      const y = parseInt(action.payload[1]);
+    case 'VISIT_ACTIVE_MAP_NODE': {
+      const x = parseInt(action.payload ? action.payload[0] : state.activeNode[0]);
+      const y = parseInt(action.payload ? action.payload[1] : state.activeNode[1]);
       const nodesToAdd = []; // [{ x, y }]
 
       if (x - 1 >= 0 && !state.nodes.hasOwnProperty(`${x - 1}${y}`)) nodesToAdd.push({ x: x - 1, y });
@@ -128,10 +128,11 @@ export default (state = genInitialState(), action) => {
 
       return {
         ...state,
-        playerNode: action.payload,
+        playerNode: `${x}${y}`,
         nodes: {
           ...state.nodes,
-          ...newNodes
+          ...newNodes,
+          [`${x}${y}`]: { ...state.nodes[`${x}${y}`], isVisited: true }
         }
       };
     }

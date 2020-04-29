@@ -133,7 +133,7 @@ const monstersTier3 = [
   },
   {
     name: 'Ice Whelp',
-    imgae: 'ice_whelp',
+    image: 'ice_whelp',
     deck: [
       'Ice Queen',
       'Ice Whelp',

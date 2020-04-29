@@ -20,6 +20,13 @@ export const mapCss = css`
       &.blank_node {
         background: transparent;
       }
+
+      .checkmark {
+        color: ${colors.green};
+        font-size: 48px;
+        text-align: right;
+        text-shadow: 2px 2px 3px ${colors.black};
+      }
     }
   }
 `;
