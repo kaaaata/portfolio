@@ -6,7 +6,7 @@ export const topNavCss = css`
   background: rgba(0, 0, 0, 0.8);
   padding: 0 20px;
   width: 100%;
-  box-shadow: 4px 4px 8px ${colors.black};
+  box-shadow: 2px 2px 4px ${colors.black};
 
   .left, .right {
     width: 250px;
