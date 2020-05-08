@@ -36,7 +36,7 @@ const PileOfCards = ({
   `;
 
   return (
-    <div css={css`cursor: pointer;`}>
+    <div style={{ cursor: 'pointer' }}>
       <div css={outlineCss} />
       {cards.map((card, index) => (
         (index >= cards.length - 2) ? (

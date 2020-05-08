@@ -1,5 +1,4 @@
 import { CardsArray } from './CardsArray';
-import { cards } from '../cards/cards';
 import { store } from '../../stores/store';
 import { startTurn } from './startTurn';
 import { playCard } from './playCard';
