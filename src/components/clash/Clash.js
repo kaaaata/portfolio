@@ -1,6 +1,8 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { MainMenu } from './scenes/MainMenu';
+import { Story } from './scenes/Story';
 import { Map } from './scenes';
+import { Town } from './town/Town';
 import { Battle } from './Battle';
 import { TopNav } from './TopNav';
 import { Image } from '../particles';
@@ -22,8 +24,17 @@ const ClashComponent = ({ scene }) => {
     case 'map':
       sceneComponent = <Map />;
       break;
-    default:
+    case 'story':
+      sceneComponent = <Story />;
+      break;
+    case 'main_menu':
       sceneComponent = <MainMenu />;
+      break;
+    case 'town':
+      sceneComponent = <Town />;
+      break
+    default:
+      sceneComponent = null;
       break;
   }
 
@@ -32,10 +43,12 @@ const ClashComponent = ({ scene }) => {
       src='/clash/landscape.png'
       width={1000}
       height={600}
-      rgbaFilter='rgba(255, 255, 255, 0.3)'
+      rgbaFilter='rgba(255, 255, 255, 0.2)'
       css={clashCss}
     >
-      {scene && <TopNav />}
+      {!['story', 'main_menu'].includes(scene) && (
+        <TopNav />
+      )}
       {sceneComponent}
     </Image>  
   );

@@ -1,5 +1,5 @@
 const initialState = {
-  scene: 'map'
+  scene: 'town'
 };
 
 export default (state = initialState, action) => {

@@ -7,6 +7,7 @@ const initialState = {
   magic: 0,
   defense: 0,
   gold: 100,
+  energy: 12,
   deck: genStartingDeck()
 };
 
@@ -33,6 +34,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         deck: [...state.deck, ...action.payload]
+      };
+    case 'ADJUST_PLAYER_ENERGY':
+      return {
+        ...state,
+        energy: Math.max(0, state.energy + action.payload)
       };
     default:
       return state;

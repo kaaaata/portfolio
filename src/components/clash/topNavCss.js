@@ -45,7 +45,7 @@ export const energyMeterCss = css`
   height: 24px;
   border: 2px solid ${colors.yellowLight};
   border-radius: 3px;
-  margin-left: 3px;
+  margin-left: 7px;
 
   .fill {
     background: ${colors.yellowLight};

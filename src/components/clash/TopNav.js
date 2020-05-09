@@ -45,13 +45,13 @@ export const TopNavComponent = ({
         >
           <Image
             src='/clash/energy.png'
-            width={30}
-            height={30}
+            width={20}
+            height={25}
             className='energy'
           />
           <div css={energyMeterCss}>
-            <div className='fill' style={{ width: `${energy}%` }} />
-            <div className='energy_count'>{energy} / 100</div>
+            <div className='fill' style={{ width: `${100 * energy / 12}%` }} />
+            <div className='energy_count'>{energy} / 12</div>
           </div>
         </FlexContainer>
 
@@ -98,7 +98,7 @@ export const TopNavComponent = ({
 
 const mapStateToProps = (state) => ({
   player: state.clashPlayer,
-  energy: state.clashMap.energy,
+  energy: state.clashPlayer.energy,
 });
 
 export const TopNav = connect(mapStateToProps)(TopNavComponent);

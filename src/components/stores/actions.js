@@ -25,6 +25,7 @@ export const setWinner = payload => ({ type: 'SET_WINNER', payload });
 export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTIES', payload });
 export const adjustPlayerStats = payload => ({ type: 'ADJUST_PLAYER_STATS', payload });
 export const adjustPlayerGold = payload => ({ type: 'ADJUST_PLAYER_GOLD', payload });
+export const adjustPlayerEnergy = payload => ({ type: 'ADJUST_PLAYER_ENERGY', payload });
 export const addCardsToCollection = payload => ({ type: 'ADD_CARDS_TO_COLLECTION', payload });
 
 export const visitActiveMapNode = payload => ({ type: 'VISIT_ACTIVE_MAP_NODE', payload });

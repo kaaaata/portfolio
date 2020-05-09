@@ -1,4 +1,4 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import React from 'react';
 import { Image, FlexContainer } from '../particles';
 import { colors } from '../styles';
 
@@ -16,12 +16,12 @@ export const Gold = ({
       width={big ? 100 : 36}
       height={big ? 100 : 36}
     />
-    <div css={css`
-      font-size: ${big ? 100 : 24}px;
-      line-height: ${big ? 100 : 36}px;
-      color: ${color};
-      margin-left: ${big ? 20 : 5}px;
-    `}>
+    <div style={{
+      fontSize: big ? '100px' : '24px',
+      lineHeight: big ? '100px' : '36px',
+      color,
+      marginLeft: big ? '15px' : '0'
+    }}>
       {gold}
     </div>
   </FlexContainer>

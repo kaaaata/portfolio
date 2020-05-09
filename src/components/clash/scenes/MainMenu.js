@@ -1,20 +1,33 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
+import { Text } from '../Text';
 
 const mainMenuCss = css`
-  h1 {
-    font-size: 36px;
-    cursor: pointer;
+  .play {
     position: absolute;
     left: 100px;
     top: 350px;
+  }
+
+  .title {
+    margin-top: 90px;
+    text-align: center;
   }
 `;
 
 const MainMenuComponent = ({ setScene }) => (
   <div css={mainMenuCss}>
-    <h1 onClick={() => setScene('map')}>Play</h1>
+    <Text type='title' className='title'>
+      12 Days Before the Dragon Attack
+    </Text>
+    <Text
+      type='header'
+      onClick={() => setScene('story')}
+      className='play'
+    >
+      Play
+    </Text>
   </div>
 );
 

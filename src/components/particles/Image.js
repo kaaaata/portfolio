@@ -13,6 +13,8 @@ export const Image = (props) => {
     className = '',
     _css = '',
     onClick,
+    onMouseEnter,
+    onMouseLeave,
     children
   } = props;
 
@@ -37,6 +39,8 @@ export const Image = (props) => {
       className={`image ${className}`}
       css={imageCss}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {children}
     </div>
