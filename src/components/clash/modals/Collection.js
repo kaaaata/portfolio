@@ -29,8 +29,8 @@ const collectionCss = css`
   overflow: scroll;
 `;
 
-const CollectionComponent = ({ deck, zIndex }) => (
-  <Modal title={`Your Cards (${deck.length})`} zIndex={zIndex}>
+const CollectionComponent = ({ deck }) => (
+  <Modal title={`Your Cards (${deck.length})`}>
     <div css={collectionCss}>
       {deck.sort(sortFunc).map((card, index) => (
         <Card key={index} name={card} />

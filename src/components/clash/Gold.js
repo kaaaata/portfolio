@@ -4,7 +4,7 @@ import { colors } from '../styles';
 
 export const Gold = ({
   gold,
-  color = colors.yellow,
+  color = 'yellow',
   big
 }) => (
   <FlexContainer
@@ -19,7 +19,7 @@ export const Gold = ({
     <div style={{
       fontSize: big ? '100px' : '24px',
       lineHeight: big ? '100px' : '36px',
-      color
+      color: colors[color]
     }}>
       {gold}
     </div>

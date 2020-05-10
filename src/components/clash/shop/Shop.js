@@ -9,7 +9,7 @@ import { rarityColors } from '../cards/rarity';
 import { Gold } from '../Gold';
 import { packs } from './packs';
 import { genPackCards } from './genPackCards';
-import { colors } from '../../styles';
+import { Text } from '../Text';
 
 const genRarityColor = (string) => {
   if (string.includes('legendar')) {
@@ -39,18 +39,6 @@ const shopCss = css`
         margin: auto;
       }
     }
-
-    .dot {
-      font-size: 40px;
-    }
-
-    .description {
-      font-size: 16px;
-    }
-  }
-
-  .note {
-    font-size: 16px;
   }
 `;
 
@@ -67,7 +55,7 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
 
             return (
               <div key={i} className='pack_container'>
-                <Gold gold={pack.cost} color={gold >= pack.cost ? colors.yellow : colors.red} />
+                <Gold gold={pack.cost} color={gold >= pack.cost ? 'yellow' : 'red'} />
                 <Spacer height={20} />
                 <Image
                   key={i}
@@ -93,15 +81,15 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
                 </Image>
                 <Spacer height={30} />
                 <FlexContainer alignItems='center' flexDirection='column'>
-                  <div className='name'>{pack.name}</div>
-                  <div className='dot'>&#183;</div>
-                  <div className='description'>
+                  <Text type='small'>{pack.name}</Text>
+                  <Text type='header'>&#183;</Text>
+                  <Text type='small'>
                     {pack.description.map(i => (
                       <div key={i}>
                         {i[0]} <span style={{ color: genRarityColor(i) }}>{i.slice(2)}</span>
-                        </div>
+                      </div>
                     ))}
-                  </div>
+                  </Text>
                 </FlexContainer>
               </div>
             );
@@ -109,9 +97,9 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
         </FlexContainer>
 
         <Spacer height={15} />
-        <div className='note'>
+        <Text type='small'>
           Note: all cards have a 10% chance to upgrade to the next rarity, except for cards in the bronze pack.
-        </div>        
+        </Text>
       </Modal>
 
       {isCardPackModalOpen && (

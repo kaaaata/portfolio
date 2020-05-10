@@ -2,6 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, FlexContainer } from '../../particles';
 import { Button } from '../Button';
 import { colors } from '../../styles';
+import { Text } from '../Text';
 
 const unclickableAreaCss = css`
   position: absolute;
@@ -27,14 +28,10 @@ const modalCss = css`
   }
 
   &.transparent {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
   }
 
   .content {
-    .title {
-      font-size: 36px;
-    }
-
     .continue_options {
       button {
         display: inline-block;
@@ -56,10 +53,10 @@ export const Modal = ({
   children
 }) => {
   const modalTitle = title && (
-    <div className='title'>
+    <Text type='header'>
       {title}
       <Spacer height={30} />
-    </div>
+    </Text>
   );
 
   const modalContinueOptions = (

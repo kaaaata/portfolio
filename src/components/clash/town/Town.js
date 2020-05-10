@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { Spacer, Image, FlexContainer } from '../../particles';
+import { Spacer, FlexContainer } from '../../particles';
 import { Text } from '../Text';
+import { TownActionCard } from './TownActionCard';
 import { BegForChange } from './BegForChange';
 
 const townCss = css`
@@ -31,65 +32,6 @@ const townCss = css`
     grid-gap: 15px;
   }
 `;
-
-const townActionCardCss = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  transition: transform 0.1s ease-out;
-
-  &:hover {
-    transform: scale(1.25);
-  }
-
-  .energy {
-    margin-left: 3px;
-  }
-`;
-
-const TownActionCard = ({
-  townAction,
-  canAfford,
-  onMouseEnter,
-  onClick
-}) => {
-  return (
-    <Image
-      src='/clash/frame.png'
-      width={150}
-      height={200}
-      rgbaFilter='rgba(0, 0, 0, 0.3)'
-      css={townActionCardCss}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-    >
-      <Image
-        src={`/clash/${townAction.image}.png`}
-        width={100}
-        height={100}
-        size='contain'
-      />
-      <Spacer height={5} />
-      <Text type='small'>{townAction.name}</Text>
-      <Spacer height={10} />
-      <FlexContainer justifyContent='center' alignItems='center'>
-        <Text
-          type='header'
-          color={canAfford ? 'yellow' : 'red'}
-        >
-          {townAction.energy}
-        </Text>
-        <Image
-          src='/clash/energy.png'
-          width={35}
-          height={40}
-          className='energy'
-        />
-      </FlexContainer>
-    </Image>
-  );
-};
 
 const townActions = [
   {
@@ -178,7 +120,9 @@ const TownComponent = ({
             {townActions.map((i, index) => (
               <TownActionCard
                 key={index}
-                townAction={i}
+                name={i.name}
+                image={i.image}
+                energy={i.energy}
                 canAfford={energy >= i.energy}
                 onMouseEnter={() => setTownActionDescription(i.description)}
                 onClick={() => {
