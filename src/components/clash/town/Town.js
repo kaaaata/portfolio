@@ -77,10 +77,10 @@ const TownComponent = ({
               <Text type='header'>Day: {day}/12</Text>
               <Spacer height={20} />
               {canReceiveBlessing && (
-                <Text type='paragraph'>Every 4 days, you can receive a blessing!</Text>
+                <Text type='paragraph'>Every 4 days, you receive a blessing!</Text>
               )}
             </div>
-            <Text>{townActionDescription}</Text>
+            <Text type='paragraph'>{townActionDescription}</Text>
           </FlexContainer>
           <div className='actions'>
             {townActions.map((i, index) => (

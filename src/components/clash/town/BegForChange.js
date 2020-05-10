@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { Modal } from '../modals/Modal';
 import { random } from 'lodash';
-import { Gold } from '../Gold';
-import { Text } from '../Text';
-import { Spacer } from '../../particles';
+import { EventModal } from './EventModal';
 
 const BegForChangeComponent = ({ adjustPlayerGold, closeModal }) => {
   const rng = Math.random();
@@ -13,35 +10,35 @@ const BegForChangeComponent = ({ adjustPlayerGold, closeModal }) => {
 
   if (rng < 0.05) {
     text = 'Suddenly, you are rushed by a mob of unruly kids! They steal some gold.';
-    goldEarned = random(0, -10);
+    goldEarned = random(-1, -10);
   } else if (rng < 0.1) {
     text = 'You feel something odd beneath you. It\'s a pile of gold!';
     goldEarned = random(10, 20);
-  } else if (rng < 0.3) {
-    text = 'An hour goes by, but no one even notices.';
-    goldEarned = 0;
   } else {
     text = 'You manage to collect a couple coins.'
-    goldEarned = random(1, 5);
+    goldEarned = random(1, 7);
   }
 
-  adjustPlayerGold(goldEarned);
-
   return (
-    <Modal
-      halfModal
+    <EventModal
       title='You sit down at the street corner and start begging...'
-      continueOptions={[
+      image='silver_coin_stack'
+      page={1}
+      pages={[
         {
-          text: 'Continue',
-          onClick: () => closeModal()
+          text,
+          options: [{
+            name: 'Continue',
+            goodEffect: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
+            badEffect: goldEarned < 0 && `Lose ${goldEarned * -1} gold.`,
+            onClick: () => {
+              adjustPlayerGold(goldEarned);
+              closeModal();
+            }
+          }]
         }
       ]}
-    >
-      <Text>{text}</Text>
-      <Spacer height={40} />
-      <Gold gold={goldEarned} big />
-    </Modal>
+    />
   );
 };
 

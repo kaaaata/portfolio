@@ -49,7 +49,6 @@ export const energyMeterCss = css`
 
   .fill {
     background: ${colors.yellowLight};
-    width: 100%;
     height: 100%;
     transition: width 1s ease-out;
   }

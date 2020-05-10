@@ -30,7 +30,7 @@ export const townActions = [
     description: 'A low chance to earn a little gold.'
   },
   {
-    name: 'Donate to Charity',
+    name: 'Donate Cards',
     energy: 4,
     image: 'weapons_guy',
     description: 'Donate away cards you don\'t need.'

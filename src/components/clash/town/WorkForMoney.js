@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { Modal } from '../modals/Modal';
 import { random } from 'lodash';
-import { Gold } from '../Gold';
-import { Text } from '../Text';
-import { Spacer } from '../../particles';
+import { EventModal } from './EventModal';
 import { sample } from 'lodash';
 
 const flavorTexts = [
@@ -21,25 +18,27 @@ const flavorTexts = [
 ];
 
 const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
-  console.log('work for money rerendered');
   const goldEarned = random(20, 40);
-  adjustPlayerGold(goldEarned);
 
   return (
-    <Modal
-      halfModal
+    <EventModal
       title='You search for a job, and wind up...'
-      continueOptions={[
+      image='gold'
+      page={1}
+      pages={[
         {
-          text: 'Continue',
-          onClick: () => closeModal()
+          text: `...${sample(flavorTexts)}`,
+          options: [{
+            name: 'Continue',
+            goodEffect: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
+            onClick: () => {
+              adjustPlayerGold(goldEarned);
+              closeModal();
+            }
+          }]
         }
       ]}
-    >
-      <Text>...{sample(flavorTexts)}</Text>
-      <Spacer height={40} />
-      <Gold gold={goldEarned} big />
-    </Modal>
+    />
   );
 };
 
