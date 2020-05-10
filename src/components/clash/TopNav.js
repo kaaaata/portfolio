@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { jsx } from '@emotion/core'; /** @jsx jsx */
+import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import { FlexContainer, Image } from '../particles';
 import { Attributes } from './Attributes';
@@ -50,7 +50,7 @@ export const TopNavComponent = ({
             className='energy'
           />
           <div css={energyMeterCss}>
-            <div className='fill' style={{ width: `${100 * energy / 12}%` }} />
+            <div className='fill' css={css`width: ${100 * energy / 12}%;`} />
             <div className='energy_count'>{energy} / 12</div>
           </div>
         </FlexContainer>
@@ -85,11 +85,11 @@ export const TopNavComponent = ({
         </FlexContainer>
       </FlexContainer>
 
-      <div style={{ display: activeModal === 'collection' ? 'unset' : 'none' }}>
+      <div css={css`display: ${activeModal === 'collection' ? 'unset' : 'none'};`}>
         <Collection />
       </div>
 
-      <div style={{ display: activeModal === 'shop' ? 'unset' : 'none' }}>
+      <div css={css`display: ${activeModal === 'shop' ? 'unset' : 'none'};`}>
         <Shop />
       </div>
     </React.Fragment>

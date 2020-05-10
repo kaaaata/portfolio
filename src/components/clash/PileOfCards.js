@@ -11,33 +11,37 @@ const PileOfCards = ({
   countX,
   countY
 }) => {
-  const outlineCss = css`
-    position: absolute;
-    left: ${x - 5}px;
-    top: ${y - 5}px;
-    width: 130px;
-    height: 180px;
-    border: 2px solid ${themeColor};
-    transform: rotate3d(1, 0, 0, 65deg);
-  `;
+  const pileOfCardsCss = `
+    cursor: pointer;
 
-  const cardCountCss = css`
-    position: absolute;
-    left: ${countX}px;
-    top: ${countY}px;
-    width: 130px;
-    text-align: center;
+    .outline {
+      position: absolute;
+      left: ${x - 5}px;
+      top: ${y - 5}px;
+      width: 130px;
+      height: 180px;
+      border: 2px solid ${themeColor};
+      transform: rotate3d(1, 0, 0, 65deg);
+    }
 
-    .count {
-      color: ${themeColor};
-      font-size: 60px;
-      text-shadow: 2px 2px 6px ${colors.black};
+    .card_count {
+      position: absolute;
+      left: ${countX}px;
+      top: ${countY}px;
+      width: 130px;
+      text-align: center;
+  
+      .count {
+        color: ${themeColor};
+        font-size: 60px;
+        text-shadow: 2px 2px 6px ${colors.black};
+      }
     }
   `;
 
   return (
-    <div style={{ cursor: 'pointer' }}>
-      <div css={outlineCss} />
+    <div css={pileOfCardsCss}>
+      <div className='outline' />
       {cards.map((card, index) => (
         (index >= cards.length - 2) ? (
           <Card
@@ -56,7 +60,7 @@ const PileOfCards = ({
           />
         )
       ))}
-      <div css={cardCountCss}>
+      <div className='card_count'>
         <div className='count'>{cards.length}</div>
       </div>
     </div>

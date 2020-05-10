@@ -86,7 +86,7 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
                   <Text type='small'>
                     {pack.description.map(i => (
                       <div key={i}>
-                        {i[0]} <span style={{ color: genRarityColor(i) }}>{i.slice(2)}</span>
+                        {i[0]} <span css={css`color: ${genRarityColor(i)};`}>{i.slice(2)}</span>
                       </div>
                     ))}
                   </Text>

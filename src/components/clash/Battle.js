@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { jsx } from '@emotion/core'; /** @jsx jsx */
+import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../stores/actions';
 import {
@@ -18,6 +18,8 @@ import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
 import { Modal } from './modals/Modal';
 import { BattleRewards } from './modals/BattleRewards';
 import { Image } from '../particles';
+
+const perspectiveCss = css`perspective: 2000px;`;
 
 const BattleComponent = (props) => {
   const [activeModal, setActiveModal] = useState(null);
@@ -105,7 +107,7 @@ const BattleComponent = (props) => {
     <div>
       <EnemyPortrait />
       <EnemyHand />
-      <div style={{ perspective: '2000px' }}>
+      <div css={perspectiveCss}>
         <EnemyDeck />
         <EnemyDiscard />
         <EnemyBanish />
@@ -115,7 +117,7 @@ const BattleComponent = (props) => {
 
       <YourPortrait />
       <YourHand onClick={(index) => handleClickCardInYourHand(index)} />
-      <div style={{ perspective: '2000px' }}>
+      <div css={perspectiveCss}>
         <YourDeck />
         <YourDiscard />
         <YourBanish />
