@@ -14,7 +14,6 @@ export const Image = (props) => {
     _css = '',
     onClick,
     onMouseEnter,
-    onMouseLeave,
     children
   } = props;
 
@@ -40,7 +39,6 @@ export const Image = (props) => {
       css={imageCss}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       {children}
     </div>

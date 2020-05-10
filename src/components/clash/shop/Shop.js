@@ -28,10 +28,6 @@ const shopCss = css`
     display: inline-block;
     margin: 0 30px 30px 30px;
 
-    .name {
-      text-align: center;
-    }
-
     .pack {
       transition: transform 0.1s ease-out;
 
@@ -45,7 +41,6 @@ const shopCss = css`
     }
 
     .dot {
-      text-align: center;
       font-size: 40px;
     }
 
@@ -59,13 +54,13 @@ const shopCss = css`
   }
 `;
 
-const ShopComponent = ({ gold, adjustPlayerGold, zIndex }) => {
+const ShopComponent = ({ gold, adjustPlayerGold }) => {
   const [isCardPackModalOpen, setIsCardPackModalOpen] = useState(false);
   const [cardPackModalCards, setCardPackModalCards] = useState([]);
   
   return (
     <React.Fragment>
-      <Modal title='Shop' zIndex={zIndex}>
+      <Modal title='Shop'>
         <FlexContainer css={shopCss}>
           {Object.keys(packs).map(i => {
             const pack = packs[i];
@@ -97,15 +92,17 @@ const ShopComponent = ({ gold, adjustPlayerGold, zIndex }) => {
                   />
                 </Image>
                 <Spacer height={30} />
-                <div className='name'>{pack.name}</div>
-                <div className='dot'>&#183;</div>
-                <div className='description'>
-                  {pack.description.map(i => (
-                    <div key={i}>
-                      {i[0]} <span style={{ color: genRarityColor(i) }}>{i.slice(2)}</span>
-                      </div>
-                  ))}
-                </div>
+                <FlexContainer alignItems='center' flexDirection='column'>
+                  <div className='name'>{pack.name}</div>
+                  <div className='dot'>&#183;</div>
+                  <div className='description'>
+                    {pack.description.map(i => (
+                      <div key={i}>
+                        {i[0]} <span style={{ color: genRarityColor(i) }}>{i.slice(2)}</span>
+                        </div>
+                    ))}
+                  </div>
+                </FlexContainer>
               </div>
             );
           })}

@@ -19,8 +19,7 @@ export const Gold = ({
     <div style={{
       fontSize: big ? '100px' : '24px',
       lineHeight: big ? '100px' : '36px',
-      color,
-      marginLeft: big ? '15px' : '0'
+      color
     }}>
       {gold}
     </div>

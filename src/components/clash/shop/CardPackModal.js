@@ -17,8 +17,8 @@ const CardPackModalComponent = ({ cards, addCardsToCollection, closeModal }) => 
 
   return (
     <Modal
-      title='Choose Cards to Keep'
       halfModal
+      title='Choose Cards to Keep'
       transparent={false}
       continueOptions={[
         {

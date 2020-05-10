@@ -11,7 +11,7 @@ export const packs = {
       '5 commons'
     ],
     rarityCap: 'common',
-    cost: 5,
+    cost: 100,
     image: 'bronze_bar'
   },
   silver: {
@@ -27,7 +27,7 @@ export const packs = {
       '3 commons'
     ],
     rarityCap: 'uncommon',
-    cost: 10,
+    cost: 150,
     image: 'silver_bar'
   },
   gold: {
@@ -44,11 +44,11 @@ export const packs = {
       '3 commons'
     ],
     rarityCap: 'rare',
-    cost: 15,
+    cost: 200,
     image: 'gold_bar'
   },
-  platinum: {
-    name: 'Platinum Pack',
+  diamond: {
+    name: 'Diamond Pack',
     cards: {
       legendary: 1,
       rare: 1,
@@ -62,23 +62,7 @@ export const packs = {
       '2 commons'
     ],
     rarityCap: 'legendary',
-    cost: 20,
-    image: 'platinum'
-  },
-  diamond: {
-    name: 'Diamond Pack',
-    cards: {
-      legendary: 2,
-      rare: 3,
-      uncommon: 0,
-      common: 0
-    },
-    description: [
-      '2 legendaries',
-      '3 rares'
-    ],
-    rarityCap: 'legendary',
-    cost: 25,
+    cost: 300,
     image: 'ruby'
   }
 };

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Spacer, Image, FlexContainer } from '../../particles';
 import { Text } from '../Text';
+import { BegForChange } from './BegForChange';
 
 const townCss = css`
   padding: 0 60px;
@@ -49,8 +50,8 @@ const townActionCardCss = css`
 
 const TownActionCard = ({
   townAction,
+  canAfford,
   onMouseEnter,
-  onMouseLeave,
   onClick
 }) => {
   return (
@@ -62,7 +63,6 @@ const TownActionCard = ({
       css={townActionCardCss}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <Image
         src={`/clash/${townAction.image}.png`}
@@ -74,7 +74,12 @@ const TownActionCard = ({
       <Text type='small'>{townAction.name}</Text>
       <Spacer height={10} />
       <FlexContainer justifyContent='center' alignItems='center'>
-        <Text type='header' color='yellow'>{townAction.energy}</Text>
+        <Text
+          type='header'
+          color={canAfford ? 'yellow' : 'red'}
+        >
+          {townAction.energy}
+        </Text>
         <Image
           src='/clash/energy.png'
           width={35}
@@ -143,40 +148,53 @@ const TownComponent = ({
   adjustPlayerEnergy
 }) => {
   const [townActionDescription, setTownActionDescription] = useState('');
+  const [activeModal, setActiveModal] = useState(null);
+  let modal;
+
+  switch (activeModal) {
+    case 'Beg for Change':
+      modal = <BegForChange closeModal={() => setActiveModal(null)} />;
+      break;
+    default:
+      break;
+  }
 
   return (
-    <div css={townCss}>
-      <Spacer height={40} />
-      <Text type='header' centered>
-        Town
-      </Text>
-      <Spacer height={40} />
-      <FlexContainer>
-        <FlexContainer
-          className='updates'
-          flexDirection='column'
-          justifyContent='space-between'
-        >
-          <Text>Updates go here.</Text>
-          <Text>{townActionDescription}</Text>
+    <React.Fragment>
+      <div css={townCss}>
+        <Spacer height={40} />
+        <Text type='header' centered>Town</Text>
+        <Spacer height={40} />
+        <FlexContainer>
+          <FlexContainer
+            className='updates'
+            flexDirection='column'
+            justifyContent='space-between'
+          >
+            <Text>Updates go here.</Text>
+            <Text>{townActionDescription}</Text>
+          </FlexContainer>
+          <div className='actions'>
+            {townActions.map((i, index) => (
+              <TownActionCard
+                key={index}
+                townAction={i}
+                canAfford={energy >= i.energy}
+                onMouseEnter={() => setTownActionDescription(i.description)}
+                onClick={() => {
+                  if (energy >= i.energy) {
+                    adjustPlayerEnergy(-1 * i.energy);
+                    setActiveModal(i.name);
+                  }
+                }}
+              />
+            ))}
+          </div>
         </FlexContainer>
-        <div className='actions'>
-          {townActions.map((i, index) => (
-            <TownActionCard
-              key={index}
-              townAction={i}
-              onMouseEnter={() => setTownActionDescription(i.description)}
-              onMouseLeave={() => setTownActionDescription('')}
-              onClick={() => {
-                if (energy >= i.energy) {
-                  adjustPlayerEnergy(-1 * i.energy);
-                }
-              }}
-            />
-          ))}
-        </div>
-      </FlexContainer>
-    </div>
+      </div>
+
+      {modal}
+    </React.Fragment>
   );
 };
 

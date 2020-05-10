@@ -1,18 +1,34 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, FlexContainer } from '../../particles';
 import { Button } from '../Button';
-import { colors, zIndex } from '../../styles';
+import { colors } from '../../styles';
 
-const modalCss = (halfModal, transparent, _zIndex) => css`
+const unclickableAreaCss = css`
   position: absolute;
   width: 100%;
-  height: ${halfModal ? '65%' : `calc(100% - 40px)`};
+  height: calc(100% - 40px);
   bottom: 0;
-  background: rgba(0, 0, 0, ${transparent ? 0.8 : 1});
+`;
+const modalCss = css`
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 40px);
+  bottom: 0;
+  background: rgba(0, 0, 0, 1);
   font-size: 20px;
-  ${halfModal ? 'transform: translateY(-22%);' : ''}
-  ${halfModal ? `box-shadow: 4px 4px 8px ${colors.black};` : ''}
-  ${_zIndex ? `z-index: ${zIndex[_zIndex]};` : ''}
+  padding: 30px 60px;
+
+  &.half_modal {
+    height: 70%;
+    transform: translateY(-22%);
+    box-shadow: 4px 4px 8px ${colors.black};
+    border-top: 3px solid ${colors.yellow};
+    border-bottom: 3px solid ${colors.yellow};
+  }
+
+  &.transparent {
+    background: rgba(0, 0, 0, 0.8);
+  }
 
   .content {
     .title {
@@ -37,7 +53,6 @@ export const Modal = ({
   continueOptions = [], // [{ text, color, onClick }],
   halfModal = false,
   transparent = true,
-  zIndex,
   children
 }) => {
   const modalTitle = title && (
@@ -52,7 +67,7 @@ export const Modal = ({
       {continueOptions.map(i => (
         <Button
           key={i.text}
-          color={i.color}
+          color={i.color || 'white'}
           onClick={i.onClick}
         >
           {i.text}
@@ -61,14 +76,16 @@ export const Modal = ({
     </div>
   );
 
-  return (
-    <div css={modalCss(halfModal, transparent, zIndex)}>
+  const modal = (
+    <div
+      css={modalCss}
+      className={`modal ${halfModal ? 'half_modal' : ''} ${transparent ? 'transparent' : ''}`}
+    >
       <FlexContainer
         className='content'
         alignItems='center'
         flexDirection='column'
       >
-        <Spacer height={30} />
         {modalTitle}
         {children}
         <Spacer height={30} />
@@ -76,4 +93,10 @@ export const Modal = ({
       </FlexContainer>
     </div>
   );
+
+  return halfModal ? (
+    <div css={unclickableAreaCss}>
+      {modal}
+    </div>
+  ) : modal;
 };
