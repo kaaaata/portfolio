@@ -25,6 +25,8 @@ const BegForChangeComponent = ({ adjustPlayerGold, closeModal }) => {
     goldEarned = random(1, 5);
   }
 
+  adjustPlayerGold(goldEarned);
+
   return (
     <Modal
       halfModal
@@ -32,10 +34,7 @@ const BegForChangeComponent = ({ adjustPlayerGold, closeModal }) => {
       continueOptions={[
         {
           text: 'Continue',
-          onClick: () => {
-            adjustPlayerGold(goldEarned);
-            closeModal();
-          }
+          onClick: () => closeModal()
         }
       ]}
     >

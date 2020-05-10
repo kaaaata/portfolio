@@ -6,6 +6,7 @@ import { Spacer, FlexContainer } from '../../particles';
 import { Text } from '../Text';
 import { TownActionCard } from './TownActionCard';
 import { BegForChange } from './BegForChange';
+import { WorkForMoney } from './WorkForMoney';
 
 const townCss = css`
   padding: 0 60px;
@@ -96,6 +97,9 @@ const TownComponent = ({
   switch (activeModal) {
     case 'Beg for Change':
       modal = <BegForChange closeModal={() => setActiveModal(null)} />;
+      break;
+    case 'Work for Money':
+      modal = <WorkForMoney closeModal={() => setActiveModal(null)} />;
       break;
     default:
       break;
