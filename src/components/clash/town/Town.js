@@ -7,6 +7,8 @@ import { Text } from '../Text';
 import { TownActionCard } from './TownActionCard';
 import { BegForChange } from './BegForChange';
 import { WorkForMoney } from './WorkForMoney';
+import { ReceiveBlessing } from './ReceiveBlessing';
+import { townActions } from './townActions';
 
 const townCss = css`
   padding: 0 60px;
@@ -34,64 +36,15 @@ const townCss = css`
   }
 `;
 
-const townActions = [
-  {
-    name: 'Go Exploring',
-    energy: 5,
-    image: 'map',
-    description: 'Get a random event.'
-  },
-  {
-    name: 'Work for Money',
-    energy: 6,
-    image: 'gold',
-    description: 'Earn some gold.'
-  },
-  {
-    name: 'Taunt the Enemy',
-    energy: 3,
-    image: 'steak',
-    description: 'Taunt the enemy to make it stronger, but also yield better loot.'
-  },
-  {
-    name: 'Gamble',
-    energy: 3,
-    image: 'snake_ring',
-    description: 'Do you feel lucky?'
-  },
-  {
-    name: 'Beg for Change',
-    energy: 1,
-    image: 'silver_coin_stack',
-    description: 'A low chance to earn a little gold.'
-  },
-  {
-    name: 'Donate to Charity',
-    energy: 4,
-    image: 'weapons_guy',
-    description: 'Donate away cards you don\'t need.'
-  },
-  {
-    name: 'Do Drugs',
-    energy: 7,
-    image: 'pink_potion',
-    description: 'Gain a temporary stat boost.'
-  },
-  {
-    name: 'Next Day',
-    energy: 0,
-    image: 'clash_swords',
-    description: 'Continue on to the next battle.'
-  }
-];
-
 const TownComponent = ({
   energy,
+  day,
   setScene,
   adjustPlayerEnergy
 }) => {
   const [townActionDescription, setTownActionDescription] = useState('');
   const [activeModal, setActiveModal] = useState(null);
+  const [canReceiveBlessing, setCanReceiveBlessing] = useState(day % 4 === 0);
   let modal;
 
   switch (activeModal) {
@@ -100,6 +53,9 @@ const TownComponent = ({
       break;
     case 'Work for Money':
       modal = <WorkForMoney closeModal={() => setActiveModal(null)} />;
+      break;
+    case 'Receive Blessing':
+      modal = <ReceiveBlessing closeModal={() => setActiveModal(null)} />;
       break;
     default:
       break;
@@ -117,7 +73,13 @@ const TownComponent = ({
             flexDirection='column'
             justifyContent='space-between'
           >
-            <Text>Updates go here.</Text>
+            <div>
+              <Text type='header'>Day: {day}/12</Text>
+              <Spacer height={20} />
+              {canReceiveBlessing && (
+                <Text type='paragraph'>Every 4 days, you can receive a blessing!</Text>
+              )}
+            </div>
             <Text>{townActionDescription}</Text>
           </FlexContainer>
           <div className='actions'>
@@ -128,9 +90,13 @@ const TownComponent = ({
                 image={i.image}
                 energy={i.energy}
                 canAfford={energy >= i.energy}
-                onMouseEnter={() => setTownActionDescription(i.description)}
+                isDisabled={i.name === 'Receive Blessing' && !canReceiveBlessing}
+                onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
                   if (energy >= i.energy) {
+                    if (i.name === 'Receive Blessing') {
+                      setCanReceiveBlessing(false);
+                    }
                     adjustPlayerEnergy(-1 * i.energy);
                     setActiveModal(i.name);
                   }
@@ -147,7 +113,8 @@ const TownComponent = ({
 };
 
 const mapStateToProps = (state) => ({
-  energy: state.clashPlayer.energy
+  energy: state.clashPlayer.energy,
+  day: state.clashPlayer.day
 });
 const mapDispatchToProps = dispatch => ({
   setScene: payload => dispatch(actions.setScene(payload)),

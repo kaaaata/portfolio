@@ -8,7 +8,6 @@ export const FlexContainer = ({
   alignItems,
   flexDirection,
   flexWrap,
-  flexFlow,
   _css = '',
   children
 }) => {
@@ -19,7 +18,6 @@ export const FlexContainer = ({
     ${mq.genResponsiveCss('align-items', alignItems)}
     ${mq.genResponsiveCss('flex-direction', flexDirection)}
     ${mq.genResponsiveCss('flex-wrap', flexWrap)}
-    ${mq.genResponsiveCss('flex-flow', flexFlow)}
     ${_css}
   `;
 

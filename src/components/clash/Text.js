@@ -9,6 +9,11 @@ const textCss = {
     font-size: 16px;
     text-shadow: 1px 1px 2px ${colors.black};
   `,
+  paragraph: css`
+    font-size: 20px;
+    text-shadow: 1px 1px 2px ${colors.black};
+    line-height: 1.25;
+  `,
   normal: css`
     font-size: 24px;
     text-shadow: 1px 1px 2px ${colors.black};

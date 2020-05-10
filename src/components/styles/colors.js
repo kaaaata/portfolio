@@ -13,6 +13,9 @@ export const colors = {
 
   steel: 'lightsteelblue',
 
+  slate: 'darkslategrey',
+  slateLight: 'darkcyan',
+
   blue: '#829DFF',
 
   red: '#FC5863',

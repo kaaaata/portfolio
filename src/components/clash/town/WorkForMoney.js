@@ -22,7 +22,7 @@ const flavorTexts = [
 
 const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
   console.log('work for money rerendered');
-  const goldEarned = random(30, 60);
+  const goldEarned = random(20, 40);
   adjustPlayerGold(goldEarned);
 
   return (

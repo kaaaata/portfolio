@@ -8,7 +8,8 @@ const initialState = {
   defense: 0,
   gold: 100,
   energy: 12,
-  deck: genStartingDeck()
+  deck: genStartingDeck(),
+  day: 4
 };
 
 export default (state = initialState, action) => {
@@ -18,13 +19,15 @@ export default (state = initialState, action) => {
         ...state,
         ...action.payload
       };
-    case 'ADJUST_PLAYER_STATS':
+    case 'ADJUST_PLAYER_STATS': {
+      const { attack, magic, defense } = action.payload;
       return {
         ...state,
-        attack: Math.max(0, state.attack + action.payload.attack),
-        magic: Math.max(0, state.magic + action.payload.magic),
-        defense: Math.max(0, state.defense + action.payload.defense),
+        attack: attack ? Math.max(0, state.attack + attack) : state.attack,
+        magic: magic ? Math.max(0, state.magic + magic) : state.magic,
+        defense: defense ? Math.max(0, state.defense + defense) : state.defense,
       };
+    }
     case 'ADJUST_PLAYER_GOLD':
       return {
         ...state,

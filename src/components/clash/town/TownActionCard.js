@@ -13,6 +13,10 @@ const townActionCardCss = css`
     transform: scale(1.25);
   }
 
+  &.disabled {
+    visibility: hidden;
+  }
+
   .energy {
     margin-left: 3px;
   }
@@ -22,6 +26,7 @@ export const TownActionCard = ({
   image,
   name,
   energy,
+  isDisabled,
   canAfford,
   onMouseEnter,
   onClick
@@ -35,6 +40,7 @@ export const TownActionCard = ({
       css={townActionCardCss}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
+      className={isDisabled ? 'disabled' : ''}
     >
       <Image
         src={`/clash/${image}.png`}
@@ -46,10 +52,7 @@ export const TownActionCard = ({
       <Text type='small'>{name}</Text>
       <Spacer height={10} />
       <FlexContainer justifyContent='center' alignItems='center'>
-        <Text
-          type='header'
-          color={canAfford ? 'yellow' : 'red'}
-        >
+        <Text type='header' color={canAfford ? 'yellow' : 'red'}>
           {energy}
         </Text>
         <Image
