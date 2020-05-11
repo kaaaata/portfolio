@@ -36,10 +36,10 @@ export const townActions = [
     description: 'Donate away cards you don\'t need.'
   },
   {
-    name: 'Do Drugs',
-    energy: 7,
-    image: 'pink_potion',
-    description: 'Gain a temporary stat boost.'
+    name: 'Recover Loot',
+    energy: 6,
+    image: 'scavenge',
+    description: 'Recover some loot after a defeat.'
   },
   {
     name: 'Next Day',
