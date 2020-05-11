@@ -23,7 +23,7 @@ const perspectiveCss = css`perspective: 2000px;`;
 
 const BattleComponent = (props) => {
   const [activeModal, setActiveModal] = useState(null);
-  const { winner, winnerImage, visitActiveMapNode } = props;
+  const { winner, winnerImage } = props;
   let modalComponent = null;
   let interval = null;
   let actions = [];
@@ -32,9 +32,8 @@ const BattleComponent = (props) => {
   useEffect(() => {
     if (winner) {
       setActiveModal('win_or_lose');
-      visitActiveMapNode();
     }
-  }, [winner, visitActiveMapNode]);
+  }, [winner]);
 
   const executeRenderAction = (action) => {
     if (action) {
@@ -133,8 +132,6 @@ const mapStateToProps = (state) => ({
   winnerImage: state.clashBattleStats.winnerImage
 });
 const mapDispatchToProps = dispatch => ({
-  visitActiveMapNode: payload => dispatch(actions.visitActiveMapNode(payload)),
-
   // these are called from executeRenderAction
   setYourDeck: payload => dispatch(actions.setYourDeck(payload)),
   setYourDiscard: payload => dispatch(actions.setYourDiscard(payload)),

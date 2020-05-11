@@ -8,6 +8,7 @@ import { TownActionCard } from './TownActionCard';
 import { BegForChange } from './BegForChange';
 import { WorkForMoney } from './WorkForMoney';
 import { ReceiveBlessing } from './ReceiveBlessing';
+import { MonsterPreview } from '../modals/MonsterPreview';
 import { townActions } from './townActions';
 
 const townCss = css`
@@ -56,6 +57,9 @@ const TownComponent = ({
       break;
     case 'Receive Blessing':
       modal = <ReceiveBlessing closeModal={() => setActiveModal(null)} />;
+      break;
+    case 'Next Day':
+      modal = <MonsterPreview />;
       break;
     default:
       break;

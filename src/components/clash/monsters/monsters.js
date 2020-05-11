@@ -1,3 +1,7 @@
+// tier 1: wave 1-4
+// tier 2: wave 5-8
+// tier 3: wave 9-12
+
 const monstersTier1 = [
   {
     name: 'Minotaur',

@@ -11,7 +11,7 @@ const PileOfCards = ({
   countX,
   countY
 }) => {
-  const pileOfCardsCss = `
+  const pileOfCardsCss = css`
     cursor: pointer;
 
     .outline {

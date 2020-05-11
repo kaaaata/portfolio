@@ -28,9 +28,4 @@ export const adjustPlayerGold = payload => ({ type: 'ADJUST_PLAYER_GOLD', payloa
 export const adjustPlayerEnergy = payload => ({ type: 'ADJUST_PLAYER_ENERGY', payload });
 export const addCardsToCollection = payload => ({ type: 'ADD_CARDS_TO_COLLECTION', payload });
 
-export const visitActiveMapNode = payload => ({ type: 'VISIT_ACTIVE_MAP_NODE', payload });
-export const adjustMapEnergy = payload => ({ type: 'ADJUST_MAP_ENERGY', payload });
-export const setMapPreviewNode = payload => ({ type: 'SET_MAP_PREVIEW_NODE', payload });
-export const setMapActiveNode = payload => ({ type: 'SET_MAP_ACTIVE_NODE', payload });
-
 export const setScene = payload => ({ type: 'SET_SCENE', payload });

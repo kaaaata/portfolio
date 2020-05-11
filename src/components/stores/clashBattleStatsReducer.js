@@ -65,7 +65,8 @@ export default (state = initialState, action) => {
         enemyShields: 0,
         enemyTier: action.payload.enemyTier,
       
-        winner: null
+        winner: null,
+        winnerImage: null
       };
     default:
       return state;

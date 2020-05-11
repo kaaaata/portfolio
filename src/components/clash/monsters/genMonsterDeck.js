@@ -1,47 +1,41 @@
 import { cards, cardsByRarity } from '../cards/cards';
-import { range, sample, shuffle } from 'lodash';
+import { range, sample, random, shuffle } from 'lodash';
 
 export const tierBalancing = {
-  1: {
-    averageDeckSize: 15,
-    deckSizeVariance: 2,
+  1: { // deck size: 10, 15, 20, 25
     maxLegendaries: 0,
-    maxRares: 0,
+    maxRares: 1,
     maxUncommons: 1
   },
-  2: {
-    averageDeckSize: 30,
-    deckSizeVariance: 4,
+  2: { // deck size: 30, 35, 40, 45
     maxLegendaries: 0,
-    maxRares: 2,
-    maxUncommons: 5
+    maxRares: 3,
+    maxUncommons: 6
   },
-  3: {
-    averageDeckSize: 45,
-    deckSizeVariance: 6,
+  3: { // deck size: 50, 55, 60, 65
     maxLegendaries: 1,
     maxRares: 5,
     maxUncommons: 10
   }
 };
 
-export const genMonsterDeck = (tier, deck) => {
+export const genMonsterDeck = (deck, tier, day) => {
+  const deckSize = (day + 1) * 5;
   const deckByRarity = deck.map(card => cards[card].rarity);
-  const { averageDeckSize, deckSizeVariance, maxLegendaries, maxRares, maxUncommons } = tierBalancing[tier];
+  const { maxLegendaries, maxRares, maxUncommons } = tierBalancing[tier];
   const cardsToAdd = {
     legendary: Math.max(0, maxLegendaries - deckByRarity.filter(card => card.rarity === 'legendary').length),
     rare: Math.max(0, maxRares - deckByRarity.filter(card => card.rarity === 'rare').length),
     uncommon: Math.max(0, maxUncommons - deckByRarity.filter(card => card.rarity === 'uncommon').length),
   };
-  cardsToAdd.common = Math.max(
-    0,
-    averageDeckSize
-      + sample(range(-1 * deckSizeVariance, deckSizeVariance + 1))
-      - cardsToAdd.legendary
-      - cardsToAdd.rare
-      - cardsToAdd.uncommon
-      - deck.length
+  cardsToAdd.common = Math.max(0, deckSize
+    + random(-2, 2)
+    - cardsToAdd.legendary
+    - cardsToAdd.rare
+    - cardsToAdd.uncommon
+    - deck.length
   );
+  console.log('card to add:', cardsToAdd);
 
   return shuffle([
     ...deck,

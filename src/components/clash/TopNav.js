@@ -12,6 +12,7 @@ export const TopNavComponent = ({
   player,
   energy
 }) => {
+  console.log('top nav rerendered');
   const [activeModal, setActiveModal] = useState(null);
 
   return (

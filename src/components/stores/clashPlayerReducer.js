@@ -1,4 +1,5 @@
 import { genStartingDeck } from '../clash/cards/cards';
+import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';;
 
 const initialState = {
   name: 'Spear Goon',
@@ -9,7 +10,8 @@ const initialState = {
   gold: 100,
   energy: 12,
   deck: genStartingDeck(),
-  day: 4
+  day: 1,
+  monsterWaves: genMonsterWaves()
 };
 
 export default (state = initialState, action) => {
