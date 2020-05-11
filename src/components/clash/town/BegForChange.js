@@ -29,8 +29,8 @@ const BegForChangeComponent = ({ adjustPlayerGold, closeModal }) => {
           text,
           options: [{
             name: 'Continue',
-            goodEffect: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
-            badEffect: goldEarned < 0 && `Lose ${goldEarned * -1} gold.`,
+            goodText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
+            badText: goldEarned < 0 && `Lose ${goldEarned * -1} gold.`,
             onClick: () => {
               adjustPlayerGold(goldEarned);
               closeModal();

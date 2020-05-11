@@ -1,10 +1,11 @@
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { Modal } from './Modal';
-import { Spacer, Image } from '../../particles';
+import { Spacer } from '../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { shuffle, sampleSize, random } from 'lodash';
 import { genMonsterDeck } from '../monsters/genMonsterDeck';
+import { EventModal } from '../town/EventModal';
+import { Text } from '../Text';
 
 const MonsterPreviewComponent = ({
   attack,
@@ -25,7 +26,7 @@ const MonsterPreviewComponent = ({
   const yourDeck = shuffle(deck);
   const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day);
 
-  const fightOnClick = () => {
+  const battleOnClick = () => {
     setBattleInitialState({
       yourPermanentStats: { attack, magic, defense },
       enemyName: monster.name,
@@ -45,20 +46,41 @@ const MonsterPreviewComponent = ({
     setScene('battle');
   };
 
+  const indefiniteArticle = /a|e|i|o|u/i.test(monster.name[0]) ? 'an' : 'a';
+  let daySuffix = 'th';
+  if (day === 1) {
+    daySuffix = 'st';
+  } else if (day === 2) {
+    daySuffix = 'nd';
+  } else if (day === 3) {
+    daySuffix = 'rd';
+  }
+
+  const text = (
+    <Text type='paragraph'>
+      <div>You are under attack by {indefiniteArticle} {monster.name}!</div>
+      <Spacer height={20} />
+      <div>Enemy's deck size: {enemyDeck.length}</div>
+      <div>Your deck size: {yourDeck.length}</div>
+    </Text>
+  );
+
   return (
-    <Modal
-      title={`${monster.name} (Tier ${monster.tier})`}
-      continueOptions={[{ text: 'Battle', color: 'green', onClick: fightOnClick }]}
-    >
-      <Image
-        src={`/clash/${monster.image}.png`}
-        height={200}
-        width={200}
-        size='contain'
-      />
-      <Spacer height={40} />
-      <div>Deck Size: {enemyDeck.length}</div>
-    </Modal>
+    <EventModal
+      title={`It's the end of the ${day}${daySuffix} day.`}
+      image={monster.image}
+      page={1}
+      pages={[
+        {
+          text,
+          options: [{
+            name: 'Continue',
+            neutralText: 'Battle!',
+            onClick: battleOnClick
+          }]
+        }
+      ]}
+    />
   );
 };
 

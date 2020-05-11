@@ -30,7 +30,7 @@ export const allies = [
     description: 'Damage dealt pierces shields. Shuffle a copy of Spear Goon into your deck.'
   },
   {
-    name: 'Wayne',
+    name: 'Goblin',
     image: 'goblin',
     rarity: 'common',
     attack: 0,

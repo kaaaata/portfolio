@@ -12,11 +12,11 @@ const monstersTier1 = [
     ]
   },
   {
-    name: 'Wayne',
+    name: 'Goblin',
     image: 'goblin',
     deck: [
-      'Wayne',
-      'Wayne'
+      'Goblin',
+      'Goblin'
     ]
   },
   {
@@ -34,7 +34,7 @@ const monstersTier1 = [
     ]
   },
   {
-    name: 'Tentacles',
+    name: 'Tentacle Monster',
     image: 'tentacles',
     deck: [
       'Tentacles',

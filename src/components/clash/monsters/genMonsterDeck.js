@@ -35,7 +35,6 @@ export const genMonsterDeck = (deck, tier, day) => {
     - cardsToAdd.uncommon
     - deck.length
   );
-  console.log('card to add:', cardsToAdd);
 
   return shuffle([
     ...deck,

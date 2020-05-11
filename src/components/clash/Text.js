@@ -35,20 +35,18 @@ export const Text = ({
   color,
   centered = false,
   children
-}) => {
-  return (
-    <div
-      className={`text ${className}`}
-      css={css`
-        ${onClick ? 'cursor: pointer;' : ''}
-        ${centered ? 'text-align: center;' : ''}
-        ${color ? `color: ${colors[color]};` : ''}
-        ${textCss[type]}
-        ${color ? 'text-shadow: none;' : ''}
-      `}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-};
+}) => (
+  <div
+    className={`text ${className}`}
+    css={css`
+      ${onClick ? 'cursor: pointer;' : ''}
+      ${centered ? 'text-align: center;' : ''}
+      ${color ? `color: ${colors[color]};` : ''}
+      ${textCss[type]}
+      ${color ? 'text-shadow: none;' : ''}
+    `}
+    onClick={onClick}
+  >
+    {children}
+  </div>
+);

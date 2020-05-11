@@ -142,10 +142,10 @@ test('Play copies of cards works (Hobgoblin)', () => {
     .not.toBe(-1);
 });
 
-test('Shuffle card copies into pile works (Wayne, Catherine the Great)', () => {
-  const wayne = cards['Wayne'];
+test('Shuffle card copies into pile works (Goblin, Catherine the Great)', () => {
+  const goblin = cards['Goblin'];
   const catherine = cards['Catherine the Great'];
-  simulatePlayCard(wayne);
+  simulatePlayCard(goblin);
   expect(state.enemy.deck.filter(card => card.name === 'Bomb').length).toBe(3);
   simulatePlayCard(catherine);
   expect(state.you.deck.filter(card => card.name === 'Healing Blade').length).toBe(2);

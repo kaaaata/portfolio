@@ -18,7 +18,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
           options: [
             {
               name: 'Blessing of Strength',
-              goodEffect: 'Gain +1 Attack.',
+              goodText: 'Gain +1 Attack.',
               onClick: () => {
                 setPage2Text('You feel a bit stronger.');
                 setPage(2);
@@ -27,7 +27,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
             },
             {
               name: 'Blessing of Wisdom',
-              goodEffect: 'Gain +1 Magic.',
+              goodText: 'Gain +1 Magic.',
               onClick: () => {
                 setPage2Text('You feel a bit wiser.');
                 setPage(2);
@@ -36,7 +36,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
             },
             {
               name: 'Blessing of Protection',
-              goodEffect: 'Gain +1 Defense.',
+              goodText: 'Gain +1 Defense.',
               onClick: () => {
                 setPage2Text('You feel a bit tougher.');
                 setPage(2);
@@ -45,7 +45,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
             },
             {
               name: 'Blessing of Wall Street',
-              goodEffect: 'Gain 300 gold.',
+              goodText: 'Gain 300 gold.',
               onClick: () => {
                 setPage2Text('Gold rains from the sky!');
                 setPage(2);

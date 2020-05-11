@@ -62,7 +62,7 @@ const ClashComponent = ({ scene, energy }) => {
         <TopNav />
       )}
       {sceneComponent}
-    </Image>  
+    </Image>
   );
 };
 

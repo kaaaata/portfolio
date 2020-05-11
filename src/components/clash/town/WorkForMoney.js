@@ -30,7 +30,7 @@ const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
           text: `...${sample(flavorTexts)}`,
           options: [{
             name: 'Continue',
-            goodEffect: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
+            goodText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
             onClick: () => {
               adjustPlayerGold(goldEarned);
               closeModal();

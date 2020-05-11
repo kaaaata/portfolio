@@ -46,8 +46,13 @@ export const EventModal = ({
   title,
   image,
   page,
-  pages // [{ text:String, options:[{ name:String, goodEffect:String, badEffect:String, onClick:Func }] }]
+  pages /* pages: [{
+    text:String|Node,
+    options:[{ name:String, goodText:String, neutralText:String, badText:String, onClick:Func }]
+  }] */
 }) => {
+  const text = pages[page - 1].text;
+
   return (
     <Modal halfModal title={title}>
       <FlexContainer justifyContent='flex-start' _css={eventModalCss}>
@@ -55,13 +60,14 @@ export const EventModal = ({
           src={`/clash/${image}.png`}
           height={250}
           width={250}
+          size='contain'
         />
         <FlexContainer
           justifyContent='space-between'
           flexDirection='column'
           className='body'
         >
-          <Text type='paragraph'>{pages[page - 1].text}</Text>
+          {typeof text === 'string' ? <Text type='paragraph'>{pages[page - 1].text}</Text> : text}
           <div>
             {pages[page - 1].options.map(i => (
               <Text
@@ -71,8 +77,9 @@ export const EventModal = ({
                 className='event_modal_option'
               >
                 [{i.name}]
-                {i.goodEffect && <span className='green'>&nbsp;{i.goodEffect}</span>}
-                {i.badEffect && <span className='red'>&nbsp;{i.badEffect}</span>}
+                {i.neutralText && <span>&nbsp;{i.neutralText}</span>}
+                {i.goodText && <span className='green'>&nbsp;{i.goodText}</span>}
+                {i.badText && <span className='red'>&nbsp;{i.badText}</span>}
               </Text>
             ))}
           </div>
