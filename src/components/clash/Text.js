@@ -33,6 +33,7 @@ export const Text = ({
   className = '',
   onClick,
   color,
+  inline = false,
   centered = false,
   children
 }) => (
@@ -44,6 +45,7 @@ export const Text = ({
       ${color ? `color: ${colors[color]};` : ''}
       ${textCss[type]}
       ${color ? 'text-shadow: none;' : ''}
+      ${inline ? 'display: inline;' : ''}
     `}
     onClick={onClick}
   >

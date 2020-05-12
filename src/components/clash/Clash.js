@@ -58,10 +58,10 @@ const ClashComponent = ({ scene, energy }) => {
       rgbaFilter={rgbaFiltersByEnergy[energy]}
       css={clashCss}
     >
+      {sceneComponent}
       {!['story', 'main_menu'].includes(scene) && (
         <TopNav />
       )}
-      {sceneComponent}
     </Image>
   );
 };

@@ -46,7 +46,7 @@ const modalCss = css`
 `;
 
 export const Modal = ({
-  title,
+  title, // String|Node
   continueOptions = [], // [{ text, color, onClick }],
   halfModal = false,
   transparent = true,

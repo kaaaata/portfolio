@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Modal } from '../modals/Modal';
-import { CardPackModal } from './CardPackModal';
+import { CardLootModal } from '../modals/CardLootModal';
 import { Spacer, Image, FlexContainer } from '../../particles';
 import { rarityColors } from '../cards/rarity';
 import { Gold } from '../Gold';
@@ -43,8 +43,8 @@ const shopCss = css`
 `;
 
 const ShopComponent = ({ gold, adjustPlayerGold }) => {
-  const [isCardPackModalOpen, setIsCardPackModalOpen] = useState(false);
-  const [cardPackModalCards, setCardPackModalCards] = useState([]);
+  const [activeCardLootModalPack, setActiveCardLootModalPack] = useState(null);
+  const [cardLootModalCards, setCardLootModalCards] = useState([]);
   
   return (
     <React.Fragment>
@@ -66,8 +66,8 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
                   onClick={() => {
                     if (gold >= pack.cost) {
                       adjustPlayerGold(-1 * pack.cost);
-                      setCardPackModalCards(genPackCards(pack));
-                      setIsCardPackModalOpen(true);
+                      setCardLootModalCards(genPackCards(pack));
+                      setActiveCardLootModalPack(pack.name);
                     }
                   }}
                 >
@@ -102,10 +102,11 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
         </Text>
       </Modal>
 
-      {isCardPackModalOpen && (
-        <CardPackModal
-          cards={cardPackModalCards}
-          closeModal={() => setIsCardPackModalOpen(false)}
+      {activeCardLootModalPack && (
+        <CardLootModal
+          title={`[${activeCardLootModalPack}] Choose cards to keep`}
+          cards={cardLootModalCards}
+          closeModal={() => setActiveCardLootModalPack(null)}
         />
       )}
     </React.Fragment>
