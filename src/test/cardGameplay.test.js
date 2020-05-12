@@ -10,7 +10,7 @@ const simulatePlayCard = (card, player = 'you') => {
   playCard(state, card, player, 'hand', 0);
 };
 
-beforeEach(() => {
+const resetState = () => {
   state.you = {
     name: 'You',
     deck: CardsArray(Array(10).fill('Strike')),
@@ -35,7 +35,9 @@ beforeEach(() => {
   state.winner = null;
   state.logs = [];
   state.renderActions = [];
-});
+};
+
+beforeEach(resetState);
 
 test('Damage and damage self works (Sunder)', () => {
   const card = cards['Sunder'];
@@ -82,7 +84,7 @@ test('Banishes on play works (Healing Potion)', () => {
   expect(state.you.discard.length).toBe(10 - card.heal);
 });
 
-test('Pierces works (Fire)', () => {
+test('Piercing damage aka "Pierces" works (Fire)', () => {
   state.enemy.shields = 10;
   
   const card = cards['Fire'];
@@ -152,10 +154,7 @@ test('Shuffle card copies into pile works (Goblin, Catherine the Great)', () => 
 });
 
 test('Discard effects work (Healing Potion, Slice)', () => {
-  state.you.deck = CardsArray(
-    ['Healing Potion', 'Strike', 'Strike', 'Strike'],
-    { player: 'you', location: 'deck' }
-  );
+  state.you.deck = CardsArray(['Strike', 'Healing Potion', 'Strike', 'Strike', 'Strike']);
   state.you.discard = CardsArray([]);
   state.you.banish = CardsArray([]);
 
@@ -164,13 +163,21 @@ test('Discard effects work (Healing Potion, Slice)', () => {
   simulatePlayCard(slice, 'enemy');
   expect(state.you.discard.length).toBe(0);
   expect(state.you.banish.length).toBe(1);
-  expect(state.you.deck.length).toBe(potion.onDiscard.heal);
+  expect(state.you.deck.length).toBe(potion.onDiscard.heal + 1);
 });
+
+test('Player should lose if deck size hits 0 (Healing Potion, Slice)', () => {
+  state.you.deck = CardsArray(['Healing Potion', 'Strike', 'Strike', 'Strike']);
+
+  const slice = cards['Slice'];
+  simulatePlayCard(slice, 'enemy');
+  expect(state.you.deck.length).toBe(0);
+});
+
 
 test('Mock cards disappear after being played', () => {
   const card = createCard({
     attack: 1,
-    player: 'you',
     isMockCard: true
   });
   simulatePlayCard(card);
@@ -183,25 +190,19 @@ test('Mock cards disappear after being played', () => {
 });
 
 test('Dealing damage greater than deck size should be handled well', () => {
-  state.enemy.deck = CardsArray(
-    Array(10).fill('Bomb'),
-    { player: 'enemy', location: 'deck' }
-  );
+  state.enemy.deck = CardsArray(Array(10).fill('Bomb'));
   const damageCard = createCard({
     attack: 20,
-    player: 'you',
     isMockCard: true
   });
   simulatePlayCard(damageCard);
   expect(state.enemy.deck.length).toBe(0);
 
-  state.you.deck = CardsArray(
-    Array(10).fill('Bomb'),
-    { player: 'you', location: 'deck' }
-  );
+  resetState();
+
+  state.you.deck = CardsArray(Array(10).fill('Bomb'));
   const damageSelfCard = createCard({
     damageSelf: 20,
-    player: 'you',
     isMockCard: true
   });
   simulatePlayCard(damageSelfCard);
@@ -224,11 +225,7 @@ test('CUSTOM CARD EFFECT (Brawler, Strike)', () => {
 });
 
 test('CUSTOM CARD EFFECT (Recruiter, Mage)', () => {
-  state.you.discard.push({
-    ...cards['Mage'],
-    player: 'you',
-    location: 'discard'
-  });
+  state.you.discard.push(cards['Mage']);
 
   const card = cards['Recruiter'];
   simulatePlayCard(card);
@@ -239,11 +236,7 @@ test('CUSTOM CARD EFFECT (Recruiter, Mage)', () => {
 });
 
 test('CUSTOM CARD EFFECT (Cleric, Healing Potion)', () => {
-  state.you.banish.push({
-    ...cards['Healing Potion'],
-    player: 'you',
-    location: 'banish'
-  });
+  state.you.banish.push(cards['Healing Potion']);
 
   const card = cards['Cleric'];
   simulatePlayCard(card);

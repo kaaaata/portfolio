@@ -2,7 +2,6 @@ import { CardsArray } from './CardsArray';
 import { store } from '../../stores/store';
 import { startTurn } from './startTurn';
 import { playCard } from './playCard';
-import { isThereAWinner } from './isThereAWinner';
 
 export const playFirstCardInRound = (index) => {
   const _state = {
@@ -36,30 +35,36 @@ export const playFirstCardInRound = (index) => {
     logs: [],
     renderActions: []
   };
-  const { logs, renderActions } = state;
+  const { logs, renderActions } = state; // state gets mutated. only declare objects here!
 
   const card = state.you.hand[index];
-  logs.push(`You played: ${card.name}`);
+  logs.push(`you plays: ${card.name}`);
   // any function that uses stateCopy should put its reference as the first arg
   playCard(state, card, 'you', 'hand', index);
 
-  if (!isThereAWinner(state, 'enemy')) {
+  if (state.winner) {
+    logs.push(`${state.winner} wins!`);
+    renderActions.push([{ actionKey: 'setWinner', payload: state[state.winner].name }]);
+  } else {
     startTurn(state, 'enemy');
     const enemyHandRandomCardIndex = ~~(Math.random() * 3);
     const enemyHandRandomCard = state.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
     state.enemy.hand[enemyHandRandomCardIndex] = {};
-    logs.push(`${state.enemy.name} plays: ${enemyHandRandomCard.name}`);
+    logs.push(`${state.enemy} plays: ${enemyHandRandomCard.name}`);
     playCard(state, enemyHandRandomCard, 'enemy', 'hand', enemyHandRandomCardIndex);
 
-    if (!isThereAWinner(state, 'you')) {
+    if (state.winner) {
+      logs.push(`${state.winner} wins!`);
+      renderActions.push([{ actionKey: 'setWinner', payload: state[state.winner].name }]);
+    } else {
       startTurn(state, 'you');
     }
   }
 
   console.log(logs.map(log => log.startsWith('you')
-    ? `You${log.slice(3)}`
-    : `Enemy${log.slice(5)}`
+    ? `Player${log.slice(3)}`
+    : `${state.enemy.name}${log.slice(5)}`
   ));
 
   return renderActions;

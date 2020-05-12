@@ -34,17 +34,18 @@ const MonsterPreviewComponent = ({
       enemyTier: monster.tier
     });
     
-    setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
-    // setYourDeck(['Bomb', 'Bomb']); // testing
-    setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-    // setEnemyDeck([]); // testing
-    setYourHand(yourDeck.slice(yourDeck.length - 3));
-    // setYourHand(['Weapons Guy', 'Catherine the Great', 'Magic Scroll']); // testing
+    // setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
+    setYourDeck([]); // testing
+    // setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
+    setEnemyDeck(['Bomb', 'Bomb', 'Bomb']); // testing
+    // setYourHand(yourDeck.slice(yourDeck.length - 3));
+    setYourHand(['Bomb', 'Slice', 'Slice']); // testing
     setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
     setBattleRewardCards(sampleSize(enemyDeck, 4));
     setBattleRewardGold(25 * monster.tier + random(0, 25) + day * 3);
     setScene('battle');
   };
+  battleOnClick();
 
   const indefiniteArticle = /a|e|i|o|u/i.test(monster.name[0]) ? 'an' : 'a';
   let daySuffix = 'th';
@@ -58,7 +59,7 @@ const MonsterPreviewComponent = ({
 
   const text = (
     <Text type='paragraph'>
-      <div>You are under attack by {indefiniteArticle} {monster.name}!</div>
+      <div>You are attacked by {indefiniteArticle} {monster.name}!</div>
       <Spacer height={20} />
       <div>Enemy's deck size: {enemyDeck.length}</div>
       <div>Your deck size: {yourDeck.length}</div>
@@ -75,7 +76,6 @@ const MonsterPreviewComponent = ({
           text,
           options: [{
             name: 'Continue',
-            neutralText: 'Battle!',
             onClick: battleOnClick
           }]
         }

@@ -8,11 +8,7 @@ import { Collection } from './modals/Collection';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 
-export const TopNavComponent = ({
-  player,
-  energy
-}) => {
-  console.log('top nav rerendered');
+export const TopNavComponent = ({ player, energy }) => {
   const [activeModal, setActiveModal] = useState(null);
 
   return (

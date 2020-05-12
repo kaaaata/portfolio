@@ -62,9 +62,5 @@ export const actionGenerators = {
       actionKey: actionKeys[player].temporaryStats,
       payload: state[player].temporaryStats
     };
-  },
-  setWinner: (state, player) => ({
-    actionKey: 'setWinner',
-    payload: state[player].name
-  })
+  }
 };

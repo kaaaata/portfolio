@@ -2,7 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { MainMenu } from './scenes/MainMenu';
 import { Story } from './scenes/Story';
 import { Town } from './town/Town';
-import { Battle } from './Battle';
+import { Battle } from './battle/Battle';
 import { TopNav } from './TopNav';
 import { Image } from '../particles';
 import { connect } from 'react-redux';

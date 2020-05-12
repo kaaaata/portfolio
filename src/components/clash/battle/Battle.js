@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
-import * as actions from '../stores/actions';
+import * as actions from '../../stores/actions';
 import {
   YourDeck,
   YourDiscard,
@@ -12,28 +11,18 @@ import {
   YourHand,
   EnemyHand,
   Stack
-} from './PileOfCards';
-import { YourPortrait, EnemyPortrait } from './Portrait';
-import { playFirstCardInRound } from './gameplay/playFirstCardInRound';
-import { Modal } from './modals/Modal';
-import { BattleRewards } from './modals/BattleRewards';
-import { Image } from '../particles';
+} from '../PileOfCards';
+import { YourPortrait, EnemyPortrait } from '../Portrait';
+import { playFirstCardInRound } from '../gameplay/playFirstCardInRound';
+import { BattleRewards } from './BattleRewards';
 
 const perspectiveCss = css`perspective: 2000px;`;
 
 const BattleComponent = (props) => {
-  const [activeModal, setActiveModal] = useState(null);
-  const { winner, winnerImage } = props;
-  let modalComponent = null;
+  const { winner } = props;
   let interval = null;
   let actions = [];
   let isAnimating = false;
-
-  useEffect(() => {
-    if (winner) {
-      setActiveModal('win_or_lose');
-    }
-  }, [winner]);
 
   const executeRenderAction = (action) => {
     if (action) {
@@ -56,7 +45,7 @@ const BattleComponent = (props) => {
     const t1 = performance.now();
     console.log(`playCard took ${(t1 - t0).toFixed(3)} milliseconds.`);
 
-    if (actions.length > 1) {
+    if (actions.length) {
       // later, if we want to allow pausing mid-animation, actions should be
       // refactored to be a Stack, and it should pop every time an action is executed.
 
@@ -76,31 +65,6 @@ const BattleComponent = (props) => {
       isAnimating = false;
     }
   };
-
-  switch (activeModal) {
-    case 'win_or_lose':
-      modalComponent = (
-        <Modal
-          title={`${winner} wins!`}
-          continueOptions={[
-            { text: 'Battle Rewards', color: 'green', onClick: () => setActiveModal('battle_rewards') }
-          ]}
-        >
-          <Image
-            src={`/clash/${winnerImage}.png`}
-            height={200}
-            width={200}
-            size='contain'
-          />
-        </Modal>
-      );
-      break;
-    case 'battle_rewards':
-      modalComponent = <BattleRewards />;
-      break;
-    default:
-      break;
-  }
 
   return (
     <div>
@@ -122,7 +86,7 @@ const BattleComponent = (props) => {
         <YourBanish />
       </div>
 
-      {modalComponent}
+      {winner && <BattleRewards />}
     </div>
   );
 };
