@@ -4,7 +4,7 @@ import { Story } from './scenes/Story';
 import { Town } from './town/Town';
 import { Battle } from './battle/Battle';
 import { TopNav } from './TopNav';
-import { Image } from '../particles';
+import { Image, Spacer } from '../particles';
 import { connect } from 'react-redux';
 
 const rgbaFiltersByEnergy = [
@@ -58,6 +58,7 @@ const ClashComponent = ({ scene, energy }) => {
       rgbaFilter={rgbaFiltersByEnergy[energy]}
       css={clashCss}
     >
+      <Spacer height={40} />
       {sceneComponent}
       {!['story', 'main_menu'].includes(scene) && (
         <TopNav />

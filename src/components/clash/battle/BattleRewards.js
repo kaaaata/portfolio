@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { EventModal } from '../town/EventModal';
 import { CardLootModal } from '../modals/CardLootModal';
+import { Text } from '../Text';
 
 const BattleRewardsComponent = ({
   didPlayerWin,
@@ -25,14 +26,22 @@ const BattleRewardsComponent = ({
     />
   ) : (
     <EventModal
-      title={didPlayerWin ? 'You Win!' : 'You Lose!'}
+      title={didPlayerWin ? 'Victory!' : 'Defeat!'}
       image={winnerImage}
       page={page}
       pages={[
         {
           text: didPlayerWin
             ? 'The enemy drops some gold.'
-            : 'You are forced to retreat, but your allies manage to finish off the enemy. They take most of the loot, but maybe you can pick up what they left behind tomorrow.',
+            : (
+              <React.Fragment>
+                <Text type='paragraph'>
+                  You are forced to retreat!
+                  <br /><br />
+                  Maybe you can recover some loot tomorrow.
+                </Text>
+              </React.Fragment>
+            ),
           options: [{
             name: 'Continue',
             goodText: didPlayerWin ? `Receive ${battleRewardGold} gold.` : 'Return to town.',

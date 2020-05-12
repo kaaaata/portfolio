@@ -1,6 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Spacer, FlexContainer } from '../../particles';
-import { Button } from '../Button';
 import { colors } from '../../styles';
 import { Text } from '../Text';
 
@@ -28,26 +27,12 @@ const modalCss = css`
   }
 
   &.transparent {
-    background: rgba(0, 0, 0, 0.85);
-  }
-
-  .content {
-    .continue_options {
-      button {
-        display: inline-block;
-        margin-right: 15px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
+    background: rgba(0, 0, 0, 0.9);
   }
 `;
 
 export const Modal = ({
   title, // String|Node
-  continueOptions = [], // [{ text, color, onClick }],
   halfModal = false,
   transparent = true,
   children
@@ -59,34 +44,14 @@ export const Modal = ({
     </Text>
   );
 
-  const modalContinueOptions = (
-    <div className='continue_options'>
-      {continueOptions.map(i => (
-        <Button
-          key={i.text}
-          color={i.color || 'white'}
-          onClick={i.onClick}
-        >
-          {i.text}
-        </Button>
-      ))}
-    </div>
-  );
-
   const modal = (
     <div
       css={modalCss}
       className={`modal ${halfModal ? 'half_modal' : ''} ${transparent ? 'transparent' : ''}`}
     >
-      <FlexContainer
-        className='content'
-        alignItems='center'
-        flexDirection='column'
-      >
+      <FlexContainer alignItems='center' flexDirection='column'>
         {modalTitle}
         {children}
-        <Spacer height={30} />
-        {modalContinueOptions}
       </FlexContainer>
     </div>
   );

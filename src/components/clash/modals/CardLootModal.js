@@ -3,13 +3,24 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Modal } from '../modals/Modal';
-import { FlexContainer } from '../../particles';
+import { FlexContainer, Spacer } from '../../particles';
+import { Button } from '../Button';
 import { Card } from '../Card';
 import { Text } from '../Text';
 
 const cardLootModalCss = css`
   .card {
     margin: 10px;
+  }
+`;
+
+const continueOptionsCss = css`
+  button {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -25,7 +36,7 @@ const CardLootModalComponent = ({
 
   const titleText = (
     <React.Fragment>
-      <span>{title} </span>
+      {title}&nbsp;
       <Text
         type='header'
         inline
@@ -40,7 +51,7 @@ const CardLootModalComponent = ({
   if (maxCardsToTake === cards.length && cardsTakenCount < maxCardsToTake) {
     continueOptions.unshift({
       text: 'Take All',
-      color: 'green',
+      color: cardsTakenCount === maxCardsToTake ? 'red' : 'green',
       onClick: () => {
         if (cardsTakenCount < maxCardsToTake) {
           addCardsToCollection(cards.filter((_, index) => !selectedCards.hasOwnProperty(index)));
@@ -56,7 +67,6 @@ const CardLootModalComponent = ({
       halfModal
       title={titleText}
       transparent={false}
-      continueOptions={continueOptions}
     >
       <FlexContainer justifyContent='center' css={cardLootModalCss}>
         {cards.map((i, index) => (
@@ -71,6 +81,20 @@ const CardLootModalComponent = ({
             }}
             _css={selectedCards.hasOwnProperty(index) ? 'visibility: hidden;' : ''}
           />
+        ))}
+      </FlexContainer>
+      <Spacer height={30} />
+      <FlexContainer justifyContent='center' css={continueOptionsCss}>
+        {continueOptions.map(i => (
+          <Button
+            key={i.text}
+            mini
+            isDisabled={i.text === 'Take All' && cardsTakenCount === maxCardsToTake}
+            onClick={i.onClick}
+            color={i.color}
+          >
+            {i.text}
+          </Button>
         ))}
       </FlexContainer>
     </Modal>

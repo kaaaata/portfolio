@@ -48,7 +48,7 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
   
   return (
     <React.Fragment>
-      <Modal title='Shop'>
+      <Modal title='Shop' transparent={false}>
         <FlexContainer css={shopCss}>
           {Object.keys(packs).map(i => {
             const pack = packs[i];

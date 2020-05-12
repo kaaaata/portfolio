@@ -45,7 +45,7 @@ const MonsterPreviewComponent = ({
     setBattleRewardGold(25 * monster.tier + random(0, 25) + day * 3);
     setScene('battle');
   };
-  battleOnClick();
+  // battleOnClick(); // testing
 
   const indefiniteArticle = /a|e|i|o|u/i.test(monster.name[0]) ? 'an' : 'a';
   let daySuffix = 'th';
@@ -59,10 +59,11 @@ const MonsterPreviewComponent = ({
 
   const text = (
     <Text type='paragraph'>
-      <div>You are attacked by {indefiniteArticle} {monster.name}!</div>
-      <Spacer height={20} />
-      <div>Enemy's deck size: {enemyDeck.length}</div>
-      <div>Your deck size: {yourDeck.length}</div>
+      You are attacked by {indefiniteArticle} {monster.name}!
+      <br /><br />
+      Enemy's deck size: {enemyDeck.length}
+      <br />
+      Your deck size: {yourDeck.length}
     </Text>
   );
 

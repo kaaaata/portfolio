@@ -7,6 +7,8 @@ export const topNavCss = css`
   padding: 0 20px;
   width: 100%;
   box-shadow: 2px 2px 4px ${colors.black};
+  position: absolute;
+  top: 0;
 
   .left, .right {
     width: 250px;

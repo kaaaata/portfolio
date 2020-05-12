@@ -2,7 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Modal } from '../modals/Modal';
 import { Text } from '../Text';
 import { FlexContainer, Image } from '../../particles';
-import { colors } from '../../styles';
+import { Button } from '../Button';
 
 const eventModalCss = css`
   width: 100%;
@@ -15,25 +15,8 @@ const eventModalCss = css`
   .body {
     flex-grow: 1;
 
-    .event_modal_option {
-      background: ${colors.slate};
+    button {
       margin-bottom: 10px;
-      padding: 0 10px;
-      height: 32px;
-      line-height: 32px;
-      border-radius: 4px;
-  
-      .green {
-        color: ${colors.green};
-      }
-  
-      .red {
-        color: ${colors.red};
-      }
-  
-      &:hover {
-        background: ${colors.slateLight};
-      }
   
       &:last-child {
         margin-bottom: 0;
@@ -48,7 +31,7 @@ export const EventModal = ({
   page,
   pages /* pages: [{
     text:String|Node,
-    options:[{ name:String, goodText:String, neutralText:String, badText:String, onClick:Func }]
+    options:[{ name:String, goodText:String, badText:String, onClick:Func }]
   }] */
 }) => {
   const text = pages[page - 1].text;
@@ -70,17 +53,11 @@ export const EventModal = ({
           {typeof text === 'string' ? <Text type='paragraph'>{pages[page - 1].text}</Text> : text}
           <div>
             {pages[page - 1].options.map(i => (
-              <Text
-                key={i.name}
-                type='small'
-                onClick={i.onClick}
-                className='event_modal_option'
-              >
-                [{i.name}]
-                {i.neutralText && <span>&nbsp;{i.neutralText}</span>}
-                {i.goodText && <span className='green'>&nbsp;{i.goodText}</span>}
-                {i.badText && <span className='red'>&nbsp;{i.badText}</span>}
-              </Text>
+              <Button key={i.name} onClick={i.onClick}>
+                <Text type='small' inline>[{i.name}]</Text>
+                {i.goodText && <Text type='small' inline color='green'> {i.goodText}</Text>}
+                {i.badText && <Text type='small' inline color='red'> {i.badText}</Text>}
+              </Button>
             ))}
           </div>
         </FlexContainer>
