@@ -7,6 +7,7 @@ import { Gold } from './Gold';
 import { Collection } from './modals/Collection';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
+import { Text } from './Text';
 
 export const TopNavComponent = ({ player, energy }) => {
   const [activeModal, setActiveModal] = useState(null);
@@ -48,7 +49,7 @@ export const TopNavComponent = ({ player, energy }) => {
           />
           <div css={energyMeterCss}>
             <div className='fill' css={css`width: ${100 * energy / 12}%;`} />
-            <div className='energy_count'>{energy} / 12</div>
+            <Text type='small' className='energy_count'>{energy} / 12</Text>
           </div>
         </FlexContainer>
 
@@ -69,7 +70,7 @@ export const TopNavComponent = ({ player, energy }) => {
               />
             ))}
           </div>
-          <div className='deck_count'>{player.deck.length}</div>
+          <Text className='deck_count'>{player.deck.length}</Text>
           <Image
             src='/clash/shop.png'
             width={35}

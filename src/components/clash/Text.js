@@ -32,9 +32,10 @@ export const Text = ({
   type = 'normal',
   className = '',
   onClick,
-  color,
+  color = 'white',
   inline = false,
   centered = false,
+  lineHeight,
   children
 }) => (
   <div
@@ -44,8 +45,8 @@ export const Text = ({
       ${centered ? 'text-align: center;' : ''}
       ${color ? `color: ${colors[color]};` : ''}
       ${textCss[type]}
-      ${color ? 'text-shadow: none;' : ''}
       ${inline ? 'display: inline;' : ''}
+      ${lineHeight ? `line-height: ${lineHeight};` : ''}
     `}
     onClick={onClick}
   >

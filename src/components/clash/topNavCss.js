@@ -35,9 +35,7 @@ export const topNavCss = css`
   }
 
   .deck_count {
-    line-height: 40px;
-    margin-left: 3px;
-    font-size: 24px;
+    margin-left: 5px;
   }
 `;
 
@@ -60,9 +58,6 @@ export const energyMeterCss = css`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: ${colors.white};
-    text-shadow: 1px 1px 2px black;
-    font-size: 16px;
   }
 `;
 

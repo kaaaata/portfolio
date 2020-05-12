@@ -1,31 +1,29 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, FlexContainer } from '../particles';
-import { colors } from '../styles';
+import { Text } from './Text';
 
 const attributesCss = css`
   cursor: default;
-  font-size: 36px;
   text-align: center;
-  text-shadow: 2px 2px 4px ${colors.black};
 
-  .number {
+  .text {
     margin-top: 11px;
   }
 
   .attack {
-    .number {
+    .text {
       margin-left: -7px;
     }
   }
 
   .magic {
-    .number {
+    .text {
       margin-left: -2px;
     }
   }
 
   .defense {
-    .number {
+    .text {
       margin-left: -3px;
     }
   }
@@ -43,7 +41,7 @@ export const Attributes = ({
       width={30}
       height={30}
     >
-      <div className='number'>{attack}</div>
+      <Text>{attack}</Text>
     </Image>
   );
 
@@ -54,7 +52,7 @@ export const Attributes = ({
       width={30}
       height={30}
     >
-      <div className='number'>{magic}</div>
+      <Text>{magic}</Text>
     </Image>
   );
 
@@ -65,7 +63,7 @@ export const Attributes = ({
       width={30}
       height={30}
     >
-      <div className='number'>{defense}</div>
+      <Text>{defense}</Text>
     </Image>
   );
 
@@ -73,7 +71,7 @@ export const Attributes = ({
     <FlexContainer
       className='attributes'
       justifyContent='space-between'
-      _css={attributesCss}
+      css={attributesCss}
     >
       {attackDisplay}
       {magicDisplay}

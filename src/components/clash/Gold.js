@@ -1,6 +1,6 @@
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, FlexContainer } from '../particles';
-import { colors } from '../styles';
+import { Text } from './Text';
 
 export const Gold = ({
   gold,
@@ -16,12 +16,6 @@ export const Gold = ({
       width={big ? 100 : 36}
       height={big ? 100 : 36}
     />
-    <div css={css`
-      font-size: ${big ? '100px' : '24px'};
-      line-height: ${big ? '100px' : '36px'};
-      color: ${colors[color]};
-    `}>
-      {gold}
-    </div>
+    <Text color={color} lineHeight='36px'>{gold}</Text>
   </FlexContainer>
 );

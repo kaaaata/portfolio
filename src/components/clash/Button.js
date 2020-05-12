@@ -6,7 +6,7 @@ export const Button = ({
   onClick,
   mini = false,
   isDisabled = false,
-  color = 'white',
+  color,
   children // String|Node
 }) => {
   return (
