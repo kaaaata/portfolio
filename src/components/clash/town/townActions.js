@@ -37,7 +37,7 @@ export const townActions = [
   },
   {
     name: 'Recover Loot',
-    energy: 6,
+    energy: 4,
     image: 'scavenge',
     description: 'Recover some loot after a defeat.'
   },

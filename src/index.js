@@ -6,6 +6,10 @@ import { store } from './components/stores/store';
 import { App } from './components/App';
 import * as serviceWorker from './serviceWorker';
 
+if (process.env.NODE_ENV !== 'production') {
+  window.store = store;
+}
+
 ReactDOM.render((
   <Provider store={store}>
     <BrowserRouter>
