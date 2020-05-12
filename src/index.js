@@ -7,7 +7,7 @@ import { App } from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 if (process.env.NODE_ENV !== 'production') {
-  window.store = store;
+  window.state = store.getState();
 }
 
 ReactDOM.render((

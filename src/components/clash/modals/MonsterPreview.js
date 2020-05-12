@@ -1,5 +1,4 @@
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { Spacer } from '../../particles';
 import { connect } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { shuffle, sampleSize, random } from 'lodash';
