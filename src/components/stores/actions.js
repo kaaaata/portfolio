@@ -29,3 +29,4 @@ export const adjustPlayerEnergy = payload => ({ type: 'ADJUST_PLAYER_ENERGY', pa
 export const addCardsToCollection = payload => ({ type: 'ADD_CARDS_TO_COLLECTION', payload });
 
 export const setScene = payload => ({ type: 'SET_SCENE', payload });
+export const startNewDay = payload => ({ type: 'START_NEW_DAY', payload });

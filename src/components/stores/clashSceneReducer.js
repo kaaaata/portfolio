@@ -8,6 +8,10 @@ export default (state = initialState, action) => {
       return {
         scene: action.payload
       };
+    case 'START_NEW_DAY':
+      return {
+        scene: 'town'
+      };
     default:
       return state;
   }

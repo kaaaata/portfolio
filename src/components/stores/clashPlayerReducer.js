@@ -45,6 +45,12 @@ export default (state = initialState, action) => {
         ...state,
         energy: Math.max(0, state.energy + action.payload)
       };
+    case 'START_NEW_DAY':
+      return {
+        ...state,
+        energy: 12,
+        day: state.day + 1
+      };
     default:
       return state;
   }

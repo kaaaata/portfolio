@@ -44,7 +44,7 @@ const TownComponent = ({
   adjustPlayerEnergy
 }) => {
   const [townActionDescription, setTownActionDescription] = useState('');
-  const [activeModal, setActiveModal] = useState('Next Day');
+  const [activeModal, setActiveModal] = useState(null);
   const [canReceiveBlessing, setCanReceiveBlessing] = useState(day % 4 === 0);
   let modal;
 
