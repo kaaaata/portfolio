@@ -36,10 +36,10 @@ const MonsterPreviewComponent = ({
     
     setYourDeck(yourDeck.slice(0, yourDeck.length - 3));
     // setYourDeck([]); // testing
-    // setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
-    setEnemyDeck([]); // testing
-    // setYourHand(yourDeck.slice(yourDeck.length - 3));
-    setYourHand(['Bomb', 'Slice', 'Slice']); // testing
+    setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3));
+    // setEnemyDeck([]); // testing
+    setYourHand(yourDeck.slice(yourDeck.length - 3));
+    // setYourHand(['Bomb', 'Slice', 'Slice']); // testing
     setEnemyHand(enemyDeck.slice(enemyDeck.length - 3));
     setBattleRewardCards(sampleSize(enemyDeck, 3));
     setBattleRewardGold(25 * monster.tier + random(0, 25) + day * 3);

@@ -10,13 +10,13 @@ const BegForChangeComponent = ({ adjustPlayerGold, closeModal }) => {
 
   if (rng < 0.05) {
     text = 'Suddenly, you are rushed by a mob of unruly kids! They steal some gold.';
-    goldEarned = random(-1, -10);
+    goldEarned = random(-1, -5);
   } else if (rng < 0.1) {
     text = 'You feel something odd beneath you. It\'s a pile of gold!';
     goldEarned = random(10, 20);
   } else {
     text = 'You manage to collect a couple coins.'
-    goldEarned = random(1, 7);
+    goldEarned = random(1, 5);
   }
 
   return (

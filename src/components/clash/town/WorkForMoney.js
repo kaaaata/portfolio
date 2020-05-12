@@ -18,7 +18,7 @@ const flavorTexts = [
 ];
 
 const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
-  const goldEarned = random(20, 40);
+  const goldEarned = random(15, 25);
 
   return (
     <EventModal
