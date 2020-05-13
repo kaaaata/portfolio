@@ -41,12 +41,12 @@ export const Skills = () => {
       <FlexItem>
         <h1>{name}</h1>
         <p>{description}</p>
-        {flavorTexts && <>
+        {flavorTexts && <React.Fragment>
           <p className='also'>Also...</p>
           {flavorTexts.map(pointer => (
             <li key={pointer}>{pointer}</li>
           ))}
-        </>}
+        </React.Fragment>}
       </FlexItem>
     </React.Fragment>
   );

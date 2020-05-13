@@ -38,7 +38,7 @@ const diagonalCss = rotation => css`
   margin-top: -1px;
 `;
 
-export const BoardGridOverlay = () => <>
+export const BoardGridOverlay = () => <React.Fragment>
   <div css={boardGridOverlayBackgroundCss}>
     {range(0, 11).map(y => (
       range(0, 10).map(x => (
@@ -50,12 +50,12 @@ export const BoardGridOverlay = () => <>
     {range(0, 9).map(y => (
       range(0, 8).map(x => (
         <div className='square' key={`${x}${y}`}>
-          {x === 3 && (y === 1 || y === 8) && <>
+          {x === 3 && (y === 1 || y === 8) && <React.Fragment>
             <div css={diagonalCss('45deg')} />
             <div css={diagonalCss('315deg')} />
-          </>}
+          </React.Fragment>}
         </div>
       ))
     ))}
   </div>
-</>;
+</React.Fragment>;
