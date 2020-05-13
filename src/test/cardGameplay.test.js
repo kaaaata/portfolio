@@ -18,8 +18,8 @@ const resetState = () => {
     banish: CardsArray(Array(10).fill('Strike')),
     hand: CardsArray(Array(3).fill('Strike')),
     shields: 0,
-    temporaryStats: { attack: 0, magic: 0, defense: 0 },
-    permanentStats: { attack: 0, magic: 0, defense: 0 }
+    statBonuses: { attack: 0, magic: 0, defense: 0 },
+    stats: { attack: 0, magic: 0, defense: 0 }
   };
   state.enemy = {
     name: 'You',
@@ -28,8 +28,8 @@ const resetState = () => {
     banish: CardsArray(Array(10).fill('Strike')),
     hand: CardsArray(Array(3).fill('Strike')),
     shields: 0,
-    temporaryStats: { attack: 0, magic: 0, defense: 0 },
-    permanentStats: { attack: 0, magic: 0, defense: 0 }
+    statBonuses: { attack: 0, magic: 0, defense: 0 },
+    stats: { attack: 0, magic: 0, defense: 0 }
   };
   state.stack = CardsArray([]);
   state.winner = null;
@@ -92,14 +92,14 @@ test('Piercing damage aka "Pierces" works (Fire)', () => {
   expect(state.enemy.deck.length).toBe(10 - card.attack);
 });
 
-test('Temporary stats gain works (Mage)', () => {
+test('Stat bonuses works (Mage)', () => {
   const card = cards['Mage'];
   simulatePlayCard(card);
-  expect(state.you.temporaryStats.magic = card.temporaryStatGain.magic);
+  expect(state.you.statBonuses.magic = card.statBonuses.magic);
 });
 
 test('Attacks are buffed by Attack (Strike)', () => {
-  state.you.temporaryStats.attack = 1;
+  state.you.statBonuses.attack = 1;
 
   const card = cards['Strike'];
   simulatePlayCard(card);
@@ -107,7 +107,7 @@ test('Attacks are buffed by Attack (Strike)', () => {
 });
 
 test('Magics are buffed by Magic (Fire)', () => {
-  state.you.temporaryStats.magic = 1;
+  state.you.statBonuses.magic = 1;
 
   const card = cards['Fire'];
   simulatePlayCard(card);
@@ -115,7 +115,7 @@ test('Magics are buffed by Magic (Fire)', () => {
 });
 
 test('Shield is buffed by Defense, expect when gain is 0 (Slash)', () => {
-  state.you.temporaryStats.defense = 1;
+  state.you.statBonuses.defense = 1;
 
   const strike = cards['Strike'];
   simulatePlayCard(strike);
@@ -126,8 +126,8 @@ test('Shield is buffed by Defense, expect when gain is 0 (Slash)', () => {
 });
 
 test('Allies are not buffed by stats (Weapons Guy)', () => {
-  state.you.temporaryStats.attack = 1;
-  state.you.temporaryStats.defense = 1;
+  state.you.statBonuses.attack = 1;
+  state.you.statBonuses.defense = 1;
 
   const card = cards['Weapons Guy'];
   simulatePlayCard(card);

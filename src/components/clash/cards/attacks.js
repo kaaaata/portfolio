@@ -92,7 +92,7 @@ export const attacks = [
     rarity: 'uncommon',
     attack: 0,
     defense: 4,
-    temporaryStatGain: { defense: 1 },
+    statBonuses: { defense: 1 },
     description: 'Gain +1 defense for the rest of the battle.'
   },
   {
@@ -125,7 +125,7 @@ export const attacks = [
     attack: 0,
     defense: 0,
     playCopiesOfCards: ['Arrow', 'Arrow'],
-    temporaryStatGain: { attack: 1 },
+    statBonuses: { attack: 1 },
     description: 'Gain +1 Attack for the rest of the battle. Play two copies of Arrow.'
   },
   {

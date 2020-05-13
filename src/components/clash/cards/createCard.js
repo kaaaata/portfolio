@@ -19,7 +19,7 @@ const cardTemplate = {
   playCopiesOfCards: null,
   shuffleCardCopiesIntoYourPiles: null,
   shuffleCardCopiesIntoOpponentsPiles: null,
-  temporaryStatGain: null
+  statBonuses: null
 };
 
 const genCardDescription = ({

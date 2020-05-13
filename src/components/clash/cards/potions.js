@@ -41,14 +41,14 @@ export const potions = [
     image: 'slime_potion',
     rarity: 'rare',
     damageSelf: 3,
-    temporaryStatGain: {
+    statBonuses: {
       attack: 1,
       magic: 1,
       defense: 1
     },
     onDiscard: {
       damageSelf: 3,
-      temporaryStatGain: {
+      statBonuses: {
         attack: 1,
         magic: 1,
         defense: 1

@@ -58,7 +58,7 @@ export const playCard = (state, card, player, location, index) => {
     playCopiesOfCards,
     shuffleCardCopiesIntoOpponentsPiles,
     shuffleCardCopiesIntoYourPiles,
-    temporaryStatGain
+    statBonuses
   } = card;
   const opponent = player === 'you' ? 'enemy' : 'you';
 
@@ -87,13 +87,13 @@ export const playCard = (state, card, player, location, index) => {
     customCardEffects[name](state, card, player);
   }
 
-  if (!state.winner && temporaryStatGain) {
-    Object.keys(temporaryStatGain).forEach(stat => {
-      const amount = temporaryStatGain[stat];
+  if (!state.winner && statBonuses) {
+    Object.keys(statBonuses).forEach(stat => {
+      const amount = statBonuses[stat];
       const sign = amount > 0 ? '+' : '-';
       logs.push(`${player} receives ${sign}${amount} ${stat} until end of battle`);
     });
-    renderActions.push([actionGenerators.setTemporaryStats(state, player, temporaryStatGain)]);
+    renderActions.push([actionGenerators.setStats(state, player, statBonuses)]);
   }
 
   if (!state.winner && shuffleCardCopiesIntoOpponentsPiles) {
@@ -114,8 +114,8 @@ export const playCard = (state, card, player, location, index) => {
   if (!state.winner && typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && ['attack', 'magic'].includes(type)) {
-      totalDamageDealt += state[player].temporaryStats[type];
-      totalDamageDealt += state[player].permanentStats[type];
+      totalDamageDealt += state[player].statBonuses[type];
+      totalDamageDealt += state[player].stats[type];
     }
     if (!pierces) {
       totalDamageDealt = Math.max(totalDamageDealt - state[opponent].shields, 0);
@@ -125,8 +125,8 @@ export const playCard = (state, card, player, location, index) => {
     let totalShieldsGained = defense;
     if (defense) {
       if (['attack', 'magic'].includes(type)) {
-        totalShieldsGained += state[player].temporaryStats.defense;
-        totalShieldsGained += state[player].permanentStats.defense;
+        totalShieldsGained += state[player].statBonuses.defense;
+        totalShieldsGained += state[player].stats.defense;
       }
       logs.push(`${player} gains ${totalShieldsGained} shields`);
       if (totalDamageDealt === 0) {

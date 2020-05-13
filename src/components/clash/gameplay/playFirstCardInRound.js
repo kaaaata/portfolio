@@ -17,8 +17,8 @@ export const playFirstCardInRound = (index) => {
       banish: CardsArray(clashBattleCards.yourBanish),
       hand: CardsArray(clashBattleCards.yourHand),
       shields: clashBattleStats.yourShields,
-      temporaryStats: clashBattleStats.yourTemporaryStats,
-      permanentStats: clashBattleStats.yourPermanentStats
+      statBonuses: clashBattleStats.yourStatBonuses,
+      stats: clashBattleStats.yourStats
     },
     enemy: {
       name: clashBattleStats.enemyName,
@@ -27,8 +27,8 @@ export const playFirstCardInRound = (index) => {
       banish: CardsArray(clashBattleCards.enemyBanish),
       hand: CardsArray(clashBattleCards.enemyHand),
       shields: clashBattleStats.enemyShields,
-      temporaryStats: clashBattleStats.yourTemporaryStats,
-      permanentStats: clashBattleStats.yourPermanentStats
+      statBonuses: clashBattleStats.enemyStatBonuses,
+      stats: clashBattleStats.enemyStats
     },
     stack: CardsArray(clashBattleCards.stack),
     winner: clashBattleStats.winner,

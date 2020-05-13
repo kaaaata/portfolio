@@ -19,7 +19,7 @@ export const Town = () => {
     day: state.clashPlayer.day,
     canRecoverLoot: state.clashPlayer.day > 1
       && !!state.clashBattleStats.winner
-      && state.clashPlayer.name !== state.clashBattleStats.winner
+      && state.clashBattleStats.yourName !== state.clashBattleStats.winner
   }));
   const dispatch = useDispatch();
   

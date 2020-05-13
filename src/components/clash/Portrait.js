@@ -1,14 +1,14 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Image, Spacer } from '../particles';
 import { Attributes } from './Attributes';
 import { colors } from '../styles';
 import { useState, useEffect } from 'react';
 
-const portraitCss = (location) => css`
+const portraitCss = (player) => css`
   position: absolute;
-  left: ${location === 'top' ? 885 : 20}px;
-  top: ${location === 'top' ? 48 : 405}px;
+  left: ${player === 'enemy' ? 885 : 20}px;
+  top: ${player === 'enemy' ? 48 : 405}px;
 
   .portrait {
     position: absolute;
@@ -31,7 +31,7 @@ const portraitCss = (location) => css`
   .shields {
     position: absolute;
     top: -30px;
-    ${location === 'top' ? 'left: -15px;' : 'right: -15px;'}
+    ${player === 'enemy' ? 'left: -15px;' : 'right: -15px;'}
     
     .number {
       font-size: 36px;
@@ -48,14 +48,22 @@ const portraitCss = (location) => css`
   }
 `;
 
-const Portrait = ({
-  location,
-  image,
-  temporaryStats,
-  permanentStats,
-  shields,
-  isDead
-}) => {
+export const Portrait = ({ player }) => {
+  const { image, stats, statBonuses, shields, isDead } = useSelector(state => {
+    return player === 'you' ? {
+      image: state.clashBattleStats.yourImage,
+      stats: state.clashBattleStats.yourStats,
+      statBonuses: state.clashBattleStats.yourStatBonuses,
+      shields: state.clashBattleStats.yourShields,
+      isDead: state.clashBattleStats.winner === state.clashBattleStats.enemyName
+    } : {
+      image: state.clashBattleStats.enemyImage,
+      stats: state.clashBattleStats.enemyStats,
+      statBonuses: state.clashBattleStats.enemyStatBonuses,
+      shields: state.clashBattleStats.enemyShields,
+      isDead: state.clashBattleStats.winner === state.clashBattleStats.yourName
+    };
+  });
   const [portraitClassName, setPortraitClassName] = useState('portrait');
 
   useEffect(() => {
@@ -91,38 +99,12 @@ const Portrait = ({
   );
 
   return (
-    <div css={portraitCss(location)}>
+    <div css={portraitCss(player)}>
       {portrait}
       {portraitPlaceholder}
       <Spacer height={5} />
       {shieldsDisplay}
-      <Attributes
-        attack={temporaryStats.attack + permanentStats.attack}
-        magic={temporaryStats.magic + permanentStats.magic}
-        defense={temporaryStats.defense + permanentStats.defense}
-      />
+      <Attributes stats={stats} statBonuses={statBonuses} />
     </div>
   );
 };
-
-const mapStateToPropsYourPortrait = (state) => ({
-  name: state.clashBattleStats.yourName,
-  image: state.clashBattleStats.yourImage,
-  temporaryStats: state.clashBattleStats.yourTemporaryStats,
-  permanentStats: state.clashBattleStats.yourPermanentStats,
-  shields: state.clashBattleStats.yourShields,
-  location: 'bottom',
-  isDead: state.clashBattleStats.winner === state.clashBattleStats.enemyName
-});
-const mapStateToPropsEnemyPortrait = (state) => ({
-  name: state.clashBattleStats.enemyName,
-  image: state.clashBattleStats.enemyImage,
-  temporaryStats: state.clashBattleStats.enemyTemporaryStats,
-  permanentStats: state.clashBattleStats.enemyPermanentStats,
-  shields: state.clashBattleStats.enemyShields,
-  location: 'top',
-  isDead: state.clashBattleStats.winner === state.clashBattleStats.yourName
-});
-
-export const YourPortrait = connect(mapStateToPropsYourPortrait)(Portrait);
-export const EnemyPortrait = connect(mapStateToPropsEnemyPortrait)(Portrait);

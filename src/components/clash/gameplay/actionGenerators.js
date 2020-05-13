@@ -53,14 +53,19 @@ export const actionGenerators = {
       payload: value
     };
   },
-  setTemporaryStats: (state, player, temporaryStatGain) => {
-    // temporaryStatGain like { attack: 1, defense: 1 }
-    Object.keys(temporaryStatGain).forEach(stat => {
-      state[player].temporaryStats[stat] += temporaryStatGain[stat];
+  setStats: (state, player, statBonuses) => {
+    // statBonuses like { attack: 1, defense: 1 }
+    Object.keys(statBonuses).forEach(stat => {
+      state[player].statBonuses[stat] += statBonuses[stat];
     });
     return {
-      actionKey: actionKeys[player].temporaryStats,
-      payload: state[player].temporaryStats
+      actionKey: 'setStats',
+      payload: {
+        stats: statBonuses,
+        type: 'bonuses',
+        player,
+        operation: 'set'
+      }
     };
   }
 };

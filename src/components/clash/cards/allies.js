@@ -102,18 +102,18 @@ export const allies = [
     customEffect: true,
     description: 'Play 2 random Attacks from your discard pile, then banish them.'
   },
-  {
-    name: 'Warlock',
-    image: 'crazy_mage',
-    rarity: 'uncommon',
-    attack: 0,
-    defense: 0,
-    temporaryStatGain: {
-      magic: -1
-    },
-    playCopiesOfCards: ['Fire', 'Fire', 'Fire'],
-    description: 'Lose 1 Magic for the rest of the battle. Play 3 copies of Fire.'
-  },
+  // {
+  //   name: 'Warlock',
+  //   image: 'crazy_mage',
+  //   rarity: 'uncommon',
+  //   attack: 0,
+  //   defense: 0,
+  //   statBonuses: {
+  //     magic: -1
+  //   },
+  //   playCopiesOfCards: ['Fire', 'Fire', 'Fire'],
+  //   description: 'Lose 1 Magic for the rest of the battle. Play 3 copies of Fire.'
+  // },
   {
     name: 'Fire Dragon',
     image: 'fire_dragon',
@@ -141,7 +141,7 @@ export const allies = [
     rarity: 'rare',
     attack: 4,
     defense: 0,
-    temporaryStatGain: {
+    statBonuses: {
       attack: 1
     },
     description: 'Gain +1 Attack for the rest of the battle.'
@@ -152,7 +152,7 @@ export const allies = [
     rarity: 'rare',
     attack: 0,
     defense: 4,
-    temporaryStatGain: {
+    statBonuses: {
       defense: 1
     },
     description: 'Gain +1 Defense for the rest of the battle.'
@@ -163,7 +163,7 @@ export const allies = [
     rarity: 'rare',
     attack: 2,
     defense: 2,
-    temporaryStatGain: {
+    statBonuses: {
       magic: 1
     },
     description: 'Gain +1 Magic for the rest of the battle.'

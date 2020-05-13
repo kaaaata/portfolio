@@ -24,7 +24,12 @@ export const ReceiveBlessing = ({ closeModal }) => {
               onClick: () => {
                 setPage2Text('You feel a bit stronger.');
                 setPage(2);
-                dispatch(actions.adjustPlayerStats({ attack: 1 }));
+                dispatch(actions.setStats({
+                  stats: { attack: 1 },
+                  type: 'stats',
+                  player: 'you',
+                  operation: 'adjust'
+                }));
               }
             },
             {
@@ -33,7 +38,12 @@ export const ReceiveBlessing = ({ closeModal }) => {
               onClick: () => {
                 setPage2Text('You feel a bit wiser.');
                 setPage(2);
-                dispatch(actions.adjustPlayerStats({ magic: 1 }));
+                dispatch(actions.setStats({
+                  stats: { magic: 1 },
+                  type: 'stats',
+                  player: 'you',
+                  operation: 'adjust'
+                }));
               }
             },
             {
@@ -42,7 +52,12 @@ export const ReceiveBlessing = ({ closeModal }) => {
               onClick: () => {
                 setPage2Text('You feel a bit tougher.');
                 setPage(2);
-                dispatch(actions.adjustPlayerStats({ defense: 1 }));
+                dispatch(actions.setStats({
+                  stats: { defense: 1 },
+                  type: 'stats',
+                  player: 'you',
+                  operation: 'adjust'
+                }));
               }
             },
             {

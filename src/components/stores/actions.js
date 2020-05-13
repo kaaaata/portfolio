@@ -15,15 +15,13 @@ export const setStack = payload => ({ type: 'SET_STACK', payload });
 export const setBattleRewardCards = payload => ({ type: 'SET_BATTLE_REWARD_CARDS', payload });
 export const setBattleRewardGold = payload => ({ type: 'SET_BATTLE_REWARD_GOLD', payload });
 
+export const setEnemy = payload => ({ type: 'SET_ENEMY', payload });
 export const setYourShields = payload => ({ type: 'SET_YOUR_SHIELDS', payload });
 export const setEnemyShields = payload => ({ type: 'SET_ENEMY_SHIELDS', payload });
-export const setYourTemporaryStats = payload => ({ type: 'SET_YOUR_TEMPORARY_STATS', payload });
-export const setEnemyTemporaryStats = payload => ({ type: 'SET_ENEMY_TEMPORARY_STATS', payload });
+export const setStats = payload => ({ type: 'SET_STATS', payload });
 export const setBattleInitialState = payload => ({ type: 'SET_BATTLE_INITIAL_STATE', payload });
 export const setWinner = payload => ({ type: 'SET_WINNER', payload });
 
-export const setPlayerProperties = payload => ({ type: 'SET_PLAYER_PROPERTIES', payload });
-export const adjustPlayerStats = payload => ({ type: 'ADJUST_PLAYER_STATS', payload });
 export const adjustPlayerGold = payload => ({ type: 'ADJUST_PLAYER_GOLD', payload });
 export const adjustPlayerEnergy = payload => ({ type: 'ADJUST_PLAYER_ENERGY', payload });
 export const addCardsToCollection = payload => ({ type: 'ADD_CARDS_TO_COLLECTION', payload });

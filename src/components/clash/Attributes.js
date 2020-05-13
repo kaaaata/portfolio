@@ -29,11 +29,7 @@ const attributesCss = css`
   }
 `;
 
-export const Attributes = ({
-  attack,
-  magic,
-  defense
-}) => {
+export const Attributes = ({ stats, statBonuses }) => {
   const attackDisplay = (
     <Image
       className='attack'
@@ -41,7 +37,9 @@ export const Attributes = ({
       width={30}
       height={30}
     >
-      <Text>{attack}</Text>
+      <Text color={statBonuses.attack === 0 ? 'white' : 'green'}>
+        {stats.attack + statBonuses.attack}
+      </Text>
     </Image>
   );
 
@@ -52,7 +50,9 @@ export const Attributes = ({
       width={30}
       height={30}
     >
-      <Text>{magic}</Text>
+      <Text color={statBonuses.magic === 0 ? 'white' : 'green'}>
+        {stats.magic + statBonuses.magic}
+      </Text>
     </Image>
   );
 
@@ -63,7 +63,9 @@ export const Attributes = ({
       width={30}
       height={30}
     >
-      <Text>{defense}</Text>
+      <Text color={statBonuses.defense === 0 ? 'white' : 'green'}>
+        {stats.defense + statBonuses.defense}
+      </Text>
     </Image>
   );
 

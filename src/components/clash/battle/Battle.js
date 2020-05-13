@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import {
   YourDeck,
@@ -12,16 +12,13 @@ import {
   EnemyHand,
   Stack
 } from '../PileOfCards';
-import { YourPortrait, EnemyPortrait } from '../Portrait';
+import { Portrait } from '../Portrait';
 import { playFirstCardInRound } from '../gameplay/playFirstCardInRound';
 import { BattleRewards } from './BattleRewards';
 
 const perspectiveCss = css`perspective: 2000px;`;
 
 export const Battle = () => {
-  const { winner } = useSelector(state => ({
-    winner: state.clashBattleStats.winner
-  }));
   const dispatch = useDispatch();
 
   let interval = null;
@@ -39,7 +36,7 @@ export const Battle = () => {
   };
 
   const handleClickCardInYourHand = (index) => {
-    if (isAnimating || winner) {
+    if (isAnimating) {
       return;
     }
 
@@ -72,7 +69,7 @@ export const Battle = () => {
 
   return (
     <div>
-      <EnemyPortrait />
+      <Portrait player='enemy'/>
       <EnemyHand />
       <div css={perspectiveCss}>
         <EnemyDeck />
@@ -82,7 +79,7 @@ export const Battle = () => {
 
       <Stack />
 
-      <YourPortrait />
+      <Portrait player='you' />
       <YourHand onClick={(index) => handleClickCardInYourHand(index)} />
       <div css={perspectiveCss}>
         <YourDeck />
@@ -90,7 +87,7 @@ export const Battle = () => {
         <YourBanish />
       </div>
 
-      {winner && <BattleRewards />}
+      <BattleRewards />
     </div>
   );
 };

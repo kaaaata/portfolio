@@ -11,8 +11,13 @@ import { useSelector } from 'react-redux'
 
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
-  const { player } = useSelector(state => ({
-    player: state.clashPlayer
+  const { gold, energy, deck, image, stats, statBonuses } = useSelector(state => ({
+    gold: state.clashPlayer.gold,
+    energy: state.clashPlayer.energy,
+    deck: state.clashPlayer.deck,
+    image: state.clashBattleStats.yourImage,
+    stats: state.clashBattleStats.yourStats,
+    statBonuses: state.clashBattleStats.yourStatBonuses,
   }));
 
   return (
@@ -27,16 +32,12 @@ export const TopNav = () => {
           alignItems='center'
         >
           <Image
-            src={`/clash/${player.image}.png`}
+            src={`/clash/${image}.png`}
             width={20}
             height={35}
           />
-          <Attributes
-            attack={player.attack}
-            magic={player.magic}
-            defense={player.defense}
-          />
-          <Gold gold={player.gold} />
+          <Attributes stats={stats} statBonuses={statBonuses} />
+          <Gold gold={gold} />
         </FlexContainer>
 
         <FlexContainer
@@ -51,8 +52,8 @@ export const TopNav = () => {
             className='energy'
           />
           <div css={energyMeterCss}>
-            <div className='fill' css={css`width: ${100 * player.energy / 12}%;`} />
-            <Text type='small' className='energy_count'>{player.energy} / 12</Text>
+            <div className='fill' css={css`width: ${100 * energy / 12}%;`} />
+            <Text type='small' className='energy_count'>{energy} / 12</Text>
           </div>
         </FlexContainer>
 
@@ -73,7 +74,7 @@ export const TopNav = () => {
               />
             ))}
           </div>
-          <Text className='deck_count'>{player.deck.length}</Text>
+          <Text className='deck_count'>{deck.length}</Text>
           <Image
             src='/clash/shop.png'
             width={35}

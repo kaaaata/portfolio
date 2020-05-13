@@ -120,8 +120,9 @@ export const YourBanish = () => {
 };
 
 export const YourHand = ({ onClick }) => {
-  const { cards } = useSelector(state => ({
+  const { cards, winner } = useSelector(state => ({
     cards: state.clashBattleCards.yourHand,
+    winner: state.clashBattleStats.winner
   }));
 
   return cards.map((card, index) => (
@@ -131,7 +132,11 @@ export const YourHand = ({ onClick }) => {
         name={card}
         x={300 + 125 * index}
         y={400}
-        onClick={() => onClick(index)}
+        onClick={() => {
+          if (!winner) {
+            onClick(index);
+          }
+        }}
       />
     ) : null
   ));

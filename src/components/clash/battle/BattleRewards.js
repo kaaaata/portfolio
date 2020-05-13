@@ -7,16 +7,21 @@ import { CardLootModal } from '../modals/CardLootModal';
 import { Text } from '../Text';
 
 export const BattleRewards = () => {
-  const { didPlayerWin, winnerImage, battleRewardGold, battleRewardCards } = useSelector(state => ({
-    didPlayerWin: state.clashPlayer.name === state.clashBattleStats.winner,
+  const { didPlayerWin, winnerImage, battleRewardGold, battleRewardCards, winner } = useSelector(state => ({
+    didPlayerWin: state.clashBattleStats.yourName === state.clashBattleStats.winner,
     winnerImage: state.clashBattleStats.winnerImage,
     battleRewardGold: state.clashBattleCards.battleRewardGold,
-    battleRewardCards: state.clashBattleCards.battleRewardCards
+    battleRewardCards: state.clashBattleCards.battleRewardCards,
+    winner: state.clashBattleStats.winner
   }));
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
   const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
+
+  if (!winner) {
+    return null;
+  }
 
   return isCardLootModalOpen ? (
     <CardLootModal

@@ -4,15 +4,13 @@ export const actionKeys = {
     discard: 'setYourDiscard',
     banish: 'setYourBanish',
     hand: 'setYourHand',
-    shields: 'setYourShields',
-    temporaryStats: 'setYourTemporaryStats'
+    shields: 'setYourShields'
   },
   enemy: {
     deck: 'setEnemyDeck',
     discard: 'setEnemyDiscard',
     banish: 'setEnemyBanish',
     hand: 'setEnemyHand',
-    shields: 'setEnemyShields',
-    temporaryStats: 'setEnemyTemporaryStats'
+    shields: 'setEnemyShields'
   }
 };
