@@ -14,13 +14,15 @@ const flavorTexts = [
   'delivering some parcels.',
   'sweeping the streets.',
   'beating up some hoodlums.',
-  'weaving some baskets.'
+  'weaving some baskets.',
+  'selling some fish.',
+  'herding some sheep.'
 ];
 
 export const WorkForMoney = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const goldEarned = random(15, 25);
+  const goldEarned = random(1, 10);
 
   return (
     <EventModal

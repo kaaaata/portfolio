@@ -28,6 +28,7 @@ const eventModalCss = css`
 export const EventModal = ({
   title,
   image,
+  imageProps = {},
   page,
   pages /* pages: [{
     text:String|Node,
@@ -44,6 +45,7 @@ export const EventModal = ({
           height={250}
           width={250}
           size='contain'
+          {...imageProps}
         />
         <FlexContainer
           justifyContent='space-between'

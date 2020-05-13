@@ -22,7 +22,7 @@ const monstersTier1 = [
     ]
   },
   {
-    name: 'Basic Slime',
+    name: 'Slime',
     image: 'basic_slime',
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: []
@@ -50,7 +50,7 @@ const monstersTier1 = [
 
 const monstersTier2 = [
   {
-    name: 'Green Slime',
+    name: 'Square Slime',
     image: 'slime_potion',
     stats: { attack: 0, magic: 0, defense: 1 },
     deck: [
@@ -164,12 +164,15 @@ const monstersTier3 = [
 
 for (let i = 0; i < monstersTier1.length; i++) {
   monstersTier1[i].tier = 1;
+  monstersTier1[i].type = 'wave';
 }
 for (let i = 0; i < monstersTier2.length; i++) {
   monstersTier2[i].tier = 2;
+  monstersTier2[i].type = 'wave';
 }
 for (let i = 0; i < monstersTier3.length; i++) {
   monstersTier3[i].tier = 3;
+  monstersTier3[i].type = 'wave';
 }
 
 export const monstersByTier = {

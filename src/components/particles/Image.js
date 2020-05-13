@@ -11,6 +11,7 @@ export const Image = (props) => {
     rgbaFilter,
     external = false,
     className = '',
+    filter,
     _css = '',
     onClick,
     onMouseEnter,
@@ -29,6 +30,7 @@ export const Image = (props) => {
     ${heightCss}
     ${circular ? 'border-radius: 50%;' : ''}
     ${onClick ? 'cursor: pointer;' : ''}
+    ${filter ? `filter: ${filter};` : ''}
 
     ${_css}
   `;

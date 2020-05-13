@@ -5,21 +5,29 @@ import { shuffle, sampleSize, random } from 'lodash';
 import { genMonsterDeck } from '../monsters/genMonsterDeck';
 import { EventModal } from '../town/EventModal';
 import { Text } from '../Text';
+import { cards } from '../cards/cards';
 
-export const MonsterPreview = () => {
+export const MonsterPreview = ({ title, monsterOverride }) => {
   const { deck, day, monster } = useSelector(state => ({
     deck: state.clashPlayer.deck,
     day: state.clashPlayer.day,
-    monster: state.clashPlayer.monsterWaves[state.clashPlayer.day - 1]
+    monster: monsterOverride || state.clashPlayer.monsterWaves[state.clashPlayer.day - 1]
   }));
   const dispatch = useDispatch();
   
+  const isMonsterElite = monster.type === 'elite';
   const yourDeck = shuffle(deck);
-  const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day);
+  const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day, isMonsterElite);
+  const enemyHueRotate = isMonsterElite ? random(90, 270) : null;
 
   const battleOnClick = () => {
     dispatch(actions.setBattleInitialState());
-    dispatch(actions.setEnemy({ name: monster.name, image: monster.image }));
+    dispatch(actions.setEnemy({
+      name: monster.name,
+      image: monster.image,
+      type: monster.type,
+      hueRotate: enemyHueRotate
+    }));
     dispatch(actions.setStats({
       stats: monster.stats,
       type: 'stats',
@@ -34,21 +42,23 @@ export const MonsterPreview = () => {
     dispatch(actions.setYourHand(['Elf', 'Minotaur', 'Slime Potion'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
     // dispatch(actions.setEnemyHand(['Elf', 'Minotaur', 'Slime Potion'])); // testing
-    dispatch(actions.setBattleRewardCards(sampleSize(enemyDeck, 3)));
-    dispatch(actions.setBattleRewardGold(25 * monster.tier + random(0, 25) + day * 3));
+    dispatch(actions.setBattleRewardCards(
+      sampleSize(isMonsterElite
+        ? enemyDeck.filter(card => cards[card].rarity !== 'common')
+        : enemyDeck
+      , 3)
+    ));
+    dispatch(actions.setBattleRewardGold(
+      75
+      + 15 * (monster.tier + isMonsterElite ? 1 : 0)
+      + 3 * (day + isMonsterElite ? 3 : 0)
+      + random(0, 15)
+    ));
     dispatch(actions.setScene('battle'));
   };
   // battleOnClick(); // testing
 
   const indefiniteArticle = /a|e|i|o|u/i.test(monster.name[0]) ? 'an' : 'a';
-  let daySuffix = 'th';
-  if (day === 1) {
-    daySuffix = 'st';
-  } else if (day === 2) {
-    daySuffix = 'nd';
-  } else if (day === 3) {
-    daySuffix = 'rd';
-  }
 
   const text = (
     <Text type='paragraph'>
@@ -62,8 +72,9 @@ export const MonsterPreview = () => {
 
   return (
     <EventModal
-      title={`It's the end of the ${day}${daySuffix} day.`}
+      title={title}
       image={monster.image}
+      imageProps={enemyHueRotate ? { filter: `hue-rotate(${enemyHueRotate}deg)` } : null}
       page={1}
       pages={[
         {

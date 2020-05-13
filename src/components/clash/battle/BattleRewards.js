@@ -7,17 +7,33 @@ import { CardLootModal } from '../modals/CardLootModal';
 import { Text } from '../Text';
 
 export const BattleRewards = () => {
-  const { didPlayerWin, winnerImage, battleRewardGold, battleRewardCards, winner } = useSelector(state => ({
+  const {
+    didPlayerWin,
+    winnerImage,
+    battleRewardGold,
+    battleRewardCards,
+    winner,
+    enemyType
+  } = useSelector(state => ({
     didPlayerWin: state.clashBattleStats.yourName === state.clashBattleStats.winner,
     winnerImage: state.clashBattleStats.winnerImage,
     battleRewardGold: state.clashBattleCards.battleRewardGold,
     battleRewardCards: state.clashBattleCards.battleRewardCards,
-    winner: state.clashBattleStats.winner
+    winner: state.clashBattleStats.winner,
+    enemyType
   }));
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
   const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
+  
+  const returnToTown = () => {
+    if (enemyType === 'wave') {
+      dispatch(actions.startNewDay());
+    } else {
+      dispatch(actions.setScene('town'));
+    }
+  };
 
   if (!winner) {
     return null;
@@ -25,10 +41,10 @@ export const BattleRewards = () => {
 
   return isCardLootModalOpen ? (
     <CardLootModal
-      title="Take up to 2 cards from the enemy's deck"
+      title='Battle Rewards'
       maxCardsToTake={2}
       cards={battleRewardCards}
-      closeModal={() => dispatch(actions.startNewDay())}
+      closeModal={returnToTown}
     />
   ) : (
     <EventModal
@@ -56,7 +72,7 @@ export const BattleRewards = () => {
                 dispatch(actions.adjustPlayerGold(battleRewardGold));
                 setPage(2);
               } else {
-                dispatch(actions.startNewDay());
+                returnToTown();
               };
             }
           }]

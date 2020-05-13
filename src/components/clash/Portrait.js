@@ -4,6 +4,7 @@ import { Image, Spacer } from '../particles';
 import { Attributes } from './Attributes';
 import { colors } from '../styles';
 import { useState, useEffect } from 'react';
+import { random } from 'lodash';
 
 const portraitCss = (player) => css`
   position: absolute;
@@ -49,7 +50,7 @@ const portraitCss = (player) => css`
 `;
 
 export const Portrait = ({ player }) => {
-  const { image, stats, statBonuses, shields, isDead } = useSelector(state => {
+  const { image, stats, statBonuses, shields, isDead, enemyHueRotate } = useSelector(state => {
     return player === 'you' ? {
       image: state.clashBattleStats.yourImage,
       stats: state.clashBattleStats.yourStats,
@@ -61,7 +62,8 @@ export const Portrait = ({ player }) => {
       stats: state.clashBattleStats.enemyStats,
       statBonuses: state.clashBattleStats.enemyStatBonuses,
       shields: state.clashBattleStats.enemyShields,
-      isDead: state.clashBattleStats.winner === state.clashBattleStats.yourName
+      isDead: state.clashBattleStats.winner === state.clashBattleStats.yourName,
+      enemyHueRotate: state.clashBattleStats.enemyHueRotate
     };
   });
   const [portraitClassName, setPortraitClassName] = useState('portrait');
@@ -79,6 +81,7 @@ export const Portrait = ({ player }) => {
       height={125}
       className={portraitClassName}
       size='contain'
+      filter={enemyHueRotate ? `hue-rotate(${enemyHueRotate}deg)` : null}
     />
   );
 

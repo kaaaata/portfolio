@@ -37,7 +37,7 @@ export const CardLootModal = ({
 
   const titleText = (
     <React.Fragment>
-      {title}&nbsp;
+      [{title}] Choose cards to keep&nbsp;
       <Text
         type='header'
         inline

@@ -109,7 +109,7 @@ export const Shop = () => {
 
       {activeCardLootModalPack && (
         <CardLootModal
-          title={`[${activeCardLootModalPack}] Choose cards to keep`}
+          title={activeCardLootModalPack}
           cards={cardLootModalCards}
           closeModal={() => setActiveCardLootModalPack(null)}
         />

@@ -40,7 +40,7 @@ export const RecoverLoot = ({ closeModal }) => {
 
   return isCardLootModalOpen ? (
     <CardLootModal
-      title="Take up to 2 cards from the enemy's deck"
+      title='Recover Loot'
       maxCardsToTake={2}
       cards={battleRewardCards}
       closeModal={closeModal}

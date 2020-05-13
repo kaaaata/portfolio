@@ -5,7 +5,7 @@ const initialState = {
   gold: 100,
   energy: 12,
   deck: genStartingDeck(),
-  day: 8,
+  day: 3,
   monsterWaves: genMonsterWaves()
 };
 

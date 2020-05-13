@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
+import { sample } from 'lodash';
 import { Spacer, FlexContainer } from '../../particles';
 import { Text } from '../Text';
 import { TownActionCard } from './TownActionCard';
-import { BegForChange } from './BegForChange';
 import { WorkForMoney } from './WorkForMoney';
 import { ReceiveBlessing } from './ReceiveBlessing';
 import { RecoverLoot } from './RecoverLoot';
 import { MonsterPreview } from '../modals/MonsterPreview';
 import { townActions } from './townActions';
+import { monstersByTier } from '../monsters/monsters';
 import { townCss } from './townCss';
 
 export const Town = () => {
@@ -27,12 +28,33 @@ export const Town = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [canReceiveBlessing, setCanReceiveBlessing] = useState(day % 4 === 0);
   const [didRecoverLoot, setDidRecoverLoot] = useState(false);
-  let modal;
+  const [canFightElite, setCanFightElite] = useState(day % 3 === 0 && day !== 12);
 
+  let daySuffix = 'th';
+  if (day === 1) {
+    daySuffix = 'st';
+  } else if (day === 2) {
+    daySuffix = 'nd';
+  } else if (day === 3) {
+    daySuffix = 'rd';
+  }
+  
+  let modal;
   switch (activeModal) {
-    case 'Beg for Change':
-      modal = <BegForChange closeModal={() => setActiveModal(null)} />;
+    case 'Elite Encounter!': {
+      const eliteMonster = sample(monstersByTier[Math.ceil(day / 4)]);
+      eliteMonster.name = `Elite ${eliteMonster.name}`;
+      eliteMonster.type = 'elite';
+      eliteMonster.stats[sample('attack', 'defense', 'magic')]++;
+
+      modal = (
+        <MonsterPreview
+          title='You challenge the enemy elite.'
+          monsterOverride={eliteMonster}
+        />
+      );
       break;
+    }
     case 'Work for Money':
       modal = <WorkForMoney closeModal={() => setActiveModal(null)} />;
       break;
@@ -40,7 +62,7 @@ export const Town = () => {
       modal = <ReceiveBlessing closeModal={() => setActiveModal(null)} />;
       break;
     case 'Next Day':
-      modal = <MonsterPreview />;
+      modal = <MonsterPreview title={`It's the end of the ${day}${daySuffix} day.`} />;
       break;
     case 'Recover Loot':
       modal = <RecoverLoot closeModal={() => setActiveModal(null)} />;
@@ -64,14 +86,19 @@ export const Town = () => {
             <div>
               <Text type='header'>Day: {day}/12</Text>
               <Spacer height={20} />
-              {canReceiveBlessing && (
-                <Text type='paragraph'>
-                  Every 4 days, you receive a blessing!<br /><br />
-                </Text>
-              )}
               {canRecoverLoot && (
                 <Text type='paragraph'>
-                  You were defeated, but perhaps you can recover some loot.<br /><br />
+                  You were defeated! But, perhaps you can recover some loot.<br /><br />
+                </Text>
+              )}
+              {canReceiveBlessing && (
+                <Text type='paragraph'>
+                  A blessing is now available!<br /><br />
+                </Text>
+              )}
+              {canFightElite && (
+                <Text type='paragraph'>
+                  An elite enemy approaches!<br /><br />
                 </Text>
               )}
             </div>
@@ -87,6 +114,7 @@ export const Town = () => {
                 canAfford={energy >= i.energy}
                 isDisabled={
                   (i.name === 'Receive Blessing' && !canReceiveBlessing)
+                  || (i.name === 'Elite Encounter!' && !canFightElite)
                   || (i.name === 'Recover Loot' && (!canRecoverLoot || didRecoverLoot))
                 }
                 onMouseEnter={() => setTownActionDescription(i.description) }
@@ -94,6 +122,9 @@ export const Town = () => {
                   if (energy >= i.energy) {
                     if (i.name === 'Receive Blessing') {
                       setCanReceiveBlessing(false);
+                    }
+                    if (i.name === 'Elite Encounter!') {
+                      setCanFightElite(false);
                     }
                     if (i.name === 'Recover Loot') {
                       setDidRecoverLoot(true);

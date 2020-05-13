@@ -7,21 +7,9 @@ export const townActions = [
   },
   {
     name: 'Work for Money',
-    energy: 4,
+    energy: 1,
     image: 'gold',
     description: 'Earn some gold.'
-  },
-  {
-    name: 'Taunt the Enemy',
-    energy: 3,
-    image: 'steak',
-    description: 'Taunt the enemy to make it stronger, but also yield better loot.'
-  },
-  {
-    name: 'Receive Blessing',
-    energy: 0,
-    image: 'blessing',
-    description: 'Receive a blessing.'
   },
   {
     name: 'Beg for Change',
@@ -29,6 +17,13 @@ export const townActions = [
     image: 'silver_coin_stack',
     description: 'A low chance to earn a little gold.'
   },
+  {
+    name: 'Receive Blessing',
+    energy: 0,
+    image: 'blessing',
+    description: 'Receive a blessing.'
+  },
+
   {
     name: 'Donate Cards',
     energy: 4,
@@ -42,9 +37,15 @@ export const townActions = [
     description: 'Recover some loot after a defeat.'
   },
   {
+    name: 'Elite Encounter!',
+    energy: 6,
+    image: 'elite',
+    description: 'Fight a dangerous enemy for a chance at high quality loot!'
+  },
+  {
     name: 'Next Day',
     energy: 0,
     image: 'clash_swords',
-    description: 'Continue on to the next battle.'
+    description: 'Continue to the next battle.'
   }
 ];

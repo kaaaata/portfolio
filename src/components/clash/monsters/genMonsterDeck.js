@@ -1,7 +1,7 @@
 import { cards, cardsByRarity } from '../cards/cards';
 import { range, sample, random, shuffle } from 'lodash';
 
-export const tierBalancing = {
+const tierBalancing = {
   1: { // deck size: 10, 15, 20, 25
     maxLegendaries: 0,
     maxRares: 1,
@@ -16,13 +16,18 @@ export const tierBalancing = {
     maxLegendaries: 1,
     maxRares: 5,
     maxUncommons: 10
+  },
+  4: { // deck size: 70 (tier 3 elite)
+    maxLegendaries: 2,
+    maxRares: 8,
+    maxUncommons: 14
   }
 };
 
-export const genMonsterDeck = (deck, tier, day) => {
-  const deckSize = (day + 1) * 5;
+export const genMonsterDeck = (deck, tier, day, isElite) => {
+  const deckSize = (day + 1) * 5 + (isElite ? 10 : 0) * tier;
   const deckByRarity = deck.map(card => cards[card].rarity);
-  const { maxLegendaries, maxRares, maxUncommons } = tierBalancing[tier];
+  const { maxLegendaries, maxRares, maxUncommons } = tierBalancing[isElite ? tier + 1 : tier];
   const cardsToAdd = {
     legendary: Math.max(0, maxLegendaries - deckByRarity.filter(card => card.rarity === 'legendary').length),
     rare: Math.max(0, maxRares - deckByRarity.filter(card => card.rarity === 'rare').length),
