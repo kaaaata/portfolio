@@ -6,6 +6,7 @@ const monstersTier1 = [
   {
     name: 'Minotaur',
     image: 'minotaur',
+    stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
       'Minotaur',
       'Devastating Blow'
@@ -14,6 +15,7 @@ const monstersTier1 = [
   {
     name: 'Goblin',
     image: 'goblin',
+    stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
       'Goblin',
       'Goblin'
@@ -22,11 +24,13 @@ const monstersTier1 = [
   {
     name: 'Basic Slime',
     image: 'basic_slime',
+    stats: { attack: 0, magic: 0, defense: 0 },
     deck: []
   },
   {
     name: 'Fire Slime',
     image: 'fire_slime',
+    stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
       'Burn',
       'Fire',
@@ -36,6 +40,7 @@ const monstersTier1 = [
   {
     name: 'Tentacle Monster',
     image: 'tentacles',
+    stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
       'Tentacles',
       'Tentacles'
@@ -47,6 +52,7 @@ const monstersTier2 = [
   {
     name: 'Green Slime',
     image: 'slime_potion',
+    stats: { attack: 0, magic: 0, defense: 1 },
     deck: [
       'Slime Potion',
       'Protect',
@@ -57,6 +63,7 @@ const monstersTier2 = [
   {
     name: 'Warlock',
     image: 'crazy_mage',
+    stats: { attack: 0, magic: 1, defense: 0 },
     deck: [
       'Warlock',
       'Fire',
@@ -67,6 +74,7 @@ const monstersTier2 = [
   {
     name: 'Hobgoblin',
     image: 'hobgoblin',
+    stats: { attack: 1, magic: 0, defense: 0 },
     deck: [
       'Hobgoblin',
       'Slice',
@@ -77,6 +85,7 @@ const monstersTier2 = [
   {
     name: 'Mermaid',
     image: 'mermaid',
+    stats: { attack: 0, magic: 1, defense: 0 },
     deck: [
       'Mermaid',
       'Mermaid',
@@ -88,6 +97,7 @@ const monstersTier2 = [
   {
     name: 'Cleric',
     image: 'cleric',
+    stats: { attack: 0, magic: 0, defense: 1 },
     deck: [
       'Cleric',
       'Cleric',
@@ -98,6 +108,7 @@ const monstersTier2 = [
   {
     name: 'Cryopyromancer',
     image: 'cryopyromancer',
+    stats: { attack: 1, magic: 1, defense: 0 },
     deck: [
       'Cryopyromancer',
       'Fire',
@@ -114,6 +125,7 @@ const monstersTier3 = [
   {
     name: 'Ice Queen',
     image: 'ice_queen',
+    stats: { attack: 1, magic: 0, defense: 1 },
     deck: [
       'Ice Queen',
       'Ice Blade',
@@ -125,6 +137,7 @@ const monstersTier3 = [
   {
     name: 'Mimic',
     image: 'mimic',
+    stats: { attack: 0, magic: 1, defense: 1 },
     deck: [
       'Mimic',
       'Tentacles',
@@ -138,6 +151,7 @@ const monstersTier3 = [
   {
     name: 'Ice Whelp',
     image: 'ice_whelp',
+    stats: { attack: 2, magic: 0, defense: 0 },
     deck: [
       'Ice Queen',
       'Ice Whelp',
