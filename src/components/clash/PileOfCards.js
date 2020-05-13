@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { colors } from '../styles';
 import { Card, PileCardPlaceholder } from './Card';
 
@@ -68,8 +68,12 @@ const PileOfCards = ({
 };
 
 // "countX", "countY" cannot be derived from "x", "y" because of perspective.
-export const YourDeck = connect(state => ({ cards: state.clashBattleCards.yourDeck }))(
-  ({ cards }) => (
+export const YourDeck = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.yourDeck,
+  }));
+
+  return (
     <PileOfCards
       cards={cards}
       x={150}
@@ -78,11 +82,15 @@ export const YourDeck = connect(state => ({ cards: state.clashBattleCards.yourDe
       countX={135}
       countY={500}
     />
-  )
-);
+  );
+};
 
-export const YourDiscard = connect(state => ({ cards: state.clashBattleCards.yourDiscard }))(
-  ({ cards }) => (
+export const YourDiscard = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.yourDiscard,
+  }));
+
+  return (
     <PileOfCards
       cards={cards}
       x={695}
@@ -91,11 +99,15 @@ export const YourDiscard = connect(state => ({ cards: state.clashBattleCards.you
       countX={705}
       countY={500}
     />
-  )
-);
+  );
+};
 
-export const YourBanish = connect(state => ({ cards: state.clashBattleCards.yourBanish }))(
-  ({ cards }) => (
+export const YourBanish = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.yourBanish,
+  }));
+
+  return (
     <PileOfCards
       cards={cards}
       x={835}
@@ -104,11 +116,15 @@ export const YourBanish = connect(state => ({ cards: state.clashBattleCards.your
       countX={850}
       countY={500}
     />
-  )
-);
+  );
+};
 
-export const YourHand = connect(state => ({ cards: state.clashBattleCards.yourHand }))(
-  ({ cards, onClick }) => cards.map((card, index) => (
+export const YourHand = ({ onClick }) => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.yourHand,
+  }));
+
+  return cards.map((card, index) => (
     card ? (
       <Card
         key={index}
@@ -118,11 +134,15 @@ export const YourHand = connect(state => ({ cards: state.clashBattleCards.yourHa
         onClick={() => onClick(index)}
       />
     ) : null
-  ))
-);
+  ));
+};
 
-export const EnemyBanish = connect(state => ({ cards: state.clashBattleCards.enemyBanish }))(
-  ({ cards }) => (
+export const EnemyBanish = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.enemyBanish,
+  }));
+
+  return (
     <PileOfCards
       cards={cards}
       x={45}
@@ -131,11 +151,15 @@ export const EnemyBanish = connect(state => ({ cards: state.clashBattleCards.ene
       countX={25}
       countY={145}
     />
-  )
-);
+  );
+};
 
-export const EnemyDiscard = connect(state => ({ cards: state.clashBattleCards.enemyDiscard }))(
-  ({ cards }) => (
+export const EnemyDiscard = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.enemyDiscard,
+  }));
+
+  return (
     <PileOfCards
       cards={cards}
       x={185}
@@ -144,11 +168,15 @@ export const EnemyDiscard = connect(state => ({ cards: state.clashBattleCards.en
       countX={170}
       countY={145}
     />
-  )
-);
+  );
+};
 
-export const EnemyDeck = connect(state => ({ cards: state.clashBattleCards.enemyDeck }))(
-  ({ cards }) => (
+export const EnemyDeck = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.enemyDeck,
+  }));
+
+  return (
     <PileOfCards
       cards={cards}
       x={725}
@@ -157,11 +185,15 @@ export const EnemyDeck = connect(state => ({ cards: state.clashBattleCards.enemy
       countX={735}
       countY={145}
     />
-  )
-);
+  );
+};
 
-export const EnemyHand = connect(state => ({ cards: state.clashBattleCards.enemyHand }))(
-  ({ cards }) => cards.map((card, index) => (
+export const EnemyHand = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.enemyHand,
+  }));
+
+  return cards.map((card, index) => (
     card ? (
       <Card
         key={index}
@@ -170,11 +202,15 @@ export const EnemyHand = connect(state => ({ cards: state.clashBattleCards.enemy
         y={45}
       />
     ) : null
-  ))
-);
+  ));
+};
 
-export const Stack = connect(state => ({ cards: state.clashBattleCards.stack }))(
-  ({ cards }) => cards.map((card, index) => (
+export const Stack = () => {
+  const { cards } = useSelector(state => ({
+    cards: state.clashBattleCards.stack,
+  }));
+
+  return cards.map((card, index) => (
     <Card
       key={index}
       name={card}
@@ -182,5 +218,5 @@ export const Stack = connect(state => ({ cards: state.clashBattleCards.stack }))
       y={222}
       isBlurred={cards.length >= 2 && index !== cards.length - 1}
     />
-  ))
-);
+  ));
+};

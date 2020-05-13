@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Modal } from '../modals/Modal';
 import { CardLootModal } from '../modals/CardLootModal';
@@ -42,7 +42,12 @@ const shopCss = css`
   }
 `;
 
-const ShopComponent = ({ gold, adjustPlayerGold }) => {
+export const Shop = () => {
+  const { gold } = useSelector(state => ({
+    gold: state.clashPlayer.gold
+  }));
+  const dispatch = useDispatch();
+
   const [activeCardLootModalPack, setActiveCardLootModalPack] = useState(null);
   const [cardLootModalCards, setCardLootModalCards] = useState([]);
   
@@ -65,7 +70,7 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
                   className='pack'
                   onClick={() => {
                     if (gold >= pack.cost) {
-                      adjustPlayerGold(-1 * pack.cost);
+                      dispatch(actions.adjustPlayerGold(-1 * pack.cost));
                       setCardLootModalCards(genPackCards(pack));
                       setActiveCardLootModalPack(pack.name);
                     }
@@ -112,12 +117,3 @@ const ShopComponent = ({ gold, adjustPlayerGold }) => {
     </React.Fragment>
   );
 };
-
-const mapStateToProps = (state) => ({
-  gold: state.clashPlayer.gold
-});
-const mapDispatchToProps = (dispatch) => ({
-  adjustPlayerGold: payload => dispatch(actions.adjustPlayerGold(payload))
-});
-
-export const Shop = connect(mapStateToProps, mapDispatchToProps)(ShopComponent);

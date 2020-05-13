@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { random } from 'lodash';
 import { EventModal } from './EventModal';
@@ -17,7 +17,9 @@ const flavorTexts = [
   'weaving some baskets.'
 ];
 
-const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
+export const WorkForMoney = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
   const goldEarned = random(15, 25);
 
   return (
@@ -32,7 +34,7 @@ const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
             name: 'Continue',
             goodText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
             onClick: () => {
-              adjustPlayerGold(goldEarned);
+              dispatch(actions.adjustPlayerGold(goldEarned));
               closeModal();
             }
           }]
@@ -41,9 +43,3 @@ const WorkForMoneyComponent = ({ adjustPlayerGold, closeModal }) => {
     />
   );
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  adjustPlayerGold: payload => dispatch(actions.adjustPlayerGold(payload))
-});
-
-export const WorkForMoney = connect(null, mapDispatchToProps)(WorkForMoneyComponent);

@@ -1,9 +1,9 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../stores/actions';
 import { colors } from '../styles';
 
-const sidebarToggleCss = isSidebarVisible => css`
+const sidebarToggleCss = (isSidebarVisible) => css`
   width: 40px;
   height: 40px;
   position: relative;
@@ -34,24 +34,20 @@ const sidebarToggleCss = isSidebarVisible => css`
   }
 `;
 
-const SidebarToggleComponent = ({ isSidebarVisible, setIsSidebarVisible }) => (
-  <div
-    css={sidebarToggleCss(isSidebarVisible)}
-    onClick={() => setIsSidebarVisible(!isSidebarVisible)}
-  >
-    <div className='three_bar three_bar--top' />
-    <div className='three_bar three_bar--center' />
-    <div className='three_bar three_bar--bottom' />
-  </div>
-);
+export const SidebarToggle = () => {
+  const { isSidebarVisible } = useSelector(state => ({
+    isSidebarVisible: state.coresite.isSidebarVisible,
+  }));
+  const dispatch = useDispatch();
 
-const mapStateToProps = state => ({
-  isSidebarVisible: state.coresite.isSidebarVisible,
-});
-const mapDispatchToProps = dispatch => ({
-  setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),
-});
-
-export const SidebarToggle = (
-  connect(mapStateToProps, mapDispatchToProps)(SidebarToggleComponent)
-);
+  return (
+    <div
+      css={sidebarToggleCss(isSidebarVisible)}
+      onClick={() => dispatch(actions.setIsSidebarVisible(!isSidebarVisible))}
+    >
+      <div className='three_bar three_bar--top' />
+      <div className='three_bar three_bar--center' />
+      <div className='three_bar three_bar--bottom' />
+    </div>
+  );
+};

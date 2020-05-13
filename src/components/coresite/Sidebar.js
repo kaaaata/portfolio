@@ -1,6 +1,6 @@
 import React from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { colors } from '../styles';
 import { Link, Filter } from '../particles';
 import { trackStats } from '../utils/graphql';
@@ -20,37 +20,37 @@ const sidebarSections = [
   ]
 ];
 
-const SidebarComponent = ({ isSidebarVisible }) => (
-  <section css={sidebarCss(isSidebarVisible)}>
-    {sidebarSections.map((links, index) => (
-      <React.Fragment key={index}>
-        {links.map((link, i) => (
-          <Link
-            key={i}
-            href={link.href}
-            onClick={() => trackStats('sidebar_link_click', link.href)}
-          >
-            <div
-              className={`sidebar_link ${!i ? 'sidebar_link--title' : ''}`}
-              css={sidebarLinksCss(isSidebarVisible)}
+export const Sidebar = () => {
+  const { isSidebarVisible } = useSelector(state => ({
+    isSidebarVisible: state.coresite.isSidebarVisible,
+  }));
+
+  return (
+    <section css={sidebarCss(isSidebarVisible)}>
+      {sidebarSections.map((links, index) => (
+        <React.Fragment key={index}>
+          {links.map((link, i) => (
+            <Link
+              key={i}
+              href={link.href}
+              onClick={() => trackStats('sidebar_link_click', link.href)}
             >
-              <Filter
-                color={colors.blackMediumDark}
-                opacity={link.href ? (0.5 + (i + 1) * 0.05) : 1}
-              />
-              <div className='sidebar_link--text'>
-                {link.text}
+              <div
+                className={`sidebar_link ${!i ? 'sidebar_link--title' : ''}`}
+                css={sidebarLinksCss(isSidebarVisible)}
+              >
+                <Filter
+                  color={colors.blackMediumDark}
+                  opacity={link.href ? (0.5 + (i + 1) * 0.05) : 1}
+                />
+                <div className='sidebar_link--text'>
+                  {link.text}
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </React.Fragment>
-    ))}
-  </section>
-);
-
-const mapStateToProps = state => ({
-  isSidebarVisible: state.coresite.isSidebarVisible,
-});
-
-export const Sidebar = connect(mapStateToProps)(SidebarComponent);
+            </Link>
+          ))}
+        </React.Fragment>
+      ))}
+    </section>
+  );
+};

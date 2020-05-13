@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { EventModal } from './EventModal';
 
-const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeModal }) => {
+export const ReceiveBlessing = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(1);
   const [page2Text, setPage2Text] = useState('');
 
@@ -22,7 +24,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
               onClick: () => {
                 setPage2Text('You feel a bit stronger.');
                 setPage(2);
-                adjustPlayerStats({ attack: 1 });
+                dispatch(actions.adjustPlayerStats({ attack: 1 }));
               }
             },
             {
@@ -31,7 +33,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
               onClick: () => {
                 setPage2Text('You feel a bit wiser.');
                 setPage(2);
-                adjustPlayerStats({ magic: 1 });
+                dispatch(actions.adjustPlayerStats({ magic: 1 }));
               }
             },
             {
@@ -40,7 +42,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
               onClick: () => {
                 setPage2Text('You feel a bit tougher.');
                 setPage(2);
-                adjustPlayerStats({ defense: 1 });
+                dispatch(actions.adjustPlayerStats({ defense: 1 }));
               }
             },
             {
@@ -49,7 +51,7 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
               onClick: () => {
                 setPage2Text('Gold rains from the sky!');
                 setPage(2);
-                adjustPlayerGold(300);
+                dispatch(actions.adjustPlayerGold(300));
               }
             }
           ]
@@ -65,10 +67,3 @@ const ReceiveBlessingComponent = ({ adjustPlayerStats, adjustPlayerGold, closeMo
     />
   );
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  adjustPlayerStats: payload => dispatch(actions.adjustPlayerStats(payload)),
-  adjustPlayerGold: payload => dispatch(actions.adjustPlayerGold(payload))
-});
-
-export const ReceiveBlessing = connect(null, mapDispatchToProps)(ReceiveBlessingComponent);

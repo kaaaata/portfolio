@@ -2,11 +2,10 @@
 
 // import { store } from './stores/store';
 // import * as actions from './stores/actions';
-// import { connect } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux'
 
-// const mapStateToProps = state => ({
-//   test: state.test
-// });
-// const mapDispatchToProps = dispatch => ({
-//   setCurrentRoute: payload => dispatch(actions.setCurrentRoute(payload))
-// });
+// const { energy } = useSelector(state => ({
+//   energy: state.clashPlayer.energy
+// }));
+// const dispatch = useDispatch();
+// dispatch(actions.setIsSidebarVisible(false));

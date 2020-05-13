@@ -2,7 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { noop } from 'lodash';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { HashLink as ReactRouterHashLink } from 'react-router-hash-link';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../stores/actions';
 
 const linkCss = css`
@@ -15,10 +15,11 @@ const linkCssNoHref = css`
   cursor: default;
 `;
 
-const LinkComponent = (props) => {
-  const {
-    href, onClick = noop, children, currentRoute, setIsSidebarVisible
-  } = props;
+export const Link = ({ href, onClick = noop, children }) => {
+  const { currentRoute } = useSelector(state => ({
+    currentRoute: state.coresite.currentRoute
+  }));
+  const dispatch = useDispatch();
 
   if (!children) {
     return null;
@@ -37,7 +38,7 @@ const LinkComponent = (props) => {
 
   const linkOnClick = () => {
     onClick();
-    setIsSidebarVisible(false);
+    dispatch(actions.setIsSidebarVisible(false));
 
     if (useReactRouter && !useReactRouterHashLink && isSameRoute) {
       window.scroll(0, 0);
@@ -79,12 +80,3 @@ const LinkComponent = (props) => {
     );
   }
 };
-
-const mapStateToProps = state => ({
-  currentRoute: state.coresite.currentRoute
-});
-const mapDispatchToProps = dispatch => ({
-  setIsSidebarVisible: payload => dispatch(actions.setIsSidebarVisible(payload)),
-});
-
-export const Link = connect(mapStateToProps, mapDispatchToProps)(LinkComponent);

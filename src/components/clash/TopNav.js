@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
 import { FlexContainer, Image } from '../particles';
 import { Attributes } from './Attributes';
 import { Gold } from './Gold';
@@ -8,9 +7,13 @@ import { Collection } from './modals/Collection';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 import { Text } from './Text';
+import { useSelector } from 'react-redux'
 
-export const TopNavComponent = ({ player, energy }) => {
+export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
+  const { player } = useSelector(state => ({
+    player: state.clashPlayer
+  }));
 
   return (
     <React.Fragment>
@@ -48,8 +51,8 @@ export const TopNavComponent = ({ player, energy }) => {
             className='energy'
           />
           <div css={energyMeterCss}>
-            <div className='fill' css={css`width: ${100 * energy / 12}%;`} />
-            <Text type='small' className='energy_count'>{energy} / 12</Text>
+            <div className='fill' css={css`width: ${100 * player.energy / 12}%;`} />
+            <Text type='small' className='energy_count'>{player.energy} / 12</Text>
           </div>
         </FlexContainer>
 
@@ -93,10 +96,3 @@ export const TopNavComponent = ({ player, energy }) => {
     </React.Fragment>
   );
 };
-
-const mapStateToProps = (state) => ({
-  player: state.clashPlayer,
-  energy: state.clashPlayer.energy,
-});
-
-export const TopNav = connect(mapStateToProps)(TopNavComponent);

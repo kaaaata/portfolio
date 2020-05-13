@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Modal } from '../modals/Modal';
 import { FlexContainer, Spacer } from '../../particles';
@@ -24,13 +24,14 @@ const continueOptionsCss = css`
   }
 `;
 
-const CardLootModalComponent = ({
+export const CardLootModal = ({
   cards,
   maxCardsToTake = cards.length,
   title,
-  addCardsToCollection,
   closeModal
 }) => {
+  const dispatch = useDispatch();
+
   const [selectedCards, setSelectedCards] = useState({});
   const cardsTakenCount = Object.keys(selectedCards).length;
 
@@ -54,7 +55,9 @@ const CardLootModalComponent = ({
       color: cardsTakenCount === maxCardsToTake ? 'red' : 'green',
       onClick: () => {
         if (cardsTakenCount < maxCardsToTake) {
-          addCardsToCollection(cards.filter((_, index) => !selectedCards.hasOwnProperty(index)));
+          dispatch(actions.addCardsToCollection(
+            cards.filter((_, index) => !selectedCards.hasOwnProperty(index))
+          ));
           setSelectedCards({ 0: true, 1: true, 2: true, 3: true, 4: true });
           closeModal();
         }
@@ -76,7 +79,7 @@ const CardLootModalComponent = ({
             onClick={() => {
               if (cardsTakenCount < maxCardsToTake) {
                 setSelectedCards({ ...selectedCards, [index]: true });
-                addCardsToCollection([i]);
+                dispatch(actions.addCardsToCollection([i]));
               }
             }}
             _css={selectedCards.hasOwnProperty(index) ? 'visibility: hidden;' : ''}
@@ -100,9 +103,3 @@ const CardLootModalComponent = ({
     </Modal>
   );
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  addCardsToCollection: payload => dispatch(actions.addCardsToCollection(payload))
-});
-
-export const CardLootModal = connect(null, mapDispatchToProps)(CardLootModalComponent);

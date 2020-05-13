@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter, Redirect } from 'react-router';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from './stores/actions';
 import { FlexContainer } from './particles';
 import {
@@ -19,16 +19,17 @@ import { trackStats } from './utils/graphql';
 import { appCss, appContentCss } from './appCss';
 
 const AppComponent = ({
-  setCurrentRoute, // from withRouter
   location // from withRouter
 }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     trackStats('visited_site');
-    setCurrentRoute({
+    dispatch(actions.setCurrentRoute({
       pathname: location.pathname,
       hash: location.hash
-    });
-  }, [location.pathname, location.hash, setCurrentRoute]);
+    }));
+  }, [location.pathname, location.hash, dispatch]);
 
   return (
     <main id='app' css={appCss}>
@@ -69,8 +70,4 @@ const AppComponent = ({
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentRoute: payload => dispatch(actions.setCurrentRoute(payload))
-});
-
-export const App = withRouter(connect(null, mapDispatchToProps)(AppComponent));
+export const App = withRouter(AppComponent);

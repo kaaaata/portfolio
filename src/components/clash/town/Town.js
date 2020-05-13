@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { jsx } from '@emotion/core'; /** @jsx jsx */
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Spacer, FlexContainer } from '../../particles';
 import { Text } from '../Text';
@@ -11,39 +11,18 @@ import { ReceiveBlessing } from './ReceiveBlessing';
 import { RecoverLoot } from './RecoverLoot';
 import { MonsterPreview } from '../modals/MonsterPreview';
 import { townActions } from './townActions';
+import { townCss } from './townCss';
 
-const townCss = css`
-  padding: 0 60px;
-
-  .play {
-    position: absolute;
-    left: 100px;
-    top: 350px;
-  }
-
-  .title {
-    margin-top: 90px;
-    text-align: center;
-  }
-
-  .updates {
-    width: 30%;
-    padding-right: 30px;
-  }
-
-  .actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 15px;
-  }
-`;
-
-const TownComponent = ({
-  energy,
-  day,
-  canRecoverLoot,
-  adjustPlayerEnergy
-}) => {
+export const Town = () => {
+  const { energy, day, canRecoverLoot } = useSelector(state => ({
+    energy: state.clashPlayer.energy,
+    day: state.clashPlayer.day,
+    canRecoverLoot: state.clashPlayer.day > 1
+      && !!state.clashBattleStats.winner
+      && state.clashPlayer.name !== state.clashBattleStats.winner
+  }));
+  const dispatch = useDispatch();
+  
   const [townActionDescription, setTownActionDescription] = useState('');
   const [activeModal, setActiveModal] = useState(null);
   const [canReceiveBlessing, setCanReceiveBlessing] = useState(day % 4 === 0);
@@ -119,7 +98,7 @@ const TownComponent = ({
                     if (i.name === 'Recover Loot') {
                       setDidRecoverLoot(true);
                     }
-                    adjustPlayerEnergy(-1 * i.energy);
+                    dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
                     setActiveModal(i.name);
                   }
                 }}
@@ -133,16 +112,3 @@ const TownComponent = ({
     </React.Fragment>
   );
 };
-
-const mapStateToProps = (state) => ({
-  energy: state.clashPlayer.energy,
-  day: state.clashPlayer.day,
-  canRecoverLoot: state.clashPlayer.day > 1
-    && !!state.clashBattleStats.winner
-    && state.clashPlayer.name !== state.clashBattleStats.winner
-});
-const mapDispatchToProps = dispatch => ({
-  adjustPlayerEnergy: payload => dispatch(actions.adjustPlayerEnergy(payload))
-});
-
-export const Town = connect(mapStateToProps, mapDispatchToProps)(TownComponent);

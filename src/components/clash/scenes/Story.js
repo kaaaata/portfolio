@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Text } from '../Text';
 
@@ -29,11 +29,13 @@ const storyCss = css`
   }
 `;
 
-const StoryComponent = ({ setScene }) => {
+export const Story = ({ setScene }) => {
+  const dispatch = useDispatch();
+
   const [step, setStep] = useState(1);
 
   return (
-    <div css={storyCss} onClick={() => step === 3 ? setScene('town') : setStep(step + 1)}>
+    <div css={storyCss} onClick={() => step === 3 ? dispatch(actions.setScene('town')) : setStep(step + 1)}>
       <Text type='header' centered>
         Your village is under attack by monsters...
       </Text>
@@ -53,9 +55,3 @@ const StoryComponent = ({ setScene }) => {
     </div>
   );
 };
-
-const mapDispatchToProps = dispatch => ({
-  setScene: payload => dispatch(actions.setScene(payload))
-});
-
-export const Story = connect(null, mapDispatchToProps)(StoryComponent);

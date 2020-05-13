@@ -5,7 +5,7 @@ import { Town } from './town/Town';
 import { Battle } from './battle/Battle';
 import { TopNav } from './TopNav';
 import { Image, Spacer } from '../particles';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 const rgbaFiltersByEnergy = [
   'rgba(0, 0, 0, 0.3)',
@@ -29,7 +29,11 @@ const clashCss = css`
   user-select: none;
 `;
 
-const ClashComponent = ({ scene, energy }) => {
+export const Clash = () => {
+  const { scene, energy } = useSelector(state => ({
+    scene: state.clashScene.scene,
+    energy: state.clashPlayer.energy
+  }));
   let sceneComponent;
 
   switch (scene) {
@@ -66,10 +70,3 @@ const ClashComponent = ({ scene, energy }) => {
     </Image>
   );
 };
-
-const mapStateToProps = (state) => ({
-  scene: state.clashScene.scene,
-  energy: state.clashPlayer.energy
-});
-
-export const Clash = connect(mapStateToProps)(ClashComponent);

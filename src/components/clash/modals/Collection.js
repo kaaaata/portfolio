@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
@@ -29,18 +29,18 @@ const collectionCss = css`
   overflow: scroll;
 `;
 
-const CollectionComponent = ({ deck }) => (
-  <Modal title={`Your Cards (${deck.length})`}>
-    <div css={collectionCss}>
-      {deck.sort(sortFunc).map((card, index) => (
-        <Card key={index} name={card} />
-      ))}
-    </div>
-  </Modal>
-);
+export const Collection = () => {
+  const { deck } = useSelector(state => ({
+    deck: state.clashPlayer.deck
+  }));
 
-const mapStateToProps = (state) => ({
-  deck: state.clashPlayer.deck
-});
-
-export const Collection = connect(mapStateToProps)(CollectionComponent);
+  return (
+    <Modal title={`Your Cards (${deck.length})`}>
+      <div css={collectionCss}>
+        {deck.sort(sortFunc).map((card, index) => (
+          <Card key={index} name={card} />
+        ))}
+      </div>
+    </Modal>
+  );
+};

@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { EventModal } from './EventModal';
 import { CardLootModal } from '../modals/CardLootModal';
 
-const RecoverLootComponent = ({ adjustPlayerGold, battleRewardGold, battleRewardCards, closeModal }) => {
+export const RecoverLoot = ({ closeModal }) => {
+  const { battleRewardGold, battleRewardCards } = useSelector(state => ({
+    battleRewardGold: state.clashBattleCards.battleRewardGold,
+    battleRewardCards: state.clashBattleCards.battleRewardCards
+  }));
+  const dispatch = useDispatch();
+
   const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
   const rng = Math.random();
   const pages = [];
@@ -16,7 +22,7 @@ const RecoverLootComponent = ({ adjustPlayerGold, battleRewardGold, battleReward
         name: 'Continue',
         goodText: `Receive ${battleRewardGold} gold.`,
         onClick: () => {
-          adjustPlayerGold(battleRewardGold);
+          dispatch(actions.adjustPlayerGold(battleRewardGold));
           closeModal();
         }
       }]
@@ -48,13 +54,3 @@ const RecoverLootComponent = ({ adjustPlayerGold, battleRewardGold, battleReward
     />
   );
 };
-
-const mapStateToProps = (state) => ({
-  battleRewardGold: state.clashBattleCards.battleRewardGold,
-  battleRewardCards: state.clashBattleCards.battleRewardCards
-});
-const mapDispatchToProps = (dispatch) => ({
-  adjustPlayerGold: payload => dispatch(actions.adjustPlayerGold(payload))
-});
-
-export const RecoverLoot = connect(mapStateToProps, mapDispatchToProps)(RecoverLootComponent);
