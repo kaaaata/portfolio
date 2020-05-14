@@ -1,10 +1,8 @@
-import { colors } from '../../styles';
-
 export const rarityColors = {
-  common: colors.sand,
-  uncommon: colors.green,
-  rare: colors.blue,
-  legendary: colors.red
+  common: 'sand',
+  uncommon: 'green',
+  rare: 'blue',
+  legendary: 'red'
 };
 
 export const rarityScore = {

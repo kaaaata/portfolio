@@ -46,7 +46,7 @@ export const Card = ({
       top: ${y}px;
     ` : 'position: relative;'}
     user-select: none;
-    border: 2px solid ${isFaceDown ? colors.steel : rarityColors[rarity]};
+    border: 2px solid ${isFaceDown ? colors.steel : colors[rarityColors[rarity]]};
     border-radius: 5px;
     ${isInPileOfCards ? transformCss : `
       box-shadow: 2px 2px 3px ${colors.black};
@@ -148,7 +148,7 @@ export const Card = ({
       rgbaFilter='rgba(0, 0, 0, 0.45)'
       className='card'
     >
-      <div css={cardBodyCss(rarityColors[rarity])}>
+      <div css={cardBodyCss(colors[rarityColors[rarity]])}>
         <div className='name'>{name}</div>
         <div className='border' />
         <div className='image_container'>

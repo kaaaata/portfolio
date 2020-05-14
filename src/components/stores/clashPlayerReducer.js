@@ -1,7 +1,7 @@
 import { genStartingDeck } from '../clash/cards/cards';
 
 const initialState = {
-  gold: 100,
+  gold: 0,
   deck: genStartingDeck()
 };
 

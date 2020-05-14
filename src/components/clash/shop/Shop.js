@@ -5,23 +5,11 @@ import * as actions from '../../stores/actions';
 import { Modal } from '../modals/Modal';
 import { CardLootModal } from '../modals/CardLootModal';
 import { Spacer, Image, FlexContainer } from '../../particles';
-import { rarityColors } from '../cards/rarity';
 import { Gold } from '../Gold';
 import { packs } from './packs';
 import { genPackCards } from './genPackCards';
 import { Text } from '../Text';
-
-const genRarityColor = (string) => {
-  if (string.includes('legendar')) {
-    return rarityColors.legendary;
-  } else if (string.includes('rare')) {
-    return rarityColors.rare;
-  } else if (string.includes('uncommon')) {
-    return rarityColors.uncommon;
-  } else {
-    return rarityColors.common;
-  }
-};
+import { rarityColors } from '../cards/rarity';
 
 const shopCss = css`
   .pack_container {
@@ -89,9 +77,10 @@ export const Shop = () => {
                   <Text type='small'>{pack.name}</Text>
                   <Text type='header'>&#183;</Text>
                   <Text type='small'>
-                    {pack.description.map(i => (
-                      <div key={i}>
-                        {i[0]} <span css={css`color: ${genRarityColor(i)};`}>{i.slice(2)}</span>
+                    {Object.keys(pack.cards).map(rarity => !!pack.cards[rarity] && (
+                      <div key={rarity}>
+                        {pack.cards[rarity]}&nbsp;
+                        <Text color={rarityColors[rarity]} type='small' inline>{rarity}</Text>
                       </div>
                     ))}
                   </Text>
@@ -102,9 +91,7 @@ export const Shop = () => {
         </FlexContainer>
 
         <Spacer height={15} />
-        <Text type='small'>
-          Note: all cards have a 10% chance to upgrade to the next rarity, except for cards in the bronze pack.
-        </Text>
+        <Text type='small'>Note: all cards have a 5% chance to upgrade to the next rarity.</Text>
       </Modal>
 
       {activeCardLootModalPack && (
