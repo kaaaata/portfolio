@@ -4,6 +4,7 @@ import { FlexContainer, Image } from '../particles';
 import { Attributes } from './Attributes';
 import { Gold } from './Gold';
 import { Collection } from './modals/Collection';
+import { Settings } from './modals/Settings';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 import { Text } from './Text';
@@ -11,13 +12,14 @@ import { useSelector, shallowEqual } from 'react-redux'
 
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
-  const { gold, energy, deck, image, stats, statBonuses } = useSelector(state => ({
+  const { gold, energy, deck, image, stats, statBonuses, scene } = useSelector(state => ({
     gold: state.clashPlayer.gold,
     energy: state.clashTown.energy,
     deck: state.clashPlayer.deck,
     image: state.clashBattleStats.yourImage,
     stats: state.clashBattleStats.yourStats,
     statBonuses: state.clashBattleStats.yourStatBonuses,
+    scene: state.clashScene.scene
   }), shallowEqual);
 
   return (
@@ -59,7 +61,7 @@ export const TopNav = () => {
 
         <FlexContainer
           className='right'
-          justifyContent='flex-start'
+          justifyContent='flex-end'
           alignItems='center'
         >
           <div css={collectionCss}>
@@ -79,11 +81,22 @@ export const TopNav = () => {
             src='/clash/shop.png'
             width={35}
             height={35}
-            onClick={() => setActiveModal(activeModal === 'shop' ? null : 'shop')}
+            onClick={() => {
+              if (scene === 'town') {
+                setActiveModal(activeModal === 'shop' ? null : 'shop');
+              }
+            }}
             className='shop'
           >
             $
           </Image>
+          <Image
+            src='/clash/gear.png'
+            width={35}
+            height={35}
+            onClick={() => setActiveModal(activeModal === 'settings' ? null : 'settings')}
+            className='settings'
+          />
         </FlexContainer>
       </FlexContainer>
 
@@ -93,6 +106,10 @@ export const TopNav = () => {
 
       <div css={css`display: ${activeModal === 'shop' ? 'unset' : 'none'};`}>
         <Shop />
+      </div>
+
+      <div css={css`display: ${activeModal === 'settings' ? 'unset' : 'none'};`}>
+        <Settings />
       </div>
     </React.Fragment>
   );

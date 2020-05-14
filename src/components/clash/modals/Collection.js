@@ -29,7 +29,7 @@ const collectionCss = css`
   overflow: scroll;
 `;
 
-export const Collection = () => {
+export const Collection = ({ cardsOverride }) => {
   const { deck } = useSelector(state => ({
     deck: state.clashPlayer.deck
   }), shallowEqual);
@@ -37,7 +37,7 @@ export const Collection = () => {
   return (
     <Modal title={`Your Cards (${deck.length})`}>
       <div css={collectionCss}>
-        {deck.sort(sortFunc).map((card, index) => (
+        {(cardsOverride || deck).sort(sortFunc).map((card, index) => (
           <Card key={index} name={card} />
         ))}
       </div>

@@ -13,20 +13,20 @@ export const Button = ({
     <button
       onClick={onClick}
       css={css`
-        background: ${colors.slate};
+        background: ${isDisabled ? colors.greyDark : colors.slate};
         padding: 0 10px;
         height: 32px;
         line-height: 32px;
         border-radius: 4px;
         border: none;
         outline: none;
-        width: ${mini ? '150px' : '100%'};
+        width: ${mini ? '200px' : '100%'};
         color: ${colors.white};
         text-align: ${mini ? 'center' : 'left'};
         cursor: ${isDisabled ? 'default' : 'pointer'};
     
         &:hover {
-          background: ${colors.slateLight};
+          ${isDisabled ? '' : `background: ${colors.slateLight};`}
         }
       `}
     >

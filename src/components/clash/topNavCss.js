@@ -15,14 +15,14 @@ export const topNavCss = css`
   }
 
   .attributes {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
     width: 110px;
     font-size: 24px;
   }
 
   .shop {
-    margin-left: 20px;
+    margin-left: 25px;
     transition: transform 0.1s ease-out;
     font-size: 16px;
     line-height: 40px;
@@ -36,6 +36,14 @@ export const topNavCss = css`
 
   .deck_count {
     margin-left: 5px;
+  }
+
+  .settings {
+    margin-left: 60px;
+
+    &:hover {
+      transform: scale(1.25);
+    }
   }
 `;
 
