@@ -1,5 +1,5 @@
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { shuffle, sampleSize, random } from 'lodash';
 import { genMonsterDeck } from '../monsters/genMonsterDeck';
@@ -12,7 +12,7 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
     deck: state.clashPlayer.deck,
     day: state.clashTown.day,
     monster: monsterOverride || state.clashTown.monsterWaves[state.clashTown.day - 1]
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
   
   const isMonsterElite = monster.type === 'elite';

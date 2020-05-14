@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { EventModal } from '../town/EventModal';
 import { CardLootModal } from '../modals/CardLootModal';
@@ -23,7 +23,7 @@ export const BattleRewards = () => {
     winner: state.clashBattleStats.winner,
     enemyType: state.clashBattleStats.enemyType,
     enemyHueRotate: state.clashBattleStats.enemyHueRotate
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
@@ -31,10 +31,11 @@ export const BattleRewards = () => {
   
   const returnToTown = () => {
     if (enemyType === 'wave') {
-      dispatch(actions.setCanRecoverLoot(didPlayerWin ? false : true));
       dispatch(actions.startNewDay());
+      dispatch(actions.setCanRecoverLoot(didPlayerWin ? false : true));
     } else {
       dispatch(actions.setScene('town'));
+
     }
   };
 

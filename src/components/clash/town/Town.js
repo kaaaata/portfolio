@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { sample } from 'lodash';
 import { Spacer, FlexContainer } from '../../particles';
@@ -15,17 +15,32 @@ import { monstersByTier } from '../monsters/monsters';
 import { townCss } from './townCss';
 
 export const Town = () => {
-  const { energy, day, canReceiveBlessing, canRecoverLoot, canFightElite } = useSelector(state => ({
+  const {
+    energy,
+    day,
+    canReceiveBlessing,
+    canRecoverLoot,
+    canFightElite,
+    feed
+  } = useSelector(state => ({
     energy: state.clashTown.energy,
     day: state.clashTown.day,
     canReceiveBlessing: state.clashTown.canReceiveBlessing,
     canRecoverLoot: state.clashTown.canRecoverLoot,
-    canFightElite: state.clashTown.canFightElite
-  }));
+    canFightElite: state.clashTown.canFightElite,
+    feed: state.clashTown.feed
+  }), shallowEqual);
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('');
   const [activeModal, setActiveModal] = useState(null);
+
+  useEffect(() => {
+    if (feed.length) {
+      const feedEl = document.querySelector('.feed');
+      feedEl.scrollTop = feedEl.scrollHeight;
+    }
+  }, [feed.length])
 
   let daySuffix = 'th';
   if (day === 1) {
@@ -80,26 +95,15 @@ export const Town = () => {
             flexDirection='column'
             justifyContent='space-between'
           >
-            <div>
-              <Text type='header'>Day: {day}/12</Text>
-              <Spacer height={20} />
-              {canRecoverLoot && (
-                <Text type='paragraph'>
-                  You were defeated! But, perhaps you can recover some loot.<br /><br />
-                </Text>
-              )}
-              {canReceiveBlessing && (
-                <Text type='paragraph'>
-                  A blessing is now available!<br /><br />
-                </Text>
-              )}
-              {canFightElite && (
-                <Text type='paragraph'>
-                  An elite enemy approaches!<br /><br />
-                </Text>
-              )}
+            <Text type='header'>Day: {day}/12</Text>
+            <Spacer height={20} />
+            <div className='feed'>
+              {feed.map((text, index) => (
+                <Text key={index} type='small'>{text}<br /><br /></Text>
+              ))}
             </div>
-            <Text type='paragraph'>{townActionDescription}</Text>
+            <Spacer height={20} />
+            <Text type='paragraph' className='description'>{townActionDescription}</Text>
           </FlexContainer>
           <div className='actions'>
             {townActions.map((i, index) => (
@@ -125,6 +129,9 @@ export const Town = () => {
                     }
                     if (i.name === 'Recover Loot') {
                       dispatch(actions.setCanRecoverLoot(false));
+                    }
+                    if (i.name === 'Beg for Change') {
+                      dispatch(actions.addTownFeedText(`test text ${feed.length + 1}`));
                     }
                     dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
                     setActiveModal(i.name);

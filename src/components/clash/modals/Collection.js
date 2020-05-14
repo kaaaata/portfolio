@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
@@ -32,7 +32,7 @@ const collectionCss = css`
 export const Collection = () => {
   const { deck } = useSelector(state => ({
     deck: state.clashPlayer.deck
-  }));
+  }), shallowEqual);
 
   return (
     <Modal title={`Your Cards (${deck.length})`}>

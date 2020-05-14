@@ -1,41 +1,33 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
+import { BackgroundImage } from './scenes/BackgroundImage';
 import { MainMenu } from './scenes/MainMenu';
 import { Story } from './scenes/Story';
 import { Town } from './town/Town';
 import { Battle } from './battle/Battle';
 import { TopNav } from './TopNav';
-import { Image, Spacer } from '../particles';
-import { useSelector } from 'react-redux'
-
-const rgbaFiltersByEnergy = [
-  'rgba(0, 0, 0, 0.3)',
-  'rgba(0, 0, 0, 0.24)',
-  'rgba(0, 0, 0, 0.21)',
-  'rgba(0, 0, 0, 0.18)',
-  'rgba(0, 0, 0, 0.15)',
-  'rgba(0, 0, 0, 0.12)',
-  'rgba(0, 0, 0, 0.09)',
-  'rgba(0, 0, 0, 0.06)',
-  'rgba(0, 0, 0, 0.03)',
-  'rgba(255, 255, 255, 0.05)',
-  'rgba(255, 255, 255, 0.1)',
-  'rgba(255, 255, 255, 0.15)',
-  'rgba(255, 255, 255, 0.2)'
-];
+import { Spacer } from '../particles';
+import { useSelector, shallowEqual } from 'react-redux';
 
 const clashCss = css`
+  width: 1000px;
+  height: 600px;
   position: relative;
   flex-shrink: 0;
   user-select: none;
+
+  .scene {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 `;
 
 export const Clash = () => {
-  const { scene, energy } = useSelector(state => ({
-    scene: state.clashScene.scene,
-    energy: state.clashTown.energy
-  }));
-  let sceneComponent;
+  const { scene } = useSelector(state => ({
+    scene: state.clashScene.scene
+  }), shallowEqual);
 
+  let sceneComponent;
   switch (scene) {
     case 'battle':
       sceneComponent = <Battle />;
@@ -55,18 +47,15 @@ export const Clash = () => {
   }
 
   return (
-    <Image
-      src='/clash/landscape.png'
-      width={1000}
-      height={600}
-      rgbaFilter={rgbaFiltersByEnergy[energy]}
-      css={clashCss}
-    >
-      <Spacer height={40} />
-      {sceneComponent}
+    <div css={clashCss}>
+      <BackgroundImage />
+      <div className='scene'>
+        <Spacer height={40} />
+        {sceneComponent}
+      </div>
       {!['story', 'main_menu'].includes(scene) && (
         <TopNav />
       )}
-    </Image>
+    </div>
   );
 };

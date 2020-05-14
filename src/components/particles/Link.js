@@ -2,7 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { noop } from 'lodash';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { HashLink as ReactRouterHashLink } from 'react-router-hash-link';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../stores/actions';
 
 const linkCss = css`
@@ -18,7 +18,7 @@ const linkCssNoHref = css`
 export const Link = ({ href, onClick = noop, children }) => {
   const { currentRoute } = useSelector(state => ({
     currentRoute: state.coresite.currentRoute
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
 
   if (!children) {

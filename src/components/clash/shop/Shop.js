@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Modal } from '../modals/Modal';
 import { CardLootModal } from '../modals/CardLootModal';
@@ -45,7 +45,7 @@ const shopCss = css`
 export const Shop = () => {
   const { gold } = useSelector(state => ({
     gold: state.clashPlayer.gold
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
 
   const [activeCardLootModalPack, setActiveCardLootModalPack] = useState(null);

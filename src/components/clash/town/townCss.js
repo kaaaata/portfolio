@@ -1,4 +1,5 @@
 import { css } from '@emotion/core'; /** @jsx jsx */
+import { colors } from '../../styles/colors';
 
 export const townCss = css`
   padding: 0 60px;
@@ -17,6 +18,17 @@ export const townCss = css`
   .updates {
     width: 30%;
     padding-right: 30px;
+
+    .feed {
+      overflow: scroll;
+      border-bottom: 3px solid ${colors.yellow};
+      flex-grow: 1;
+      height: 0; ${/* prevent this flex child div from expanding past parent div height */''}
+    }
+
+    .description {
+      height: 50px;
+    }
   }
 
   .actions {

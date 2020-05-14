@@ -26,6 +26,7 @@ export const adjustPlayerGold = payload => ({ type: 'ADJUST_PLAYER_GOLD', payloa
 export const adjustPlayerEnergy = payload => ({ type: 'ADJUST_PLAYER_ENERGY', payload });
 export const addCardsToCollection = payload => ({ type: 'ADD_CARDS_TO_COLLECTION', payload });
 
+export const addTownFeedText = payload => ({ type: 'ADD_TOWN_FEED_TEXT', payload });
 export const setCanReceiveBlessingFalse = payload => ({ type: 'SET_CAN_RECEIVE_BLESSING_FALSE', payload });
 export const setCanRecoverLoot = payload => ({ type: 'SET_CAN_RECOVER_LOOT', payload });
 export const setCanFightEliteFalse = payload => ({ type: 'SET_CAN_FIGHT_ELITE_FALSE', payload });

@@ -1,10 +1,9 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { Image, Spacer } from '../particles';
 import { Attributes } from './Attributes';
 import { colors } from '../styles';
 import { useState, useEffect } from 'react';
-import { random } from 'lodash';
 
 const portraitCss = (player) => css`
   position: absolute;
@@ -65,7 +64,7 @@ export const Portrait = ({ player }) => {
       isDead: state.clashBattleStats.winner === state.clashBattleStats.yourName,
       enemyHueRotate: state.clashBattleStats.enemyHueRotate
     };
-  });
+  }, shallowEqual);
   const [portraitClassName, setPortraitClassName] = useState('portrait');
 
   useEffect(() => {

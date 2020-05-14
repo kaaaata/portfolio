@@ -1,6 +1,6 @@
 import React from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { colors } from '../styles';
 import { Link, Filter } from '../particles';
 import { trackStats } from '../utils/graphql';
@@ -23,7 +23,7 @@ const sidebarSections = [
 export const Sidebar = () => {
   const { isSidebarVisible } = useSelector(state => ({
     isSidebarVisible: state.coresite.isSidebarVisible,
-  }));
+  }), shallowEqual);
 
   return (
     <section css={sidebarCss(isSidebarVisible)}>

@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { colors } from '../styles';
 import { Card, PileCardPlaceholder } from './Card';
 
@@ -71,7 +71,7 @@ const PileOfCards = ({
 export const YourDeck = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.yourDeck,
-  }));
+  }), shallowEqual);
 
   return (
     <PileOfCards
@@ -88,7 +88,7 @@ export const YourDeck = () => {
 export const YourDiscard = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.yourDiscard,
-  }));
+  }), shallowEqual);
 
   return (
     <PileOfCards
@@ -105,7 +105,7 @@ export const YourDiscard = () => {
 export const YourBanish = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.yourBanish,
-  }));
+  }), shallowEqual);
 
   return (
     <PileOfCards
@@ -123,7 +123,7 @@ export const YourHand = ({ onClick }) => {
   const { cards, winner } = useSelector(state => ({
     cards: state.clashBattleCards.yourHand,
     winner: state.clashBattleStats.winner
-  }));
+  }), shallowEqual);
 
   return cards.map((card, index) => (
     card ? (
@@ -145,7 +145,7 @@ export const YourHand = ({ onClick }) => {
 export const EnemyBanish = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.enemyBanish,
-  }));
+  }), shallowEqual);
 
   return (
     <PileOfCards
@@ -162,7 +162,7 @@ export const EnemyBanish = () => {
 export const EnemyDiscard = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.enemyDiscard,
-  }));
+  }), shallowEqual);
 
   return (
     <PileOfCards
@@ -179,7 +179,7 @@ export const EnemyDiscard = () => {
 export const EnemyDeck = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.enemyDeck,
-  }));
+  }), shallowEqual);
 
   return (
     <PileOfCards
@@ -196,7 +196,7 @@ export const EnemyDeck = () => {
 export const EnemyHand = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.enemyHand,
-  }));
+  }), shallowEqual);
 
   return cards.map((card, index) => (
     card ? (
@@ -213,7 +213,7 @@ export const EnemyHand = () => {
 export const Stack = () => {
   const { cards } = useSelector(state => ({
     cards: state.clashBattleCards.stack,
-  }));
+  }), shallowEqual);
 
   return cards.map((card, index) => (
     <Card

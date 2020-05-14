@@ -22,7 +22,7 @@ const flavorTexts = [
 export const WorkForMoney = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const goldEarned = random(1, 10);
+  const goldEarned = random(5, 15);
 
   return (
     <EventModal
@@ -37,6 +37,7 @@ export const WorkForMoney = ({ closeModal }) => {
             goodText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
             onClick: () => {
               dispatch(actions.adjustPlayerGold(goldEarned));
+              dispatch(actions.addTownFeedText(`Received: ${goldEarned} gold`));
               closeModal();
             }
           }]

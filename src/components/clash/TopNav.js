@@ -7,7 +7,7 @@ import { Collection } from './modals/Collection';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 import { Text } from './Text';
-import { useSelector } from 'react-redux'
+import { useSelector, shallowEqual } from 'react-redux'
 
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -18,7 +18,7 @@ export const TopNav = () => {
     image: state.clashBattleStats.yourImage,
     stats: state.clashBattleStats.yourStats,
     statBonuses: state.clashBattleStats.yourStatBonuses,
-  }));
+  }), shallowEqual);
 
   return (
     <React.Fragment>

@@ -7,7 +7,7 @@ export const townActions = [
   },
   {
     name: 'Work for Money',
-    energy: 1,
+    energy: 2,
     image: 'gold',
     description: 'Earn some gold.'
   },
@@ -40,7 +40,7 @@ export const townActions = [
     name: 'Elite Encounter!',
     energy: 6,
     image: 'elite',
-    description: 'Fight a dangerous enemy for a chance at high quality loot!'
+    description: 'Fight a dangerous enemy for rare loot!'
   },
   {
     name: 'Next Day',

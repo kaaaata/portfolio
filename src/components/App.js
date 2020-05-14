@@ -22,7 +22,7 @@ const AppComponent = ({
   location // from withRouter
 }) => {
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     trackStats('visited_site');
     dispatch(actions.setCurrentRoute({
@@ -30,7 +30,6 @@ const AppComponent = ({
       hash: location.hash
     }));
   }, [location.pathname, location.hash, dispatch]);
-
   return (
     <main id='app' css={appCss}>
       <TopNav />

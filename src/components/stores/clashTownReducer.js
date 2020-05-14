@@ -2,11 +2,12 @@ import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';;
 
 const initialState = {
   energy: 12,
-  day: 3,
+  day: 1,
   monsterWaves: genMonsterWaves(),
   canReceiveBlessing: false,
   canRecoverLoot: false,
-  canFightElite: false
+  canFightElite: false,
+  feed: []
 };
 
 export default (state = initialState, action) => {
@@ -23,9 +24,18 @@ export default (state = initialState, action) => {
         energy: 12,
         day: newDay,
         canReceiveBlessing: newDay % 4 === 0,
-        canFightElite: newDay % 3 === 0 && newDay !== 12
+        canFightElite: newDay % 3 === 0 && newDay !== 12,
+        feed: [
+          newDay % 4 === 0 && 'A blessing is available today.',
+          newDay % 3 === 0 && newDay !== 12 && 'An elite enemy approaches!'
+        ].filter(Boolean)
       };
     }
+    case 'ADD_TOWN_FEED_TEXT':
+      return {
+        ...state,
+        feed: [...state.feed, action.payload]
+      };
     case 'SET_CAN_RECEIVE_BLESSING_FALSE':
       return {
         ...state,

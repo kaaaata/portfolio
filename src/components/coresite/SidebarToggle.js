@@ -1,5 +1,5 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../stores/actions';
 import { colors } from '../styles';
 
@@ -37,7 +37,7 @@ const sidebarToggleCss = (isSidebarVisible) => css`
 export const SidebarToggle = () => {
   const { isSidebarVisible } = useSelector(state => ({
     isSidebarVisible: state.coresite.isSidebarVisible,
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
 
   return (

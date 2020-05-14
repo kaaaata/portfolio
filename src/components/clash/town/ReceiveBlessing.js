@@ -8,6 +8,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
 
   const [page, setPage] = useState(1);
   const [page2Text, setPage2Text] = useState('');
+  const [townFeedText, setTownFeedText] = useState('');
 
   return (
     <EventModal
@@ -30,6 +31,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
                   player: 'you',
                   operation: 'adjust'
                 }));
+                setTownFeedText('Received blessing: +1 Attack');
               }
             },
             {
@@ -44,6 +46,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
                   player: 'you',
                   operation: 'adjust'
                 }));
+                setTownFeedText('Received blessing: +1 Magic');
               }
             },
             {
@@ -58,6 +61,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
                   player: 'you',
                   operation: 'adjust'
                 }));
+                setTownFeedText('Received blessing: +1 Defense');
               }
             },
             {
@@ -67,6 +71,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
                 setPage2Text('Gold rains from the sky!');
                 setPage(2);
                 dispatch(actions.adjustPlayerGold(300));
+                setTownFeedText('Received blessing: 300 gold');
               }
             }
           ]
@@ -75,7 +80,10 @@ export const ReceiveBlessing = ({ closeModal }) => {
           text: page2Text,
           options: [{
             name: 'Continue',
-            onClick: closeModal
+            onClick: () => {
+              dispatch(actions.addTownFeedText(townFeedText));
+              closeModal();
+            }
           }]
         }
       ]}
