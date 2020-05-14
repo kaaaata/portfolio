@@ -12,6 +12,7 @@ import { RecoverLoot } from './RecoverLoot';
 import { MonsterPreview } from '../modals/MonsterPreview';
 import { townActions } from './townActions';
 import { monstersByTier } from '../monsters/monsters';
+import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
 import { townCss } from './townCss';
 
 export const Town = () => {
@@ -32,7 +33,7 @@ export const Town = () => {
   }), shallowEqual);
   const dispatch = useDispatch();
   
-  const [townActionDescription, setTownActionDescription] = useState('');
+  const [townActionDescription, setTownActionDescription] = useState('Choose an action!');
   const [activeModal, setActiveModal] = useState(null);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const Town = () => {
   switch (activeModal) {
     case 'Elite Encounter!': {
       const eliteMonster = sample(monstersByTier[Math.ceil(day / 4)]);
-      eliteMonster.name = `Elite ${eliteMonster.name}`;
+      eliteMonster.name = `${genEliteMonsterPrefix()} ${eliteMonster.name}`;
       eliteMonster.type = 'elite';
       eliteMonster.stats[sample('attack', 'defense', 'magic')]++;
 
@@ -99,7 +100,10 @@ export const Town = () => {
             <Spacer height={20} />
             <div className='feed'>
               {feed.map((text, index) => (
-                <Text key={index} type='small'>{text}<br /><br /></Text>
+                <React.Fragment key={index}>
+                  <Text type='small' lineHeight={1.25}>{text}</Text>
+                  <Spacer height={7} />
+                </React.Fragment>
               ))}
             </div>
             <Spacer height={20} />

@@ -159,6 +159,18 @@ const monstersTier3 = [
       'Ice Blade',
       'Protect'
     ]
+  },
+  { // TEMPORARY PLACEHOLDER CUZ I ONLY HAVE 3 TIER 3 MONSTERS RIGHT NOW
+    name: 'Ice Whelp',
+    image: 'ice_whelp',
+    stats: { attack: 2, magic: 0, defense: 0 },
+    deck: [
+      'Ice Queen',
+      'Ice Whelp',
+      'Ice Whelp',
+      'Ice Blade',
+      'Protect'
+    ]
   }
 ];
 

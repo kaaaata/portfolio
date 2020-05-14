@@ -14,7 +14,7 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
     monster: monsterOverride || state.clashTown.monsterWaves[state.clashTown.day - 1]
   }), shallowEqual);
   const dispatch = useDispatch();
-  
+
   const isMonsterElite = monster.type === 'elite';
   const yourDeck = shuffle(deck);
   const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day, isMonsterElite);

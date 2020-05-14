@@ -22,6 +22,9 @@ export const townCss = css`
     .feed {
       overflow: scroll;
       border-bottom: 3px solid ${colors.yellow};
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      padding: 10px;
       flex-grow: 1;
       height: 0; ${/* prevent this flex child div from expanding past parent div height */''}
     }

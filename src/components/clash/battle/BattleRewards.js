@@ -14,7 +14,8 @@ export const BattleRewards = () => {
     battleRewardCards,
     winner,
     enemyType,
-    enemyHueRotate
+    enemyHueRotate,
+    enemyName
   } = useSelector(state => ({
     didPlayerWin: state.clashBattleStats.yourName === state.clashBattleStats.winner,
     winnerImage: state.clashBattleStats.winnerImage,
@@ -22,7 +23,8 @@ export const BattleRewards = () => {
     battleRewardCards: state.clashBattleCards.battleRewardCards,
     winner: state.clashBattleStats.winner,
     enemyType: state.clashBattleStats.enemyType,
-    enemyHueRotate: state.clashBattleStats.enemyHueRotate
+    enemyHueRotate: state.clashBattleStats.enemyHueRotate,
+    enemyName: state.clashBattleStats.enemyName
   }), shallowEqual);
   const dispatch = useDispatch();
 
@@ -30,12 +32,18 @@ export const BattleRewards = () => {
   const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
   
   const returnToTown = () => {
+    const townFeedMessages = didPlayerWin ? [
+      `You defeated: ${enemyName}`,
+      `Received: ${battleRewardGold} gold`
+    ] : [
+      `You were defeated by: ${enemyName}`
+    ];
     if (enemyType === 'wave') {
-      dispatch(actions.startNewDay());
+      dispatch(actions.startNewDay({ feedInitialMessages: townFeedMessages }));
       dispatch(actions.setCanRecoverLoot(didPlayerWin ? false : true));
     } else {
+      dispatch(actions.addTownFeedText(townFeedMessages));
       dispatch(actions.setScene('town'));
-
     }
   };
 
@@ -54,7 +62,7 @@ export const BattleRewards = () => {
     <EventModal
       title={didPlayerWin ? 'Victory!' : 'Defeat!'}
       image={winnerImage}
-      imageProps={enemyHueRotate ? { filter: `hue-rotate(${enemyHueRotate}deg)` } : null}
+      imageProps={(enemyHueRotate && !didPlayerWin) ? { filter: `hue-rotate(${enemyHueRotate}deg)` } : null}
       page={page}
       pages={[
         {
