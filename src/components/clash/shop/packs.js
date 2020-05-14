@@ -1,5 +1,3 @@
-import { rarityColors } from '../cards/rarity';
-
 export const packs = {
   bronze: {
     name: 'Bronze Pack',
