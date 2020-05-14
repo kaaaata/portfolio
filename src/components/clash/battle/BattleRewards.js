@@ -13,14 +13,16 @@ export const BattleRewards = () => {
     battleRewardGold,
     battleRewardCards,
     winner,
-    enemyType
+    enemyType,
+    enemyHueRotate
   } = useSelector(state => ({
     didPlayerWin: state.clashBattleStats.yourName === state.clashBattleStats.winner,
     winnerImage: state.clashBattleStats.winnerImage,
     battleRewardGold: state.clashBattleCards.battleRewardGold,
     battleRewardCards: state.clashBattleCards.battleRewardCards,
     winner: state.clashBattleStats.winner,
-    enemyType
+    enemyType: state.clashBattleStats.enemyType,
+    enemyHueRotate: state.clashBattleStats.enemyHueRotate
   }));
   const dispatch = useDispatch();
 
@@ -29,6 +31,7 @@ export const BattleRewards = () => {
   
   const returnToTown = () => {
     if (enemyType === 'wave') {
+      dispatch(actions.setCanRecoverLoot(didPlayerWin ? false : true));
       dispatch(actions.startNewDay());
     } else {
       dispatch(actions.setScene('town'));
@@ -50,6 +53,7 @@ export const BattleRewards = () => {
     <EventModal
       title={didPlayerWin ? 'Victory!' : 'Defeat!'}
       image={winnerImage}
+      imageProps={enemyHueRotate ? { filter: `hue-rotate(${enemyHueRotate}deg)` } : null}
       page={page}
       pages={[
         {

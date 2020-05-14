@@ -1,12 +1,8 @@
 import { genStartingDeck } from '../clash/cards/cards';
-import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';;
 
 const initialState = {
   gold: 100,
-  energy: 12,
-  deck: genStartingDeck(),
-  day: 3,
-  monsterWaves: genMonsterWaves()
+  deck: genStartingDeck()
 };
 
 export default (state = initialState, action) => {
@@ -20,17 +16,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         deck: [...state.deck, ...action.payload]
-      };
-    case 'ADJUST_PLAYER_ENERGY':
-      return {
-        ...state,
-        energy: Math.max(0, state.energy + action.payload)
-      };
-    case 'START_NEW_DAY':
-      return {
-        ...state,
-        energy: 12,
-        day: state.day + 1
       };
     default:
       return state;

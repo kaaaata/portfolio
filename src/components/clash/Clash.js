@@ -32,7 +32,7 @@ const clashCss = css`
 export const Clash = () => {
   const { scene, energy } = useSelector(state => ({
     scene: state.clashScene.scene,
-    energy: state.clashPlayer.energy
+    energy: state.clashTown.energy
   }));
   let sceneComponent;
 

@@ -13,7 +13,7 @@ export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
   const { gold, energy, deck, image, stats, statBonuses } = useSelector(state => ({
     gold: state.clashPlayer.gold,
-    energy: state.clashPlayer.energy,
+    energy: state.clashTown.energy,
     deck: state.clashPlayer.deck,
     image: state.clashBattleStats.yourImage,
     stats: state.clashBattleStats.yourStats,

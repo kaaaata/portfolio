@@ -5,7 +5,7 @@
 // import { useSelector, useDispatch } from 'react-redux'
 
 // const { energy } = useSelector(state => ({
-//   energy: state.clashPlayer.energy
+//   energy: state.clashTown.energy
 // }));
 // const dispatch = useDispatch();
 // dispatch(actions.setIsSidebarVisible(false));

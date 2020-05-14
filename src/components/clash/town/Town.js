@@ -15,20 +15,17 @@ import { monstersByTier } from '../monsters/monsters';
 import { townCss } from './townCss';
 
 export const Town = () => {
-  const { energy, day, canRecoverLoot } = useSelector(state => ({
-    energy: state.clashPlayer.energy,
-    day: state.clashPlayer.day,
-    canRecoverLoot: state.clashPlayer.day > 1
-      && !!state.clashBattleStats.winner
-      && state.clashBattleStats.yourName !== state.clashBattleStats.winner
+  const { energy, day, canReceiveBlessing, canRecoverLoot, canFightElite } = useSelector(state => ({
+    energy: state.clashTown.energy,
+    day: state.clashTown.day,
+    canReceiveBlessing: state.clashTown.canReceiveBlessing,
+    canRecoverLoot: state.clashTown.canRecoverLoot,
+    canFightElite: state.clashTown.canFightElite
   }));
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('');
   const [activeModal, setActiveModal] = useState(null);
-  const [canReceiveBlessing, setCanReceiveBlessing] = useState(day % 4 === 0);
-  const [didRecoverLoot, setDidRecoverLoot] = useState(false);
-  const [canFightElite, setCanFightElite] = useState(day % 3 === 0 && day !== 12);
 
   let daySuffix = 'th';
   if (day === 1) {
@@ -115,19 +112,19 @@ export const Town = () => {
                 isDisabled={
                   (i.name === 'Receive Blessing' && !canReceiveBlessing)
                   || (i.name === 'Elite Encounter!' && !canFightElite)
-                  || (i.name === 'Recover Loot' && (!canRecoverLoot || didRecoverLoot))
+                  || (i.name === 'Recover Loot' && (!canRecoverLoot))
                 }
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
                   if (energy >= i.energy) {
                     if (i.name === 'Receive Blessing') {
-                      setCanReceiveBlessing(false);
+                      dispatch(actions.setCanReceiveBlessingFalse());
                     }
                     if (i.name === 'Elite Encounter!') {
-                      setCanFightElite(false);
+                      dispatch(actions.setCanFightEliteFalse());
                     }
                     if (i.name === 'Recover Loot') {
-                      setDidRecoverLoot(true);
+                      dispatch(actions.setCanRecoverLoot(false));
                     }
                     dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
                     setActiveModal(i.name);
