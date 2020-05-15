@@ -41,7 +41,7 @@ export const Shop = () => {
   
   return (
     <React.Fragment>
-      <Modal title='Shop' transparent={false}>
+      <Modal title='Shop'>
         <FlexContainer css={shopCss}>
           {Object.keys(packs).map(i => {
             const pack = packs[i];

@@ -1,33 +1,25 @@
 import { cards, cardsByRarity } from '../cards/cards';
 import { range, sample, random, shuffle } from 'lodash';
 
-const tierBalancing = {
-  1: { // deck size: 10, 15, 20, 25
-    maxLegendaries: 0,
-    maxRares: 1,
-    maxUncommons: 1
-  },
-  2: { // deck size: 30, 35, 40, 45
-    maxLegendaries: 0,
-    maxRares: 3,
-    maxUncommons: 6
-  },
-  3: { // deck size: 50, 55, 60, 65
-    maxLegendaries: 1,
-    maxRares: 5,
-    maxUncommons: 10
-  },
-  4: { // deck size: 70 (tier 3 elite)
-    maxLegendaries: 2,
-    maxRares: 8,
-    maxUncommons: 14
-  }
+const dayBalancing = {
+  1: { maxLegendaries: 0, maxRares: 0, maxUncommons: 0 },
+  2: { maxLegendaries: 0, maxRares: 0, maxUncommons: 1 },
+  3: { maxLegendaries: 0, maxRares: 1, maxUncommons: 2 },
+  4: { maxLegendaries: 0, maxRares: 1, maxUncommons: 3 },
+  5: { maxLegendaries: 0, maxRares: 2, maxUncommons: 4 },
+  6: { maxLegendaries: 0, maxRares: 2, maxUncommons: 5 },
+  7: { maxLegendaries: 1, maxRares: 3, maxUncommons: 6 },
+  8: { maxLegendaries: 1, maxRares: 3, maxUncommons: 7 },
+  9: { maxLegendaries: 2, maxRares: 4, maxUncommons: 8 },
+  10: { maxLegendaries: 2, maxRares: 4, maxUncommons: 9 },
+  11: { maxLegendaries: 2, maxRares: 5, maxUncommons: 10 },
+  12: { maxLegendaries: 3, maxRares: 5, maxUncommons: 11 } // for tier 3 elite only
 };
 
 export const genMonsterDeck = (deck, tier, day, isElite) => {
-  const deckSize = (day + 1) * 5 + (isElite ? 10 : 0) * tier;
+  const deckSize = (10 + day * 5) + (isElite ? 10 * tier : 0);
   const deckByRarity = deck.map(card => cards[card].rarity);
-  const { maxLegendaries, maxRares, maxUncommons } = tierBalancing[isElite ? tier + 1 : tier];
+  const { maxLegendaries, maxRares, maxUncommons } = dayBalancing[isElite ? day + 1 : tier];
   const cardsToAdd = {
     legendary: Math.max(0, maxLegendaries - deckByRarity.filter(card => card.rarity === 'legendary').length),
     rare: Math.max(0, maxRares - deckByRarity.filter(card => card.rarity === 'rare').length),

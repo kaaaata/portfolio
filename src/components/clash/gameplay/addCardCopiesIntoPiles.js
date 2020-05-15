@@ -3,7 +3,7 @@ import { cards } from '../cards/cards';
 
 export const addCardCopiesIntoPiles = (
   state,
-  copies, // { card, pile, index = 'random' }
+  copies, // [{ card:String, pile:String, index:(Number|'random') = 'random' }]
   player,
   removeCardArgs // move cards b/t piles: { player, location, index }. shuffle cards into piles: undefined
 ) => {
@@ -24,7 +24,7 @@ export const addCardCopiesIntoPiles = (
   renderActions.push([]);
 
   copies.forEach(({ card, pile, index = 'random' }) => {
-    logs.push(`${player} shuffles card into their ${pile}: ${card}`);
+    logs.push(`${player} shuffles ${card} into their ${pile}`);
     renderActions.push([
       actionGenerators.removeTopCardFromStack(state),
       actionGenerators.addCard(state, cards[card], player, pile, index)

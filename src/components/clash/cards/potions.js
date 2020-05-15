@@ -34,27 +34,23 @@ export const potions = [
     name: 'Freeze',
     image: 'freeze',
     rarity: 'common',
-    isToken: true
+    isToken: true,
+    damageSelf: 1,
+    dealsBanishingDamage: true,
+    onDiscard: {
+      damageSelf: 1,
+      dealsBanishingDamage: true
+    }
   },
   {
-    name: 'Slime Potion',
+    name: 'Edible Slime',
     image: 'slime_potion',
-    rarity: 'rare',
-    damageSelf: 3,
-    statBonuses: {
-      attack: 1,
-      magic: 1,
-      defense: 1
-    },
+    rarity: 'uncommon',
+    customEffect: true,
     onDiscard: {
-      damageSelf: 3,
-      statBonuses: {
-        attack: 1,
-        magic: 1,
-        defense: 1
-      },
+      customEffect: true
     },
-    description: 'Deal 3 damage to yourself. Gain +1 to Attack, Magic, and Defense for the rest of the battle.'
+    description: 'Shuffle 3 random non-legendary cards into your deck.'
   },
   {
     name: 'Golden Goblet',

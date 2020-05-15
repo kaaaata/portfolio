@@ -22,7 +22,7 @@ export const magic = [
     attack: 0,
     defense: 0,
     customEffect: true,
-    description: 'Play a copy of a random magic attack.'
+    description: 'Play a copy of a random non-legendary card.'
   },
   {
     name: 'Candy Corn',

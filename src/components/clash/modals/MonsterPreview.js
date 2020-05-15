@@ -37,13 +37,13 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
       operation: 'set'
     }));
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
-    dispatch(actions.setYourDeck([])); // testing
+    // dispatch(actions.setYourDeck([])); // testing
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
     // dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
-    dispatch(actions.setYourHand(['Elf', 'Minotaur', 'Slime Potion'])); // testing
+    // dispatch(actions.setYourHand(['Magic Scroll', 'Catherine the Great', 'Edible Slime'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
-    // dispatch(actions.setEnemyHand(['Elf', 'Minotaur', 'Slime Potion'])); // testing
+    // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur', 'Minotaur'])); // testing
     dispatch(actions.setBattleRewardCards(
       sampleSize(isMonsterElite
         ? enemyDeck.filter(card => cards[card].rarity !== 'common')

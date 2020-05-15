@@ -17,8 +17,8 @@ const monstersTier1 = [
     image: 'goblin',
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
-      'Goblin',
-      'Goblin'
+      'Goblin Bomber',
+      'Goblin Bomber'
     ]
   },
   {
@@ -50,11 +50,11 @@ const monstersTier1 = [
 
 const monstersTier2 = [
   {
-    name: 'Square Slime',
+    name: 'Edible Slime',
     image: 'slime_potion',
     stats: { attack: 0, magic: 0, defense: 1 },
     deck: [
-      'Slime Potion',
+      'Edible Slime',
       'Protect',
       'Protect',
       'Healing Potion'
@@ -112,7 +112,6 @@ const monstersTier2 = [
     deck: [
       'Cryopyromancer',
       'Fire',
-      'Ice Punch',
       'Burn',
       'Freeze',
       'Fire Spear',

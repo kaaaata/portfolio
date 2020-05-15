@@ -51,7 +51,7 @@ export const playFirstCardInRound = (index) => {
     const enemyHandRandomCard = state.enemy.hand[enemyHandRandomCardIndex];
     // add placeholder
     state.enemy.hand[enemyHandRandomCardIndex] = {};
-    logs.push(`${state.enemy} plays: ${enemyHandRandomCard.name}`);
+    logs.push(`enemy plays: ${enemyHandRandomCard.name}`);
     playCard(state, enemyHandRandomCard, 'enemy', 'hand', enemyHandRandomCardIndex);
 
     if (state.winner) {

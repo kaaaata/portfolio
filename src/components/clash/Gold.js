@@ -8,7 +8,7 @@ export const Gold = ({
   big
 }) => (
   <FlexContainer
-    justifyContent='center'
+    alignItems='center'
     className='gold'
   >
     <Image

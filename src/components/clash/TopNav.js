@@ -12,6 +12,7 @@ import { useSelector, shallowEqual } from 'react-redux'
 
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const { gold, energy, deck, image, stats, statBonuses, scene } = useSelector(state => ({
     gold: state.clashPlayer.gold,
     energy: state.clashTown.energy,
@@ -29,24 +30,18 @@ export const TopNav = () => {
         alignItems='center'
         _css={topNavCss}
       >
-        <FlexContainer
-          className='left'
-          alignItems='center'
-        >
+        <FlexContainer className='left' alignItems='center'>
           <Image
+            className='top_nav_portrait'
             src={`/clash/${image}.png`}
             width={20}
-            height={35}
+            height={36}
           />
           <Attributes stats={stats} statBonuses={statBonuses} />
           <Gold gold={gold} />
         </FlexContainer>
 
-        <FlexContainer
-          className='center'
-          justifyContent='center'
-          alignItems='center'
-        >
+        <FlexContainer className='center' justifyContent='center' alignItems='center'>
           <Image
             src='/clash/energy.png'
             width={20}
@@ -59,24 +54,22 @@ export const TopNav = () => {
           </div>
         </FlexContainer>
 
-        <FlexContainer
-          className='right'
-          justifyContent='flex-end'
-          alignItems='center'
-        >
-          <div css={collectionCss}>
-            {[0, 1].map(i => (
-              <Image
-                key={i}
-                src='/clash/card_back.png'
-                width={24}
-                height={34}
-                onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
-                className={`card_${i}`}
-              />
-            ))}
-          </div>
-          <Text className='deck_count'>{deck.length}</Text>
+        <FlexContainer className='right' justifyContent='flex-end' alignItems='center'>
+          <FlexContainer className='collection' alignItems='center'>
+            <div css={collectionCss}>
+              {[0, 1].map(i => (
+                <Image
+                  key={i}
+                  src='/clash/card_back.png'
+                  width={24}
+                  height={34}
+                  onClick={() => setActiveModal(activeModal === 'collection' ? null : 'collection')}
+                  className={`card_${i}`}
+                />
+              ))}
+            </div>
+            <Text className='deck_count'>{deck.length}</Text>
+          </FlexContainer>
           <Image
             src='/clash/shop.png'
             width={35}
@@ -94,7 +87,7 @@ export const TopNav = () => {
             src='/clash/gear.png'
             width={35}
             height={35}
-            onClick={() => setActiveModal(activeModal === 'settings' ? null : 'settings')}
+            onClick={() => setIsSettingsOpen(!isSettingsOpen)}
             className='settings'
           />
         </FlexContainer>
@@ -108,8 +101,8 @@ export const TopNav = () => {
         <Shop />
       </div>
 
-      <div css={css`display: ${activeModal === 'settings' ? 'unset' : 'none'};`}>
-        <Settings />
+      <div css={css`display: ${isSettingsOpen ? 'unset' : 'none'};`}>
+        <Settings closeModal={() => setIsSettingsOpen(false)} />
       </div>
     </React.Fragment>
   );

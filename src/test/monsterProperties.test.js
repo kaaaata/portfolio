@@ -1,4 +1,5 @@
 import { monstersByTier } from '../components/clash/monsters/monsters';
+import { cards } from '../components/clash/cards/cards';
 
 test('all monsters are valid', () => {
   const errorMessages = [];
@@ -51,4 +52,14 @@ test('all monsters are valid', () => {
   });
 
   expect(errorMessages.length).toBe(0);
+});
+
+test('all monster deck preset cards exist', () => {
+  Object.values(monstersByTier).forEach(monsters => {
+    monsters.forEach((monster, index) => {
+      monster.deck.forEach(card => {
+        expect(cards.hasOwnProperty(card)).toBe(true);
+      })
+    });
+  });
 });

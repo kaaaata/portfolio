@@ -14,35 +14,54 @@ export const topNavCss = css`
     width: 250px;
   }
 
-  .attributes {
-    margin-left: 25px;
-    margin-right: 25px;
-    width: 110px;
-    font-size: 24px;
-  }
+  .left {
+    .top_nav_portrait {
+      margin-right: 25px;
+      flex: 0 0 auto;
+    }
 
-  .shop {
-    margin-left: 25px;
-    transition: transform 0.1s ease-out;
-    font-size: 16px;
-    line-height: 40px;
-    text-align: center;
-    color: ${colors.yellow};
+    .attributes {
+      margin-right: 20px;
+      width: 110px;
+      font-size: 24px;
+      flex: 0 0 auto;
+    }
 
-    &:hover {
-      transform: scale(1.25);
+    .gold {
+      flex: 0 0 auto;
     }
   }
 
-  .deck_count {
-    margin-left: 5px;
-  }
+  .right {
+    .collection {
+      flex: 0 0 auto;
+      width: 120px;
 
-  .settings {
-    margin-left: 60px;
+      .deck_count {
+        margin-left: 5px;
+      }
+    }
 
-    &:hover {
-      transform: scale(1.25);
+    .shop {
+      margin-left: 10px;
+      transition: transform 0.1s ease-out;
+      font-size: 16px;
+      line-height: 40px;
+      text-align: center;
+      color: ${colors.yellow};
+  
+      &:hover {
+        transform: scale(1.5);
+      }
+    }
+  
+    .settings {
+      margin-left: 40px;
+      transition: transform 0.1s ease-out;
+  
+      &:hover {
+        transform: scale(1.5);
+      }
     }
   }
 `;
@@ -78,7 +97,7 @@ export const collectionCss = css`
   height: 40px;
   
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.35);
   }
 
   .image {

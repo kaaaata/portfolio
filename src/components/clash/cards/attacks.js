@@ -12,7 +12,7 @@ export const attacks = [
     name: 'Slash',
     image: 'slash',
     rarity: 'common',
-    attack: 1,
+    attack: 2,
     defense: 1
   },
   {
@@ -28,15 +28,6 @@ export const attacks = [
     rarity: 'common',
     attack: 1,
     defense: 2
-  },
-  {
-    name: 'Ice Punch',
-    image: 'ice_punch',
-    rarity: 'common',
-    attack: 1,
-    defense: 0,
-    shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Freeze', pile: 'deck' }],
-    description: 'Shuffle a copy of Freeze into your opponent\'s deck.'
   },
   {
     name: 'Arrow',
@@ -62,7 +53,7 @@ export const attacks = [
     defense: 0
   },
   {
-    name: 'Two Handed Strike',
+    name: 'Longsword',
     image: 'two_handed_strike',
     rarity: 'uncommon',
     attack: 4,
@@ -72,7 +63,7 @@ export const attacks = [
     name: 'Fire Spear',
     image: 'fire_spear',
     rarity: 'uncommon',
-    attack: 2,
+    attack: 3,
     defense: 1,
     shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Burn', pile: 'deck' }],
     description: 'Shuffle a copy of Burn into your opponent\'s deck.'
@@ -90,10 +81,8 @@ export const attacks = [
     name: 'Protect',
     image: 'block',
     rarity: 'uncommon',
-    attack: 0,
-    defense: 4,
-    statBonuses: { defense: 1 },
-    description: 'Gain +1 defense for the rest of the battle.'
+    attack: 1,
+    defense: 4
   },
   {
     name: 'Lotus',
@@ -106,9 +95,8 @@ export const attacks = [
     name: 'Sunder',
     image: 'sunder',
     rarity: 'rare',
-    attack: 8,
-    defense: 0,
-    damageSelf: 2
+    attack: 6,
+    defense: 0
   },
   {
     name: 'Healing Blade',
@@ -133,7 +121,7 @@ export const attacks = [
     image: 'ice_sword',
     rarity: 'rare',
     attack: 2,
-    defense: 4,
+    defense: 5,
     shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Freeze', pile: 'deck' }],
     description: 'Shuffle a copy of Freeze into your opponent\'s deck.'
   }

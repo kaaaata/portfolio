@@ -1,31 +1,46 @@
 import React, { useState } from 'react';
-import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { shuffle, sampleSize, random } from 'lodash';
-import { genMonsterDeck } from '../monsters/genMonsterDeck';
 import { Modal } from './Modal';
-import { Text } from '../Text';
-import { cards } from '../cards/cards';
-import { rarityColors } from '../cards/rarity';
 import { Button } from '../Button';
 import { Spacer } from '../../particles';
-import { Card } from '../Card';
 import { cardsArray } from '../cards/cards';
 import { Collection } from './Collection';
 
 const inDevelopment = process.env.NODE_ENV !== 'production';
 
-export const Settings = () => {
+export const Settings = ({ closeModal }) => {
+  const { scene, enemyName } = useSelector(state => ({
+    scene: state.clashScene.scene,
+    enemyName: state.clashBattleStats.enemyName
+  }), shallowEqual);
+  const dispatch = useDispatch();
+
   const [isAllCardsModalActive, setIsAllCardsModalActive] = useState(false);
 
   return (
     <React.Fragment>
-      <Modal halfModal>
+      <Modal halfModal transparent={false}>
         <Spacer height={100} />
-        <Button mini isDisabled>Concede Battle</Button>
+        <Button 
+          mini
+          isDisabled={scene !== 'battle'}
+          onClick={() => {
+            dispatch(actions.setWinner(enemyName));
+            closeModal();
+          }}
+        >
+          Concede Battle
+        </Button>
         <Spacer height={20} />
-        <Button onClick={() => setIsAllCardsModalActive(true)} mini>View All Cards</Button>
+        {inDevelopment && (
+          <Button
+            mini
+            onClick={() => setIsAllCardsModalActive(true)}
+          >
+            View All Cards
+          </Button>
+        )}
       </Modal>
       
       {isAllCardsModalActive && inDevelopment && (

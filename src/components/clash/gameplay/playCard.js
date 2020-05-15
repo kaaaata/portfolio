@@ -72,28 +72,20 @@ export const playCard = (state, card, player, location, index) => {
     return;
   }
 
-  if (!state.winner && !isMockCard && location) {
+  if (!state.winner && !isMockCard) {
     renderActions.push([
       actionGenerators.addCardToStack(state, card),
-      actionGenerators.removeCard(state, player, location, index)
-    ]);
+      location && actionGenerators.removeCard(state, player, location, index)
+    ].filter(Boolean));
   }
 
   if (!state.winner) {
+    renderActions.push([]);
     renderActions.push([]);
   }
 
   if (!state.winner && customEffect) {
     customCardEffects[name](state, card, player);
-  }
-
-  if (!state.winner && statBonuses) {
-    Object.keys(statBonuses).forEach(stat => {
-      const amount = statBonuses[stat];
-      const sign = amount > 0 ? '+' : '-';
-      logs.push(`${player} receives ${sign}${amount} ${stat} until end of battle`);
-    });
-    renderActions.push([actionGenerators.setStats(state, player, statBonuses)]);
   }
 
   if (!state.winner && shuffleCardCopiesIntoOpponentsPiles) {
@@ -107,7 +99,7 @@ export const playCard = (state, card, player, location, index) => {
   if (!state.winner && playCopiesOfCards) {
     playCopiesOfCards.forEach(cardName => {
       logs.push(`${player} plays a copy of ${cardName}`);
-      playCard(state, { ...cards[cardName], player }, player);
+      playCard(state, cards[cardName], player);
     });
   }
 
@@ -120,7 +112,6 @@ export const playCard = (state, card, player, location, index) => {
     if (!pierces) {
       totalDamageDealt = Math.max(totalDamageDealt - state[opponent].shields, 0);
     }
-    logs.push(`${opponent} receives ${totalDamageDealt} damage`);
 
     let totalShieldsGained = defense;
     if (defense) {
@@ -128,7 +119,9 @@ export const playCard = (state, card, player, location, index) => {
         totalShieldsGained += state[player].statBonuses.defense;
         totalShieldsGained += state[player].stats.defense;
       }
-      logs.push(`${player} gains ${totalShieldsGained} shields`);
+      if (!state.winner) {
+        logs.push(`${player} gains ${totalShieldsGained} shields`);
+      }
       if (totalDamageDealt === 0) {
         // if no damage is dealt, set shields independently of damage ticks.
         // otherwise, set the shields on the same tick as the first instance of damage. (below)
@@ -136,12 +129,16 @@ export const playCard = (state, card, player, location, index) => {
       }
     }
 
+    if (attack) {
+      logs.push(`${opponent} receives ${totalDamageDealt} damage`);
+    }
+
     totalDamageDealt = Math.min(totalDamageDealt, state[opponent].deck.length);
 
     for (let i = 0; i < totalDamageDealt; i++) {
       const removedCard = state[opponent].deck.getTopCard();
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
-      logs.push(`${opponent} ${dealsBanishingDamage ? 'banishes' : 'discards'}: ${removedCard.name}`);
+      logs.push(`${opponent} ${dealsBanishingDamage ? 'banishes' : 'discards'} ${removedCard.name}`);
       const damageAction = [
         actionGenerators.removeCard(state, opponent, 'deck', 'top'),
         actionGenerators.addCard(state, removedCard, opponent, destination, 'top')
@@ -172,7 +169,7 @@ export const playCard = (state, card, player, location, index) => {
 
     for (let i = 0; i < totalHeal; i++) {
       const healedCard = state[player].discard.getTopCard();
-      logs.push(`${player} heals: ${healedCard.name}`);
+      logs.push(`${player} heals ${healedCard.name}`);
       renderActions.push([
         actionGenerators.removeCard(state, player, 'discard', 'top'),
         actionGenerators.addCard(state, healedCard, player, 'deck', 'random')
@@ -190,7 +187,7 @@ export const playCard = (state, card, player, location, index) => {
       }
 
       const healedCard = state[opponent].discard.getTopCard();
-      logs.push(`${opponent} heals: ${healedCard}`);
+      logs.push(`${opponent} heals ${healedCard}`);
       renderActions.push([
         actionGenerators.removeCard(state, opponent, 'discard', 'top'),
         actionGenerators.addCard(state, healedCard, opponent, 'deck', 'random')
@@ -222,6 +219,16 @@ export const playCard = (state, card, player, location, index) => {
         break;
       }
     }
+  }
+
+  if (!state.winner && statBonuses) {
+    Object.keys(statBonuses).forEach(stat => {
+      const amount = statBonuses[stat];
+      logs.push(
+        `${player} receives +${amount} ${stat[0].toUpperCase()}${stat.slice(1)} until end of battle`
+      );
+    });
+    renderActions.push([actionGenerators.setStats(state, player, statBonuses)]);
   }
 
   if (state.stack.length && !isMockCard) {

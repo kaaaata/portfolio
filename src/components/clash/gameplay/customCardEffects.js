@@ -3,33 +3,23 @@ import { addCardCopiesIntoPiles } from './addCardCopiesIntoPiles';
 import { playCard } from './playCard';
 
 export const customCardEffects = {
-  'Weapons Guy': (state, card, player) => {
-    // Shuffle 2 random attacks into your deck.
-    const twoRandomAttacks = [
-      { card: cardsArray.getRandomCardByFilter(card => card.type === 'attack').name, pile: 'deck' },
-      { card: cardsArray.getRandomCardByFilter(card => card.type === 'attack').name, pile: 'deck' }
-    ];
-    addCardCopiesIntoPiles(state, twoRandomAttacks, player);
-  },
   'Brawler': (state, card, player) => {
-    // Play 2 random attacks from your discard pile, then banish them.
-    for (let i = 0; i < 2; i++) {
-      const attackIndex = state[player].discard.getRandomCardIndexByFilter(
-        card => card.type === 'attack'
+    // Play a random attack from your discard pile, then banish it.
+    const attackIndex = state[player].discard.getRandomCardIndexByFilter(
+      card => card.type === 'attack'
+    );
+    if (attackIndex !== -1) {
+      playCard(
+        state,
+        { ...state[player].discard[attackIndex], banishesOnPlay: true },
+        player,
+        'discard',
+        attackIndex
       );
-      if (attackIndex !== -1) {
-        playCard(
-          state,
-          { ...state[player].discard[attackIndex], banishesOnPlay: true },
-          player,
-          'discard',
-          attackIndex
-        );
-      }
     }
   },
   'Recruiter': (state, card, player) => {
-    // Play a random Ally from your discard pile, then banish them.
+    // Play a random ally from your discard pile, then banish it.
     const allyIndex = state[player].discard.getRandomCardIndexByFilter(
       card => card.type === 'ally'
     );
@@ -44,7 +34,7 @@ export const customCardEffects = {
     }
   },
   'Cleric': (state, card, player) => {
-    // When played or discarded, shuffle a random Potion from your banish into your deck.
+    // When played or discarded, shuffle a random potion from your banish into your deck.
     const potionIndex = state[player].banish.getRandomCardIndexByFilter(
       card => card.type === 'potion' && !card.isToken
     );
@@ -73,9 +63,20 @@ export const customCardEffects = {
   },
   'Magic Scroll': (state, card, player) => {
     // Play a copy of a random magic attack.
-    const magic = cardsArray.getRandomCardByFilter(
-      card => card.type === 'magic' && card.name !== 'Magic Scroll'
+    const randomCard = cardsArray.getRandomCardByFilter(
+      card => !card.isToken && card.name !== 'Magic Scroll' && card.rarity !== 'legendary'
     );
-    playCard(state, { ...magic, player }, player);
+    state.logs.push(`${player} plays a copy of ${randomCard.name}`);
+    playCard(state, randomCard, player);
+  },
+  'Edible Slime': (state, card, player) => {
+    // Shuffle 3 random non-legendary cards into your deck.
+    const copies = [1, 2, 3].map(i => ({
+      card: cardsArray.getRandomCardByFilter(
+        card => !card.isToken && card.name !== 'Edible Slime' && card.rarity !== 'legendary'
+      ).name,
+      pile: 'deck'
+    }));
+    addCardCopiesIntoPiles(state, copies, player);
   }
 };

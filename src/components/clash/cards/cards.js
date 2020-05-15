@@ -28,48 +28,13 @@ export const genStartingDeck = () => [
 
   'Crush',
   'Crush',
-  'Slice',
-  'Fire',
-  'Fire',
-
   'Parry',
-  'Healing Potion',
   'Fire',
-  'Weapons Guy',
-  'Protect'
-];
+  'Fire',
 
-export const genSampleEndgameDeck = () => [
   'Healing Potion',
-  'Healing Potion',
-  'Catherine the Great',
-  'Strike',
-  'Strike',
-  'Strike',
-  'Strike',
-  'Strike',
-  'Strike',
-  'Strike',
-
-  'Mermaid',
-  'Chop',
-  'Fire',
-  'Fire',
-  'Fire',
-  'Slash',
-  'Crush',
-  'Heavy Strike',
-  'Heavy Strike',
-  'Heavy Strike',
-
-  'Sunder',
-  'Sunder',
-  'Sunder',
-  'Healing Blade',
-  'Healing Blade',
-  'Tentacles',
-  'Tentacles',
-  'Elf',
-  'Mage',
-  'Weapons Guy',
+  'Paladin',
+  'Slice',
+  'Slice',
+  'Tentacles'
 ];
