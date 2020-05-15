@@ -30,6 +30,10 @@ const tabletAndDesktop = css => `
   }
 `;
 
+const isCssValueValidSingular = value => (
+  (typeof value === 'string' && value !== '') || typeof value === 'number'
+);
+
 export const mq = {
   phone,
   tablet,
@@ -47,10 +51,6 @@ export const mq = {
    */
   genResponsiveCss: (cssProperty, cssValue, forcePixels = true) => {
     if (typeof cssProperty !== 'string' || cssProperty === '') return '';
-
-    const isCssValueValidSingular = value => (
-      (typeof value === 'string' && value !== '') || typeof value === 'number'
-    );
 
     if (isCssValueValidSingular(cssValue)) {
       const value = forcePixels

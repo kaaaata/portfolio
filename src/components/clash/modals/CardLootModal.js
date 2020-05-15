@@ -82,7 +82,7 @@ export const CardLootModal = ({
                 dispatch(actions.addCardsToCollection([i]));
               }
             }}
-            _css={selectedCards.hasOwnProperty(index) ? 'visibility: hidden;' : ''}
+            isHidden={selectedCards.hasOwnProperty(index)}
           />
         ))}
       </FlexContainer>

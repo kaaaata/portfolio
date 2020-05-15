@@ -1,11 +1,13 @@
 import { css } from '@emotion/core'; /** @jsx jsx */
 import { colors } from '../styles';
 
-export const cardBodyCss = (rarityColor) => css`
+export const _cardCss = (rarityColor) => css`
   position: absolute;
   width: 100%;
   height: 100%;
   text-shadow: 2px 2px 4px ${colors.black};
+  border: 2px solid ${rarityColor};
+  border-radius: 5px;
 
   .name {
     color: ${rarityColor};

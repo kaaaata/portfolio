@@ -34,7 +34,7 @@ export const Town = () => {
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('Choose an action!');
-  const [activeModal, setActiveModal] = useState(null);
+  const [activeModal, setActiveModal] = useState('Next Day');
 
   useEffect(() => {
     if (feed.length) {
