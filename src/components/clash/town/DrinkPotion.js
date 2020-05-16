@@ -18,7 +18,7 @@ export const DrinkPotion = ({ closeModal }) => {
       page={page}
       pages={[
         {
-          text: 'The stat boost lasts until the end of today\'s next battle.',
+          text: 'The stat boost lasts until the end of the day.',
           options: [
             {
               name: 'Attack Potion',
