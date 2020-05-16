@@ -15,7 +15,9 @@ export default (state = initialState, action) => {
     case 'ADD_CARDS_TO_COLLECTION':
       return {
         ...state,
-        deck: [...state.deck, ...action.payload]
+        deck: typeof action.payload === 'string'
+          ? [...state.deck, action.payload]
+          : [...state.deck, ...action.payload]
       };
     default:
       return state;

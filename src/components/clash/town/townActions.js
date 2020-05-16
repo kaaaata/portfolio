@@ -1,6 +1,6 @@
 export const townActions = [
   {
-    name: 'Go Exploring',
+    name: 'Explore the Area',
     energy: 4,
     image: 'map',
     description: 'Get a random event.'

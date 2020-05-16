@@ -14,6 +14,7 @@ import { DrinkPotion } from './DrinkPotion';
 import { townActions } from './townActions';
 import { monstersByTier } from '../monsters/monsters';
 import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
+import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
 
 export const Town = () => {
@@ -85,6 +86,9 @@ export const Town = () => {
       break;
     case 'Drink Potion':
       modal = <DrinkPotion closeModal={() => setActiveModal(null)} />;
+      break;
+    case 'Explore the Area':
+      modal = <RandomEvent closeModal={() => setActiveModal(null)} />;
       break;
     default:
       break;

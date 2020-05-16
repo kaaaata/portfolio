@@ -24,7 +24,7 @@ export const DrinkPotion = ({ closeModal }) => {
               name: 'Attack Potion',
               goodText: 'Gain +1 Attack.',
               onClick: () => {
-                setPage2Text('You feel a bit stronger.');
+                setPage2Text('You feel a little stronger.');
                 setPage(2);
                 dispatch(actions.setStats({
                   stats: { attack: 1 },
@@ -40,7 +40,7 @@ export const DrinkPotion = ({ closeModal }) => {
               name: 'Magic Potion',
               goodText: 'Gain +1 Magic.',
               onClick: () => {
-                setPage2Text('You feel a bit wiser.');
+                setPage2Text('You feel a little wiser.');
                 setPage(2);
                 dispatch(actions.setStats({
                   stats: { magic: 1 },
@@ -56,7 +56,7 @@ export const DrinkPotion = ({ closeModal }) => {
               name: 'Defense Potion',
               goodText: 'Gain +1 Defense.',
               onClick: () => {
-                setPage2Text('You feel a bit tougher.');
+                setPage2Text('You feel a little tougher.');
                 setPage(2);
                 dispatch(actions.setStats({
                   stats: { defense: 1 },

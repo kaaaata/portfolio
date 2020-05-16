@@ -79,7 +79,7 @@ export const CardLootModal = ({
             onClick={() => {
               if (cardsTakenCount < maxCardsToTake) {
                 setSelectedCards({ ...selectedCards, [index]: true });
-                dispatch(actions.addCardsToCollection([i]));
+                dispatch(actions.addCardsToCollection(i));
               }
             }}
             isHidden={selectedCards.hasOwnProperty(index)}
