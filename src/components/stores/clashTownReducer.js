@@ -7,6 +7,7 @@ const initialState = {
   canReceiveBlessing: false,
   canRecoverLoot: false,
   canFightElite: false,
+  canDrinkPotion: true,
   feed: ['Welcome to town!']
 };
 
@@ -25,6 +26,7 @@ export default (state = initialState, action) => {
         day: newDay,
         canReceiveBlessing: newDay % 4 === 0,
         canFightElite: newDay % 3 === 0 && newDay !== 12,
+        canDrinkPotion: true,
         feed: [
           "It's a new day.",
           ...action.payload.feedInitialMessages,
@@ -61,6 +63,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         canFightElite: false
+      };
+    case 'SET_CAN_DRINK_POTION_FALSE':
+      return {
+        ...state,
+        canDrinkPotion: false
       };
     default:
       return state;

@@ -41,7 +41,7 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
     // dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
-    // dispatch(actions.setYourHand(['Magic Scroll', 'Catherine the Great', 'Edible Slime'])); // testing
+    dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
     // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur', 'Minotaur'])); // testing
     dispatch(actions.setBattleRewardCards(

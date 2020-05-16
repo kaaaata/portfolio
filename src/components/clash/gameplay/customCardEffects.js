@@ -4,18 +4,44 @@ import { playCard } from './playCard';
 
 export const customCardEffects = {
   'Brawler': (state, card, player) => {
-    // Play a random attack from your discard pile, then banish it.
-    const attackIndex = state[player].discard.getRandomCardIndexByFilter(
-      card => card.type === 'attack'
+    // Shuffle a copy of a random non-legendary attack into your deck.
+    const attack = cardsArray.getRandomCardByFilter(
+      card => card.type === 'attack' && card.rarity !== 'legendary'
     );
-    if (attackIndex !== -1) {
-      playCard(
-        state,
-        { ...state[player].discard[attackIndex], banishesOnPlay: true },
-        player,
-        'discard',
-        attackIndex
+    addCardCopiesIntoPiles(state, [{ card: attack.name, pile: 'deck' }], player);
+  },
+  'Minotaur': (state, card, player) => {
+    // Play 2 random attacks from your discard, then banish them.
+    for (let i = 0; i < 2; i++) {
+      const attackIndex = state[player].discard.getRandomCardIndexByFilter(
+        card => card.type === 'attack'
       );
+      if (attackIndex !== -1) {
+        playCard(
+          state,
+          { ...state[player].discard[attackIndex], banishesOnPlay: true },
+          player,
+          'discard',
+          attackIndex
+        );
+      }
+    }
+  },
+  'Mage': (state, card, player) => {
+    // Play 2 random magic attacks from your discard, then banish them.
+    for (let i = 0; i < 2; i++) {
+      const attackIndex = state[player].discard.getRandomCardIndexByFilter(
+        card => card.type === 'magic'
+      );
+      if (attackIndex !== -1) {
+        playCard(
+          state,
+          { ...state[player].discard[attackIndex], banishesOnPlay: true },
+          player,
+          'discard',
+          attackIndex
+        );
+      }
     }
   },
   'Recruiter': (state, card, player) => {
@@ -62,18 +88,26 @@ export const customCardEffects = {
     }
   },
   'Magic Scroll': (state, card, player) => {
-    // Play a copy of a random magic attack.
+    // Play a copy of a random non-legendary card.
     const randomCard = cardsArray.getRandomCardByFilter(
-      card => !card.isToken && card.name !== 'Magic Scroll' && card.rarity !== 'legendary'
+      card => (
+        !card.isToken
+        && card.name !== 'Magic Scroll'
+        && card.rarity !== 'legendary'
+      )
     );
     state.logs.push(`${player} plays a copy of ${randomCard.name}`);
     playCard(state, randomCard, player);
   },
   'Edible Slime': (state, card, player) => {
-    // Shuffle 3 random non-legendary cards into your deck.
+    // Shuffle 3 random common or uncommon cards into your deck.
     const copies = [1, 2, 3].map(i => ({
       card: cardsArray.getRandomCardByFilter(
-        card => !card.isToken && card.name !== 'Edible Slime' && card.rarity !== 'legendary'
+        card => (
+          !card.isToken
+          && card.name !== 'Edible Slime'
+          && ['common', 'uncommon'].includes(card.rarity)
+        )
       ).name,
       pile: 'deck'
     }));

@@ -10,6 +10,7 @@ import { WorkForMoney } from './WorkForMoney';
 import { ReceiveBlessing } from './ReceiveBlessing';
 import { RecoverLoot } from './RecoverLoot';
 import { MonsterPreview } from '../modals/MonsterPreview';
+import { DrinkPotion } from './DrinkPotion';
 import { townActions } from './townActions';
 import { monstersByTier } from '../monsters/monsters';
 import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
@@ -22,6 +23,7 @@ export const Town = () => {
     canReceiveBlessing,
     canRecoverLoot,
     canFightElite,
+    canDrinkPotion,
     feed
   } = useSelector(state => ({
     energy: state.clashTown.energy,
@@ -29,12 +31,13 @@ export const Town = () => {
     canReceiveBlessing: state.clashTown.canReceiveBlessing,
     canRecoverLoot: state.clashTown.canRecoverLoot,
     canFightElite: state.clashTown.canFightElite,
+    canDrinkPotion: state.clashTown.canDrinkPotion,
     feed: state.clashTown.feed
   }), shallowEqual);
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('Choose an action!');
-  const [activeModal, setActiveModal] = useState('Next Day');
+  const [activeModal, setActiveModal] = useState(null);
 
   useEffect(() => {
     if (feed.length) {
@@ -80,6 +83,9 @@ export const Town = () => {
     case 'Recover Loot':
       modal = <RecoverLoot closeModal={() => setActiveModal(null)} />;
       break;
+    case 'Drink Potion':
+      modal = <DrinkPotion closeModal={() => setActiveModal(null)} />;
+      break;
     default:
       break;
   }
@@ -121,6 +127,7 @@ export const Town = () => {
                   (i.name === 'Receive Blessing' && !canReceiveBlessing)
                   || (i.name === 'Elite Encounter!' && !canFightElite)
                   || (i.name === 'Recover Loot' && (!canRecoverLoot))
+                  || (i.name === 'Drink Potion' && (!canDrinkPotion))
                 }
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
@@ -136,6 +143,9 @@ export const Town = () => {
                     }
                     if (i.name === 'Beg for Change') {
                       dispatch(actions.addTownFeedText(`test text ${feed.length + 1}`));
+                    }
+                    if (i.name === 'Drink Potion') {
+                      dispatch(actions.setCanDrinkPotionFalse());
                     }
                     dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
                     setActiveModal(i.name);

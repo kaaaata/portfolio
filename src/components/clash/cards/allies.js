@@ -2,11 +2,18 @@ import { createCard } from './createCard';
 
 export const allies = [
   {
-    name: 'Soldier',
+    name: 'Swordsman',
     image: 'soldier',
     rarity: 'common',
     attack: 3,
     defense: 1
+  },
+  {
+    name: 'Spearman',
+    image: 'red_spear_guy',
+    rarity: 'common',
+    attack: 2,
+    defense: 2
   },
   {
     name: 'Recruiter',
@@ -83,10 +90,10 @@ export const allies = [
     name: 'Brawler',
     image: 'brawler',
     rarity: 'uncommon',
-    attack: 2,
+    attack: 3,
     defense: 2,
     customEffect: true,
-    description: 'Play a random attack from your discard pile, then banish it.'
+    description: 'Shuffle a copy of a random non-legendary attack into your deck.'
   },
   {
     name: 'Warlock',
@@ -110,34 +117,17 @@ export const allies = [
     name: 'Minotaur',
     image: 'minotaur',
     rarity: 'rare',
-    attack: 4,
-    defense: 0,
-    statBonuses: {
-      attack: 1
-    },
-    description: 'Gain +1 Attack for the rest of the battle.'
-  },
-  {
-    name: 'Defender',
-    image: 'red_spear_guy',
-    rarity: 'rare',
     attack: 0,
-    defense: 4,
-    statBonuses: {
-      defense: 1
-    },
-    description: 'Gain +1 Defense for the rest of the battle.'
+    defense: 0,
+    description: 'Play 2 random attacks from your discard, then banish them.'
   },
   {
     name: 'Mage',
     image: 'mage',
     rarity: 'rare',
-    attack: 2,
-    defense: 2,
-    statBonuses: {
-      magic: 1
-    },
-    description: 'Gain +1 Magic for the rest of the battle.'
+    attack: 0,
+    defense: 0,
+    description: 'Gain 2 random magic attacks from your discard, then banish them.'
   },
   {
     name: 'Vampire',

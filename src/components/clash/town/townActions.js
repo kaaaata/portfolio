@@ -1,7 +1,7 @@
 export const townActions = [
   {
     name: 'Go Exploring',
-    energy: 5,
+    energy: 4,
     image: 'map',
     description: 'Get a random event.'
   },
@@ -25,14 +25,14 @@ export const townActions = [
   },
 
   {
-    name: 'Donate Cards',
-    energy: 4,
-    image: 'weapons_guy',
-    description: 'Donate away cards you don\'t need.'
+    name: 'Drink Potion',
+    energy: 3,
+    image: 'blue_potion',
+    description: 'Gain a temporary stat boost.'
   },
   {
     name: 'Recover Loot',
-    energy: 4,
+    energy: 5,
     image: 'scavenge',
     description: 'Recover some loot after a defeat.'
   },

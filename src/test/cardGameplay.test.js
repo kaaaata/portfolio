@@ -93,10 +93,26 @@ test('Piercing damage aka "Pierces" works (Fire)', () => {
   expect(state.enemy.deck.length).toBe(10 - card.attack);
 });
 
-test('Stat bonuses works (Mage)', () => {
-  const card = cards['Mage'];
-  simulatePlayCard(card);
-  expect(state.you.statBonuses.magic = card.statBonuses.magic);
+test('Stat bonuses works (Attack Potion, Magic Potion, Defense Potion, Slice)', () => {
+  const attackPotion = cards['Attack Potion'];
+  const magicPotion = cards['Magic Potion'];
+  const defensePotion = cards['Defense Potion'];
+  state.you.deck.push(attackPotion);
+  state.you.deck.push(magicPotion);
+  state.you.deck.push(defensePotion);
+  simulatePlayCard(cards['Slice'], 'enemy');
+  expect(state.you.statBonuses.attack = 1);
+  expect(state.you.statBonuses.magic = 1);
+  expect(state.you.statBonuses.defense = 1);
+
+  resetState();
+
+  simulatePlayCard(attackPotion);
+  simulatePlayCard(magicPotion);
+  simulatePlayCard(defensePotion);
+  expect(state.you.statBonuses.attack = 1);
+  expect(state.you.statBonuses.magic = 1);
+  expect(state.you.statBonuses.defense = 1);
 });
 
 test('Attacks are buffed by Attack, except when attack is 0 (Strike)', () => {
@@ -148,11 +164,11 @@ test('Shield is buffed by Defense, expect when defense is 0 (Slash, Strike)', ()
   expect(state.you.shields).toBe(0);
 });
 
-test('Allies are not buffed by stats (Soldier)', () => {
+test('Allies are not buffed by stats (Swordsman)', () => {
   state.you.statBonuses.attack = 1;
   state.you.statBonuses.defense = 1;
 
-  const card = cards['Soldier'];
+  const card = cards['Swordsman'];
   simulatePlayCard(card);
   expect(state.enemy.deck.length).toBe(10 - card.attack);
   expect(state.you.shields).toBe(card.defense);
@@ -235,13 +251,17 @@ test('Dealing damage greater than deck size should be handled well', () => {
   expect(state.you.deck.length).toBe(0);
 });
 
-test('CUSTOM CARD EFFECT (Brawler, Strike)', () => {
+test('Potions can deal damage using the attack property (Explosive Potion)', () => {
+  const potion = cards['Explosive Potion'];
+  simulatePlayCard(potion);
+  expect(state.enemy.deck.length).toBe(10 - potion.attack);
+});
+
+test('CUSTOM CARD EFFECT (Brawler)', () => {
   const brawler = cards['Brawler'];
-  const strike = cards['Strike'];
   simulatePlayCard(brawler);
-  expect(state.enemy.deck.length).toBe(10 - brawler.attack - strike.attack);
-  expect(state.you.discard.length).toBe(10);
-  expect(state.you.banish.filter(card => card.name === 'Strike').length).toBe(11);
+  expect(state.you.deck.filter(i => i.type === 'attack').length).toBe(11);
+  expect(state.you.deck.filter(i => i.rarity === 'legendary').length).toBe(0);
 });
 
 test('CUSTOM CARD EFFECT (Recruiter, Mage)', () => {
@@ -282,4 +302,6 @@ test('CUSTOM CARD EFFECT (Edible Slime)', () => {
   const card = cards['Edible Slime'];
   simulatePlayCard(card);
   expect(state.you.deck.length).toBe(13)
+  expect(state.you.deck.filter(i => ['common', 'uncommon'].includes(i.rarity)).length)
+    .toBe(state.you.deck.length)
 });

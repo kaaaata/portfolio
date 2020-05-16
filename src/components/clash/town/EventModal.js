@@ -32,7 +32,7 @@ export const EventModal = ({
   page,
   pages /* pages: [{
     text:String|Node,
-    options:[{ name:String, goodText:String, badText:String, onClick:Func }]
+    options:[{ name:String, goodText:String, badText:String, onClick:Func, onMouseEnter:Func }]
   }] */
 }) => {
   const text = pages[page - 1].text;
@@ -55,7 +55,7 @@ export const EventModal = ({
           {typeof text === 'string' ? <Text type='paragraph'>{pages[page - 1].text}</Text> : text}
           <div>
             {pages[page - 1].options.map(i => (
-              <Button key={i.name} onClick={i.onClick}>
+              <Button key={i.name} onClick={i.onClick} onMouseEnter={i.onMouseEnter}>
                 <Text type='small' inline>[{i.name}]</Text>
                 {i.goodText && <Text type='small' inline color='green'> {i.goodText}</Text>}
                 {i.badText && <Text type='small' inline color='red'> {i.badText}</Text>}

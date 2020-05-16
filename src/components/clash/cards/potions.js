@@ -43,6 +43,16 @@ export const potions = [
     }
   },
   {
+    name: 'Explosive Potion',
+    image: 'explosive_potion',
+    rarity: 'common',
+    attack: 3,
+    onDiscard: {
+      attack: 3
+    },
+    description: 'Deal 3 damage.'
+  },
+  {
     name: 'Edible Slime',
     image: 'slime_potion',
     rarity: 'uncommon',
@@ -50,7 +60,37 @@ export const potions = [
     onDiscard: {
       customEffect: true
     },
-    description: 'Shuffle 3 random non-legendary cards into your deck.'
+    description: 'Shuffle 3 random common or uncommon cards into your deck.'
+  },
+  {
+    name: 'Attack Potion',
+    image: 'attack_potion',
+    rarity: 'rare',
+    statBonuses: { attack: 1 },
+    onDiscard: {
+      statBonuses: { attack: 1 }
+    },
+    description: 'Gain +1 Attack for the rest of the battle.'
+  },
+  {
+    name: 'Magic Potion',
+    image: 'magic_potion',
+    rarity: 'rare',
+    statBonuses: { magic: 1 },
+    onDiscard: {
+      statBonuses: { magic: 1 }
+    },
+    description: 'Gain +1 Magic for the rest of the battle.'
+  },
+  {
+    name: 'Defense Potion',
+    image: 'defense_potion',
+    rarity: 'rare',
+    statBonuses: { defense: 1 },
+    onDiscard: {
+      statBonuses: { defense: 1 }
+    },
+    description: 'Gain +1 Defense for the rest of the battle.'
   },
   {
     name: 'Golden Goblet',

@@ -4,6 +4,7 @@ import { Text } from './Text';
 
 export const Button = ({
   onClick,
+  onMouseEnter,
   mini = false,
   isDisabled = false,
   color,
@@ -12,6 +13,7 @@ export const Button = ({
   return (
     <button
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
       css={css`
         background: ${isDisabled ? colors.greyDark : colors.slate};
         padding: 0 10px;
