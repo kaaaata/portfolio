@@ -169,8 +169,7 @@ export const Card = ({
   `;
 
   useEffect(() => {
-    // i have no idea why setTimeout(0) is needed here.
-    // without it, the animation only works 50% of the time.
+    // need this garbage to properly restart animation
     setTimeout(() => {
       if (transformCss === animatedEntryStartingTransformCss) {
         setTransformCss(restingPositionTransformCss);

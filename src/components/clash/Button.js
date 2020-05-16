@@ -8,6 +8,7 @@ export const Button = ({
   mini = false,
   isDisabled = false,
   color,
+  className,
   _css = '',
   children // String|Node
 }) => {
@@ -15,6 +16,7 @@ export const Button = ({
     <button
       onClick={onClick}
       onMouseEnter={onMouseEnter}
+      className={`button ${className}`}
       css={css`
         background: ${isDisabled ? colors.greyDark : colors.slate};
         padding: 0 10px;

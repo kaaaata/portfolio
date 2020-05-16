@@ -9,12 +9,11 @@ export const DrinkPotion = ({ closeModal }) => {
   const [page, setPage] = useState(1);
   const [flavorText, setFlavorText] = useState('');
   const [townFeedText, setTownFeedText] = useState('');
-  const [image, setImage] = useState('attack_potion');
 
   return (
     <EventModal
       title='Once a day, you can drink a potion.'
-      image={image}
+      image='blue_potion'
       page={page}
       pages={[
         {
@@ -37,8 +36,7 @@ export const DrinkPotion = ({ closeModal }) => {
                   operation: 'adjust'
                 }));
                 setTownFeedText('Gained temporary boost: +1 Attack');
-              },
-              onMouseEnter: () => setImage('attack_potion')
+              }
             },
             {
               name: 'Magic Potion',
@@ -53,8 +51,7 @@ export const DrinkPotion = ({ closeModal }) => {
                   operation: 'adjust'
                 }));
                 setTownFeedText('Gained temporary boost: +1 Magic');
-              },
-              onMouseEnter: () => setImage('magic_potion')
+              }
             },
             {
               name: 'Defense Potion',
@@ -69,8 +66,7 @@ export const DrinkPotion = ({ closeModal }) => {
                   operation: 'adjust'
                 }));
                 setTownFeedText('Gained temporary boost: +1 Defense');
-              },
-              onMouseEnter: () => setImage('defense_potion')
+              }
             }
           ]
         },
