@@ -2,6 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { Modal } from '../modals/Modal';
 import { Text } from '../Text';
 import { FlexContainer, Image } from '../../particles';
+import { effects } from '../../styles';
 import { Button } from '../Button';
 
 const eventModalCss = css`
@@ -34,36 +35,46 @@ export const EventModal = ({
     text:String|Node,
     options:[{ name:String, goodText:String, badText:String, onClick:Func, onMouseEnter:Func }]
   }] */
-}) => {
-  const text = pages[page - 1].text;
-
-  return (
-    <Modal halfModal title={title}>
-      <FlexContainer justifyContent='flex-start' _css={eventModalCss}>
-        <Image
-          src={`/clash/${image}.png`}
-          height={250}
-          width={250}
-          size='contain'
-          {...imageProps}
-        />
-        <FlexContainer
-          justifyContent='space-between'
-          flexDirection='column'
-          className='body'
+}) => (
+  <Modal halfModal title={title}>
+    <FlexContainer justifyContent='flex-start' _css={eventModalCss}>
+      <Image
+        src={`/clash/${image}.png`}
+        height={250}
+        width={250}
+        size='contain'
+        _css={effects.fadeInWithDelay(0)}
+        {...imageProps}
+      />
+      <FlexContainer
+        justifyContent='space-between'
+        flexDirection='column'
+        className='body'
+      >
+        <Text
+          key={page}
+          type='paragraph'
+          _css={effects.fadeInWithDelay(page === 1 ? 0.5 : 0)}
         >
-          {typeof text === 'string' ? <Text type='paragraph'>{pages[page - 1].text}</Text> : text}
-          <div>
-            {pages[page - 1].options.map(i => (
-              <Button key={i.name} onClick={i.onClick} onMouseEnter={i.onMouseEnter}>
-                <Text type='small' inline>[{i.name}]</Text>
-                {i.goodText && <Text type='small' inline color='green'> {i.goodText}</Text>}
-                {i.badText && <Text type='small' inline color='red'> {i.badText}</Text>}
-              </Button>
-            ))}
-          </div>
-        </FlexContainer>
+          {pages[page - 1].text}
+        </Text>
+        <div>
+          {pages[page - 1].options.map((option, index) => (
+            <Button
+              key={`${page}_${option.name}`}
+              onClick={option.onClick}
+              onMouseEnter={option.onMouseEnter}
+              _css={effects.fadeInWithDelay((page === 1 ? 1 : 0.5) + index * 0.5)}
+            >
+              <Text type='small'>
+                [{option.name}]
+                {option.goodText && <span className='green'> {option.goodText}</span>}
+                {option.badText && <span className='red'> {option.badText}</span>}
+              </Text>
+            </Button>
+          ))}
+        </div>
       </FlexContainer>
-    </Modal>
-  );
-};
+    </FlexContainer>
+  </Modal>
+);

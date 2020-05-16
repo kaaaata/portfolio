@@ -7,7 +7,7 @@ export const DrinkPotion = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
-  const [page2Text, setPage2Text] = useState('');
+  const [flavorText, setFlavorText] = useState('');
   const [townFeedText, setTownFeedText] = useState('');
   const [image, setImage] = useState('attack_potion');
 
@@ -18,13 +18,17 @@ export const DrinkPotion = ({ closeModal }) => {
       page={page}
       pages={[
         {
-          text: 'The stat boost lasts until the end of the day.',
+          text: (
+            <React.Fragment>
+              You see three <span className='blue'>bottles</span> in front of you.
+            </React.Fragment>
+          ),
           options: [
             {
               name: 'Attack Potion',
-              goodText: 'Gain +1 Attack.',
+              goodText: 'Gain +1 attack for the rest of the day.',
               onClick: () => {
-                setPage2Text('You feel a little stronger.');
+                setFlavorText('stronger');
                 setPage(2);
                 dispatch(actions.setStats({
                   stats: { attack: 1 },
@@ -38,9 +42,9 @@ export const DrinkPotion = ({ closeModal }) => {
             },
             {
               name: 'Magic Potion',
-              goodText: 'Gain +1 Magic.',
+              goodText: 'Gain +1 magic for the rest of the day.',
               onClick: () => {
-                setPage2Text('You feel a little wiser.');
+                setFlavorText('wiser');
                 setPage(2);
                 dispatch(actions.setStats({
                   stats: { magic: 1 },
@@ -54,9 +58,9 @@ export const DrinkPotion = ({ closeModal }) => {
             },
             {
               name: 'Defense Potion',
-              goodText: 'Gain +1 Defense.',
+              goodText: 'Gain +1 defense for the rest of the day.',
               onClick: () => {
-                setPage2Text('You feel a little tougher.');
+                setFlavorText('tougher');
                 setPage(2);
                 dispatch(actions.setStats({
                   stats: { defense: 1 },
@@ -71,7 +75,11 @@ export const DrinkPotion = ({ closeModal }) => {
           ]
         },
         {
-          text: page2Text,
+          text: (
+            <React.Fragment>
+              You feel a little <span className='yellow'>{flavorText}</span>.
+            </React.Fragment>
+          ),
           options: [{
             name: 'Continue',
             onClick: () => {

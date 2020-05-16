@@ -114,7 +114,7 @@ export const attacks = [
     defense: 0,
     playCopiesOfCards: ['Arrow', 'Arrow'],
     statBonuses: { attack: 1 },
-    description: 'Gain +1 Attack for the rest of the battle. Play two copies of Arrow.'
+    description: 'Gain +1 attack for the rest of the battle. Play two copies of Arrow.'
   },
   {
     name: 'Ice Blade',

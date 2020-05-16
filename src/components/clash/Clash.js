@@ -7,6 +7,7 @@ import { Battle } from './battle/Battle';
 import { TopNav } from './TopNav';
 import { Spacer } from '../particles';
 import { useSelector, shallowEqual } from 'react-redux';
+import { colors } from '../styles';
 
 const clashCss = css`
   width: 1000px;
@@ -20,6 +21,12 @@ const clashCss = css`
     height: 100%;
     position: absolute;
   }
+
+  .sand { color: ${colors.sand}; }
+  .green { color: ${colors.green}; }
+  .blue { color: ${colors.blue}; }
+  .red { color: ${colors.red}; }
+  .yellow { color: ${colors.yellow}; }
 `;
 
 export const Clash = () => {

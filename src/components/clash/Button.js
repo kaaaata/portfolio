@@ -8,6 +8,7 @@ export const Button = ({
   mini = false,
   isDisabled = false,
   color,
+  _css = '',
   children // String|Node
 }) => {
   return (
@@ -30,6 +31,8 @@ export const Button = ({
         &:hover {
           ${isDisabled ? '' : `background: ${colors.slateLight};`}
         }
+
+        ${_css}
       `}
     >
       {typeof children === 'string' ? (

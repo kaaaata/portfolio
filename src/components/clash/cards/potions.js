@@ -70,7 +70,7 @@ export const potions = [
     onDiscard: {
       statBonuses: { attack: 1 }
     },
-    description: 'Gain +1 Attack for the rest of the battle.'
+    description: 'Gain +1 attack for the rest of the battle.'
   },
   {
     name: 'Magic Potion',
@@ -80,7 +80,7 @@ export const potions = [
     onDiscard: {
       statBonuses: { magic: 1 }
     },
-    description: 'Gain +1 Magic for the rest of the battle.'
+    description: 'Gain +1 magic for the rest of the battle.'
   },
   {
     name: 'Defense Potion',
@@ -90,7 +90,7 @@ export const potions = [
     onDiscard: {
       statBonuses: { defense: 1 }
     },
-    description: 'Gain +1 Defense for the rest of the battle.'
+    description: 'Gain +1 defense for the rest of the battle.'
   },
   {
     name: 'Golden Goblet',

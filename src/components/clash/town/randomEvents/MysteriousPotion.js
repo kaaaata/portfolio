@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../../stores/actions';
 import { EventModal } from '../EventModal';
-import { sample } from 'lodash';
 
 const possiblePotions = [
   { name: 'Attack Potion', stat: 'attack', flavorText: 'stronger' },
@@ -11,14 +10,11 @@ const possiblePotions = [
   { name: 'Explosive Potion', stat: null, flavorText: null }
 ];
 
-export const MysteriousPotion = ({ closeModal }) => {
+export const MysteriousPotion = ({ rng, closeModal }) => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
-  const [page2Text, setPage2Text] = useState('');
-  const [page3Text, setPage3Text] = useState('');
-
-  const potion = sample(possiblePotions);
+  const potion = possiblePotions[Math.floor(rng * 4)];
 
   return (
     <EventModal
@@ -27,65 +23,93 @@ export const MysteriousPotion = ({ closeModal }) => {
       page={page}
       pages={[
         {
-          text: 'You stumble across a mysterious blue potion. It looks like someone accidentally dropped it. You don\'t recognize it, but it would be a shame to leave it behind....',
+          text: (
+            <React.Fragment>
+              You stumble across a mysterious
+              <span className='blue'> blue potion. </span>
+              It looks like someone accidentally dropped it.
+              <br /><br />
+              You don't recognize it, but it would be a shame to leave it behind....
+            </React.Fragment>
+          ),
           options: [
             {
               name: 'Drink It',
               goodText: '75%: temporary stat boost.',
               badText: '25%: no effect.',
-              onClick: () => {
-                if (potion.name === 'Explosive Potion') {
-                  setPage2Text('You put the vial to your lips, but it explodes violently! It must have been a differently colored Explosive Potion. Unfortunately, you are now left with nothing but a handful of glass shards.');
-                  setPage(2);
-                } else {
-                  setPage2Text(`You put the vial to your lips, and drink. It tastes exactly like a ${potion.name}! You feel a little ${potion.flavorText}.`);
-                  setPage(2);
-                  dispatch(actions.setStats({
-                    stats: { [potion.stat]: 1 },
-                    type: 'bonuses',
-                    player: 'you',
-                    operation: 'adjust'
-                  }));
-                  dispatch(actions.addTownFeedText(
-                    `Gained temporary boost: +1 ${potion.stat[0]}${potion.stat.slice(1)}`
-                  ));
-                }
-              }
+              onClick: () => setPage(potion.name === 'Explosive Potion' ? 2 : 3)
             },
             {
               name: 'Keep It',
               goodText: 'Add the potion to your deck.',
-              onClick: () => {
-                setPage3Text(`You take the potion in your hands and examine it. Somehow, its smell reminds you of that of an ${potion.name}.`);
-                setPage(3);
-              }
+              onClick: () => setPage(4)
+            },
+            {
+              name: 'Leave it',
+              onClick: () => setPage(5)
             }
           ]
         },
         {
-          text: page2Text,
+          text: (
+            <React.Fragment>
+              You attempt to drink the potion, but it <span className='red'>explodes</span> violently! It must have been a weirdly colored <span className='red'>Explosive Potion</span>.
+              <br /><br />
+              Unfortunately, you are now left with nothing but a handful of glass dust.
+            </React.Fragment>
+          ),
           options: [{
             name: 'Continue',
             onClick: closeModal
           }]
         },
         {
-          text: page3Text,
-          options: [
-            {
-              name: 'Keep It',
-              goodText: `Add ${potion.name} to your deck.`,
-              onClick: () => {
-                dispatch(actions.addCardsToCollection(potion.name));
-                closeModal();
-              }
-            },
-            {
-              name: 'Leave It',
-              onClick: closeModal
+          text: (
+            <React.Fragment>
+              You drink the potion, and realize it's actually just a weirdly colored <span className='blue'>{potion.name}!</span>
+              <br /><br />
+              You feel a little <span className='yellow'>{potion.flavorText}</span>.
+            </React.Fragment>
+          ),
+          options: [{
+            name: 'Continue',
+            goodText: `Gain +1 ${potion.stat} for the rest of the day.`,
+            onClick: () => {
+              dispatch(actions.setStats({
+                stats: { [potion.stat]: 1 },
+                type: 'bonuses',
+                player: 'you',
+                operation: 'adjust'
+              }));
+              dispatch(actions.addTownFeedText(
+                `Gained temporary boost: +1 ${potion.stat}`
+              ));
+              closeModal();
             }
-          ]
+          }]
         },
+        {
+          text: (
+            <React.Fragment>
+              You take the potion and examine it closely. Turns out, it's actually just a weirdly colored <span className='blue'>{potion.name}!</span>
+            </React.Fragment>
+          ),
+          options: [{
+            name: 'Continue',
+            goodText: `Add ${potion.name} to your deck.`,
+            onClick: () => {
+              dispatch(actions.addCardsToCollection(potion.name));
+              closeModal();
+            }
+          }]
+        },
+        {
+          text: 'You decide not to interact with the potion.',
+          options: [{
+            name: 'Continue',
+            onClick: closeModal
+          }]
+        }
       ]}
     />
   );

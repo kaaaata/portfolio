@@ -37,6 +37,7 @@ export const Text = ({
   inline = false,
   centered = false,
   lineHeight,
+  _css,
   children
 }) => (
   <div
@@ -48,6 +49,7 @@ export const Text = ({
       ${textCss[type]}
       ${inline ? 'display: inline;' : ''}
       ${lineHeight ? `line-height: ${lineHeight};` : ''}
+      ${_css}
     `}
     onClick={onClick}
   >

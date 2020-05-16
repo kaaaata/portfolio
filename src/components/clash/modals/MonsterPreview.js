@@ -5,7 +5,6 @@ import * as actions from '../../stores/actions';
 import { shuffle, sampleSize, random } from 'lodash';
 import { genMonsterDeck } from '../monsters/genMonsterDeck';
 import { EventModal } from '../town/EventModal';
-import { Text } from '../Text';
 import { cards } from '../cards/cards';
 import { rarityColors } from '../cards/rarity';
 
@@ -37,11 +36,11 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
       operation: 'set'
     }));
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
-    // dispatch(actions.setYourDeck([])); // testing
+    dispatch(actions.setYourDeck([])); // testing
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
-    dispatch(actions.setEnemyDeck([])); // testing
+    // dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
-    dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
+    // dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
     // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur', 'Minotaur'])); // testing
     dispatch(actions.setBattleRewardCards(
@@ -68,14 +67,10 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
 
     return (
       <React.Fragment>
-        ({rarityCounts.legendary}&nbsp;
-        <Text color={rarityColors.legendary} type='paragraph' inline>legendary</Text>,
-        &nbsp;{rarityCounts.rare}&nbsp;
-        <Text color={rarityColors.rare} type='paragraph' inline>rare</Text>,
-        &nbsp;{rarityCounts.uncommon}&nbsp;
-        <Text color={rarityColors.uncommon} type='paragraph' inline>uncommon</Text>,
-        &nbsp;{rarityCounts.common}&nbsp;
-        <Text color={rarityColors.common} type='paragraph' inline>common</Text>)
+        ({rarityCounts.legendary} <span className={rarityColors.legendary}>legendary</span>,&nbsp;
+        {rarityCounts.rare} <span className={rarityColors.rare}>rare</span>,&nbsp;
+        {rarityCounts.uncommon} <span className={rarityColors.uncommon}>uncommon</span>,&nbsp;
+        {rarityCounts.common} <span className={rarityColors.common}>common</span>)
       </React.Fragment>
     );
   };
@@ -83,13 +78,13 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
   const indefiniteArticle = /a|e|i|o|u/i.test(monster.name[0]) ? 'an' : 'a';
 
   const text = (
-    <Text type='paragraph'>
-      You are attacked by {indefiniteArticle} {monster.name}!
+    <React.Fragment>
+      You are attacked by {indefiniteArticle} <span className='yellow'>{monster.name}!</span>
       <br /><br />
       Enemy cards: {enemyDeck.length} {genRarityString(enemyDeck)}
       <br />
       Your cards: {yourDeck.length} {genRarityString(yourDeck)}
-    </Text>
+    </React.Fragment>
   );
 
   return (
@@ -102,7 +97,7 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
         {
           text,
           options: [{
-            name: 'Continue',
+            name: 'Fight',
             onClick: battleOnClick
           }]
         }

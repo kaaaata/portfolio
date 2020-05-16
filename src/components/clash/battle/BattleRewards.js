@@ -4,7 +4,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { EventModal } from '../town/EventModal';
 import { CardLootModal } from '../modals/CardLootModal';
-import { Text } from '../Text';
 
 export const BattleRewards = () => {
   const {
@@ -62,21 +61,24 @@ export const BattleRewards = () => {
     <EventModal
       title={didPlayerWin ? 'Victory!' : 'Defeat!'}
       image={winnerImage}
-      imageProps={(enemyHueRotate && !didPlayerWin) ? { filter: `hue-rotate(${enemyHueRotate}deg)` } : null}
+      imageProps={(enemyHueRotate && !didPlayerWin)
+        ? { filter: `hue-rotate(${enemyHueRotate}deg)` }
+        : null
+      }
       page={page}
       pages={[
         {
-          text: didPlayerWin
-            ? 'The enemy drops some gold.'
-            : (
-              <React.Fragment>
-                <Text type='paragraph'>
-                  You are forced to retreat!
-                  <br /><br />
-                  Maybe you can recover some loot tomorrow.
-                </Text>
-              </React.Fragment>
-            ),
+          text: didPlayerWin ? (
+            <React.Fragment>
+              The enemy drops some <span className='yellow'>gold.</span>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              You are forced to <span className='red'>retreat!</span>
+              <br /><br />
+              {enemyType === 'wave' && 'Maybe you can recover some loot tomorrow.'}
+            </React.Fragment>
+          ),
           options: [{
             name: 'Continue',
             goodText: didPlayerWin ? `Receive ${battleRewardGold} gold.` : 'Return to town.',
@@ -91,7 +93,11 @@ export const BattleRewards = () => {
           }]
         },
         {
-          text: 'As the enemy flees, they drop some cards from their deck!',
+          text: (
+            <React.Fragment>
+              As the enemy flees, they drop some <span className='yellow'>cards</span> from their deck!
+            </React.Fragment>
+          ),
           options: [{
             name: 'Continue',
             goodText: "Take up to 2 cards from the enemy's deck.",

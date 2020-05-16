@@ -17,7 +17,11 @@ export const RecoverLoot = ({ closeModal }) => {
 
   if (rng < 0.5) {
     pages.push({
-      text: 'You manage to scavenge a few coins.',
+      text: (
+        <React.Fragment>
+          You manage to scavenge some <span className='yellow'>gold.</span>
+        </React.Fragment>
+      ),
       options: [{
         name: 'Continue',
         goodText: `Receive ${battleRewardGold} gold.`,
@@ -30,7 +34,11 @@ export const RecoverLoot = ({ closeModal }) => {
     });
   } else {
     pages.push({
-      text: 'You find some cards.',
+      text: (
+        <React.Fragment>
+          You find a couple of abandoned <span className='yellow'>cards.</span>
+        </React.Fragment>
+      ),
       options: [{
         name: 'Continue',
         goodText: "Take up to 2 cards from the enemy's deck",

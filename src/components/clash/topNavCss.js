@@ -1,5 +1,5 @@
 import { css } from '@emotion/core'; /** @jsx jsx */
-import { colors } from '../styles';
+import { colors, zIndex } from '../styles';
 
 export const topNavCss = css`
   height: 40px;
@@ -33,6 +33,8 @@ export const topNavCss = css`
   }
 
   .right {
+    z-index: ${zIndex.mouseEventArea5};
+
     .collection {
       flex: 0 0 auto;
       width: 120px;

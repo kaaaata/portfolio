@@ -9,7 +9,7 @@ const randomEvents = [
 export const RandomEvent = ({ closeModal }) => {
   switch (sample(randomEvents)) {
     case 'Mysterious Potion':
-      return <MysteriousPotion closeModal={closeModal} />;
+      return <MysteriousPotion rng={Math.random()} closeModal={closeModal} />;
     default:
       return null;
   }

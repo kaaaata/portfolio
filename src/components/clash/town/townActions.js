@@ -28,7 +28,7 @@ export const townActions = [
     name: 'Drink Potion',
     energy: 4,
     image: 'blue_potion',
-    description: 'Gain a temporary stat boost.'
+    description: 'Gain a stat boost until the end of the day.'
   },
   {
     name: 'Recover Loot',
