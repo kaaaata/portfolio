@@ -29,13 +29,16 @@ export const BattleRewards = () => {
 
   const [page, setPage] = useState(1);
   const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
+
+  const battleDefeatGold = Math.floor(battleRewardGold / 4);
   
   const returnToTown = () => {
     const townFeedMessages = didPlayerWin ? [
       `You defeated: ${enemyName}`,
       `Received: ${battleRewardGold} gold`
     ] : [
-      `You were defeated by: ${enemyName}`
+      `You were defeated by: ${enemyName}`,
+      `Lost: ${battleDefeatGold} gold`
     ];
     if (enemyType === 'wave') {
       dispatch(actions.startNewDay({ feedInitialMessages: townFeedMessages }));
@@ -75,21 +78,23 @@ export const BattleRewards = () => {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              You are forced to <span className='red'>retreat!</span>
+              The enemy <span className='red'>steals</span> some of your <span className='yellow'>gold.</span>
               <br /><br />
               {enemyType === 'wave' && 'Maybe you can recover some loot tomorrow.'}
             </React.Fragment>
           ),
           options: [{
             name: 'Continue',
-            goodText: didPlayerWin ? `Receive ${battleRewardGold} gold.` : 'Return to town.',
+            goodText: didPlayerWin ? `Receive ${battleRewardGold} gold.` : '',
+            badText: didPlayerWin ? '' : `Lose ${battleDefeatGold} gold.`,
             onClick: () => {
               if (didPlayerWin) {
                 dispatch(actions.adjustPlayerGold(battleRewardGold));
                 setPage(2);
               } else {
+                dispatch(actions.adjustPlayerGold(-1 * battleDefeatGold));
                 returnToTown();
-              };
+              }
             }
           }]
         },
