@@ -16,6 +16,7 @@ import { monstersByTier } from '../monsters/monsters';
 import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
 import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
+import { TreasureChest } from './randomEvents/TreasureChest';
 
 export const Town = () => {
   const {
@@ -91,6 +92,12 @@ export const Town = () => {
     case 'Explore':
       modal = <RandomEvent closeModal={() => setActiveModal(null)} />;
       break;
+    case 'Beg for Change':
+      modal = <TreasureChest
+        rng={Math.random()}
+        closeModal={() => setActiveModal(null)}
+      />;
+      break;
     default:
       break;
   }
@@ -146,13 +153,10 @@ export const Town = () => {
                     if (i.name === 'Recover Loot') {
                       dispatch(actions.setCanRecoverLoot(false));
                     }
-                    if (i.name === 'Beg for Change') {
-                      dispatch(actions.addTownFeedText(`test text ${feed.length + 1}`));
-                    }
                     if (i.name === 'Drink Potion') {
                       dispatch(actions.setCanDrinkPotionFalse());
                     }
-                    dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
+                    // dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
                     setActiveModal(i.name);
                   }
                 }}

@@ -70,7 +70,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
             },
             {
               name: 'Blessing of Wall Street',
-              goodText: 'Gain 300 gold.',
+              goodText: 'Receive 300 gold.',
               onClick: () => {
                 setFlavorText('Gold rains from the sky!');
                 setPage(2);

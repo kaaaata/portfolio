@@ -111,7 +111,7 @@ export const allies = [
     attack: 2,
     defense: 2,
     playCopiesOfCards: ['Tentacles', 'Tentacles'],
-    description: 'Play 2 copies of Tentacles'
+    description: 'Play 2 copies of Tentacles.'
   },
   {
     name: 'Minotaur',

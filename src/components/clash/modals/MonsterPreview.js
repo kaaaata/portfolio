@@ -7,7 +7,6 @@ import { genMonsterDeck } from '../monsters/genMonsterDeck';
 import { EventModal } from '../town/EventModal';
 import { cards } from '../cards/cards';
 import { rarityColors } from '../cards/rarity';
-import { Gold } from '../Gold';
 
 export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
   const { deck, day, monster } = useSelector(state => ({
