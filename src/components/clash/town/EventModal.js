@@ -25,9 +25,10 @@ const eventModalCss = css`
     }
   }
 
-  .fade_in {
+  .event_modal--fade_in {
     opacity: 0;
     transition: opacity 1s ease-out;
+    pointer-events: none;
   }
 `;
 
@@ -51,11 +52,12 @@ export const EventModal = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     interval = setInterval(() => {
-      const el = document.getElementsByClassName('fade_in')[counter];
+      const el = document.getElementsByClassName('event_modal--fade_in')[counter];
       if (!el) {
         return clearInterval(interval);
       }
       el.style.opacity = 1;
+      el.style.pointerEvents = 'unset';
       counter++;
     }, 250);
   });
@@ -69,7 +71,7 @@ export const EventModal = ({
           width={250}
           size='contain'
           {...imageProps}
-          className='fade_in'
+          className='event_modal--fade_in'
         />
         <FlexContainer
           justifyContent='space-between'
@@ -79,7 +81,7 @@ export const EventModal = ({
           <Text
             key={page}
             type='paragraph'
-            className='fade_in'
+            className='event_modal--fade_in'
           >
             {pages[page - 1].text}
           </Text>
@@ -88,7 +90,7 @@ export const EventModal = ({
               <Button
                 key={`${page}_${index}`}
                 onClick={option.onClick}
-                className='fade_in'
+                className='event_modal--fade_in'
               >
                 <Text type='small'>
                   [{option.name}]
