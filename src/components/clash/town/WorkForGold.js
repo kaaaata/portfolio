@@ -19,7 +19,7 @@ const flavorTexts = [
   'herding some sheep.'
 ];
 
-export const WorkForMoney = ({ closeModal }) => {
+export const WorkForGold = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const goldEarned = random(5, 15);

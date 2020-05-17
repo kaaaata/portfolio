@@ -44,6 +44,7 @@ export const BattleRewards = () => {
       dispatch(actions.addTownFeedText(townFeedMessages));
       dispatch(actions.setScene('town'));
     }
+    dispatch(actions.setCanVisitShop(true));
   };
 
   if (!winner) {

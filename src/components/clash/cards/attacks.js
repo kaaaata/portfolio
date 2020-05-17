@@ -2,6 +2,15 @@ import { createCard } from './createCard';
 
 export const attacks = [
   {
+    name: 'Strange Key',
+    image: 'key',
+    rarity: 'common',
+    attack: 2,
+    defense: 0,
+    isToken: true,
+    description: 'Maybe this unlocks something....'
+  },
+  {
     name: 'Strike',
     image: 'strike',
     rarity: 'common',

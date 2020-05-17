@@ -27,6 +27,7 @@ const clashCss = css`
   .blue { color: ${colors.blue}; }
   .red { color: ${colors.red}; }
   .yellow { color: ${colors.yellow}; }
+  .violet { color: ${colors.violet}; }
 `;
 
 export const Clash = () => {

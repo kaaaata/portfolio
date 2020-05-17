@@ -14,7 +14,7 @@ export const Button = ({
 }) => {
   return (
     <button
-      onClick={onClick}
+      onClick={isDisabled ? null : onClick}
       onMouseEnter={onMouseEnter}
       className={`button ${className}`}
       css={css`

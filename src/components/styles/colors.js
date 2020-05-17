@@ -4,7 +4,7 @@ export const colors = {
   black: '#191919',
 
   grey: '#bababa',
-  greyDark: 'darkgrey',
+  greyDark: 'dimgrey',
 
   sand: '#FFF8E8',
 
@@ -22,5 +22,7 @@ export const colors = {
   red: '#FC5863',
 
   yellow: 'gold',
-  yellowLight: '#ffdd30'
+  yellowLight: '#ffdd30',
+
+  violet: 'violet'
 };

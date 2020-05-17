@@ -2,20 +2,14 @@ import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { Image, FlexContainer } from '../particles';
 import { Text } from './Text';
 
-export const Gold = ({
-  gold,
-  color = 'yellow',
-  big
-}) => (
-  <FlexContainer
-    alignItems='center'
-    className='gold'
-  >
+export const Gold = ({ gold, color = 'yellow' }) => (
+  <FlexContainer alignItems='center' justifyContent='center' className='gold'>
     <Image
       src='/clash/gold.png'
-      width={big ? 100 : 36}
-      height={big ? 100 : 36}
+      width={24}
+      height={24}
+      _css='margin-right: 10px;'
     />
-    <Text color={color} lineHeight='36px'>{gold}</Text>
+    <Text color={color}>{gold}</Text>
   </FlexContainer>
 );

@@ -8,9 +8,10 @@ import { Button } from '../Button';
 const eventModalCss = css`
   width: 100%;
 
-  .image {
+  .main_image {
     flex: none;
     margin-right: 20px;
+    border-radius: 5px;
   }
 
   .body {
@@ -39,7 +40,7 @@ export const EventModal = ({
   page,
   pages /* pages: [{
     text:String|Node,
-    options:[{ name:String, goodText:String, badText:String, onClick:Func }]
+    options:[{ name:String, isDisabled: bool, goodText:String, badText:String, onClick:Func }]
   }] */
 }) => {
   let interval;
@@ -69,20 +70,16 @@ export const EventModal = ({
           src={`/clash/${image}.png`}
           height={250}
           width={250}
-          size='contain'
           {...imageProps}
-          className='event_modal--fade_in'
+          size='contain'
+          className='main_image event_modal--fade_in'
         />
         <FlexContainer
           justifyContent='space-between'
           flexDirection='column'
           className='body'
         >
-          <Text
-            key={page}
-            type='paragraph'
-            className='event_modal--fade_in'
-          >
+          <Text type='paragraph' className='event_modal--fade_in'>
             {pages[page - 1].text}
           </Text>
           <div>
@@ -90,12 +87,13 @@ export const EventModal = ({
               <Button
                 key={`${page}_${index}`}
                 onClick={option.onClick}
+                isDisabled={option.isDisabled}
                 className='event_modal--fade_in'
               >
                 <Text type='small'>
                   [{option.name}]
-                  {option.goodText && <span className='green'> {option.goodText}</span>}
                   {option.badText && <span className='red'> {option.badText}</span>}
+                  {option.goodText && <span className='green'> {option.goodText}</span>}
                 </Text>
               </Button>
             ))}

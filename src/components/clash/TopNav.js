@@ -13,14 +13,14 @@ import { useSelector, shallowEqual } from 'react-redux'
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const { gold, energy, deck, image, stats, statBonuses, scene } = useSelector(state => ({
+  const { gold, energy, deck, image, stats, statBonuses, canVisitShop } = useSelector(state => ({
     gold: state.clashPlayer.gold,
     energy: state.clashTown.energy,
     deck: state.clashPlayer.deck,
     image: state.clashBattleStats.yourImage,
     stats: state.clashBattleStats.yourStats,
     statBonuses: state.clashBattleStats.yourStatBonuses,
-    scene: state.clashScene.scene
+    canVisitShop: state.clashScene.canVisitShop
   }), shallowEqual);
 
   return (
@@ -75,7 +75,7 @@ export const TopNav = () => {
             width={35}
             height={35}
             onClick={() => {
-              if (scene === 'town') {
+              if (canVisitShop) {
                 setActiveModal(activeModal === 'shop' ? null : 'shop');
               }
             }}

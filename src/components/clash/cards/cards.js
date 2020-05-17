@@ -20,21 +20,23 @@ export const cardsByRarity = {
 };
 
 export const genStartingDeck = () => [
-  'Strike',
-  'Strike',
-  'Strike',
-  'Strike',
-  'Strike',
+  'Strange Key',
 
+  'Healing Potion',
+  'Slice',
+  'Slice',
+  'Paladin',
+  'Fire',
+
+  'Fire',
+  'Tentacles',
   'Crush',
   'Crush',
   'Parry',
-  'Fire',
-  'Fire',
-
-  'Healing Potion',
-  'Paladin',
-  'Slice',
-  'Slice',
-  'Tentacles'
+  
+  'Strike',
+  'Strike',
+  'Strike',
+  'Strike',
+  'Strike'
 ];

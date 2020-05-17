@@ -6,7 +6,11 @@ export const customCardEffects = {
   'Brawler': (state, card, player) => {
     // Shuffle a copy of a random non-legendary attack into your deck.
     const attack = cardsArray.getRandomCardByFilter(
-      card => card.type === 'attack' && card.rarity !== 'legendary'
+      card => (
+        card.type === 'attack' 
+        && card.rarity !== 'legendary'
+        && card.name !== 'Strange Key'
+      )
     );
     addCardCopiesIntoPiles(state, [{ card: attack.name, pile: 'deck' }], player);
   },
@@ -92,7 +96,7 @@ export const customCardEffects = {
     const randomCard = cardsArray.getRandomCardByFilter(
       card => (
         !card.isToken
-        && card.name !== 'Magic Scroll'
+        && !['Magic Scroll'].includes(card.name)
         && card.rarity !== 'legendary'
       )
     );
@@ -105,7 +109,7 @@ export const customCardEffects = {
       card: cardsArray.getRandomCardByFilter(
         card => (
           !card.isToken
-          && card.name !== 'Edible Slime'
+          && !['Edible Slime'].includes(card.name)
           && ['common', 'uncommon'].includes(card.rarity)
         )
       ).name,

@@ -19,6 +19,22 @@ export default (state = initialState, action) => {
           ? [...state.deck, action.payload]
           : [...state.deck, ...action.payload]
       };
+    case 'REMOVE_CARDS_FROM_COLLECTION': {
+      const newDeck = [...state.deck];
+      const removeCards = typeof action.payload === 'string'
+        ? [action.payload]
+        : action.payload;
+      removeCards.forEach(card => {
+        const spliceIndex = newDeck.indexOf(card);
+        if (spliceIndex !== -1) {
+          newDeck.splice(spliceIndex, 1);
+        }
+      });
+      return {
+        ...state,
+        deck: newDeck
+      };
+    }
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import { sample } from 'lodash';
 import { Spacer, FlexContainer } from '../../particles';
 import { Text } from '../Text';
 import { TownActionCard } from './TownActionCard';
-import { WorkForMoney } from './WorkForMoney';
+import { WorkForGold } from './WorkForGold';
 import { ReceiveBlessing } from './ReceiveBlessing';
 import { RecoverLoot } from './RecoverLoot';
 import { MonsterPreview } from '../modals/MonsterPreview';
@@ -58,7 +58,7 @@ export const Town = () => {
   
   let modal;
   switch (activeModal) {
-    case 'Elite Encounter!': {
+    case 'Elite Encounter': {
       const eliteMonster = sample(monstersByTier[Math.ceil(day / 4)]);
       eliteMonster.name = `${genEliteMonsterPrefix()} ${eliteMonster.name}`;
       eliteMonster.type = 'elite';
@@ -68,14 +68,15 @@ export const Town = () => {
         <MonsterPreview
           title='You challenge the enemy elite.'
           monsterOverride={eliteMonster}
+          closeModal={() => setActiveModal(null)}
         />
       );
       break;
     }
-    case 'Work for Money':
-      modal = <WorkForMoney closeModal={() => setActiveModal(null)} />;
+    case 'Work for Gold':
+      modal = <WorkForGold closeModal={() => setActiveModal(null)} />;
       break;
-    case 'Receive Blessing':
+    case 'Gain Blessing':
       modal = <ReceiveBlessing closeModal={() => setActiveModal(null)} />;
       break;
     case 'Next Day':
@@ -87,7 +88,7 @@ export const Town = () => {
     case 'Drink Potion':
       modal = <DrinkPotion closeModal={() => setActiveModal(null)} />;
       break;
-    case 'Explore the Area':
+    case 'Explore':
       modal = <RandomEvent closeModal={() => setActiveModal(null)} />;
       break;
     default:
@@ -128,18 +129,18 @@ export const Town = () => {
                 energy={i.energy}
                 canAfford={energy >= i.energy}
                 isDisabled={
-                  (i.name === 'Receive Blessing' && !canReceiveBlessing)
-                  || (i.name === 'Elite Encounter!' && !canFightElite)
+                  (i.name === 'Blessing' && !canReceiveBlessing)
+                  || (i.name === 'Elite Encounter' && !canFightElite)
                   || (i.name === 'Recover Loot' && (!canRecoverLoot))
                   || (i.name === 'Drink Potion' && (!canDrinkPotion))
                 }
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
                   if (energy >= i.energy) {
-                    if (i.name === 'Receive Blessing') {
+                    if (i.name === 'Blessing') {
                       dispatch(actions.setCanReceiveBlessingFalse());
                     }
-                    if (i.name === 'Elite Encounter!') {
+                    if (i.name === 'Elite Encounter') {
                       dispatch(actions.setCanFightEliteFalse());
                     }
                     if (i.name === 'Recover Loot') {

@@ -1,12 +1,12 @@
 export const townActions = [
   {
-    name: 'Explore the Area',
+    name: 'Explore',
     energy: 4,
     image: 'map',
     description: 'Get a random event.'
   },
   {
-    name: 'Work for Money',
+    name: 'Work for Gold',
     energy: 2,
     image: 'gold',
     description: 'Earn some gold.'
@@ -18,7 +18,7 @@ export const townActions = [
     description: 'A low chance to earn a little gold.'
   },
   {
-    name: 'Receive Blessing',
+    name: 'Gain Blessing',
     energy: 0,
     image: 'blessing',
     description: 'Receive a blessing.'
@@ -37,7 +37,7 @@ export const townActions = [
     description: 'Recover some loot after a defeat.'
   },
   {
-    name: 'Elite Encounter!',
+    name: 'Elite Encounter',
     energy: 6,
     image: 'elite',
     description: 'Fight a dangerous enemy for rare loot!'

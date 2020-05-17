@@ -7,11 +7,11 @@ const textCss = {
     text-shadow: 1px 1px 2px ${colors.black};
   `,
   small: css`
-    font-size: 16px;
+    font-size: 18px;
     text-shadow: 1px 1px 2px ${colors.black};
   `,
   paragraph: css`
-    font-size: 20px;
+    font-size: 18px;
     text-shadow: 1px 1px 2px ${colors.black};
     line-height: 1.25;
   `,

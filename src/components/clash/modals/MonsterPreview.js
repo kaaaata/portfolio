@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { jsx } from '@emotion/core'; /** @jsx jsx */
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
@@ -7,8 +7,9 @@ import { genMonsterDeck } from '../monsters/genMonsterDeck';
 import { EventModal } from '../town/EventModal';
 import { cards } from '../cards/cards';
 import { rarityColors } from '../cards/rarity';
+import { Gold } from '../Gold';
 
-export const MonsterPreview = ({ title, monsterOverride }) => {
+export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
   const { deck, day, monster } = useSelector(state => ({
     deck: state.clashPlayer.deck,
     day: state.clashTown.day,
@@ -16,10 +17,20 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
   }), shallowEqual);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(actions.setCanVisitShop(false));
+  });
+
   const isMonsterElite = monster.type === 'elite';
   const yourDeck = shuffle(deck);
   const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day, isMonsterElite);
   const enemyHueRotate = isMonsterElite ? random(90, 270) : null;
+  const battleRewardGold = (
+    (monster.type === 'event' ? 25 : 75)
+    + 15 * (monster.tier + isMonsterElite ? 1 : 0)
+    + 3 * (day + isMonsterElite ? 3 : 0)
+    + random(0, 15)
+  );
 
   const battleOnClick = () => {
     dispatch(actions.setBattleInitialState());
@@ -36,9 +47,9 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
       operation: 'set'
     }));
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
-    dispatch(actions.setYourDeck([])); // testing
+    // dispatch(actions.setYourDeck([])); // testing
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
-    // dispatch(actions.setEnemyDeck([])); // testing
+    dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
     // dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
@@ -49,12 +60,7 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
         : enemyDeck
       , 3)
     ));
-    dispatch(actions.setBattleRewardGold(
-      75
-      + 15 * (monster.tier + isMonsterElite ? 1 : 0)
-      + 3 * (day + isMonsterElite ? 3 : 0)
-      + random(0, 15)
-    ));
+    dispatch(actions.setBattleRewardGold(battleRewardGold));
     dispatch(actions.setScene('battle'));
   };
   // battleOnClick(); // testing
@@ -84,6 +90,10 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
       Enemy cards: {enemyDeck.length} {genRarityString(enemyDeck)}
       <br />
       Your cards: {yourDeck.length} {genRarityString(yourDeck)}
+      <br /><br />
+      Victory: <span className='green'>gain {battleRewardGold} gold</span> and <span className='green'>2 cards from the enemy's deck</span>
+      <br />
+      Defeat: <span className='red'>lose {Math.floor(battleRewardGold / 4)} gold</span>
     </React.Fragment>
   );
 
@@ -96,10 +106,21 @@ export const MonsterPreview = ({ title, monsterOverride }) => {
       pages={[
         {
           text,
-          options: [{
-            name: 'Fight',
-            onClick: battleOnClick
-          }]
+          options: [
+            {
+              name: 'Fight',
+              onClick: battleOnClick
+            },
+            {
+              name: 'Retreat',
+              isDisabled: monster.type === 'wave',
+              badText: monster.type === 'wave' ? 'Can\'t retreat from a day battle!' : '',
+              onClick: () => {
+                closeModal();
+                dispatch(actions.setCanVisitShop(true));
+              }
+            }
+          ]
         }
       ]}
     />
