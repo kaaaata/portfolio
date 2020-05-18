@@ -9,7 +9,7 @@ const triggerDiscardEffect = (state, player) => {
   const { logs, renderActions } = state; // state gets mutated. only declare objects here!
   const discardedCard = state[player].discard.getTopCard();
   logs.push(
-    `${player} triggers discard effect of ${discardedCard.name}: ${discardedCard.description}`
+    `${player} triggers discard effect of ${discardedCard.name}`
   );
 
   renderActions.push([
@@ -151,8 +151,13 @@ export const playCard = (state, card, player, location, index) => {
       renderActions.push(damageAction);
 
       if (destination === 'discard' && removedCard.onDiscard) {
-        triggerDiscardEffect(state, opponent);
-        if (state.winner) break;
+        if (
+          state[opponent].deck.length
+          || (!state[opponent].deck.length && removedCard.onDiscard.heal)
+        ) {
+          triggerDiscardEffect(state, opponent);
+          if (state.winner) break;
+        }
       }
       
       if (!state[opponent].deck.length) {

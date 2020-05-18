@@ -48,7 +48,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
     // dispatch(actions.setYourDeck([])); // testing
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
-    dispatch(actions.setEnemyDeck([])); // testing
+    // dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
     // dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));

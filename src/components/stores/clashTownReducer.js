@@ -2,7 +2,7 @@ import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';;
 
 const initialState = {
   energy: 12,
-  day: 2,
+  day: 1,
   monsterWaves: genMonsterWaves(),
   canReceiveBlessing: false,
   canRecoverLoot: false,
