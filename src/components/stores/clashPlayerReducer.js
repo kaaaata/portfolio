@@ -16,8 +16,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         deck: typeof action.payload === 'string'
-          ? [...state.deck, action.payload]
-          : [...state.deck, ...action.payload]
+          ? [action.payload, ...state.deck]
+          : [...action.payload, ...state.deck]
       };
     case 'REMOVE_CARDS_FROM_COLLECTION': {
       const newDeck = [...state.deck];

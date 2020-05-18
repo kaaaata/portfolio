@@ -1,11 +1,13 @@
 import React from 'react';
 import { MysteriousPotion } from './MysteriousPotion';
 import { TreasureSlime } from './TreasureSlime';
+import { RobberyWheel } from './RobberyWheel';
 import { sample } from 'lodash';
 
-const randomEvents = [
-  { name: 'Mysterious Potion', probability: 0 },
-  { name: 'Treasure Slime', probability: 1 }
+const randomEvents = [ // testing
+  { name: 'Mysterious Potion', probability: 1 },
+  { name: 'Treasure Slime', probability: 0 },
+  { name: 'Robbery Wheel', probability: 0 },
 ];
 const randomEventPool = [];
 randomEvents.forEach(event => {
@@ -21,7 +23,9 @@ export const RandomEvent = ({ closeModal }) => {
     case 'Mysterious Potion':
       return <MysteriousPotion rng={rng} closeModal={closeModal} />;
     case 'Treasure Slime':
-      return <TreasureSlime closeModal={closeModal} />;
+      return <TreasureSlime rng={rng} closeModal={closeModal} />;
+    case 'Robbery Wheel':
+      return <RobberyWheel rng={rng} closeModal={closeModal} />;
     default:
       return null;
   }

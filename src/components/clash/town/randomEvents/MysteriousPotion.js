@@ -96,7 +96,7 @@ export const MysteriousPotion = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: `Add ${potion.name} to your deck.`,
+            goodText: `Add a copy of ${potion.name} to your deck.`,
             onClick: () => {
               dispatch(actions.addCardsToCollection(potion.name));
               closeModal();

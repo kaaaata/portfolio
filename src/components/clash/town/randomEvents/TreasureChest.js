@@ -21,9 +21,13 @@ export const TreasureChest = ({ rng, closeModal }) => {
   let goodText;
   
   if (rng < 0.05) {
-    lootText = <span className='yellow'>energy!</span>;
-    lootCb = () => dispatch(actions.adjustPlayerEnergy(12));
-    goodText = 'Recover to full energy.'
+    const gold = random(100, 150);
+    lootText = <span className='yellow'>{gold} gold!</span>
+    lootCb = () => {
+      dispatch(actions.adjustPlayerGold(gold));
+      dispatch(actions.addTownFeedText(`Received: ${gold} gold`));
+    };
+    goodText = `Receive ${gold} gold.`;
   } else if (rng < 0.15) {
     lootText = <span className={rarityColors.uncommon}>two uncommon cards!</span>
     lootCb = () => setIsCardLootModalOpen(true);
