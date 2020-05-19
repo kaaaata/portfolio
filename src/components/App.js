@@ -18,6 +18,8 @@ import { Clash } from './clash';
 import { trackStats } from './utils/graphql';
 import { appCss, appContentCss } from './appCss';
 
+const inDevelopment = process.env.NODE_ENV !== 'production'; // testing
+
 const AppComponent = ({
   location // from withRouter
 }) => {
@@ -51,10 +53,12 @@ const AppComponent = ({
             exact path="/cube"
             render={() => <Cube />}
           />
-          <Route
-            exact path="/clash"
-            render={() => <Clash />}
-          />
+          {inDevelopment && ( // testing
+            <Route
+              exact path="/clash"
+              render={() => <Clash />}
+            />
+          )}
           {/* <Route
             exact path="/xiangqi"
             render={() => <Xiangqi />}

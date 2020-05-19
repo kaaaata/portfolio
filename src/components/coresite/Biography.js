@@ -16,7 +16,7 @@ export const Biography = () => (
         <h4><u>catherinehan714@gmail.com</u></h4>
         <Spacer height={15} />
         <Button
-          href='https://docdro.id/ySthgM0'
+          href='https://docdro.id/1QDHC97/'
           onClick={() => trackStats('viewed_resume')}
         >
           <h4>View Full Resume</h4>
