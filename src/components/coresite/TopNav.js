@@ -8,7 +8,7 @@ const mediaIcons = [
   { image: 'linkedin.png', url: 'https://www.linkedin.com/in/kaaaata/' },
   { image: 'octocat.png', url: 'https://github.com/kaaaata/' },
   { image: 'facebook.png', url: 'https://www.facebook.com/blueconiferforest/' },
-  { image: 'dotabuff.png', url: 'https://www.dotabuff.com/players/125258124/' },
+  { image: 'twitter.png', url: 'https://twitter.com/da_real_kata/' },
   { image: 'steam.png', url: 'https://steamcommunity.com/id/KATA-' }
 ];
 
