@@ -66,7 +66,7 @@ export const Algorithms = () => {
 
 
   const searchOptions = (
-    <FlexContainer alignItems='center'>
+    <FlexContainer alignItems='center' flexWrap='wrap'>
       <h4>Search</h4>
       {['Notation', 'Name'].map(m => (
         <Button
@@ -124,7 +124,7 @@ export const Algorithms = () => {
       {sortOptions}
       <Spacer height={5} />
       {searchOptions}
-      <Spacer height={20} /><hr /><Spacer height={20} />
+      <Spacer height={15} /><hr /><Spacer height={20} />
       <AlgorithmsDisplay
         algorithms={algorithms}
         setSearchText={setSearchText}
