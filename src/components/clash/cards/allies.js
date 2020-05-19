@@ -155,53 +155,47 @@ export const allies = [
     name: 'Fire Dragon',
     image: 'fire_dragon',
     rarity: 'legendary',
-    attack: 8,
+    attack: 6,
     defense: 0,
-    shuffleCardCopiesIntoOpponentsPiles: [
-      { card: 'Burn', pile: 'deck' },
-      { card: 'Burn', pile: 'deck' },
-      { card: 'Burn', pile: 'deck' },
-    ],
+    playCopiesOfCards: ['Super Fire'],
     onDiscard: {
       shuffleCardCopiesIntoOpponentsPiles: [
         { card: 'Burn', pile: 'deck' },
         { card: 'Burn', pile: 'deck' },
-        { card: 'Burn', pile: 'deck' },
+        { card: 'Burn', pile: 'deck' }
       ],
     },
-    description: 'When played or discarded, shuffle 3 copies of Burn into your opponent\'s deck.'
+    description: 'Play a copy of Super Fire. If discarded, shuffle 3 copies of Burn into your opponent\'s deck.'
   },
   {
     name: 'Catherine the Great',
     image: 'catherine_the_great',
     rarity: 'legendary',
-    attack: 4,
-    defense: 4,
-    playCopiesOfCards: ['Healing Blade', 'Healing Blade'],
+    attack: 5,
+    defense: 3,
+    playCopiesOfCards: ['Healing Blade'],
     onDiscard: {
-      playCopiesOfCards: ['Healing Blade', 'Healing Blade'],
+      shuffleCardCopiesIntoYourPiles: [
+        { card: 'Healing Blade', pile: 'deck' },
+        { card: 'Healing Blade', pile: 'deck' }
+      ],
     },
-    description: 'When played or discarded, play 2 copies of Healing Blade.'
+    description: 'Play a copy of Healing Blade. If discarded, shuffle 2 copies of Healing Blade into your deck.'
   },
   {
     name: 'Ice Queen',
     image: 'ice_queen',
     rarity: 'legendary',
-    attack: 2,
-    defense: 6,
-    shuffleCardCopiesIntoYourPiles: [
-      { card: 'Ice Blade', pile: 'deck', index: 'top' },
-      { card: 'Ice Blade', pile: 'deck', index: 'top' },
-      { card: 'Ice Blade', pile: 'deck', index: 'top' },
-    ],
+    attack: 5,
+    defense: 2,
+    playCopiesOfCards: ['Ice Blade'],
     onDiscard: {
       shuffleCardCopiesIntoYourPiles: [
-        { card: 'Ice Blade', pile: 'deck', index: 'top' },
-        { card: 'Ice Blade', pile: 'deck', index: 'top' },
-        { card: 'Ice Blade', pile: 'deck', index: 'top' }
+        { card: 'Ice Blade', pile: 'deck' },
+        { card: 'Ice Blade', pile: 'deck' }
       ],
     },
-    description: 'When played or discarded, add 3 copies of Ice Blade to the top of your deck.'
+    description: 'Play a copy of Ice Blade. If discarded, shuffle 2 copies of Ice Blade into your deck.'
   }
 ].map(card => createCard({
   ...card,

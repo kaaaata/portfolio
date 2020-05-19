@@ -183,17 +183,17 @@ test('Play copies of cards works (Hobgoblin)', () => {
     .not.toBe(-1);
 });
 
-test('Shuffle card copies into pile works (Goblin Bomber, Ice Queen)', () => {
+test('Shuffle card copies into pile works (Goblin Bomber, Candy Corn)', () => {
   const goblin = cards['Goblin Bomber'];
-  const iceQueen = cards['Ice Queen'];
+  const candyCorn = cards['Candy Corn'];
   simulatePlayCard(goblin);
-  expect(state.enemy.deck.filter(card => card.name === 'Bomb').length).toBe(
-    goblin.shuffleCardCopiesIntoOpponentsPiles.length
-  );
-  simulatePlayCard(iceQueen);
-  expect(state.you.deck.filter(card => card.name === 'Ice Blade').length).toBe(
-    iceQueen.shuffleCardCopiesIntoYourPiles.length
-  );
+  simulatePlayCard(candyCorn);
+  expect(state.you.discard.getRandomCardIndexByFilter(card => card.name === 'Candy Corn'))
+    .not.toBe(-1);
+  expect(
+    state.enemy.deck.getRandomCardIndexByFilter(card => card.name === 'Bomb') !== -1
+    || state.enemy.banish.getRandomCardIndexByFilter(card => card.name === 'Bomb') !== -1
+  ).toBe(true);
 });
 
 test('Discard effects work (Healing Potion, Slice)', () => {
