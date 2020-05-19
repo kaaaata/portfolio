@@ -48,8 +48,9 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               {
                 name: 'Give Key',
                 isDisabled: !hasKey,
-                badText: hasKey ? 'Lose card: Strange Key.' : 'Requires card: Strange key.',
+                badText: hasKey ? 'Lose card: Strange Key.' : 'Requires card: Strange Key.',
                 goodText: hasKey ? 'Open the chest.' : '',
+                badTextFirst: true,
                 onClick: () => {
                   setPage(2);
                   dispatch(actions.removeCardsFromCollection('Strange Key'));
@@ -60,6 +61,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
                 isDisabled: gold < 100,
                 badText: gold < 100 ? 'Requires: 100 gold.' : 'Lose 100 gold.',
                 goodText: gold < 100 ? '' : 'Gain 150 gold.',
+                badTextFirst: true,
                 onClick: () => {
                   setPage(3);
                   dispatch(actions.adjustPlayerGold(-100));
@@ -82,7 +84,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               <React.Fragment>
                 You toss the slime your <span className='yellow'>Strange Key</span>. Extending a <span className='violet'>slimy tentacle</span>, the slime absorbs the key into its body!
                 <br /><br />
-                The chest is unlocked!
+                The chest is <span className='green'>unlocked!</span>
               </React.Fragment>
             ),
             options: [{
@@ -95,7 +97,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               <React.Fragment>
                 You toss the slime a handful of <span className='yellow'>coins</span>. Extending a <span className='violet'>slimy tentacle</span>, the slime absorbs the gold into its body!
                 <br /><br />
-                The slime coughs up some loot in thanks.
+                The slime coughs up some <span className='yellow'>loot</span> in thanks.
               </React.Fragment>
             ),
             options: [{
@@ -104,8 +106,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               onClick: () => {
                 dispatch(actions.adjustPlayerGold(150));
                 dispatch(actions.addTownFeedText('Received: 150 gold'));
-                setFinalPageText('You make off with the loot.');
-                setPage(4);
+                closeModal();
               }
             }]
           },

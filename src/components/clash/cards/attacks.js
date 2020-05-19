@@ -72,10 +72,10 @@ export const attacks = [
     name: 'Fire Spear',
     image: 'fire_spear',
     rarity: 'uncommon',
-    attack: 3,
+    attack: 2,
     defense: 1,
-    shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Burn', pile: 'deck' }],
-    description: 'Shuffle a copy of Burn into your opponent\'s deck.'
+    playCopiesOfCards: ['Fire'],
+    description: 'Play a copy of Fire.'
   },
   {
     name: 'Multishot',

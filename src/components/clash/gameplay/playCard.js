@@ -151,10 +151,9 @@ export const playCard = (state, card, player, location, index) => {
       renderActions.push(damageAction);
 
       if (destination === 'discard' && removedCard.onDiscard) {
-        if (
-          state[opponent].deck.length
-          || (!state[opponent].deck.length && removedCard.onDiscard.heal)
-        ) {
+        if (state[opponent].deck.length || (
+          removedCard.onDiscard.heal || removedCard.onDiscard.shuffleCardCopiesIntoYourPiles
+        )) {
           triggerDiscardEffect(state, opponent);
           if (state.winner) break;
         }

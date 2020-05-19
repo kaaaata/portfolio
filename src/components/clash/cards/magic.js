@@ -36,6 +36,13 @@ export const magic = [
     ],
     description: 'Damage dealt pierces shields. Add two copies of Candy Corn into your discard.'
   },
+  {
+    name: 'Super Fire',
+    image: 'double_fireball',
+    rarity: 'uncommon',
+    attack: 4,
+    defense: 0
+  }
 ].map(card => createCard({
   ...card,
   type: 'magic',

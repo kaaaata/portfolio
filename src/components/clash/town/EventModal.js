@@ -40,7 +40,14 @@ export const EventModal = ({
   page,
   pages /* pages: [{
     text:String|Node,
-    options:[{ name:String, isDisabled: bool, goodText:String, badText:String, onClick:Func }]
+    options: [{
+      name:String,
+      isDisabled: bool,
+      goodText:String,
+      badText:String,
+      badTextFirst: bool,
+      onClick:Func
+    }]
   }] */
 }) => {
   let interval;
@@ -92,8 +99,14 @@ export const EventModal = ({
               >
                 <Text type='small'>
                   [{option.name}]
-                  {option.badText && <span className='red'> {option.badText}</span>}
-                  {option.goodText && <span className='green'> {option.goodText}</span>}
+                  {option.badTextFirst
+                    ? <span className='red'> {option.badText}</span>
+                    : <span className='green'> {option.goodText}</span>
+                  }
+                  {option.badTextFirst
+                    ? <span className='green'> {option.goodText}</span>
+                    : <span className='red'> {option.badText}</span>
+                  }
                 </Text>
               </Button>
             ))}

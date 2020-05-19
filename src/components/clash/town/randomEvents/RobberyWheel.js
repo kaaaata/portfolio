@@ -111,7 +111,7 @@ export const RobberyWheel = ({ rng, closeModal }) => {
           You win a <span className='red'>Bomb!</span>
         </React.Fragment>
       );
-      continueBadText = 'Add a copy of Bomb to your deck.'
+      continueBadText = 'Receive card: Bomb.'
       continueOnClick = () => {
         dispatch(actions.addCardsToCollection('Bomb'));
         closeModal();
@@ -136,7 +136,7 @@ export const RobberyWheel = ({ rng, closeModal }) => {
           You win some <span className='green'>candy corn!</span>
         </React.Fragment>
       );
-      continueGoodText = 'Add a copy of Candy Corn to your deck.'
+      continueGoodText = 'Receive card: Candy Corn.'
       continueOnClick = () => {
         dispatch(actions.addCardsToCollection('Candy Corn'));
         closeModal();
@@ -148,7 +148,7 @@ export const RobberyWheel = ({ rng, closeModal }) => {
           You win a <span className='violet'>strange key!</span>
         </React.Fragment>
       );
-      continueGoodText = 'Add a copy of Strange Key to your deck.'
+      continueGoodText = 'Receive card: Strange Key.'
       continueOnClick = () => {
         dispatch(actions.addCardsToCollection('Strange Key'));
         closeModal();

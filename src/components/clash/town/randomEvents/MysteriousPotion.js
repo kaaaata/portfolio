@@ -29,7 +29,7 @@ export const MysteriousPotion = ({ rng, closeModal }) => {
               <span className='blue'> blue potion. </span>
               It looks like someone accidentally dropped it.
               <br /><br />
-              You don't recognize it, but it would be a shame to leave it behind....
+              You don't recognize it, but it would be a <span className='violet'>shame</span> to leave it behind....
             </React.Fragment>
           ),
           options: [
@@ -96,7 +96,7 @@ export const MysteriousPotion = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: `Add a copy of ${potion.name} to your deck.`,
+            goodText: `Receive card: ${potion.name}.`,
             onClick: () => {
               dispatch(actions.addCardsToCollection(potion.name));
               closeModal();
