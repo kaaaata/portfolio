@@ -3,12 +3,12 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { FlexContainer, Image } from '../particles';
 import { Attributes } from './Attributes';
 import { Gold } from './Gold';
-import { Collection } from './modals/Collection';
 import { Settings } from './modals/Settings';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 import { Text } from './Text';
 import { useSelector, shallowEqual } from 'react-redux'
+import { CardViewModal } from './modals/CardViewModal';
 
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -94,7 +94,11 @@ export const TopNav = () => {
       </FlexContainer>
 
       <div css={css`display: ${activeModal === 'collection' ? 'unset' : 'none'};`}>
-        <Collection />
+        <CardViewModal
+          title='Your Cards'
+          cards={deck}
+          closeModal={() => setActiveModal(null)}
+        />
       </div>
 
       <div css={css`display: ${activeModal === 'shop' ? 'unset' : 'none'};`}>

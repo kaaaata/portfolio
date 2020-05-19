@@ -20,7 +20,7 @@ const _Card = React.memo(
       type,
       description
     } = cards[name];
-
+    if (name === 'Strike') console.log('strike <Card> rendering');
     const cardArt = (
       <React.Fragment>
         <Spacer height={70} />
@@ -127,14 +127,14 @@ export const Card = ({
   x = 0,
   y = 0,
   isFaceDown,
-  isInPileOfCards = false,
+  isInCardPile = false,
   shouldAnimateEntry = false,
   isBlurred = false,
   isHidden = false,
   onClick
 }) => {
   const animatedEntryStartingTransformCss = 'transform: rotate3d(0, 1, 0, 65deg);';
-  const restingPositionTransformCss = isInPileOfCards
+  const restingPositionTransformCss = isInCardPile
     ? 'transform: rotate3d(1, 0, 0, 65deg);'
     : '';
 
@@ -154,7 +154,7 @@ export const Card = ({
     ` : 'position: relative;'}
     user-select: none;
     border-radius: 5px;
-    ${isInPileOfCards ? transformCss : `
+    ${isInCardPile ? transformCss : `
       box-shadow: 2px 2px 3px ${colors.black};
 
       &:hover {

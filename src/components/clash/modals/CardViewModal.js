@@ -1,5 +1,4 @@
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
-import { useSelector, shallowEqual } from 'react-redux';
 // import { cards } from '../cards/cards';
 import { Card } from '../Card';
 import { Modal } from './Modal';
@@ -30,18 +29,12 @@ const collectionCss = css`
   overflow: scroll;
 `;
 
-export const Collection = ({ cardsOverride }) => {
-  const { deck } = useSelector(state => ({
-    deck: state.clashPlayer.deck
-  }), shallowEqual);
-
-  return (
-    <Modal title={`Your Cards (${deck.length})`}>
-      <div css={collectionCss}>
-        {(cardsOverride || deck).map((card, index) => (
-          <Card key={index} name={card} />
-        ))}
-      </div>
-    </Modal>
-  );
-};
+export const CardViewModal = ({ title, cards, closeModal }) => (
+  <Modal title={`${title} (${cards.length})`} closeModal={closeModal}>
+    <div css={collectionCss}>
+      {cards.map((card, index) => (
+        <Card key={index} name={card} />
+      ))}
+    </div>
+  </Modal>
+);

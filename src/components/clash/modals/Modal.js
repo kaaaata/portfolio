@@ -35,6 +35,7 @@ export const Modal = ({
   title, // String|Node
   halfModal = false,
   transparent = true,
+  closeModal,
   children
 }) => {
   const modalTitle = title && (
@@ -48,6 +49,7 @@ export const Modal = ({
     <div
       css={modalCss}
       className={`modal ${halfModal ? 'half_modal' : ''} ${transparent ? 'transparent' : ''}`}
+      onClick={closeModal}
     >
       <FlexContainer alignItems='center' flexDirection='column'>
         {modalTitle}
@@ -57,7 +59,7 @@ export const Modal = ({
   );
 
   return halfModal ? (
-    <div css={unclickableAreaCss}>
+    <div css={unclickableAreaCss} onClick={closeModal}>
       {modal}
     </div>
   ) : modal;

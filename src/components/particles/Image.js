@@ -17,7 +17,7 @@ export const Image = (props) => {
     onMouseEnter,
     children
   } = props;
-
+  if (src === '/clash/strike.png') { console.log('strike <image> rendered'); }
   const widthCss = mq.genResponsiveCss('width', width);
   const heightCss = mq.genResponsiveCss('height', height);
   const linearGradientCss = rgbaFilter ? `linear-gradient(${rgbaFilter}, ${rgbaFilter}), ` : '';

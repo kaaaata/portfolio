@@ -8,7 +8,9 @@ const genInitialState = () => ({
   enemyDiscard: [],
   enemyBanish: [],
   enemyHand: [null, null, null],
-  stack: []
+  stack: [],
+
+  activeModalCardPile: null
 });
 
 export default (state = genInitialState(), action) => {
@@ -70,6 +72,11 @@ export default (state = genInitialState(), action) => {
       };
     case 'SET_BATTLE_INITIAL_STATE':
       return genInitialState();
+    case 'SET_ACTIVE_MODAL_CARD_PILE':
+      return {
+        ...state,
+        activeModalCardPile: action.payload
+      };
     default:
       return state;
   }

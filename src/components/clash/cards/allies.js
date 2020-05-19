@@ -119,6 +119,7 @@ export const allies = [
     rarity: 'rare',
     attack: 0,
     defense: 0,
+    customEffect: true,
     description: 'Play 2 random attacks from your discard, then banish them.'
   },
   {
@@ -127,7 +128,8 @@ export const allies = [
     rarity: 'rare',
     attack: 0,
     defense: 0,
-    description: 'Gain 2 random magic attacks from your discard, then banish them.'
+    customEffect: true,
+    description: 'Play 2 random magic attacks from your discard, then banish them.'
   },
   {
     name: 'Vampire',

@@ -11,10 +11,11 @@ import {
   YourHand,
   EnemyHand,
   Stack
-} from '../PileOfCards';
+} from './CardPile';
 import { Portrait } from '../Portrait';
 import { playFirstCardInRound } from '../gameplay/playFirstCardInRound';
 import { BattleRewards } from './BattleRewards';
+import { CardPileModal } from './CardPileModal';
 
 const perspectiveCss = css`perspective: 2000px;`;
 
@@ -80,13 +81,14 @@ export const Battle = () => {
       <Stack />
 
       <Portrait player='you' />
-      <YourHand onClick={(index) => handleClickCardInYourHand(index)} />
+      <YourHand cardOnClick={(index) => handleClickCardInYourHand(index)} />
       <div css={perspectiveCss}>
         <YourDeck />
         <YourDiscard />
         <YourBanish />
       </div>
 
+      <CardPileModal />
       <BattleRewards />
     </div>
   );

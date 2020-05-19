@@ -14,7 +14,6 @@ export const TreasureSlime = ({ rng, closeModal }) => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
-  const [finalPageText, setFinalPageText] = useState('You leave the slime alone.');
   const [activeModal, setActiveModal] = useState(null);
 
   if (activeModal === 'monster_preview') {
@@ -111,7 +110,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
             }]
           },
           {
-            text: finalPageText,
+            text: 'You leave the slime alone.',
             options: [{
               name: 'Continue',
               onClick: closeModal
