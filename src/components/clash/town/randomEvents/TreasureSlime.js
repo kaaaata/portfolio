@@ -47,9 +47,9 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               {
                 name: 'Give Key',
                 isDisabled: !hasKey,
-                badText: hasKey ? 'Lose card: Strange Key.' : 'Requires card: Strange Key.',
-                goodText: hasKey ? 'Open the chest.' : '',
-                badTextFirst: true,
+                redText: hasKey ? 'Lose card: Strange Key.' : 'Requires card: Strange Key.',
+                greenText: hasKey ? 'Open the chest.' : '',
+                redTextFirst: true,
                 onClick: () => {
                   setPage(2);
                   dispatch(actions.removeCardsFromCollection('Strange Key'));
@@ -58,9 +58,9 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               {
                 name: 'Give Gold',
                 isDisabled: gold < 100,
-                badText: gold < 100 ? 'Requires: 100 gold.' : 'Lose 100 gold.',
-                goodText: gold < 100 ? '' : 'Gain 150 gold.',
-                badTextFirst: true,
+                redText: gold < 100 ? 'Requires: 100 gold.' : 'Lose 100 gold.',
+                greenText: gold < 100 ? '' : 'Gain 150 gold.',
+                redTextFirst: true,
                 onClick: () => {
                   setPage(3);
                   dispatch(actions.adjustPlayerGold(-100));
@@ -69,7 +69,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               },
               {
                 name: 'Attack',
-                goodText: 'Fight enemy: Treasure Slime.',
+                greenText: 'Fight enemy: Treasure Slime.',
                 onClick: () => setActiveModal('monster_preview')
               },
               {
@@ -101,7 +101,7 @@ export const TreasureSlime = ({ rng, closeModal }) => {
             ),
             options: [{
               name: 'Take Loot',
-              goodText: 'Receive 150 gold.',
+              greenText: 'Receive 150 gold.',
               onClick: () => {
                 dispatch(actions.adjustPlayerGold(150));
                 dispatch(actions.addTownFeedText('Received: 150 gold'));

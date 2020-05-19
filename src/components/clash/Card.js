@@ -20,7 +20,7 @@ const _Card = React.memo(
       type,
       description
     } = cards[name];
-    if (name === 'Strike') console.log('strike <Card> rendering');
+
     const cardArt = (
       <React.Fragment>
         <Spacer height={70} />

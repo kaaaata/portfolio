@@ -29,16 +29,16 @@ export const CaveFireball = ({ rng, closeModal }) => {
           options: [
             {
               name: 'Catch It',
-              goodText: '75%: Receive card: Fire.',
-              badText: '25%: Receive card: Burn.',
+              greenText: '75%: Receive card: Fire.',
+              redText: '25%: Receive card: Burn.',
               onClick: () => setPage(2)
             },
             {
               name: 'Blast It',
               isDisabled: !hasFire,
-              badText: hasFire ? 'Lose card: Fire.' : 'Requires card: Fire.',
-              goodText: hasFire ? 'Receive card: Super Fire.' : '',
-              badTextFirst: true,
+              redText: hasFire ? 'Lose card: Fire.' : 'Requires card: Fire.',
+              greenText: hasFire ? 'Receive card: Super Fire.' : '',
+              redTextFirst: true,
               onClick: () => {
                 setPage(3);
                 dispatch(actions.removeCardsFromCollection('Fire'));
@@ -47,8 +47,8 @@ export const CaveFireball = ({ rng, closeModal }) => {
             {
               name: 'Counter It',
               isDisabled: !hasMage,
-              goodText: hasMage ? 'Receive card: Super Fire.' : '',
-              badText: hasMage ? '' : 'Requires card: Mage.',
+              greenText: hasMage ? 'Receive card: Super Fire.' : '',
+              redText: hasMage ? '' : 'Requires card: Mage.',
               onClick: () => setPage(4)
             }
           ]
@@ -71,8 +71,8 @@ export const CaveFireball = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: rng < 0.75 ? 'Receive card: Fire.' : '',
-            badText: rng < 0.75 ? '' : 'Receive card: Burn.',
+            greenText: rng < 0.75 ? 'Receive card: Fire.' : '',
+            redText: rng < 0.75 ? '' : 'Receive card: Burn.',
             onClick: () => {
               dispatch(actions.addCardsToCollection(rng < 0.75 ? 'Fire' : 'Burn'));
               closeModal();
@@ -89,7 +89,7 @@ export const CaveFireball = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: 'Receive card: Super Fire.',
+            greenText: 'Receive card: Super Fire.',
             onClick: () => {
               dispatch(actions.addCardsToCollection('Super Fire'));
               closeModal();
@@ -106,7 +106,7 @@ export const CaveFireball = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: 'Receive card: Super Fire.',
+            greenText: 'Receive card: Super Fire.',
             onClick: () => {
               dispatch(actions.addCardsToCollection('Super Fire'));
               closeModal();

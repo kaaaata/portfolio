@@ -22,7 +22,9 @@ export const cardsByRarity = {
 export const genStartingDeck = () => [
   'Strange Key', // testing
   'Strange Key', // testing
-  'Mage', // testing
+  'Freeze', // testing
+  'Bomb', // testing
+  'Burn', // testing
 
   'Healing Potion',
   'Slice',

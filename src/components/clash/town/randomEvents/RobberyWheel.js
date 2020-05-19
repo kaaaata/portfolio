@@ -218,8 +218,8 @@ export const RobberyWheel = ({ rng, closeModal }) => {
               }
             } : {
               name: 'Continue',
-              goodText: continueGoodText,
-              badText: continueBadText,
+              greenText: continueGoodText,
+              redText: continueBadText,
               onClick: continueOnClick
             }
           ]

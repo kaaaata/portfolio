@@ -113,7 +113,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
             {
               name: 'Retreat',
               isDisabled: monster.type === 'wave',
-              badText: monster.type === 'wave' ? 'Can\'t retreat from end-of-day battles!' : '',
+              redText: monster.type === 'wave' ? 'Can\'t retreat from end-of-day battles!' : '',
               onClick: () => {
                 closeModal();
                 dispatch(actions.setCanVisitShop(true));

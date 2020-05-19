@@ -18,7 +18,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
   let lootCb;
   let lootCards = [];
   let lootPack;
-  let goodText;
+  let greenText;
   
   if (rng < 0.05) {
     const gold = random(100, 150);
@@ -27,7 +27,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
       dispatch(actions.adjustPlayerGold(gold));
       dispatch(actions.addTownFeedText(`Received: ${gold} gold`));
     };
-    goodText = `Receive ${gold} gold.`;
+    greenText = `Receive ${gold} gold.`;
   } else if (rng < 0.15) {
     lootText = <span className={rarityColors.uncommon}>two uncommon cards!</span>
     lootCb = () => setIsCardLootModalOpen(true);
@@ -55,7 +55,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
       dispatch(actions.adjustPlayerGold(gold));
       dispatch(actions.addTownFeedText(`Received: ${gold} gold`));
     };
-    goodText = `Receive ${gold} gold.`;
+    greenText = `Receive ${gold} gold.`;
   }
 
   if (lootPack) {
@@ -65,7 +65,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
   }
 
   if (lootCards.length) {
-    goodText = 'Select cards to keep.';
+    greenText = 'Select cards to keep.';
   }
 
   return isCardLootModalOpen ? (
@@ -90,7 +90,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText,
+            greenText,
             onClick: () => {
               lootCb();
               if (!lootCards.length) {

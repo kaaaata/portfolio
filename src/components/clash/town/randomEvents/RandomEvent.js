@@ -3,13 +3,15 @@ import { MysteriousPotion } from './MysteriousPotion';
 import { TreasureSlime } from './TreasureSlime';
 import { RobberyWheel } from './RobberyWheel';
 import { CaveFireball } from './CaveFireball';
+import { GoblinBomber } from './GoblinBomber';
 import { sample } from 'lodash';
 
 const randomEvents = [ // testing
-  { name: 'Mysterious Potion', probability: 1 },
+  { name: 'Mysterious Potion', probability: 0 },
   { name: 'Treasure Slime', probability: 0 },
   { name: 'Robbery Wheel', probability: 0 },
-  { name: 'Cave Fireball', probability: 0 }
+  { name: 'Cave Fireball', probability: 0 },
+  { name: 'Goblin Bomber', probability: 1 }
 ];
 const randomEventPool = [];
 randomEvents.forEach(event => {
@@ -30,6 +32,8 @@ export const RandomEvent = ({ closeModal }) => {
       return <RobberyWheel rng={rng} closeModal={closeModal} />;
     case 'Cave Fireball':
       return <CaveFireball rng={rng} closeModal={closeModal} />;
+    case 'Goblin Bomber':
+      return <GoblinBomber closeModal={closeModal} />;
     default:
       return null;
   }

@@ -34,7 +34,7 @@ export const WorkForGold = ({ closeModal }) => {
           text: `...${sample(flavorTexts)}`,
           options: [{
             name: 'Continue',
-            goodText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
+            greenText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
             onClick: () => {
               dispatch(actions.adjustPlayerGold(goldEarned));
               dispatch(actions.addTownFeedText(`Received: ${goldEarned} gold`));

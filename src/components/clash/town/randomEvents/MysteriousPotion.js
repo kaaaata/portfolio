@@ -35,13 +35,13 @@ export const MysteriousPotion = ({ rng, closeModal }) => {
           options: [
             {
               name: 'Drink It',
-              goodText: '75%: temporary stat boost.',
-              badText: '25%: no effect.',
+              greenText: '75%: temporary stat boost.',
+              redText: '25%: no effect.',
               onClick: () => setPage(potion.name === 'Explosive Potion' ? 2 : 3)
             },
             {
               name: 'Keep It',
-              goodText: 'Add the potion to your deck.',
+              greenText: 'Add the potion to your deck.',
               onClick: () => setPage(4)
             },
             {
@@ -73,7 +73,7 @@ export const MysteriousPotion = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: `Gain +1 ${potion.stat} for the rest of the day.`,
+            greenText: `Gain +1 ${potion.stat} for the rest of the day.`,
             onClick: () => {
               dispatch(actions.setStats({
                 stats: { [potion.stat]: 1 },
@@ -96,7 +96,7 @@ export const MysteriousPotion = ({ rng, closeModal }) => {
           ),
           options: [{
             name: 'Continue',
-            goodText: `Receive card: ${potion.name}.`,
+            greenText: `Receive card: ${potion.name}.`,
             onClick: () => {
               dispatch(actions.addCardsToCollection(potion.name));
               closeModal();

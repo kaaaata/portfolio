@@ -85,8 +85,8 @@ export const BattleRewards = () => {
           ),
           options: [{
             name: 'Continue',
-            goodText: didPlayerWin ? `Receive ${battleRewardGold} gold.` : '',
-            badText: didPlayerWin ? '' : `Lose ${battleDefeatGold} gold.`,
+            greenText: didPlayerWin ? `Receive ${battleRewardGold} gold.` : '',
+            redText: didPlayerWin ? '' : `Lose ${battleDefeatGold} gold.`,
             onClick: () => {
               if (didPlayerWin) {
                 dispatch(actions.adjustPlayerGold(battleRewardGold));
@@ -106,7 +106,7 @@ export const BattleRewards = () => {
           ),
           options: [{
             name: 'Continue',
-            goodText: "Take up to 2 cards from the enemy's deck.",
+            greenText: "Take up to 2 cards from the enemy's deck.",
             onClick: () => setIsCardLootModalOpen(true)
           }]
         }

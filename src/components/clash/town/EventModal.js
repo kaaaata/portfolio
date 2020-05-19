@@ -43,9 +43,9 @@ export const EventModal = ({
     options: [{
       name:String,
       isDisabled: bool,
-      goodText:String,
-      badText:String,
-      badTextFirst: bool,
+      greenText:String,
+      redText:String,
+      redTextFirst: bool,
       onClick:Func
     }]
   }] */
@@ -99,13 +99,13 @@ export const EventModal = ({
               >
                 <Text type='small'>
                   [{option.name}]
-                  {option.badTextFirst
-                    ? <span className='red'> {option.badText}</span>
-                    : <span className='green'> {option.goodText}</span>
+                  {option.redTextFirst
+                    ? <span className='red'> {option.redText}</span>
+                    : <span className='green'> {option.greenText}</span>
                   }
-                  {option.badTextFirst
-                    ? <span className='green'> {option.goodText}</span>
-                    : <span className='red'> {option.badText}</span>
+                  {option.redTextFirst
+                    ? <span className='green'> {option.greenText}</span>
+                    : <span className='red'> {option.redText}</span>
                   }
                 </Text>
               </Button>

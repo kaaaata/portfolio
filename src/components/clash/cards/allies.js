@@ -25,7 +25,7 @@ export const allies = [
     description: 'Play a random ally from your discard pile, then banish it.'
   },
   {
-    name: 'Goblin Bomber',
+    name: 'Goblin',
     image: 'goblin',
     rarity: 'common',
     attack: 1,

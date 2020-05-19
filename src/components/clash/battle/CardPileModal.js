@@ -19,8 +19,6 @@ export const CardPileModal = () => {
   }), (oldState, newState) => oldState.activeModalCardPile === newState.activeModalCardPile);
   const dispatch = useDispatch();
 
-  console.log('card pile modal rendered');
-
   return activeModalCardPile ? (
     <CardViewModal
       title={cardPileModalNames[activeModalCardPile]}

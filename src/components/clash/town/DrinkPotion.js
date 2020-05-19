@@ -25,7 +25,7 @@ export const DrinkPotion = ({ closeModal }) => {
           options: [
             {
               name: 'Attack Potion',
-              goodText: 'Gain +1 attack for the rest of the day.',
+              greenText: 'Gain +1 attack for the rest of the day.',
               onClick: () => {
                 setFlavorText('stronger');
                 setPage(2);
@@ -40,7 +40,7 @@ export const DrinkPotion = ({ closeModal }) => {
             },
             {
               name: 'Magic Potion',
-              goodText: 'Gain +1 magic for the rest of the day.',
+              greenText: 'Gain +1 magic for the rest of the day.',
               onClick: () => {
                 setFlavorText('wiser');
                 setPage(2);
@@ -55,7 +55,7 @@ export const DrinkPotion = ({ closeModal }) => {
             },
             {
               name: 'Defense Potion',
-              goodText: 'Gain +1 defense for the rest of the day.',
+              greenText: 'Gain +1 defense for the rest of the day.',
               onClick: () => {
                 setFlavorText('tougher');
                 setPage(2);

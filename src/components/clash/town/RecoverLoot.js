@@ -24,7 +24,7 @@ export const RecoverLoot = ({ closeModal }) => {
       ),
       options: [{
         name: 'Continue',
-        goodText: `Receive ${battleRewardGold} gold.`,
+        greenText: `Receive ${battleRewardGold} gold.`,
         onClick: () => {
           dispatch(actions.adjustPlayerGold(battleRewardGold));
           dispatch(actions.addTownFeedText(`Recovered: ${battleRewardGold} gold`));
@@ -41,7 +41,7 @@ export const RecoverLoot = ({ closeModal }) => {
       ),
       options: [{
         name: 'Continue',
-        goodText: "Take up to 2 cards from the enemy's deck",
+        greenText: "Take up to 2 cards from the enemy's deck",
         onClick: () => setIsCardLootModalOpen(true)
       }]
     })

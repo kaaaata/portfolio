@@ -25,7 +25,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
           options: [
             {
               name: 'Blessing of Strength',
-              goodText: 'Gain +1 attack permanently.',
+              greenText: 'Gain +1 attack permanently.',
               onClick: () => {
                 setFlavorText('stronger');
                 setPage(2);
@@ -40,7 +40,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
             },
             {
               name: 'Blessing of Wisdom',
-              goodText: 'Gain +1 magic permanently.',
+              greenText: 'Gain +1 magic permanently.',
               onClick: () => {
                 setFlavorText('wiser');
                 setPage(2);
@@ -55,7 +55,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
             },
             {
               name: 'Blessing of Protection',
-              goodText: 'Gain +1 defense permanently.',
+              greenText: 'Gain +1 defense permanently.',
               onClick: () => {
                 setFlavorText('tougher');
                 setPage(2);
@@ -70,7 +70,7 @@ export const ReceiveBlessing = ({ closeModal }) => {
             },
             {
               name: 'Blessing of Wall Street',
-              goodText: 'Receive 300 gold.',
+              greenText: 'Receive 300 gold.',
               onClick: () => {
                 setFlavorText('Gold rains from the sky!');
                 setPage(2);

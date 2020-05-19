@@ -183,8 +183,8 @@ test('Play copies of cards works (Hobgoblin)', () => {
     .not.toBe(-1);
 });
 
-test('Shuffle card copies into pile works (Goblin Bomber, Candy Corn)', () => {
-  const goblin = cards['Goblin Bomber'];
+test('Shuffle card copies into pile works (Goblin, Candy Corn)', () => {
+  const goblin = cards['Goblin'];
   const candyCorn = cards['Candy Corn'];
   simulatePlayCard(goblin);
   simulatePlayCard(candyCorn);

@@ -19,8 +19,8 @@ const monstersTier1 = [
     image: 'goblin',
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
-      'Goblin Bomber',
-      'Goblin Bomber'
+      'Goblin',
+      'Goblin'
     ]
   },
   {
