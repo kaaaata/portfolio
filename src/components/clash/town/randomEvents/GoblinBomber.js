@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import * as actions from '../../../stores/actions';
-import { EventModal } from '../EventModal';
+import { EventModal, EventModalPage } from '../../modals/EventModal';
 
 export const GoblinBomber = ({ closeModal }) => {
   const { hasBomb, hasBurn, hasFreeze } = useSelector(state => ({
@@ -11,21 +11,20 @@ export const GoblinBomber = ({ closeModal }) => {
   }), shallowEqual);
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState('default');
 
-  return (
-    <EventModal
-      title='Goblin Bomber'
-      image='goblin_bomber_event'
-      page={page}
-      pages={[
-        {
-          text: (
+  let pageComponent;
+  switch (page) {
+    case 'default':
+      pageComponent = (
+        <EventModalPage
+          page={1}
+          text={
             <React.Fragment>
               You are surprised by a <span className='green'>goblin</span> (called Wayne) holding a <span className='red'>bomb!</span> He menacingly waves it in your face. "Me make bomb!!!" he screeches. <span className='red'>"Give fire!!!"</span>
             </React.Fragment>
-          ),
-          options: [
+          }
+          options={[
             {
               name: 'Give Bomb',
               isDisabled: !hasBomb,
@@ -33,7 +32,7 @@ export const GoblinBomber = ({ closeModal }) => {
               greenText: hasBomb ? 'Receive 15 gold.' : '',
               redTextFirst: true,
               onClick: () => {
-                setPage(2);
+                setPage('give_bomb');
                 dispatch(actions.removeCardsFromCollection('Bomb'));
               }
             },
@@ -44,7 +43,7 @@ export const GoblinBomber = ({ closeModal }) => {
               greenText: hasBurn ? 'Receive 5 gold.' : '',
               redTextFirst: true,
               onClick: () => {
-                setPage(3);
+                setPage('give_burn');
                 dispatch(actions.removeCardsFromCollection('Burn'));
               }
             },
@@ -55,25 +54,30 @@ export const GoblinBomber = ({ closeModal }) => {
               greenText: hasFreeze ? 'Receive 10 gold.' : '',
               redTextFirst: true,
               onClick: () => {
-                setPage(4);
+                setPage('give_freeze');
                 dispatch(actions.removeCardsFromCollection('Freeze'));
               }
             },
             {
               name: 'Leave',
-              onClick: () => setPage(5)
+              onClick: () => setPage('leave')
             }
-          ]
-        },
-        {
-          text: (
+          ]}
+        />
+      );
+      break;
+    case 'give_bomb':
+      pageComponent = (
+        <EventModalPage
+          page={2}
+          text={
             <React.Fragment>
               <span className='violet'>"My bomb!!"</span> the goblin exclaims, as he happily takes your bomb.
               <br /><br />
               He tosses you a few <span className='yellow'>coins</span>, and runs off.
             </React.Fragment>
-          ),
-          options: [{
+          }
+          options={[{
             name: 'Continue',
             greenText: 'Receive 15 gold.',
             onClick: () => {
@@ -81,17 +85,22 @@ export const GoblinBomber = ({ closeModal }) => {
               dispatch(actions.addTownFeedText(`Received: 15 gold`));
               closeModal();
             }
-          }]
-        },
-        {
-          text: (
+          }]}
+        />
+      );
+      break;
+    case 'give_burn':
+      pageComponent = (
+        <EventModalPage
+          page={3}
+          text={
             <React.Fragment>
               <span className='red'>"I need fire!!"</span> the goblin exclaims. <span className='green'>"Thank you!!"</span>
               <br /><br />
               He tosses you a few <span className='yellow'>coins</span>, takes your burn, and runs off.
             </React.Fragment>
-          ),
-          options: [{
+          }
+          options={[{
             name: 'Continue',
             greenText: 'Receive 5 gold.',
             onClick: () => {
@@ -99,17 +108,22 @@ export const GoblinBomber = ({ closeModal }) => {
               dispatch(actions.addTownFeedText(`Received: 5 gold`));
               closeModal();
             }
-          }]
-        },
-        {
-          text: (
+          }]}
+        />
+      );
+      break;
+    case 'give_freeze':
+      pageComponent = (
+        <EventModalPage
+          page={4}
+          text={
             <React.Fragment>
               <span className='blue'>"I like ice!!"</span> the goblin exclaims. <span className='blue'>"Ice make ice cream!!!"</span>
               <br /><br />
-              He tosses you a few <span className='yellow'>coins</span>, takes the ice, and runs off.
+              He tosses you a few <span className='yellow'>coins</span>, takes the freeze, and runs off.
             </React.Fragment>
-          ),
-          options: [{
+          }
+          options={[{
             name: 'Continue',
             greenText: 'Receive 10 gold.',
             onClick: () => {
@@ -117,16 +131,32 @@ export const GoblinBomber = ({ closeModal }) => {
               dispatch(actions.addTownFeedText(`Received: 10 gold`));
               closeModal();
             }
-          }]
-        },
-        {
-          text: 'You decide to leave the goblin alone.',
-          options: [{
+          }]}
+        />
+      );
+      break;
+    case 'leave':
+      pageComponent = (
+        <EventModalPage
+          page={4}
+          text='You decide to leave the goblin to his antics.'
+          options={[{
             name: 'Continue',
             onClick: closeModal
-          }]
-        }
-      ]}
-    />
+          }]}
+        />
+      );
+      break;
+    default:
+      break;
+  }
+      
+  return (
+    <EventModal
+      title='Goblin Bomber'
+      image='goblin_bomber_event'
+    >
+      {pageComponent}
+    </EventModal>
   );
 };

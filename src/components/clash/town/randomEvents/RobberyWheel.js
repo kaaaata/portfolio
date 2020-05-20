@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { useDispatch } from 'react-redux';
 import * as actions from '../../../stores/actions';
-import { EventModal } from '../EventModal';
 import { Image, FlexContainer } from '../../../particles';
 import { colors } from '../../../styles';
 import { genPackCards } from '../../shop/genPackCards';
 import { packs } from '../../shop/packs';
 import { CardLootModal } from '../../modals/CardLootModal';
+import { EventModal, EventModalPage } from '../../modals/EventModal';
 
 const wheelImages = [
   { image: 'gold', width: 36, height: 36 },
@@ -73,9 +73,9 @@ const robberyWheelCss = css`
 export const RobberyWheel = ({ rng, closeModal }) => {
   const dispatch = useDispatch();
 
+  const [page, setPage] = useState('default');
   const [isSpinning, setIsSpinning] = useState(false);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(-1);
-  const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
 
   let flavorText;
   let continueGoodText;
@@ -92,7 +92,7 @@ export const RobberyWheel = ({ rng, closeModal }) => {
       continueGoodText = 'Receive 100 gold.'
       continueOnClick = () => {
         dispatch(actions.adjustPlayerGold(100));
-        dispatch(actions.addTownFeedText(`Received: 100 gold`));
+        dispatch(actions.addTownFeedText('Received: 100 gold'));
         closeModal();
       };
       break;
@@ -103,7 +103,7 @@ export const RobberyWheel = ({ rng, closeModal }) => {
         </React.Fragment>
       );
       continueGoodText = 'Select cards to keep.'
-      continueOnClick = () => setIsCardLootModalOpen(true);
+      continueOnClick = () => setPage('card_loot_modal');
       break;
     case 2:
       flavorText = (
@@ -158,7 +158,39 @@ export const RobberyWheel = ({ rng, closeModal }) => {
       break;
   }
 
-  return isCardLootModalOpen ? (
+  const page1Text = (
+    <FlexContainer css={robberyWheelCss}>
+      <div id='robbery_wheel'>
+        {[0, 1, 2].map(i => (
+          <div key={i} className={`divider divider_${i}`} />
+        ))}
+        {wheelImages.map((i, index) => (
+          <Image
+            key={index}
+            src={`/clash/${i.image}.png`}
+            width={i.width}
+            height={i.height}
+            className={`option option_${index}`}
+          />
+        ))}
+      </div>
+      <Image
+        src='/clash/strike.png'
+        width={80}
+        height={60}
+        className='pointer'
+      />
+      <div>
+        <React.Fragment>
+          You encounter a strange goblin lurking in the shadows. <span className='violet'>"Spin my wheel!"</span> he says. <span className='violet'>"Hee hee hee!"</span>
+          <br /><br />
+          {flavorText}
+        </React.Fragment>
+      </div>
+    </FlexContainer>
+  );
+
+  return page === 'card_loot_modal' ? (
     <CardLootModal
       title='Silver Pack'
       cards={genPackCards(packs.silver)}
@@ -168,63 +200,32 @@ export const RobberyWheel = ({ rng, closeModal }) => {
     <EventModal
       title='Robbery Wheel'
       image='goblin_boss'
-      page={1}
-      pages={[
-        {
-          text: (
-            <FlexContainer css={robberyWheelCss}>
-              <div id='robbery_wheel'>
-                {[0, 1, 2].map(i => (
-                  <div key={i} className={`divider divider_${i}`} />
-                ))}
-                {wheelImages.map((i, index) => (
-                  <Image
-                    key={index}
-                    src={`/clash/${i.image}.png`}
-                    width={i.width}
-                    height={i.height}
-                    className={`option option_${index}`}
-                  />
-                ))}
-              </div>
-              <Image
-                src='/clash/strike.png'
-                width={80}
-                height={60}
-                className='pointer'
-              />
-              <div>
-                <React.Fragment>
-                  You encounter a strange goblin lurking in the shadows. <span className='violet'>"Spin my wheel!"</span> he says. <span className='violet'>"Hee hee hee!"</span>
-                  <br /><br />
-                  {flavorText}
-                </React.Fragment>
-              </div>
-            </FlexContainer>
-          ),
-          options: [
-            selectedOptionIndex === -1 ? {
-              name: 'Spin the Wheel',
-              isDisabled: isSpinning,
-              onClick: () => {
-                setIsSpinning(true);
-                const el = document.getElementById('robbery_wheel');
-                const selectedOptionIndex = Math.floor(rng * 5);
-                el.style.transform = `rotate(${360 * 8 + 30 + 60 * (5 - selectedOptionIndex)}deg)`;
+    >
+      <EventModalPage
+        key={1}
+        text={page1Text}
+        options={[
+          selectedOptionIndex === -1 ? {
+            name: 'Spin the Wheel',
+            isDisabled: isSpinning,
+            onClick: () => {
+              setIsSpinning(true);
+              const el = document.getElementById('robbery_wheel');
+              const selectedOptionIndex = Math.floor(rng * 5);
+              el.style.transform = `rotate(${360 * 8 + 30 + 60 * (5 - selectedOptionIndex)}deg)`;
 
-                setTimeout(() => {
-                  setSelectedOptionIndex(selectedOptionIndex);
-                }, 5500);
-              }
-            } : {
-              name: 'Continue',
-              greenText: continueGoodText,
-              redText: continueBadText,
-              onClick: continueOnClick
+              setTimeout(() => {
+                setSelectedOptionIndex(selectedOptionIndex);
+              }, 5500);
             }
-          ]
-        }
-      ]}
-    />
+          } : {
+            name: 'Continue',
+            greenText: continueGoodText,
+            redText: continueBadText,
+            onClick: continueOnClick
+          }
+        ]}
+      />
+    </EventModal>
   );
 };

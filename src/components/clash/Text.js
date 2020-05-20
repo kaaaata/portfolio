@@ -3,7 +3,7 @@ import { colors } from '../styles';
 
 const textCss = {
   mini: css`
-    font-size: 14px;
+    font-size: 16px;
     text-shadow: 1px 1px 2px ${colors.black};
   `,
   small: css`

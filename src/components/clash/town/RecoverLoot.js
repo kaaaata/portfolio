@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { EventModal } from './EventModal';
+import { EventModal, EventModalPage } from '../modals/EventModal';
 import { CardLootModal } from '../modals/CardLootModal';
 
 export const RecoverLoot = ({ closeModal }) => {
@@ -11,43 +11,70 @@ export const RecoverLoot = ({ closeModal }) => {
   }), shallowEqual);
   const dispatch = useDispatch();
 
-  const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
-  const rng = Math.random();
-  const pages = [];
+  const [page, setPage] = useState('default');
 
-  if (rng < 0.5) {
-    pages.push({
-      text: (
-        <React.Fragment>
-          You manage to scavenge some <span className='yellow'>gold.</span>
-        </React.Fragment>
-      ),
-      options: [{
-        name: 'Continue',
-        greenText: `Receive ${battleRewardGold} gold.`,
-        onClick: () => {
-          dispatch(actions.adjustPlayerGold(battleRewardGold));
-          dispatch(actions.addTownFeedText(`Recovered: ${battleRewardGold} gold`));
-          closeModal();
-        }
-      }]
-    });
-  } else {
-    pages.push({
-      text: (
-        <React.Fragment>
-          You find a couple of abandoned <span className='yellow'>cards.</span>
-        </React.Fragment>
-      ),
-      options: [{
-        name: 'Continue',
-        greenText: "Take up to 2 cards from the enemy's deck",
-        onClick: () => setIsCardLootModalOpen(true)
-      }]
-    })
+  let pageComponent;
+  switch (page) {
+    case 'default':
+      pageComponent = (
+        <EventModalPage
+          key={1}
+          text={(
+            <React.Fragment>
+              You <span className='yellow'>search</span> yesterday's battlefield for abandoned loot....
+            </React.Fragment>
+          )}
+          options={[{
+            name: 'Continue',
+            greenText: '50%: find gold. 50%: find cards.',
+            onClick: () => setPage(Math.random() < 0.5 ? 'recover_gold' : 'recover_cards')
+          }]}
+        />
+      );
+      break;
+    case 'recover_gold':
+      pageComponent = (
+        <EventModalPage
+          key={2}
+          text={(
+            <React.Fragment>
+              You manage to scavenge some <span className='yellow'>gold.</span>
+            </React.Fragment>
+          )}
+          options={[{
+            name: 'Continue',
+            greenText: `Receive ${battleRewardGold} gold.`,
+            onClick: () => {
+              dispatch(actions.adjustPlayerGold(battleRewardGold));
+              dispatch(actions.addTownFeedText(`Recovered: ${battleRewardGold} gold`));
+              closeModal();
+            }
+          }]}
+        />
+      );
+      break;
+    case 'recover_cards':
+      pageComponent = (
+        <EventModalPage
+          key={3}
+          text={(
+            <React.Fragment>
+              You find a couple of abandoned <span className='yellow'>cards.</span>
+            </React.Fragment>
+          )}
+          options={[{
+            name: 'Continue',
+            greenText: 'Take up to 2 cards from the enemy\'s deck',
+            onClick: () => setPage('card_loot_modal')
+          }]}
+        />
+      );
+      break;
+    default:
+      break;
   }
 
-  return isCardLootModalOpen ? (
+  return page === 'card_loot_modal' ? (
     <CardLootModal
       title='Recover Loot'
       maxCardsToTake={2}
@@ -56,10 +83,10 @@ export const RecoverLoot = ({ closeModal }) => {
     />
   ) : (
     <EventModal
-      title="You search yesterday's battlefield for abandoned loot."
+      title='Recover Loot'
       image='scavenge'
-      page={1}
-      pages={pages}
-    />
+    >
+      {pageComponent}
+    </EventModal>
   );
 };

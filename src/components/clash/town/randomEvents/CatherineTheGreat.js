@@ -4,11 +4,11 @@ import { MonsterPreview } from '../../modals/MonsterPreview';
 import { eventMonsters } from '../../monsters/monsters';
 
 export const CatherineTheGreat = ({ closeModal }) => {
-  const [page, setPage] = useState(null);
+  const [page, setPage] = useState('default');
 
   let pageComponent;
   switch (page) {
-    default:
+    case 'default':
       pageComponent = (
         <EventModalPage
           page={1}
@@ -23,7 +23,7 @@ export const CatherineTheGreat = ({ closeModal }) => {
             {
               name: 'Accept',
               greenText: 'Fight enemy: Catherine the Great.',
-              onClick: () => setPage('fight')
+              onClick: () => setPage('monster_preview')
             },
             {
               name: 'Decline',
@@ -45,9 +45,11 @@ export const CatherineTheGreat = ({ closeModal }) => {
         />
       );
       break;
+    default:
+      break;
   }
 
-  return page === 'fight' ? (
+  return page === 'monster_preview' ? (
     <MonsterPreview
       title='You accept the challenge!'
       monsterOverride={eventMonsters['Catherine the Great']}

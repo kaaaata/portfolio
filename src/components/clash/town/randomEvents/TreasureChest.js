@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import {  useDispatch } from 'react-redux';
 import * as actions from '../../../stores/actions';
-import { EventModal } from '../EventModal';
 import { rarityColors } from '../../cards/rarity';
 import { cardsByRarity } from '../../cards/cards';
 import { random, sample } from 'lodash';
 import { packs } from '../../shop/packs';
 import { genPackCards } from '../../shop/genPackCards';
 import { CardLootModal } from '../../modals/CardLootModal';
+import { EventModal, EventModalPage } from '../../modals/EventModal';
 
 export const TreasureChest = ({ rng, closeModal }) => {
   const dispatch = useDispatch();
 
-  const [isCardLootModalOpen, setIsCardLootModalOpen] = useState(false);
+  const [page, setPage] = useState('default');
 
   let lootText;
   let lootCb;
@@ -30,15 +30,15 @@ export const TreasureChest = ({ rng, closeModal }) => {
     greenText = `Receive ${gold} gold.`;
   } else if (rng < 0.15) {
     lootText = <span className={rarityColors.uncommon}>two uncommon cards!</span>
-    lootCb = () => setIsCardLootModalOpen(true);
+    lootCb = () => setPage('card_loot_modal');
     lootCards = [sample(cardsByRarity.uncommon).name, sample(cardsByRarity.uncommon).name];
   } else if (rng < 0.25) {
     lootText = <span className={rarityColors.rare}>a rare card!</span>
-    lootCb = () => setIsCardLootModalOpen(true);
+    lootCb = () => setPage('card_loot_modal');
     lootCards = [sample(cardsByRarity.rare).name];
   } else if (rng < 0.3) {
     lootText = <span className={rarityColors.legendary}>a legendary card!</span>
-    lootCb = () => setIsCardLootModalOpen(true);
+    lootCb = () => setPage('card_loot_modal');
     lootCards = [sample(cardsByRarity.legendary).name];
   } else if (rng < 0.35) {
     lootPack = 'bronze';
@@ -60,7 +60,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
 
   if (lootPack) {
     lootText = `a ${lootPack} pack!`;
-    lootCb = () => setIsCardLootModalOpen(true);
+    lootCb = () => setPage('card_loot_modal');
     lootCards = genPackCards(packs[lootPack]);
   }
 
@@ -68,7 +68,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
     greenText = 'Select cards to keep.';
   }
 
-  return isCardLootModalOpen ? (
+  return page === 'card_loot_modal' ? (
     <CardLootModal
       title={lootPack ? packs[lootPack].name : 'Treasure Chest'}
       cards={lootCards}
@@ -78,28 +78,27 @@ export const TreasureChest = ({ rng, closeModal }) => {
     <EventModal
       title='Treasure Chest'
       image='treasure_chest'
-      page={1}
-      pages={[
-        {
-          text: (
-            <React.Fragment>
-              You open the chest.
-              <br /><br />
-              It contains {lootText}
-            </React.Fragment>
-          ),
-          options: [{
-            name: 'Continue',
-            greenText,
-            onClick: () => {
-              lootCb();
-              if (!lootCards.length) {
-                closeModal();
-              }
-            }
-          }]
+    >
+      <EventModalPage
+        key={1}
+        text={
+          <React.Fragment>
+            You open the chest.
+            <br /><br />
+            It contains {lootText}
+          </React.Fragment>
         }
-      ]}
-    />
+        options={[{
+          name: 'Continue',
+          greenText,
+          onClick: () => {
+            lootCb();
+            if (!lootCards.length) {
+              closeModal();
+            }
+          }
+        }]}
+      />
+    </EventModal>
   );
 };

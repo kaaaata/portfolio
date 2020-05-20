@@ -1,41 +1,39 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { EventModal } from './EventModal';
+import { EventModal, EventModalPage } from '../modals/EventModal';
 
 export const ReceiveBlessing = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState('default');
   const [flavorText, setFlavorText] = useState('');
-  const [townFeedText, setTownFeedText] = useState('');
 
-  return (
-    <EventModal
-      title='Congratulations! You have received a blessing.'
-      image='blessing'
-      page={page}
-      pages={[
-        {
-          text: (
+  let pageComponent;
+  switch (page) {
+    case 'default':
+      pageComponent = (
+        <EventModalPage
+          page={1}
+          text={(
             <React.Fragment>
               The <span className='green'>cat gods</span> descend from <span className='green'>cat heaven</span> to bestow an almighty <span className='blue'>blessing</span> upon your head!
             </React.Fragment>
-          ),
-          options: [
+          )}
+          options={[
             {
               name: 'Blessing of Strength',
               greenText: 'Gain +1 attack permanently.',
               onClick: () => {
                 setFlavorText('stronger');
-                setPage(2);
+                setPage('received_blessing');
+                dispatch(actions.addTownFeedText('Received blessing: +1 attack'));
                 dispatch(actions.setStats({
                   stats: { attack: 1 },
                   type: 'stats',
                   player: 'you',
                   operation: 'adjust'
                 }));
-                setTownFeedText('Received blessing: +1 Attack');
               }
             },
             {
@@ -43,14 +41,14 @@ export const ReceiveBlessing = ({ closeModal }) => {
               greenText: 'Gain +1 magic permanently.',
               onClick: () => {
                 setFlavorText('wiser');
-                setPage(2);
+                setPage('received_blessing');
+                dispatch(actions.addTownFeedText('Received blessing: +1 magic'));
                 dispatch(actions.setStats({
                   stats: { magic: 1 },
                   type: 'stats',
                   player: 'you',
                   operation: 'adjust'
                 }));
-                setTownFeedText('Received blessing: +1 Magic');
               }
             },
             {
@@ -58,30 +56,35 @@ export const ReceiveBlessing = ({ closeModal }) => {
               greenText: 'Gain +1 defense permanently.',
               onClick: () => {
                 setFlavorText('tougher');
-                setPage(2);
+                setPage('received_blessing');
+                dispatch(actions.addTownFeedText('Received blessing: +1 defense'));
                 dispatch(actions.setStats({
                   stats: { defense: 1 },
                   type: 'stats',
                   player: 'you',
                   operation: 'adjust'
                 }));
-                setTownFeedText('Received blessing: +1 Defense');
               }
             },
             {
               name: 'Blessing of Wall Street',
               greenText: 'Receive 300 gold.',
               onClick: () => {
-                setFlavorText('Gold rains from the sky!');
-                setPage(2);
+                setFlavorText('richer');
+                dispatch(actions.addTownFeedText('Gold rains from the sky!'));
+                setPage('received_blessing');
+                dispatch(actions.addTownFeedText('Received blessing: 300 gold'));
                 dispatch(actions.adjustPlayerGold(300));
-                setTownFeedText('Received blessing: 300 gold');
               }
             }
-          ]
-        },
-        {
-          text: flavorText === 'Gold rains from the sky!' ? (
+          ]}
+        />
+      );
+      break;
+    case 'received_blessing':
+      pageComponent = (
+        <EventModalPage
+          text={flavorText === 'Gold rains from the sky!' ? (
             <React.Fragment>
               <span className='yellow'>Gold</span> rains from the sky!
             </React.Fragment>
@@ -89,16 +92,24 @@ export const ReceiveBlessing = ({ closeModal }) => {
             <React.Fragment>
               You feel a little <span className='yellow'>{flavorText}</span>.
             </React.Fragment>
-          ),
-          options: [{
+          )}
+          options={[{
             name: 'Continue',
-            onClick: () => {
-              dispatch(actions.addTownFeedText(townFeedText));
-              closeModal();
-            }
-          }]
-        }
-      ]}
-    />
+            onClick: closeModal
+          }]}
+        />
+      );
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <EventModal
+      title='Congratulations! You have received a blessing.'
+      image='blessing'
+    >
+      {pageComponent}
+    </EventModal>
   );
 };

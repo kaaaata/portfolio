@@ -27,6 +27,10 @@ export const monsterCardPoolByRarity = {
 
 export const genStartingDeck = () => [
   'Strange Key', // testing
+  'Burn',
+  'Freeze',
+  'Mage',
+  'Bomb',
 
   'Falchion',
   'Healing Potion',

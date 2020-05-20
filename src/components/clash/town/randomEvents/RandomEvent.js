@@ -10,12 +10,12 @@ import { sample } from 'lodash';
 
 const randomEvents = [ // testing
   { name: 'Mysterious Potion', probability: 0 },
-  { name: 'Treasure Slime', probability: 0 },
+  { name: 'Treasure Slime', probability: 1 },
   { name: 'Robbery Wheel', probability: 0 },
   { name: 'Cave Fireball', probability: 0 },
   { name: 'Goblin Bomber', probability: 0 },
   { name: 'Dwarven Smith', probability: 0 },
-  { name: 'Catherine the Great', probability: 1 },
+  { name: 'Catherine the Great', probability: 0 },
 ];
 const randomEventPool = [];
 randomEvents.forEach(event => {

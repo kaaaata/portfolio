@@ -85,7 +85,7 @@ export const EventModalPage = ({
             isDisabled={option.isDisabled}
             className='event_modal--fade_in'
           >
-            <Text type='small'>
+            <Text type='mini'>
               [{option.name}]
               {option.redTextFirst
                 ? <span className='red'> {option.redText}</span>

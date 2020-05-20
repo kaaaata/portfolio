@@ -1,90 +1,101 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
-import { EventModal } from './EventModal';
+import { EventModal, EventModalPage } from '../modals/EventModal';
 
 export const DrinkPotion = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState('default');
   const [flavorText, setFlavorText] = useState('');
-  const [townFeedText, setTownFeedText] = useState('');
 
-  return (
-    <EventModal
-      title='Once a day, you can drink a potion.'
-      image='blue_potion'
-      page={page}
-      pages={[
-        {
-          text: (
+  let pageComponent;
+  switch (page) {
+    case 'default':
+      pageComponent = (
+        <EventModalPage
+          page={1}
+          text={
             <React.Fragment>
               You see three <span className='blue'>bottles</span> in front of you.
             </React.Fragment>
-          ),
-          options: [
+          }
+          options={[
             {
               name: 'Attack Potion',
-              greenText: 'Gain +1 attack for the rest of the day.',
+              greenText: 'Gain +1 attack until end of day.',
               onClick: () => {
                 setFlavorText('stronger');
-                setPage(2);
+                setPage('drinked_potion');
+                dispatch(actions.addTownFeedText('Gained temporary boost: +1 attack'));
                 dispatch(actions.setStats({
                   stats: { attack: 1 },
                   type: 'bonuses',
                   player: 'you',
                   operation: 'adjust'
                 }));
-                setTownFeedText('Gained temporary boost: +1 Attack');
               }
             },
             {
               name: 'Magic Potion',
-              greenText: 'Gain +1 magic for the rest of the day.',
+              greenText: 'Gain +1 magic until end of day.',
               onClick: () => {
                 setFlavorText('wiser');
-                setPage(2);
+                setPage('drinked_potion');
+                dispatch(actions.addTownFeedText('Gained temporary boost: +1 magic'));
                 dispatch(actions.setStats({
                   stats: { magic: 1 },
                   type: 'bonuses',
                   player: 'you',
                   operation: 'adjust'
                 }));
-                setTownFeedText('Gained temporary boost: +1 Magic');
               }
             },
             {
               name: 'Defense Potion',
-              greenText: 'Gain +1 defense for the rest of the day.',
+              greenText: 'Gain +1 defense until end of day.',
               onClick: () => {
                 setFlavorText('tougher');
                 setPage(2);
+                dispatch(actions.addTownFeedText('Gained temporary boost: +1 defense'));
                 dispatch(actions.setStats({
                   stats: { defense: 1 },
                   type: 'bonuses',
                   player: 'you',
                   operation: 'adjust'
                 }));
-                setTownFeedText('Gained temporary boost: +1 Defense');
               }
             }
-          ]
-        },
-        {
-          text: (
+          ]}
+        />
+      );
+      break;
+    case 'drinked_potion':
+      pageComponent = (
+        <EventModalPage
+          page={2}
+          text={
             <React.Fragment>
-              You feel a little <span className='yellow'>{flavorText}</span>.
+              You feel a little <span className='yellow'>{flavorText}.</span>
             </React.Fragment>
-          ),
-          options: [{
+          }
+          options={[{
             name: 'Continue',
-            onClick: () => {
-              dispatch(actions.addTownFeedText(townFeedText));
-              closeModal();
-            }
-          }]
-        }
-      ]}
-    />
+            onClick: closeModal
+          }]}
+        />
+      );
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <EventModal
+      title='Once a day, you can drink a potion.'
+      image='blue_potion'
+    >
+      {pageComponent}
+    </EventModal>
   );
 };

@@ -4,9 +4,25 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { shuffle, sampleSize, random } from 'lodash';
 import { genMonsterDeck } from '../monsters/genMonsterDeck';
-import { EventModal } from '../town/EventModal';
+import { EventModal, EventModalPage } from '../modals/EventModal';
 import { cards } from '../cards/cards';
 import { rarityColors } from '../cards/rarity';
+
+const CardsRarityString = ({ _cards }) => {
+  const rarityCounts = { common: 0, uncommon: 0, rare: 0, legendary: 0 };
+  _cards.forEach(card => {
+    rarityCounts[cards[card].rarity]++;
+  });
+
+  return (
+    <React.Fragment>
+      ({rarityCounts.legendary} <span className={rarityColors.legendary}>legendary</span>,&nbsp;
+      {rarityCounts.rare} <span className={rarityColors.rare}>rare</span>,&nbsp;
+      {rarityCounts.uncommon} <span className={rarityColors.uncommon}>uncommon</span>,&nbsp;
+      {rarityCounts.common} <span className={rarityColors.common}>common</span>)
+    </React.Fragment>
+  );
+};
 
 export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
   const { deck, day, monster } = useSelector(state => ({
@@ -46,7 +62,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
       operation: 'set'
     }));
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
-    // dispatch(actions.setYourDeck([])); // testing
+    dispatch(actions.setYourDeck([])); // testing
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
     // dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
@@ -64,29 +80,13 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
   };
   // battleOnClick(); // testing
 
-  const genRarityString = (_cards) => {
-    const rarityCounts = { common: 0, uncommon: 0, rare: 0, legendary: 0 };
-    _cards.forEach(card => {
-      rarityCounts[cards[card].rarity]++;
-    });
-
-    return (
-      <React.Fragment>
-        ({rarityCounts.legendary} <span className={rarityColors.legendary}>legendary</span>,&nbsp;
-        {rarityCounts.rare} <span className={rarityColors.rare}>rare</span>,&nbsp;
-        {rarityCounts.uncommon} <span className={rarityColors.uncommon}>uncommon</span>,&nbsp;
-        {rarityCounts.common} <span className={rarityColors.common}>common</span>)
-      </React.Fragment>
-    );
-  };
-
   const text = (
     <React.Fragment>
       You are attacked by: <span className='yellow'>{monster.name}!</span>
       <br /><br />
-      Enemy cards: {enemyDeck.length} {genRarityString(enemyDeck)}
+      Enemy cards: {enemyDeck.length} <CardsRarityString _cards={enemyDeck} />
       <br />
-      Your cards: {yourDeck.length} {genRarityString(yourDeck)}
+      Your cards: {yourDeck.length} <CardsRarityString _cards={yourDeck} />
       <br /><br />
       Victory: <span className='green'>gain {battleRewardGold} gold</span> and <span className='green'>2 cards from the enemy's deck</span>
       <br />
@@ -99,27 +99,26 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
       title={title}
       image={monster.image}
       imageProps={enemyHueRotate ? { filter: `hue-rotate(${enemyHueRotate}deg)` } : null}
-      page={1}
-      pages={[
-        {
-          text,
-          options: [
-            {
-              name: 'Fight',
-              onClick: battleOnClick
-            },
-            {
-              name: 'Retreat',
-              isDisabled: monster.type === 'wave',
-              redText: monster.type === 'wave' ? 'Can\'t retreat from end-of-day battles!' : '',
-              onClick: () => {
-                closeModal();
-                dispatch(actions.setCanVisitShop(true));
-              }
+    >
+      <EventModalPage
+        key={1}
+        text={text}
+        options={[
+          {
+            name: 'Fight',
+            onClick: battleOnClick
+          },
+          {
+            name: 'Retreat',
+            isDisabled: monster.type === 'wave',
+            redText: monster.type === 'wave' ? 'Can\'t retreat from end-of-day battles!' : '',
+            onClick: () => {
+              closeModal();
+              dispatch(actions.setCanVisitShop(true));
             }
-          ]
-        }
-      ]}
-    />
+          }
+        ]}
+      />
+    </EventModal>
   );
 };
