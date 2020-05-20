@@ -3,16 +3,10 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { Text } from '../Text';
+import { effects } from '../../styles';
 
 const storyCss = css`
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+  ${effects.fadeIn}
 
   height: 100%;
   cursor: pointer;

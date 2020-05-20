@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../stores/actions';
 import { random } from 'lodash';
-import { EventModal } from './EventModal';
+import { EventModal, EventModalPage } from '../modals/EventModal';
 import { sample } from 'lodash';
 
 const flavorTexts = [
@@ -28,21 +28,20 @@ export const WorkForGold = ({ closeModal }) => {
     <EventModal
       title='You search for a job, and wind up...'
       image='gold'
-      page={1}
-      pages={[
-        {
-          text: `...${sample(flavorTexts)}`,
-          options: [{
-            name: 'Continue',
-            greenText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
-            onClick: () => {
-              dispatch(actions.adjustPlayerGold(goldEarned));
-              dispatch(actions.addTownFeedText(`Received: ${goldEarned} gold`));
-              closeModal();
-            }
-          }]
-        }
-      ]}
-    />
+    >
+      <EventModalPage
+        page={1}
+        text={`...${sample(flavorTexts)}`}
+        options={[{
+          name: 'Continue',
+          greenText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
+          onClick: () => {
+            dispatch(actions.adjustPlayerGold(goldEarned));
+            dispatch(actions.addTownFeedText(`Received: ${goldEarned} gold`));
+            closeModal();
+          }
+        }]}
+      />
+    </EventModal>
   );
 };
