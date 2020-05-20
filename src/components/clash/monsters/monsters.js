@@ -11,7 +11,7 @@ const monstersTier1 = [
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
       'Minotaur',
-      'Devastating Blow'
+      'Orc Blade'
     ]
   },
   {
@@ -57,8 +57,8 @@ const monstersTier2 = [
     stats: { attack: 0, magic: 0, defense: 1 },
     deck: [
       'Edible Slime',
-      'Protect',
-      'Protect',
+      'Shield',
+      'Shield',
       'Healing Potion'
     ]
   },
@@ -79,9 +79,9 @@ const monstersTier2 = [
     stats: { attack: 1, magic: 0, defense: 0 },
     deck: [
       'Hobgoblin',
-      'Slice',
-      'Slice',
-      'Slice'
+      'Falchion',
+      'Falchion',
+      'Falchion'
     ]
   },
   {
@@ -132,7 +132,7 @@ const monstersTier3 = [
       'Ice Blade',
       'Ice Blade',
       'Healing Blade',
-      'Protect'
+      'Shield'
     ]
   },
   {
@@ -145,8 +145,8 @@ const monstersTier3 = [
       'Tentacles',
       'Candy Corn',
       'Fire',
-      'Protect',
-      'Protect'
+      'Shield',
+      'Shield'
     ]
   },
   {
@@ -158,7 +158,7 @@ const monstersTier3 = [
       'Ice Whelp',
       'Ice Whelp',
       'Ice Blade',
-      'Protect'
+      'Shield'
     ]
   },
   { // TEMPORARY PLACEHOLDER CUZ I ONLY HAVE 3 TIER 3 MONSTERS RIGHT NOW
@@ -170,7 +170,7 @@ const monstersTier3 = [
       'Ice Whelp',
       'Ice Whelp',
       'Ice Blade',
-      'Protect'
+      'Shield'
     ]
   }
 ];
@@ -195,9 +195,9 @@ const _eventMonsters = [
     stats: { attack: 2, magic: 0, defense: 1 },
     deck: [
       'Catherine the Great',
-      'Protect',
+      'Shield',
       'Longsword',
-      'Devastating Blow'
+      'Orc Blade'
     ]
   }
 ];

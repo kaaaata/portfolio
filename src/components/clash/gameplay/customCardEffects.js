@@ -78,8 +78,8 @@ export const customCardEffects = {
     }
   },
   'Golden Goblet': (state, card, player) => {
-    // Shuffle 7 cards from your banish into your discard. Heal 7.
-    for (let i = 0; i < 7; i++) {
+    // Shuffle 5 cards from your banish into your discard. Heal 5.
+    for (let i = 0; i < 5; i++) {
       const banishCardIndex = state[player].banish.getRandomCardIndex();
       if (banishCardIndex !== -1) {
         addCardCopiesIntoPiles(
@@ -111,6 +111,20 @@ export const customCardEffects = {
           !card.isToken
           && !['Edible Slime'].includes(card.name)
           && ['common', 'uncommon'].includes(card.rarity)
+        )
+      ).name,
+      pile: 'deck'
+    }));
+    addCardCopiesIntoPiles(state, copies, player);
+  },
+  'Tome of Spells': (state, card, player) => {
+    // When played or discarded, shuffle 4 random magic attacks into your deck.
+    const copies = [1, 2, 3, 4].map(i => ({
+      card: cardsArray.getRandomCardByFilter(
+        card => (
+          !card.isToken
+          && !['Tome of Spells'].includes(card.name)
+          && card.type === 'magic'
         )
       ).name,
       pile: 'deck'

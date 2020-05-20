@@ -13,20 +13,20 @@ const simulatePlayCard = (card, player = 'you') => {
 const resetState = () => {
   state.you = {
     name: 'You',
-    deck: CardsArray(Array(10).fill('Strike')),
-    discard: CardsArray(Array(10).fill('Strike')),
-    banish: CardsArray(Array(10).fill('Strike')),
-    hand: CardsArray(Array(3).fill('Strike')),
+    deck: CardsArray(Array(10).fill('Sword')),
+    discard: CardsArray(Array(10).fill('Sword')),
+    banish: CardsArray(Array(10).fill('Sword')),
+    hand: CardsArray(Array(3).fill('Sword')),
     shields: 0,
     statBonuses: { attack: 0, magic: 0, defense: 0 },
     stats: { attack: 0, magic: 0, defense: 0 }
   };
   state.enemy = {
     name: 'You',
-    deck: CardsArray(Array(10).fill('Strike')),
-    discard: CardsArray(Array(10).fill('Strike')),
-    banish: CardsArray(Array(10).fill('Strike')),
-    hand: CardsArray(Array(3).fill('Strike')),
+    deck: CardsArray(Array(10).fill('Sword')),
+    discard: CardsArray(Array(10).fill('Sword')),
+    banish: CardsArray(Array(10).fill('Sword')),
+    hand: CardsArray(Array(3).fill('Sword')),
     shields: 0,
     statBonuses: { attack: 0, magic: 0, defense: 0 },
     stats: { attack: 0, magic: 0, defense: 0 }
@@ -60,17 +60,17 @@ test('Healing and heal enemy works (Mermaid)', () => {
   expect(state.enemy.discard.length).toBe(10 - card.healEnemy);
 });
 
-test('Shield works (Slash, Strike)', () => {
-  const slash = cards['Slash'];
-  const strike = cards['Strike'];
+test('Shield works (Cutlass, Sword)', () => {
+  const slash = cards['Cutlass'];
+  const strike = cards['Sword'];
   simulatePlayCard(slash);
   expect(state.you.shields).toBe(slash.defense);
   simulatePlayCard(strike, 'enemy');
   expect(state.you.deck.length).toBe(10 - (strike.attack - slash.defense));
 });
 
-test('Banishing damage works (Devastating Blow)', () => {
-  const card = cards['Devastating Blow'];
+test('Banishing damage works (Orc Blade)', () => {
+  const card = cards['Orc Blade'];
   simulatePlayCard(card);
   expect(state.enemy.deck.length).toBe(10 - card.attack);
   expect(state.enemy.discard.length).toBe(10);
@@ -93,14 +93,14 @@ test('Piercing damage aka "Pierces" works (Fire)', () => {
   expect(state.enemy.deck.length).toBe(10 - card.attack);
 });
 
-test('Stat bonuses works (Attack Potion, Magic Potion, Defense Potion, Slice)', () => {
+test('Stat bonuses works (Attack Potion, Magic Potion, Defense Potion, Falchion)', () => {
   const attackPotion = cards['Attack Potion'];
   const magicPotion = cards['Magic Potion'];
   const defensePotion = cards['Defense Potion'];
   state.you.deck.push(attackPotion);
   state.you.deck.push(magicPotion);
   state.you.deck.push(defensePotion);
-  simulatePlayCard(cards['Slice'], 'enemy');
+  simulatePlayCard(cards['Falchion'], 'enemy');
   expect(state.you.statBonuses.attack = 1);
   expect(state.you.statBonuses.magic = 1);
   expect(state.you.statBonuses.defense = 1);
@@ -115,10 +115,10 @@ test('Stat bonuses works (Attack Potion, Magic Potion, Defense Potion, Slice)', 
   expect(state.you.statBonuses.defense = 1);
 });
 
-test('Attacks are buffed by Attack, except when attack is 0 (Strike)', () => {
+test('Attacks are buffed by Attack, except when attack is 0 (Sword)', () => {
   state.you.statBonuses.attack = 1;
 
-  const card1 = cards['Strike'];
+  const card1 = cards['Sword'];
   simulatePlayCard(card1);
   expect(state.enemy.deck.length).toBe(10 - (card1.attack + 1));
 
@@ -150,16 +150,16 @@ test('Magics are buffed by Magic, except when attack is 0 (Fire)', () => {
   expect(state.enemy.deck.length).toBe(10);
 });
 
-test('Shield is buffed by Defense, expect when defense is 0 (Slash, Strike)', () => {
+test('Shield is buffed by Defense, expect when defense is 0 (Cutlass, Sword)', () => {
   state.you.statBonuses.defense = 1;
 
-  const slash = cards['Slash'];
+  const slash = cards['Cutlass'];
   simulatePlayCard(slash);
   expect(state.you.shields).toBe(slash.defense + 1);
 
   resetState();
 
-  const strike = cards['Strike'];
+  const strike = cards['Sword'];
   simulatePlayCard(strike);
   expect(state.you.shields).toBe(0);
 });
@@ -176,10 +176,10 @@ test('Allies are not buffed by stats (Swordsman)', () => {
 
 test('Play copies of cards works (Hobgoblin)', () => {
   const hobgoblin = cards['Hobgoblin'];
-  const slice = cards['Slice'];
+  const slice = cards['Falchion'];
   simulatePlayCard(hobgoblin);
   expect(state.enemy.deck.length).toBe(10 - hobgoblin.attack - slice.attack);
-  expect(state.you.discard.getRandomCardIndexByFilter(card => card.name === 'Slice'))
+  expect(state.you.discard.getRandomCardIndexByFilter(card => card.name === 'Falchion'))
     .not.toBe(-1);
 });
 
@@ -196,12 +196,12 @@ test('Shuffle card copies into pile works (Goblin, Candy Corn)', () => {
   ).toBe(true);
 });
 
-test('Discard effects work (Healing Potion, Slice)', () => {
-  state.you.deck = CardsArray(['Strike', 'Healing Potion', 'Strike', 'Strike', 'Strike']);
+test('Discard effects work (Healing Potion, Falchion)', () => {
+  state.you.deck = CardsArray(['Sword', 'Healing Potion', 'Sword', 'Sword', 'Sword']);
   state.you.discard = CardsArray([]);
   state.you.banish = CardsArray([]);
 
-  const slice = cards['Slice'];
+  const slice = cards['Falchion'];
   const potion = cards['Healing Potion'];
   simulatePlayCard(slice, 'enemy');
   expect(state.you.discard.length).toBe(0);
@@ -209,10 +209,10 @@ test('Discard effects work (Healing Potion, Slice)', () => {
   expect(state.you.deck.length).toBe(potion.onDiscard.heal + 1);
 });
 
-test('Player should lose if deck size hits 0 (Healing Potion, Slice)', () => {
-  state.you.deck = CardsArray(['Healing Potion', 'Strike', 'Strike', 'Strike']);
+test('Player should lose if deck size hits 0 (Healing Potion, Falchion)', () => {
+  state.you.deck = CardsArray(['Healing Potion', 'Sword', 'Sword', 'Sword']);
 
-  const slice = cards['Slice'];
+  const slice = cards['Falchion'];
   simulatePlayCard(slice, 'enemy');
   expect(state.you.deck.length).toBe(0);
 });
@@ -293,9 +293,9 @@ test('CUSTOM CARD EFFECT (Cleric, Healing Potion)', () => {
 test('CUSTOM CARD EFFECT (Golden Goblet)', () => {
   const card = cards['Golden Goblet'];
   simulatePlayCard(card);
-  expect(state.you.banish.length).toBe(4);
+  expect(state.you.banish.length).toBe(6);
   expect(state.you.discard.length).toBe(10);
-  expect(state.you.deck.length).toBe(17);
+  expect(state.you.deck.length).toBe(15);
 });
 
 test('CUSTOM CARD EFFECT (Edible Slime)', () => {
@@ -303,5 +303,13 @@ test('CUSTOM CARD EFFECT (Edible Slime)', () => {
   simulatePlayCard(card);
   expect(state.you.deck.length).toBe(13)
   expect(state.you.deck.filter(i => ['common', 'uncommon'].includes(i.rarity)).length)
-    .toBe(state.you.deck.length)
+    .toBe(state.you.deck.length);
+});
+
+test('CUSTOM CARD EFFECT (Tome of Spells)', () => {
+  const card = cards['Tome of Spells'];
+  simulatePlayCard(card);
+  expect(state.you.deck.length).toBe(14);
+  expect(state.you.deck.filter(i => i.type === 'magic').length)
+    .toBe(4);
 });

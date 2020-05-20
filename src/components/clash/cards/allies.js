@@ -83,8 +83,8 @@ export const allies = [
     rarity: 'uncommon',
     attack: 2,
     defense: 0,
-    playCopiesOfCards: ['Slice'],
-    description: 'Play a copy of Slice.'
+    playCopiesOfCards: ['Falchion'],
+    description: 'Play a copy of Falchion.'
   },
   {
     name: 'Brawler',

@@ -11,28 +11,28 @@ export const attacks = [
     description: 'Maybe this unlocks something....'
   },
   {
-    name: 'Strike',
+    name: 'Sword',
     image: 'strike',
     rarity: 'common',
     attack: 2,
     defense: 0
   },
   {
-    name: 'Slash',
+    name: 'Cutlass',
     image: 'slash',
     rarity: 'common',
     attack: 2,
     defense: 1
   },
   {
-    name: 'Crush',
+    name: 'Mace',
     image: 'crush',
     rarity: 'common',
     attack: 3,
     defense: 0
   },
   {
-    name: 'Parry',
+    name: 'Saber',
     image: 'parry',
     rarity: 'common',
     attack: 1,
@@ -47,7 +47,7 @@ export const attacks = [
     isToken: true
   },
   {
-    name: 'Devastating Blow',
+    name: 'Orc Blade',
     image: 'piercing_blow',
     rarity: 'uncommon',
     attack: 3,
@@ -55,7 +55,7 @@ export const attacks = [
     dealsBanishingDamage: true
   },
   {
-    name: 'Slice',
+    name: 'Falchion',
     image: 'slice',
     rarity: 'uncommon',
     attack: 4,
@@ -87,7 +87,7 @@ export const attacks = [
     description: 'Play two copies of Arrow.'
   },
   {
-    name: 'Protect',
+    name: 'Shield',
     image: 'block',
     rarity: 'uncommon',
     attack: 1,
@@ -101,11 +101,19 @@ export const attacks = [
     defense: 2
   },
   {
-    name: 'Sunder',
+    name: 'Greataxe',
     image: 'sunder',
     rarity: 'rare',
-    attack: 6,
+    attack: 5,
     defense: 0
+  },
+  {
+    name: 'Darksteel Gladius',
+    image: 'darksteel_sword',
+    rarity: 'rare',
+    attack: 4,
+    defense: 1,
+    dealsBanishingDamage: true
   },
   {
     name: 'Healing Blade',
@@ -116,16 +124,6 @@ export const attacks = [
     heal: 3
   },
   {
-    name: 'Spiky Shot',
-    image: 'spiky_bow',
-    rarity: 'rare',
-    attack: 0,
-    defense: 0,
-    playCopiesOfCards: ['Arrow', 'Arrow'],
-    statBonuses: { attack: 1 },
-    description: 'Gain +1 attack for the rest of the battle. Play two copies of Arrow.'
-  },
-  {
     name: 'Ice Blade',
     image: 'ice_sword',
     rarity: 'rare',
@@ -133,6 +131,24 @@ export const attacks = [
     defense: 5,
     shuffleCardCopiesIntoOpponentsPiles: [{ card: 'Freeze', pile: 'deck' }],
     description: 'Shuffle a copy of Freeze into your opponent\'s deck.'
+  },
+  {
+    name: 'Forest Bow',
+    image: 'green_bow',
+    rarity: 'legendary',
+    attack: 0,
+    defense: 0,
+    playCopiesOfCards: ['Arrow', 'Arrow', 'Arrow'],
+    statBonuses: { attack: 1 },
+    description: 'Play 3 copies of Arrow. Gain +1 attack for the rest of the battle.'
+  },
+  {
+    name: 'Dragon Blade',
+    image: 'dragon_blade',
+    rarity: 'legendary',
+    attack: 6,
+    defense: 3,
+    dealsBanishingDamage: true
   }
 ].map(card => createCard({
   ...card,

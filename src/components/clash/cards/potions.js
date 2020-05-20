@@ -97,10 +97,10 @@ export const potions = [
     image: 'golden_goblet',
     rarity: 'legendary',
     customEffect: true,
-    heal: 7,
+    heal: 5,
     onDiscard: {
       customEffect: true,
-      heal: 7
+      heal: 5
     },
     description: 'Shuffle 7 cards from your banish into your discard. Heal 7.'
   }
