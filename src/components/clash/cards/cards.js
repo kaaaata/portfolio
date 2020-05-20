@@ -18,6 +18,12 @@ export const cardsByRarity = {
   rare: cardsArray.filter(card => card.rarity === 'rare' && !card.isToken),
   legendary: cardsArray.filter(card => card.rarity === 'legendary' && !card.isToken)
 };
+export const monsterCardPoolByRarity = {
+  common: cardsByRarity.common.filter(card => card.type !== 'ally'),
+  uncommon: cardsByRarity.uncommon.filter(card => card.type !== 'ally'),
+  rare: cardsByRarity.rare.filter(card => card.type !== 'ally'),
+  legendary: cardsByRarity.legendary.filter(card => card.type !== 'ally')
+};
 
 export const genStartingDeck = () => [
   'Strange Key', // testing

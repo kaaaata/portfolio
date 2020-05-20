@@ -188,6 +188,17 @@ const _eventMonsters = [
       'Fire',
       'Candy Corn'
     ]
+  },
+  {
+    name: 'Catherine the Great',
+    image: 'catherine_the_great',
+    stats: { attack: 2, magic: 0, defense: 1 },
+    deck: [
+      'Catherine the Great',
+      'Protect',
+      'Longsword',
+      'Devastating Blow'
+    ]
   }
 ];
 

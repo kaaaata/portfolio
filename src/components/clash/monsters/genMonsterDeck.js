@@ -1,4 +1,4 @@
-import { cards, cardsByRarity } from '../cards/cards';
+import { cards, monsterCardPoolByRarity } from '../cards/cards';
 import { range, sample, random, shuffle } from 'lodash';
 
 const dayBalancing = {
@@ -19,7 +19,7 @@ const dayBalancing = {
 export const genMonsterDeck = (deck, tier, day, isElite) => {
   const deckSize = (10 + day * 5) + (isElite ? 10 * tier : 0);
   const deckByRarity = deck.map(card => cards[card].rarity);
-  const { maxLegendaries, maxRares, maxUncommons } = dayBalancing[isElite ? day + 1 : tier];
+  const { maxLegendaries, maxRares, maxUncommons } = dayBalancing[isElite ? day + 1 : day];
   const cardsToAdd = {
     legendary: Math.max(0, maxLegendaries - deckByRarity.filter(card => card.rarity === 'legendary').length),
     rare: Math.max(0, maxRares - deckByRarity.filter(card => card.rarity === 'rare').length),
@@ -35,9 +35,9 @@ export const genMonsterDeck = (deck, tier, day, isElite) => {
 
   return shuffle([
     ...deck,
-    ...range(0, cardsToAdd.legendary).map(i => sample(cardsByRarity.legendary).name),
-    ...range(0, cardsToAdd.rare).map(i => sample(cardsByRarity.rare).name),
-    ...range(0, cardsToAdd.uncommon).map(i => sample(cardsByRarity.uncommon).name),
-    ...range(0, cardsToAdd.common).map(i => sample(cardsByRarity.common).name)
+    ...range(0, cardsToAdd.legendary).map(i => sample(monsterCardPoolByRarity.legendary).name),
+    ...range(0, cardsToAdd.rare).map(i => sample(monsterCardPoolByRarity.rare).name),
+    ...range(0, cardsToAdd.uncommon).map(i => sample(monsterCardPoolByRarity.uncommon).name),
+    ...range(0, cardsToAdd.common).map(i => sample(monsterCardPoolByRarity.common).name)
   ]);
 };

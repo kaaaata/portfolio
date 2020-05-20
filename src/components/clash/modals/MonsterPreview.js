@@ -25,7 +25,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
   const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day, isMonsterElite);
   const enemyHueRotate = isMonsterElite ? random(90, 270) : null;
   const battleRewardGold = (
-    (monster.type === 'event' ? 25 : 75)
+    (monster.type === 'wave' ? 35 : 0)
     + 15 * (monster.tier + isMonsterElite ? 1 : 0)
     + 3 * (day + isMonsterElite ? 3 : 0)
     + random(0, 15)
@@ -80,11 +80,9 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     );
   };
 
-  const indefiniteArticle = /a|e|i|o|u/i.test(monster.name[0]) ? 'an' : 'a';
-
   const text = (
     <React.Fragment>
-      You are attacked by {indefiniteArticle} <span className='yellow'>{monster.name}!</span>
+      You are attacked by: <span className='yellow'>{monster.name}!</span>
       <br /><br />
       Enemy cards: {enemyDeck.length} {genRarityString(enemyDeck)}
       <br />
