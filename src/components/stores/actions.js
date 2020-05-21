@@ -41,3 +41,5 @@ export const setCanFightEliteFalse = payload => ({ type: 'SET_CAN_FIGHT_ELITE_FA
 export const setScene = payload => ({ type: 'SET_SCENE', payload });
 export const startNewDay = payload => ({ type: 'START_NEW_DAY', payload });
 export const setCanVisitShop = payload => ({ type: 'SET_CAN_VISIT_SHOP', payload });
+
+export const setToast = payload => ({ type: 'SET_TOAST', payload });

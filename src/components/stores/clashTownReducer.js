@@ -28,8 +28,8 @@ export default (state = initialState, action) => {
         canFightElite: newDay % 3 === 0 && newDay !== 12,
         canDrinkPotion: true,
         feed: [
-          "It's a new day.",
-          ...action.payload.feedInitialMessages,
+          'It\'s a new day.',
+          action.payload.feedInitialMessage,
           newDay % 4 === 0 && 'A blessing is available today.',
           newDay % 3 === 0 && newDay !== 12 && 'An elite enemy approaches!'
         ].filter(Boolean)

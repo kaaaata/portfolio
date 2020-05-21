@@ -17,6 +17,7 @@ export const CardPileModal = () => {
       ? state.clashBattleCards[state.clashBattleCards.activeModalCardPile]
       : []
   }), (oldState, newState) => oldState.activeModalCardPile === newState.activeModalCardPile);
+  // only rerender when user clicks pile. cards changing while modal is open don't cause rerender
   const dispatch = useDispatch();
 
   return activeModalCardPile ? (

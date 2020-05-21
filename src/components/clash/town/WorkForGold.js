@@ -37,7 +37,6 @@ export const WorkForGold = ({ closeModal }) => {
           greenText: goldEarned >= 0 && `Receive ${goldEarned} gold.`,
           onClick: () => {
             dispatch(actions.adjustPlayerGold(goldEarned));
-            dispatch(actions.addTownFeedText(`Received: ${goldEarned} gold`));
             closeModal();
           }
         }]}

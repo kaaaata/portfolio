@@ -34,7 +34,6 @@ export const DwarvenSmith = ({ closeModal }) => {
               redTextFirst: true,
               onClick: () => {
                 dispatch(actions.adjustPlayerGold(-20));
-                dispatch(actions.addTownFeedText('Lost: 20 gold'));
                 dispatch(actions.removeCardsFromCollection('Sword'));
                 setPage('reforge');
               }
@@ -47,7 +46,6 @@ export const DwarvenSmith = ({ closeModal }) => {
               redTextFirst: true,
               onClick: () => {
                 dispatch(actions.adjustPlayerGold(-40));
-                dispatch(actions.addTownFeedText('Lost: 40 gold'));
                 dispatch(actions.removeCardsFromCollection('Sword'));
                 setPage('enhance');
               }

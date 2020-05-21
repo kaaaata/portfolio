@@ -32,18 +32,14 @@ export const BattleRewards = () => {
   const battleDefeatGold = Math.floor(battleRewardGold / 4);
   
   const returnToTown = () => {
-    const townFeedMessages = didPlayerWin ? [
-      `You defeated: ${enemyName}`,
-      `Received: ${battleRewardGold} gold`
-    ] : [
-      `You were defeated by: ${enemyName}`,
-      `Lost: ${battleDefeatGold} gold`
-    ];
+    const townFeedMessage = didPlayerWin
+      ? `You defeated: ${enemyName}`
+      : `You were defeated by: ${enemyName}`
     if (enemyType === 'wave') {
-      dispatch(actions.startNewDay({ feedInitialMessages: townFeedMessages }));
+      dispatch(actions.startNewDay({ feedInitialMessage: townFeedMessage }));
       dispatch(actions.setCanRecoverLoot(didPlayerWin ? false : true));
     } else {
-      dispatch(actions.addTownFeedText(townFeedMessages));
+      dispatch(actions.addTownFeedText(townFeedMessage));
       dispatch(actions.setScene('town'));
     }
     dispatch(actions.setCanVisitShop(true));

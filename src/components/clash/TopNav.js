@@ -13,17 +13,27 @@ import { CardViewModal } from './modals/CardViewModal';
 export const TopNav = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const { gold, energy, deck, image, stats, statBonuses, canVisitShop } = useSelector(state => ({
+  const {
+    gold,
+    energy,
+    deck,
+    image,
+    stats,
+    statBonuses,
+    canVisitShop,
+    shouldHideTopNav
+  } = useSelector(state => ({
     gold: state.clashPlayer.gold,
     energy: state.clashTown.energy,
     deck: state.clashPlayer.deck,
     image: state.clashBattleStats.yourImage,
     stats: state.clashBattleStats.yourStats,
     statBonuses: state.clashBattleStats.yourStatBonuses,
-    canVisitShop: state.clashScene.canVisitShop
+    canVisitShop: state.clashScene.canVisitShop,
+    shouldHideTopNav: ['story', 'main_menu'].includes(state.clashScene.scene)
   }), shallowEqual);
 
-  return (
+  return shouldHideTopNav ? null : (
     <React.Fragment>
       <FlexContainer
         justifyContent='space-between'

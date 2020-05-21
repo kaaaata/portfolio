@@ -23,10 +23,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
   if (rng < 0.05) {
     const gold = random(100, 150);
     lootText = <span className='yellow'>{gold} gold!</span>
-    lootCb = () => {
-      dispatch(actions.adjustPlayerGold(gold));
-      dispatch(actions.addTownFeedText(`Received: ${gold} gold`));
-    };
+    lootCb = () => dispatch(actions.adjustPlayerGold(gold));
     greenText = `Receive ${gold} gold.`;
   } else if (rng < 0.15) {
     lootText = <span className={rarityColors.uncommon}>two uncommon cards!</span>
@@ -51,10 +48,7 @@ export const TreasureChest = ({ rng, closeModal }) => {
   } else {
     const gold = random(50, 75);
     lootText = <span className='yellow'>{gold} gold!</span>
-    lootCb = () => {
-      dispatch(actions.adjustPlayerGold(gold));
-      dispatch(actions.addTownFeedText(`Received: ${gold} gold`));
-    };
+    lootCb = () => dispatch(actions.adjustPlayerGold(gold));
     greenText = `Receive ${gold} gold.`;
   }
 

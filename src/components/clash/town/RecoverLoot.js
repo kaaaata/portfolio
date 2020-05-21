@@ -46,7 +46,6 @@ export const RecoverLoot = ({ closeModal }) => {
             greenText: `Receive ${battleRewardGold} gold.`,
             onClick: () => {
               dispatch(actions.adjustPlayerGold(battleRewardGold));
-              dispatch(actions.addTownFeedText(`Recovered: ${battleRewardGold} gold`));
               closeModal();
             }
           }]}

@@ -92,7 +92,6 @@ export const RobberyWheel = ({ rng, closeModal }) => {
       continueGoodText = 'Receive 100 gold.'
       continueOnClick = () => {
         dispatch(actions.adjustPlayerGold(100));
-        dispatch(actions.addTownFeedText('Received: 100 gold'));
         closeModal();
       };
       break;
@@ -126,7 +125,6 @@ export const RobberyWheel = ({ rng, closeModal }) => {
       continueBadText = 'Lose 25 gold.'
       continueOnClick = () => {
         dispatch(actions.adjustPlayerGold(-25));
-        dispatch(actions.addTownFeedText('Lost: 25 gold'));
         closeModal();
       };
       break;

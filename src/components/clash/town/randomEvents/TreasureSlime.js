@@ -49,7 +49,6 @@ export const TreasureSlime = ({ rng, closeModal }) => {
               onClick: () => {
                 setPage('give_gold');
                 dispatch(actions.adjustPlayerGold(-100));
-                dispatch(actions.addTownFeedText('Lost: 100 gold'));
               }
             },
             {
@@ -99,7 +98,6 @@ export const TreasureSlime = ({ rng, closeModal }) => {
             greenText: 'Receive 150 gold.',
             onClick: () => {
               dispatch(actions.adjustPlayerGold(150));
-              dispatch(actions.addTownFeedText('Received: 150 gold'));
               closeModal();
             }
           }]}

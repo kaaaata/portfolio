@@ -82,7 +82,6 @@ export const GoblinBomber = ({ closeModal }) => {
             greenText: 'Receive 15 gold.',
             onClick: () => {
               dispatch(actions.adjustPlayerGold(15));
-              dispatch(actions.addTownFeedText(`Received: 15 gold`));
               closeModal();
             }
           }]}
@@ -105,7 +104,6 @@ export const GoblinBomber = ({ closeModal }) => {
             greenText: 'Receive 5 gold.',
             onClick: () => {
               dispatch(actions.adjustPlayerGold(5));
-              dispatch(actions.addTownFeedText(`Received: 5 gold`));
               closeModal();
             }
           }]}
@@ -128,7 +126,6 @@ export const GoblinBomber = ({ closeModal }) => {
             greenText: 'Receive 10 gold.',
             onClick: () => {
               dispatch(actions.adjustPlayerGold(10));
-              dispatch(actions.addTownFeedText(`Received: 10 gold`));
               closeModal();
             }
           }]}

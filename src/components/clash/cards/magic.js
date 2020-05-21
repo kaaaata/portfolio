@@ -17,6 +17,7 @@ export const magic = [
     shuffleCardCopiesIntoOpponentsPiles: [
       { card: 'Freeze', pile: 'deck' }
     ],
+    description: 'Damage dealt pierces shields. Shuffle a copy of Freeze into your opponent\'s deck.'
   },
   {
     name: 'Tentacles',

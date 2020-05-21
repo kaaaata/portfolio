@@ -39,10 +39,11 @@ export const Town = () => {
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('Choose an action!');
-  const [activeModal, setActiveModal] = useState('Explore');
+  const [activeModal, setActiveModal] = useState();
 
   useEffect(() => {
     if (feed.length) {
+      // auto scroll feed to bottom when it updates
       const feedEl = document.querySelector('.feed');
       feedEl.scrollTop = feedEl.scrollHeight;
     }
@@ -136,10 +137,10 @@ export const Town = () => {
                 energy={i.energy}
                 canAfford={energy >= i.energy}
                 isDisabled={
-                  (i.name === 'Blessing' && !canReceiveBlessing)
+                  (i.name === 'Gain Blessing' && !canReceiveBlessing)
                   || (i.name === 'Elite Encounter' && !canFightElite)
-                  || (i.name === 'Recover Loot' && (!canRecoverLoot))
-                  || (i.name === 'Drink Potion' && (!canDrinkPotion))
+                  || (i.name === 'Recover Loot' && !canRecoverLoot)
+                  || (i.name === 'Drink Potion' && !canDrinkPotion)
                 }
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
