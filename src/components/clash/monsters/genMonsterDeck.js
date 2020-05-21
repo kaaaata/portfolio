@@ -1,4 +1,4 @@
-import { cards, monsterCardPoolByRarity } from '../cards/cards';
+import { cards, lootableCardPool } from '../cards/cards';
 import { range, sample, random, shuffle } from 'lodash';
 
 const dayBalancing = {
@@ -35,9 +35,9 @@ export const genMonsterDeck = (deck, tier, day, isElite) => {
 
   return shuffle([
     ...deck,
-    ...range(0, cardsToAdd.legendary).map(i => sample(monsterCardPoolByRarity.legendary).name),
-    ...range(0, cardsToAdd.rare).map(i => sample(monsterCardPoolByRarity.rare).name),
-    ...range(0, cardsToAdd.uncommon).map(i => sample(monsterCardPoolByRarity.uncommon).name),
-    ...range(0, cardsToAdd.common).map(i => sample(monsterCardPoolByRarity.common).name)
+    ...range(0, cardsToAdd.legendary).map(i => sample(lootableCardPool.legendary)),
+    ...range(0, cardsToAdd.rare).map(i => sample(lootableCardPool.rare)),
+    ...range(0, cardsToAdd.uncommon).map(i => sample(lootableCardPool.uncommon)),
+    ...range(0, cardsToAdd.common).map(i => sample(lootableCardPool.common))
   ]);
 };

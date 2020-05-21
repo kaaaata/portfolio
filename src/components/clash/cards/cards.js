@@ -12,17 +12,14 @@ export const cardsArray = CardsArray([
   ...allies
 ]);
 export const cards = keyBy(cardsArray, 'name');
-export const cardsByRarity = {
-  common: cardsArray.filter(card => card.rarity === 'common' && !card.isToken),
-  uncommon: cardsArray.filter(card => card.rarity === 'uncommon' && !card.isToken),
-  rare: cardsArray.filter(card => card.rarity === 'rare' && !card.isToken),
-  legendary: cardsArray.filter(card => card.rarity === 'legendary' && !card.isToken)
-};
-export const monsterCardPoolByRarity = {
-  common: cardsByRarity.common.filter(card => card.type !== 'ally'),
-  uncommon: cardsByRarity.uncommon.filter(card => card.type !== 'ally'),
-  rare: cardsByRarity.rare.filter(card => card.type !== 'ally'),
-  legendary: cardsByRarity.legendary.filter(card => card.type !== 'ally')
+const lootableCards = cardsArray
+  .filter(card => card.type !== 'ally' && !card.isToken)
+  .map(card => card.name);
+export const lootableCardPool = {
+  common: lootableCards.filter(card => cards[card].rarity === 'common'),
+  uncommon: lootableCards.filter(card => cards[card].rarity === 'uncommon'),
+  rare: lootableCards.filter(card => cards[card].rarity === 'rare'),
+  legendary: lootableCards.filter(card => cards[card].rarity === 'legendary')
 };
 
 export const genStartingDeck = () => [

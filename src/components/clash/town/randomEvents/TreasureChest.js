@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {  useDispatch } from 'react-redux';
 import * as actions from '../../../stores/actions';
 import { rarityColors } from '../../cards/rarity';
-import { cardsByRarity } from '../../cards/cards';
+import { lootableCardPool } from '../../cards/cards';
 import { random, sample } from 'lodash';
 import { packs } from '../../shop/packs';
 import { genPackCards } from '../../shop/genPackCards';
@@ -28,15 +28,15 @@ export const TreasureChest = ({ rng, closeModal }) => {
   } else if (rng < 0.15) {
     lootText = <span className={rarityColors.uncommon}>two uncommon cards!</span>
     lootCb = () => setPage('card_loot_modal');
-    lootCards = [sample(cardsByRarity.uncommon).name, sample(cardsByRarity.uncommon).name];
+    lootCards = [sample(lootableCardPool.uncommon), sample(lootableCardPool.uncommon)];
   } else if (rng < 0.25) {
     lootText = <span className={rarityColors.rare}>a rare card!</span>
     lootCb = () => setPage('card_loot_modal');
-    lootCards = [sample(cardsByRarity.rare).name];
+    lootCards.push(sample(lootableCardPool.rare));
   } else if (rng < 0.3) {
     lootText = <span className={rarityColors.legendary}>a legendary card!</span>
     lootCb = () => setPage('card_loot_modal');
-    lootCards = [sample(cardsByRarity.legendary).name];
+    lootCards.push(sample(lootableCardPool.legendary));
   } else if (rng < 0.35) {
     lootPack = 'bronze';
   } else if (rng < 0.4) {

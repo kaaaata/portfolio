@@ -1,7 +1,7 @@
 export const townActions = [
   {
     name: 'Explore',
-    energy: 4,
+    energy: 6,
     image: 'map',
     description: 'Get a random event.'
   },
@@ -23,7 +23,6 @@ export const townActions = [
     image: 'blessing',
     description: 'Receive a blessing.'
   },
-
   {
     name: 'Drink Potion',
     energy: 4,

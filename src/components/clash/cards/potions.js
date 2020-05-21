@@ -45,7 +45,7 @@ export const potions = [
   {
     name: 'Explosive Potion',
     image: 'explosive_potion',
-    rarity: 'common',
+    rarity: 'uncommon',
     attack: 3,
     onDiscard: {
       attack: 3
@@ -102,7 +102,7 @@ export const potions = [
       customEffect: true,
       heal: 5
     },
-    description: 'Shuffle 7 cards from your banish into your discard. Heal 7.'
+    description: 'Shuffle 5 cards from your banish into your discard. Heal 5.'
   }
 ].map(card => createCard({
   ...card,
