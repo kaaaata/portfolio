@@ -63,6 +63,18 @@ const monstersTier2 = [
     ]
   },
   {
+    name: 'Demonic Slime',
+    image: 'demonic_slime',
+    stats: { attack: 1, magic: 0, defense: 0 },
+    deck: [
+      'Vampire',
+      'Minotaur',
+      'Orc Blade',
+      'Crush',
+      'Crush'
+    ]
+  },
+  {
     name: 'Warlock',
     image: 'crazy_mage',
     stats: { attack: 0, magic: 1, defense: 0 },
@@ -71,17 +83,6 @@ const monstersTier2 = [
       'Fire',
       'Fire',
       'Candy Corn'
-    ]
-  },
-  {
-    name: 'Hobgoblin',
-    image: 'hobgoblin',
-    stats: { attack: 1, magic: 0, defense: 0 },
-    deck: [
-      'Hobgoblin',
-      'Falchion',
-      'Falchion',
-      'Falchion'
     ]
   },
   {
@@ -97,20 +98,20 @@ const monstersTier2 = [
     ]
   },
   {
-    name: 'Cleric',
-    image: 'cleric',
-    stats: { attack: 0, magic: 0, defense: 1 },
+    name: 'Hobgoblin',
+    image: 'hobgoblin',
+    stats: { attack: 1, magic: 0, defense: 0 },
     deck: [
-      'Cleric',
-      'Cleric',
-      'Healing Potion',
-      'Healing Potion'
+      'Hobgoblin',
+      'Falchion',
+      'Falchion',
+      'Falchion'
     ]
   },
   {
     name: 'Cryopyromancer',
     image: 'cryopyromancer',
-    stats: { attack: 1, magic: 1, defense: 0 },
+    stats: { attack: 0, magic: 0, defense: 1 },
     deck: [
       'Cryopyromancer',
       'Fire',
@@ -161,16 +162,19 @@ const monstersTier3 = [
       'Shield'
     ]
   },
-  { // TEMPORARY PLACEHOLDER CUZ I ONLY HAVE 3 TIER 3 MONSTERS RIGHT NOW
-    name: 'Ice Whelp',
-    image: 'ice_whelp',
-    stats: { attack: 2, magic: 0, defense: 0 },
+  {
+    name: 'Vine Slime',
+    image: 'vine_slime',
+    stats: { attack: 1, magic: 1, defense: 0 },
     deck: [
-      'Ice Queen',
-      'Ice Whelp',
-      'Ice Whelp',
-      'Ice Blade',
-      'Shield'
+      'Edible Slime',
+      'Edible Slime',
+      'Tentacles',
+      'Tentacles',
+      'Tentacles',
+      'Candy Corn',
+      'Protect',
+      'Frost'
     ]
   }
 ];

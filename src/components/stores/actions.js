@@ -32,12 +32,8 @@ export const removeCardsFromCollection = payload => ({
 
 export const setRecruitableAllyPurchased = payload => ({ type: 'SET_RECRUITABLE_ALLY_PURCHASED', payload });
 export const addTownFeedText = payload => ({ type: 'ADD_TOWN_FEED_TEXT', payload });
-export const setCanReceiveBlessingFalse = payload => ({
-  type: 'SET_CAN_RECEIVE_BLESSING_FALSE', payload
-});
-export const setCanDrinkPotionFalse = payload => ({ type: 'SET_CAN_DRINK_POTION_FALSE', payload });
+export const setCanDoRandomEventFalse = payload => ({ type: 'SET_CAN_DO_RANDOM_EVENT_FALSE', payload });
 export const setCanRecoverLoot = payload => ({ type: 'SET_CAN_RECOVER_LOOT', payload });
-export const setCanFightEliteFalse = payload => ({ type: 'SET_CAN_FIGHT_ELITE_FALSE', payload });
 
 export const setScene = payload => ({ type: 'SET_SCENE', payload });
 export const startNewDay = payload => ({ type: 'START_NEW_DAY', payload });

@@ -7,7 +7,8 @@ import { Settings } from './modals/Settings';
 import { Shop } from './shop/Shop';
 import { topNavCss, energyMeterCss, collectionCss } from './topNavCss';
 import { Text } from './Text';
-import { useSelector, shallowEqual } from 'react-redux'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import * as actions from '../stores/actions';
 import { CardViewModal } from './modals/CardViewModal';
 
 export const TopNav = () => {
@@ -32,6 +33,7 @@ export const TopNav = () => {
     canVisitShop: state.clashScene.canVisitShop,
     shouldHideTopNav: ['story', 'main_menu'].includes(state.clashScene.scene)
   }), shallowEqual);
+  const dispatch = useDispatch();
 
   return shouldHideTopNav ? null : (
     <React.Fragment>
@@ -60,7 +62,7 @@ export const TopNav = () => {
           />
           <div css={energyMeterCss}>
             <div className='fill' css={css`width: ${100 * energy / 12}%;`} />
-            <Text type='small' className='energy_count'>{energy} / 12</Text>
+            <Text type='mini' className='energy_count'>{energy} / 12</Text>
           </div>
         </FlexContainer>
 
@@ -87,6 +89,8 @@ export const TopNav = () => {
             onClick={() => {
               if (canVisitShop) {
                 setActiveModal(activeModal === 'shop' ? null : 'shop');
+              } else {
+                dispatch(actions.setToast('You can\'t shop right now!'));
               }
             }}
             className='shop'
@@ -112,7 +116,7 @@ export const TopNav = () => {
       </div>
 
       <div css={css`display: ${activeModal === 'shop' ? 'unset' : 'none'};`}>
-        <Shop />
+        <Shop closeModal={() => setActiveModal(null)} />
       </div>
 
       <div css={css`display: ${isSettingsOpen ? 'unset' : 'none'};`}>

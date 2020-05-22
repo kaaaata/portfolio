@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 const portraitCss = (player) => css`
   position: absolute;
   left: ${player === 'enemy' ? 885 : 20}px;
-  top: ${player === 'enemy' ? 48 : 405}px;
+  top: ${player === 'enemy' ? 57 : 405}px;
 
   .portrait {
     position: absolute;
@@ -30,7 +30,7 @@ const portraitCss = (player) => css`
 
   .shields {
     position: absolute;
-    top: -30px;
+    top: ${player === 'enemy' ? -10 : -25}px;
     ${player === 'enemy' ? 'left: -15px;' : 'right: -15px;'}
     
     .number {

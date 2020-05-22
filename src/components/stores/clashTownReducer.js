@@ -2,15 +2,16 @@ import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';
 import { genRecruitableAllies } from '../clash/town/genRecruitableAllies';
   
 const initialState = {
-  energy: 12,
+  energy: 0,
   day: 1,
   monsterWaves: genMonsterWaves(),
-  canReceiveBlessing: false,
   canRecoverLoot: false,
-  canFightElite: false,
-  canDrinkPotion: true,
+  canDoRandomEvent: true,
   recruitableAllies: genRecruitableAllies(),
-  feed: ['Welcome to town!']
+  feed: [
+    'Welcome to town!',
+    'You are too tired from your long journey to do anything else today.'
+  ]
 };
 
 export default (state = initialState, action) => {
@@ -26,15 +27,13 @@ export default (state = initialState, action) => {
         ...state,
         energy: 12,
         day: newDay,
-        canReceiveBlessing: newDay % 4 === 0,
-        canFightElite: newDay % 3 === 0 && newDay !== 12,
-        canDrinkPotion: true,
+        canDoRandomEvent: true,
         recruitableAllies: genRecruitableAllies(),
         feed: [
           'It\'s a new day.',
           action.payload.feedInitialMessage,
-          newDay % 4 === 0 && 'A blessing is available today.',
-          newDay % 3 === 0 && newDay !== 12 && 'An elite enemy approaches!'
+          [4, 8].includes(newDay) && 'Tonight, a boss enemy will attack!',
+          newDay === 12 && 'Tonight, the final boss will attack!'
         ].filter(Boolean)
       };
     }
@@ -52,25 +51,15 @@ export default (state = initialState, action) => {
         feed: newFeed
       };
     }
-    case 'SET_CAN_RECEIVE_BLESSING_FALSE':
-      return {
-        ...state,
-        canReceiveBlessing: false
-      };
     case 'SET_CAN_RECOVER_LOOT':
       return {
         ...state,
         canRecoverLoot: action.payload
       };
-    case 'SET_CAN_FIGHT_ELITE_FALSE':
+    case 'SET_CAN_DO_RANDOM_EVENT_FALSE':
       return {
         ...state,
-        canFightElite: false
-      };
-    case 'SET_CAN_DRINK_POTION_FALSE':
-      return {
-        ...state,
-        canDrinkPotion: false
+        canDoRandomEvent: false
       };
     case 'SET_RECRUITABLE_ALLY_PURCHASED': {
       const purchasedIndex = action.payload;

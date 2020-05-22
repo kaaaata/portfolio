@@ -1,45 +1,45 @@
 export const townActions = [
   {
-    name: 'Explore',
-    energy: 6,
-    image: 'map',
-    description: 'Get a random event.'
-  },
-  {
     name: 'Work for Gold',
     energy: 2,
     image: 'gold',
     description: 'Earn some gold.'
   },
   {
-    name: 'Recruit Allies',
-    energy: 0,
-    image: 'recruiter',
-    description: 'Obtain ally cards.'
-  },
-  {
-    name: 'Gain Blessing',
-    energy: 0,
-    image: 'blessing',
-    description: 'Receive a blessing.'
+    name: 'Hunt Monsters',
+    energy: 6,
+    image: 'elite',
+    description: 'Fight a random monster for loot.'
   },
   {
     name: 'Drink Potion',
-    energy: 4,
+    energy: 5,
     image: 'blue_potion',
     description: 'Gain a stat boost until the end of the day.'
   },
   {
-    name: 'Recover Loot',
-    energy: 5,
-    image: 'scavenge',
-    description: 'Recover some loot after a defeat.'
+    name: 'Random Event',
+    energy: 1,
+    image: 'map',
+    description: 'Once a day, get a random event.'
   },
   {
-    name: 'Elite Encounter',
-    energy: 6,
-    image: 'elite',
-    description: 'Fight a dangerous enemy for rare loot!'
+    name: 'Recruit Allies',
+    energy: 0,
+    image: 'recruiter',
+    description: 'Add ally cards to your deck.'
+  },
+  {
+    name: 'TBD',
+    energy: 0,
+    image: 'clash',
+    description: 'TBD'
+  },
+  {
+    name: 'Recover Loot',
+    energy: 4,
+    image: 'scavenge',
+    description: 'Recover some loot after a defeat.'
   },
   {
     name: 'Next Day',

@@ -27,7 +27,6 @@ const continueOptionsCss = css`
 export const CardLootModal = ({
   cards,
   maxCardsToTake = cards.length,
-  title,
   closeModal
 }) => {
   const dispatch = useDispatch();
@@ -37,7 +36,7 @@ export const CardLootModal = ({
 
   const titleText = (
     <React.Fragment>
-      [{title}] Choose cards to keep&nbsp;
+      Choose cards to keep&nbsp;
       <Text
         type='header'
         inline

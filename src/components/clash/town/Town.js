@@ -14,7 +14,6 @@ import { MonsterPreview } from '../modals/MonsterPreview';
 import { DrinkPotion } from './DrinkPotion';
 import { townActions } from './townActions';
 import { monstersByTier } from '../monsters/monsters';
-import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
 import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
 
@@ -22,24 +21,20 @@ export const Town = () => {
   const {
     energy,
     day,
-    canReceiveBlessing,
     canRecoverLoot,
-    canFightElite,
-    canDrinkPotion,
+    canDoRandomEvent,
     feed
   } = useSelector(state => ({
     energy: state.clashTown.energy,
     day: state.clashTown.day,
-    canReceiveBlessing: state.clashTown.canReceiveBlessing,
     canRecoverLoot: state.clashTown.canRecoverLoot,
-    canFightElite: state.clashTown.canFightElite,
-    canDrinkPotion: state.clashTown.canDrinkPotion,
+    canDoRandomEvent: state.clashTown.canDoRandomEvent,
     feed: state.clashTown.feed
   }), shallowEqual);
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('Choose an action!');
-  const [activeModal, setActiveModal] = useState('Recruit Allies');
+  const [activeModal, setActiveModal] = useState([5, 8].includes(day) ? 'Receive Blessing' : null);
 
   useEffect(() => {
     if (feed.length) {
@@ -60,25 +55,22 @@ export const Town = () => {
   
   let modal;
   switch (activeModal) {
-    case 'Elite Encounter': {
-      const eliteMonster = sample(monstersByTier[Math.ceil(day / 4)]);
-      eliteMonster.name = `${genEliteMonsterPrefix()} ${eliteMonster.name}`;
-      eliteMonster.type = 'elite';
-      eliteMonster.stats[sample('attack', 'defense', 'magic')]++;
-
+    case 'Hunt Monsters':
       modal = (
         <MonsterPreview
-          title='You challenge the enemy elite.'
-          monsterOverride={eliteMonster}
+          title='You go monster hunting...'
+          monsterOverride={{
+            ...sample(monstersByTier[Math.ceil(day / 4)]),
+          type: 'event'
+        }}
           closeModal={() => setActiveModal(null)}
         />
       );
       break;
-    }
     case 'Work for Gold':
       modal = <WorkForGold closeModal={() => setActiveModal(null)} />;
       break;
-    case 'Gain Blessing':
+    case 'Receive Blessing':
       modal = <ReceiveBlessing closeModal={() => setActiveModal(null)} />;
       break;
     case 'Next Day':
@@ -90,7 +82,7 @@ export const Town = () => {
     case 'Drink Potion':
       modal = <DrinkPotion closeModal={() => setActiveModal(null)} />;
       break;
-    case 'Explore':
+    case 'Random Event':
       modal = <RandomEvent closeModal={() => setActiveModal(null)} />;
       break;
     case 'Recruit Allies':
@@ -134,27 +126,21 @@ export const Town = () => {
                 energy={i.energy}
                 canAfford={energy >= i.energy}
                 isDisabled={
-                  (i.name === 'Gain Blessing' && !canReceiveBlessing)
-                  || (i.name === 'Elite Encounter' && !canFightElite)
-                  || (i.name === 'Recover Loot' && !canRecoverLoot)
-                  || (i.name === 'Drink Potion' && !canDrinkPotion)
+                  (i.name === 'Recover Loot' && !canRecoverLoot)
+                  || (i.name === 'Random Event' && !canDoRandomEvent)
+                  || (i.name === 'Recruit Allies' && day === 1)
+                  || i.name === 'TBD'
                 }
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
                   if (energy >= i.energy) {
-                    if (i.name === 'Gain Blessing') {
-                      dispatch(actions.setCanReceiveBlessingFalse());
-                    }
-                    if (i.name === 'Elite Encounter') {
-                      dispatch(actions.setCanFightEliteFalse());
-                    }
                     if (i.name === 'Recover Loot') {
                       dispatch(actions.setCanRecoverLoot(false));
                     }
-                    if (i.name === 'Drink Potion') {
-                      dispatch(actions.setCanDrinkPotionFalse());
+                    if (i.name === 'Random Event') {
+                      dispatch(actions.setCanDoRandomEventFalse());
                     }
-                    // dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
+                    dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
                     setActiveModal(i.name);
                   }
                 }}

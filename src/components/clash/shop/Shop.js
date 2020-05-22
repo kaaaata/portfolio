@@ -30,18 +30,18 @@ const shopCss = css`
   }
 `;
 
-export const Shop = () => {
+export const Shop = ({ closeModal }) => {
   const { gold } = useSelector(state => ({
     gold: state.clashPlayer.gold
   }), shallowEqual);
   const dispatch = useDispatch();
 
-  const [activeCardLootModalPack, setActiveCardLootModalPack] = useState(null);
+  const [isCardLootModalActive, setIsCardLootModalActive] = useState(null);
   const [cardLootModalCards, setCardLootModalCards] = useState([]);
   
   return (
     <React.Fragment>
-      <Modal title='Shop'>
+      <Modal title='Shop' closeModal={closeModal}>
         <FlexContainer css={shopCss}>
           {Object.keys(packs).map(i => {
             const pack = packs[i];
@@ -56,11 +56,12 @@ export const Shop = () => {
                   width={120}
                   height={170}
                   className='pack'
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     if (gold >= pack.cost) {
                       dispatch(actions.adjustPlayerGold(-1 * pack.cost));
                       setCardLootModalCards(genPackCards(pack));
-                      setActiveCardLootModalPack(pack.name);
+                      setIsCardLootModalActive(true);
                     } else {
                       dispatch(actions.setToast('Not enough gold!'));
                     }
@@ -96,11 +97,10 @@ export const Shop = () => {
         <Text type='small'>Note: all cards have a 5% chance to upgrade to the next rarity.</Text>
       </Modal>
 
-      {activeCardLootModalPack && (
+      {isCardLootModalActive && (
         <CardLootModal
-          title={activeCardLootModalPack}
           cards={cardLootModalCards}
-          closeModal={() => setActiveCardLootModalPack(null)}
+          closeModal={() => setIsCardLootModalActive(false)}
         />
       )}
     </React.Fragment>

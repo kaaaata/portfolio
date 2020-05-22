@@ -23,15 +23,9 @@ export const lootableCardPool = {
 };
 
 export const genStartingDeck = () => [
-  'Strange Key', // testing
-  'Burn',
-  'Freeze',
-  'Mage',
-  'Bomb',
-
   'Falchion',
+  'Orc Blade',
   'Healing Potion',
-  'Spearman',
   'Fire',
   'Tentacles',
   

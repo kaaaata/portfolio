@@ -40,7 +40,7 @@ const CardPile = ({
       text-align: center;
   
       .count {
-        color: ${themeColor};
+        color: ${themeColor === colors.black ? colors.greyDark : themeColor};
         font-size: 60px;
         text-shadow: 2px 2px 6px ${colors.black};
       }

@@ -75,7 +75,6 @@ export const RecoverLoot = ({ closeModal }) => {
 
   return page === 'card_loot_modal' ? (
     <CardLootModal
-      title='Recover Loot'
       maxCardsToTake={2}
       cards={battleRewardCards}
       closeModal={closeModal}

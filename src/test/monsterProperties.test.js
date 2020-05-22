@@ -36,7 +36,7 @@ test('all monsters are valid', () => {
     if (!deck || !Array.isArray(deck)) {
       errorMessages.push(`monster at index ${index} is missing deck`);
     }
-    if (!type || !['wave', 'elite', 'event'].includes(type)) {
+    if (!type || !['wave', 'event'].includes(type)) {
       errorMessages.push(`monster at index ${index} is missing type`);
     }
   };

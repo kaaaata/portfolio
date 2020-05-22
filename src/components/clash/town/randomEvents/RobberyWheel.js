@@ -190,7 +190,6 @@ export const RobberyWheel = ({ rng, closeModal }) => {
 
   return page === 'card_loot_modal' ? (
     <CardLootModal
-      title='Silver Pack'
       cards={genPackCards(packs.silver)}
       closeModal={closeModal}
     />

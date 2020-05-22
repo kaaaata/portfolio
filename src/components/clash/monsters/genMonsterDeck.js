@@ -2,24 +2,23 @@ import { cards, lootableCardPool } from '../cards/cards';
 import { range, sample, random, shuffle } from 'lodash';
 
 const dayBalancing = {
-  1: { maxLegendaries: 0, maxRares: 0, maxUncommons: 0 },
-  2: { maxLegendaries: 0, maxRares: 0, maxUncommons: 1 },
-  3: { maxLegendaries: 0, maxRares: 1, maxUncommons: 2 },
-  4: { maxLegendaries: 0, maxRares: 1, maxUncommons: 3 },
-  5: { maxLegendaries: 0, maxRares: 2, maxUncommons: 4 },
-  6: { maxLegendaries: 0, maxRares: 2, maxUncommons: 5 },
-  7: { maxLegendaries: 1, maxRares: 3, maxUncommons: 6 },
-  8: { maxLegendaries: 1, maxRares: 3, maxUncommons: 7 },
-  9: { maxLegendaries: 2, maxRares: 4, maxUncommons: 8 },
-  10: { maxLegendaries: 2, maxRares: 4, maxUncommons: 9 },
-  11: { maxLegendaries: 2, maxRares: 5, maxUncommons: 10 },
-  12: { maxLegendaries: 3, maxRares: 5, maxUncommons: 11 } // for tier 3 elite only
+  1: { deckSize: 10, maxLegendaries: 0, maxRares: 0, maxUncommons: 0 },
+  2: { deckSize: 15, maxLegendaries: 0, maxRares: 0, maxUncommons: 1 },
+  3: { deckSize: 20, maxLegendaries: 0, maxRares: 0, maxUncommons: 2 },
+  4: { deckSize: 25, maxLegendaries: 0, maxRares: 1, maxUncommons: 3 }, // boss
+  5: { deckSize: 30, maxLegendaries: 0, maxRares: 1, maxUncommons: 4 },
+  6: { deckSize: 35, maxLegendaries: 0, maxRares: 1, maxUncommons: 5 },
+  7: { deckSize: 40, maxLegendaries: 0, maxRares: 1, maxUncommons: 6 },
+  8: { deckSize: 45, maxLegendaries: 1, maxRares: 2, maxUncommons: 7 }, // boss
+  9: { deckSize: 50, maxLegendaries: 1, maxRares: 2, maxUncommons: 8 },
+  10: { deckSize: 55, maxLegendaries: 1, maxRares: 2, maxUncommons: 9 },
+  11: { deckSize: 60, maxLegendaries: 1, maxRares: 2, maxUncommons: 10 },
+  12: { deckSize: 75, maxLegendaries: 2, maxRares: 3, maxUncommons: 11 } // final boss
 };
 
-export const genMonsterDeck = (deck, tier, day, isElite) => {
-  const deckSize = (10 + day * 5) + (isElite ? 10 * tier : 0);
+export const genMonsterDeck = (deck, day) => {
   const deckByRarity = deck.map(card => cards[card].rarity);
-  const { maxLegendaries, maxRares, maxUncommons } = dayBalancing[isElite ? day + 1 : day];
+  const { maxLegendaries, maxRares, maxUncommons, deckSize } = dayBalancing[day];
   const cardsToAdd = {
     legendary: Math.max(0, maxLegendaries - deckByRarity.filter(card => card.rarity === 'legendary').length),
     rare: Math.max(0, maxRares - deckByRarity.filter(card => card.rarity === 'rare').length),

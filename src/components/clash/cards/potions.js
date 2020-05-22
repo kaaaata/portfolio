@@ -47,10 +47,12 @@ export const potions = [
     image: 'explosive_potion',
     rarity: 'uncommon',
     attack: 3,
+    pierces: true,
     onDiscard: {
-      attack: 3
+      attack: 3,
+      pierces: true
     },
-    description: 'Deal 3 damage.'
+    description: 'Deal 3 damage. Damage dealt pierces shields.'
   },
   {
     name: 'Edible Slime',

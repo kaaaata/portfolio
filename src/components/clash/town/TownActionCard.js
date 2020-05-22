@@ -14,7 +14,12 @@ const townActionCardCss = css`
   }
 
   &.disabled {
-    visibility: hidden;
+    opacity: 0.3;
+    pointer-events: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 
   .energy {

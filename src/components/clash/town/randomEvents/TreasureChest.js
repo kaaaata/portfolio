@@ -64,7 +64,6 @@ export const TreasureChest = ({ rng, closeModal }) => {
 
   return page === 'card_loot_modal' ? (
     <CardLootModal
-      title={lootPack ? packs[lootPack].name : 'Treasure Chest'}
       cards={lootCards}
       closeModal={closeModal}
     />

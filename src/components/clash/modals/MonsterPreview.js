@@ -5,8 +5,10 @@ import * as actions from '../../stores/actions';
 import { shuffle, sampleSize, random } from 'lodash';
 import { genMonsterDeck } from '../monsters/genMonsterDeck';
 import { EventModal, EventModalPage } from '../modals/EventModal';
+import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
 import { cards } from '../cards/cards';
 import { rarityColors } from '../cards/rarity';
+import { sample } from 'lodash';
 
 const CardsRarityString = ({ _cards }) => {
   const rarityCounts = { common: 0, uncommon: 0, rare: 0, legendary: 0 };
@@ -36,27 +38,34 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     dispatch(actions.setCanVisitShop(false));
   });
 
-  const isMonsterElite = monster.type === 'elite';
+  const isMonsterElite = !monsterOverride && [4, 8].includes(day);
   const yourDeck = shuffle(deck);
-  const enemyDeck = genMonsterDeck(monster.deck, monster.tier, day, isMonsterElite);
+  const enemyDeck = genMonsterDeck(monster.deck, day);
   const enemyHueRotate = isMonsterElite ? random(90, 270) : null;
+  const monsterStats = monster.stats;
+  const monsterName = `${isMonsterElite ? `${genEliteMonsterPrefix()} ` : ''}${monster.name}`;
+  if (isMonsterElite) {
+    monsterStats[sample('attack', 'defense', 'magic')]++;
+  }
   const battleRewardGold = (
-    (monster.type === 'wave' ? 35 : 0)
-    + 15 * (monster.tier + isMonsterElite ? 1 : 0)
-    + 3 * (day + isMonsterElite ? 3 : 0)
+    (monster.type === 'wave' ? 50 : 0)
+    + (isMonsterElite ? 75 : 0)
+    + 15 * monster.tier
+    + 3 * day
     + random(0, 15)
   );
 
   const battleOnClick = () => {
     dispatch(actions.setBattleInitialState());
     dispatch(actions.setEnemy({
-      name: monster.name,
+      name: monsterName,
       image: monster.image,
       type: monster.type,
-      hueRotate: enemyHueRotate
+      hueRotate: enemyHueRotate,
+      stats: monsterStats
     }));
     dispatch(actions.setStats({
-      stats: monster.stats,
+      stats: monsterStats,
       type: 'stats',
       player: 'enemy',
       operation: 'set'
@@ -64,7 +73,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
     // dispatch(actions.setYourDeck([])); // testing
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
-    dispatch(actions.setEnemyDeck([])); // testing
+    // dispatch(actions.setEnemyDeck([])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
     // dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
     dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
@@ -82,7 +91,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
 
   const text = (
     <React.Fragment>
-      You are attacked by: <span className='yellow'>{monster.name}!</span>
+      You are attacked by: <span className='yellow'>{monsterName}!</span>
       <br /><br />
       Enemy cards: {enemyDeck.length} <CardsRarityString _cards={enemyDeck} />
       <br />
@@ -90,7 +99,9 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
       <br /><br />
       Victory: <span className='green'>gain {battleRewardGold} gold</span> and <span className='green'>2 cards from the enemy's deck</span>
       <br />
-      Defeat: <span className='red'>lose {Math.floor(battleRewardGold / 4)} gold</span>
+      Defeat: <span className='red'>{
+        [4, 8, 12].includes(day) ? 'death!' : `lose ${Math.floor(battleRewardGold / 4)} gold`
+      }</span>
     </React.Fragment>
   );
 

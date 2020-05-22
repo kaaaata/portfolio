@@ -105,7 +105,6 @@ export const BattleRewards = () => {
   } else if (page === 'card_loot_modal') {
     return (
       <CardLootModal
-        title='Battle Rewards'
         maxCardsToTake={2}
         cards={battleRewardCards}
         closeModal={returnToTown}
