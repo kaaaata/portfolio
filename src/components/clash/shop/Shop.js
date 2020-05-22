@@ -61,6 +61,8 @@ export const Shop = () => {
                       dispatch(actions.adjustPlayerGold(-1 * pack.cost));
                       setCardLootModalCards(genPackCards(pack));
                       setActiveCardLootModalPack(pack.name);
+                    } else {
+                      dispatch(actions.setToast('Not enough gold!'));
                     }
                   }}
                 >

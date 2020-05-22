@@ -1,5 +1,6 @@
-import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';;
-
+import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';
+import { genRecruitableAllies } from '../clash/town/genRecruitableAllies';
+  
 const initialState = {
   energy: 12,
   day: 1,
@@ -8,6 +9,7 @@ const initialState = {
   canRecoverLoot: false,
   canFightElite: false,
   canDrinkPotion: true,
+  recruitableAllies: genRecruitableAllies(),
   feed: ['Welcome to town!']
 };
 
@@ -27,6 +29,7 @@ export default (state = initialState, action) => {
         canReceiveBlessing: newDay % 4 === 0,
         canFightElite: newDay % 3 === 0 && newDay !== 12,
         canDrinkPotion: true,
+        recruitableAllies: genRecruitableAllies(),
         feed: [
           'It\'s a new day.',
           action.payload.feedInitialMessage,
@@ -69,6 +72,19 @@ export default (state = initialState, action) => {
         ...state,
         canDrinkPotion: false
       };
+    case 'SET_RECRUITABLE_ALLY_PURCHASED': {
+      const purchasedIndex = action.payload;
+      const newRecruitableAlly = {
+        ...state.recruitableAllies[purchasedIndex],
+        isPurchased: true
+      };
+      const newRecruitableAllies = [...state.recruitableAllies];
+      newRecruitableAllies[purchasedIndex] = newRecruitableAlly;
+      return {
+        ...state,
+        recruitableAllies: newRecruitableAllies
+      };
+    }
     default:
       return state;
   }

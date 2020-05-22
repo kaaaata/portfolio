@@ -30,6 +30,7 @@ export const removeCardsFromCollection = payload => ({
   type: 'REMOVE_CARDS_FROM_COLLECTION', payload
 });
 
+export const setRecruitableAllyPurchased = payload => ({ type: 'SET_RECRUITABLE_ALLY_PURCHASED', payload });
 export const addTownFeedText = payload => ({ type: 'ADD_TOWN_FEED_TEXT', payload });
 export const setCanReceiveBlessingFalse = payload => ({
   type: 'SET_CAN_RECEIVE_BLESSING_FALSE', payload

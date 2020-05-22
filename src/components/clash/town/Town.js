@@ -9,6 +9,7 @@ import { TownActionCard } from './TownActionCard';
 import { WorkForGold } from './WorkForGold';
 import { ReceiveBlessing } from './ReceiveBlessing';
 import { RecoverLoot } from './RecoverLoot';
+import { RecruitAllies } from './RecruitAllies';
 import { MonsterPreview } from '../modals/MonsterPreview';
 import { DrinkPotion } from './DrinkPotion';
 import { townActions } from './townActions';
@@ -16,7 +17,6 @@ import { monstersByTier } from '../monsters/monsters';
 import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
 import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
-import { TreasureChest } from './randomEvents/TreasureChest';
 
 export const Town = () => {
   const {
@@ -39,7 +39,7 @@ export const Town = () => {
   const dispatch = useDispatch();
   
   const [townActionDescription, setTownActionDescription] = useState('Choose an action!');
-  const [activeModal, setActiveModal] = useState();
+  const [activeModal, setActiveModal] = useState('Recruit Allies');
 
   useEffect(() => {
     if (feed.length) {
@@ -93,11 +93,8 @@ export const Town = () => {
     case 'Explore':
       modal = <RandomEvent closeModal={() => setActiveModal(null)} />;
       break;
-    case 'Beg for Change':
-      modal = <TreasureChest
-        rng={Math.random()}
-        closeModal={() => setActiveModal(null)}
-      />;
+    case 'Recruit Allies':
+      modal = <RecruitAllies closeModal={() => setActiveModal(null)} />;
       break;
     default:
       break;
@@ -145,7 +142,7 @@ export const Town = () => {
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
                   if (energy >= i.energy) {
-                    if (i.name === 'Blessing') {
+                    if (i.name === 'Gain Blessing') {
                       dispatch(actions.setCanReceiveBlessingFalse());
                     }
                     if (i.name === 'Elite Encounter') {

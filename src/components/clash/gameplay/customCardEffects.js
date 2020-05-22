@@ -96,7 +96,7 @@ export const customCardEffects = {
     const randomCard = cardsArray.getRandomCardByFilter(
       card => (
         !card.isToken
-        && !['Magic Scroll'].includes(card.name)
+        && card.name !== 'Magic Scroll'
         && card.rarity !== 'legendary'
       )
     );
@@ -109,7 +109,7 @@ export const customCardEffects = {
       card: cardsArray.getRandomCardByFilter(
         card => (
           !card.isToken
-          && !['Edible Slime'].includes(card.name)
+          && card.name !== 'Edible Slime'
           && ['common', 'uncommon'].includes(card.rarity)
         )
       ).name,
@@ -118,13 +118,13 @@ export const customCardEffects = {
     addCardCopiesIntoPiles(state, copies, player);
   },
   'Tome of Spells': (state, card, player) => {
-    // When played or discarded, shuffle 4 random magic attacks into your deck.
+    // When played or discarded, shuffle 4 random non-legendary magic attacks into your deck.
     const copies = [1, 2, 3, 4].map(i => ({
       card: cardsArray.getRandomCardByFilter(
         card => (
           !card.isToken
-          && !['Tome of Spells'].includes(card.name)
           && card.type === 'magic'
+          && card.rarity !== 'legendary'
         )
       ).name,
       pile: 'deck'

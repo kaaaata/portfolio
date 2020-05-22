@@ -12,10 +12,10 @@ export const townActions = [
     description: 'Earn some gold.'
   },
   {
-    name: 'Beg for Change',
-    energy: 1,
-    image: 'silver_coin_stack',
-    description: 'A low chance to earn a little gold.'
+    name: 'Recruit Allies',
+    energy: 0,
+    image: 'recruiter',
+    description: 'Obtain ally cards.'
   },
   {
     name: 'Gain Blessing',
