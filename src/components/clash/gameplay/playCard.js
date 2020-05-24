@@ -113,19 +113,19 @@ export const playCard = (state, card, player, location, index) => {
       totalDamageDealt = Math.max(totalDamageDealt - state[opponent].shields, 0);
     }
 
-    let totalShieldsGained = defense;
+    let totalShields = state[player].shields + defense;
     if (defense) {
       if (['attack', 'magic'].includes(type)) {
-        totalShieldsGained += state[player].statBonuses.defense;
-        totalShieldsGained += state[player].stats.defense;
+        totalShields += state[player].statBonuses.defense;
+        totalShields += state[player].stats.defense;
       }
       if (!state.winner) {
-        logs.push(`${player} gains ${totalShieldsGained} shields`);
+        logs.push(`${player} gains ${totalShields} shields`);
       }
       if (totalDamageDealt === 0) {
         // if no damage is dealt, set shields independently of damage ticks.
         // otherwise, set the shields on the same tick as the first instance of damage. (below)
-        renderActions.push([actionGenerators.setShields(state, player, totalShieldsGained)]);
+        renderActions.push([actionGenerators.setShields(state, player, totalShields)]);
       }
     }
 
@@ -146,7 +146,7 @@ export const playCard = (state, card, player, location, index) => {
       if (i === 0) {
         // if damage is dealt, set the shields on the same tick as the first instance of damage.
         // otherwise, set shields independently of damage ticks (above)
-        damageAction.push(actionGenerators.setShields(state, player, totalShieldsGained));
+        damageAction.push(actionGenerators.setShields(state, player, totalShields));
       }
       renderActions.push(damageAction);
 

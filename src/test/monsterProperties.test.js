@@ -58,7 +58,11 @@ test('all monster deck preset cards exist', () => {
   Object.values(monstersByTier).forEach(monsters => {
     monsters.forEach((monster, index) => {
       monster.deck.forEach(card => {
-        expect(cards.hasOwnProperty(card)).toBe(true);
+        const doesCardExist = cards.hasOwnProperty(card);
+        if (!doesCardExist) {
+          console.log('card does not exist:', card);
+        }
+        expect(doesCardExist).toBe(true);
       })
     });
   });

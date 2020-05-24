@@ -70,8 +70,8 @@ const monstersTier2 = [
       'Vampire',
       'Minotaur',
       'Orc Blade',
-      'Crush',
-      'Crush'
+      'Mace',
+      'Mace'
     ]
   },
   {
@@ -173,7 +173,7 @@ const monstersTier3 = [
       'Tentacles',
       'Tentacles',
       'Candy Corn',
-      'Protect',
+      'Shield',
       'Frost'
     ]
   }

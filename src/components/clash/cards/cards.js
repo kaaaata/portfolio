@@ -23,20 +23,14 @@ export const lootableCardPool = {
 };
 
 export const genStartingDeck = () => [
-  'Falchion',
-  'Orc Blade',
   'Healing Potion',
   'Fire',
-  'Tentacles',
-  
+  'Falchion',
   'Saber',
   'Mace',
-  'Mace',
-  'Cutlass',
-  'Cutlass',
 
-  'Sword',
-  'Sword',
+  'Cutlass',
+  'Cutlass',
   'Sword',
   'Sword',
   'Sword'

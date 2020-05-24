@@ -313,3 +313,13 @@ test('CUSTOM CARD EFFECT (Tome of Spells)', () => {
   expect(state.you.deck.filter(i => i.type === 'magic').length)
     .toBe(4);
 });
+
+test('CUSTOM CARD EFFECT (Minotaur)', () => {
+  const card = cards['Minotaur'];
+  state.you.discard = CardsArray(Array(10).fill('Cutlass'));
+  simulatePlayCard(card);
+  expect(state.you.banish.length).toBe(12);
+  expect(state.you.discard.length).toBe(9);
+  expect(state.you.shields).toBe(2);
+  expect(state.enemy.deck.length).toBe(6);
+});
