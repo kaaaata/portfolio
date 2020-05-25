@@ -1,19 +1,21 @@
 // for coding simplicity, stats can only go up (can't lose stats).
 const initialState = {
+  // persisted variables
   yourName: 'Spear Goon',
   yourImage: 'red_spear_guy',
   yourStats: { attack: 0, magic: 0, defense: 0 },
   yourStatBonuses: { attack: 0, magic: 0, defense: 0 },
-  yourShields: 0,
 
+  // will be reset before each fight
   enemyName: '',
   enemyImage: '',
   enemyStats: { attack: 0, magic: 0, defense: 0 },
   enemyStatBonuses: { attack: 0, magic: 0, defense: 0 },
-  enemyShields: 0,
   enemyType: null,
   enemyHueRotate: null,
-
+  isEnemyElite: false,
+  enemyShields: 0,
+  yourShields: 0,
   winner: null,
   winnerImage: null
 };
@@ -26,7 +28,8 @@ export default (state = initialState, action) => {
         enemyName: action.payload.name,
         enemyImage: action.payload.image,
         enemyType: action.payload.type,
-        enemyHueRotate: action.payload.hueRotate
+        enemyHueRotate: action.payload.hueRotate,
+        isEnemyElite: action.payload.isEnemyElite
       };
     case 'SET_YOUR_SHIELDS':
       return {

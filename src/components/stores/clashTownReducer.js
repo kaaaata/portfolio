@@ -1,9 +1,9 @@
 import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';
 import { genRecruitableAllies } from '../clash/town/genRecruitableAllies';
-  
-const initialState = {
+
+const genInitialState = () => ({
   energy: 0,
-  day: 1,
+  day: 4,
   monsterWaves: genMonsterWaves(),
   canRecoverLoot: false,
   canDoRandomEvent: true,
@@ -12,7 +12,8 @@ const initialState = {
     'Welcome to town!',
     'You are too tired from your long journey to do anything else today.'
   ]
-};
+});
+const initialState = genInitialState();
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -74,6 +75,8 @@ export default (state = initialState, action) => {
         recruitableAllies: newRecruitableAllies
       };
     }
+    case 'RESET_GAME':
+      return genInitialState();
     default:
       return state;
   }

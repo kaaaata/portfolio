@@ -40,3 +40,5 @@ export const startNewDay = payload => ({ type: 'START_NEW_DAY', payload });
 export const setCanVisitShop = payload => ({ type: 'SET_CAN_VISIT_SHOP', payload });
 
 export const setToast = payload => ({ type: 'SET_TOAST', payload });
+
+export const resetGame = payload => ({ type: 'RESET_GAME', payload });

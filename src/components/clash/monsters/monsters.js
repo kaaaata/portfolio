@@ -209,18 +209,22 @@ const _eventMonsters = [
 for (let i = 0; i < monstersTier1.length; i++) {
   monstersTier1[i].tier = 1;
   monstersTier1[i].type = 'wave';
+  monstersTier1[i].isElite = false;
 }
 for (let i = 0; i < monstersTier2.length; i++) {
   monstersTier2[i].tier = 2;
   monstersTier2[i].type = 'wave';
+  monstersTier2[i].isElite = false;
 }
 for (let i = 0; i < monstersTier3.length; i++) {
   monstersTier3[i].tier = 3;
   monstersTier3[i].type = 'wave';
+  monstersTier3[i].isElite = false;
 }
 for (let i = 0; i < _eventMonsters.length; i++) {
   _eventMonsters[i].tier = 1;
   _eventMonsters[i].type = 'event';
+  _eventMonsters[i].isElite = false;
 }
 
 export const monstersByTier = {

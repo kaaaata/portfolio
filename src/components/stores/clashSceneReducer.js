@@ -1,7 +1,9 @@
-const initialState = {
+const genInitialState = () => ({
   scene: 'town',
   canVisitShop: true
-};
+});
+
+const initialState = genInitialState();
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -20,6 +22,8 @@ export default (state = initialState, action) => {
         ...state,
         canVisitShop: action.payload
       };
+    case 'RESET_GAME':
+      return genInitialState();
     default:
       return state;
   }

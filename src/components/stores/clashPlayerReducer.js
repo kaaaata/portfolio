@@ -1,9 +1,11 @@
 import { genStartingDeck } from '../clash/cards/cards';
 
-const initialState = {
+const genInitialState = () => ({
   gold: 0,
   deck: genStartingDeck()
-};
+});
+
+const initialState = genInitialState();
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -35,6 +37,8 @@ export default (state = initialState, action) => {
         deck: newDeck
       };
     }
+    case 'RESET_GAME':
+      return genInitialState();
     default:
       return state;
   }
