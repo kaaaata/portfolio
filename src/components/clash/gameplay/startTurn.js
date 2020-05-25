@@ -8,6 +8,11 @@ export const startTurn = (state, player) => {
   for (let i = 0; i < 3; i++) {
     if (!state[player].hand[i].name) {
       const cardToDraw = state[player].deck.getTopCard();
+      if (!cardToDraw) {
+        logs.push(`${player} is unable to draw a card!`);
+        state.winner = player === 'you' ? 'enemy' : 'you';
+        return;
+      }
       startOfTurnActions.push(actionGenerators.removeCard(state, player, 'deck', 'top'));
       startOfTurnActions.push(actionGenerators.addCard(state, cardToDraw, player, 'hand', i));
     }

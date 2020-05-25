@@ -38,8 +38,7 @@ const triggerDiscardEffect = (state, player) => {
   ]);
 };
 
-// a player loses if their deck size reaches 0.
-// the exception is if the last card discarded was a heal, in which case the heal triggers.
+// a player loses if they receive damage while deck size is 0, or they cannot draw a card.
 export const playCard = (state, card, player, location, index) => {
   const { logs, renderActions } = state; // state gets mutated. only declare objects here!
   const {
@@ -63,12 +62,6 @@ export const playCard = (state, card, player, location, index) => {
   const opponent = player === 'you' ? 'enemy' : 'you';
 
   if (state.winner) {
-    return;
-  } else if (!state[player].deck.length) {
-    state.winner = opponent;
-    return;
-  } else if (!state[opponent].deck.length) {
-    state.winner = player;
     return;
   }
 
@@ -133,10 +126,13 @@ export const playCard = (state, card, player, location, index) => {
       logs.push(`${opponent} receives ${totalDamageDealt} damage`);
     }
 
-    totalDamageDealt = Math.min(totalDamageDealt, state[opponent].deck.length);
-
     for (let i = 0; i < totalDamageDealt; i++) {
       const removedCard = state[opponent].deck.getTopCard();
+      if (!removedCard) {
+        logs.push(`${opponent} received fatal damage!`);
+        state.winner = player;
+        break;
+      }
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       logs.push(`${opponent} ${dealsBanishingDamage ? 'banishes' : 'discards'} ${removedCard.name}`);
       const damageAction = [
@@ -157,12 +153,6 @@ export const playCard = (state, card, player, location, index) => {
           triggerDiscardEffect(state, opponent);
           if (state.winner) break;
         }
-      }
-      
-      if (!state[opponent].deck.length) {
-        logs.push(`${opponent} received fatal damage!`);
-        state.winner = player;
-        break;
       }
     }
   }
@@ -205,6 +195,11 @@ export const playCard = (state, card, player, location, index) => {
 
     for (let i = 0; i < totalSelfDamage; i++) {
       const removedCard = state[player].deck.getTopCard();
+      if (!removedCard) {
+        logs.push(`${player} received fatal damage!`);
+        state.winner = opponent;
+        break;
+      }
       const destination = dealsBanishingDamage ? 'banish' : 'discard';
       logs.push(`${player} ${dealsBanishingDamage ? 'banishes' : 'discards'}: ${removedCard.name}`);
       renderActions.push([
@@ -215,12 +210,6 @@ export const playCard = (state, card, player, location, index) => {
       if (destination === 'discard' && removedCard.onDiscard) {
         triggerDiscardEffect(state, player);
         if (state.winner) break;
-      }
-
-      if (!state[player].deck.length) {
-        logs.push(`${player} received fatal damage!`);
-        state.winner = opponent;
-        break;
       }
     }
   }

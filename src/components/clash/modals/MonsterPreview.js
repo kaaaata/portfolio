@@ -72,12 +72,12 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     }));
     dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
     // dispatch(actions.setYourDeck([])); // testing
-    dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 3)));
-    // dispatch(actions.setEnemyDeck([])); // testing
+    dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 2)));
+    dispatch(actions.setEnemyDeck(['Falchion', 'Falchion', 'Sword', 'Falchion', 'Falchion'])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
-    // dispatch(actions.setYourHand(['Brawler', 'Magic Potion', 'Spearman'])); // testing
-    dispatch(actions.setEnemyHand(enemyDeck.slice(enemyDeck.length - 3)));
-    // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur', 'Minotaur'])); // testing
+    dispatch(actions.setYourHand(['Falchion', 'Spearman', 'Falchion'])); // testing
+    dispatch(actions.setEnemyHand([...enemyDeck.slice(enemyDeck.length - 2), null]));
+    // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur'])); // testing
     dispatch(actions.setBattleRewardCards(
       sampleSize(isMonsterElite
         ? enemyDeck.filter(card => cards[card].rarity !== 'common')

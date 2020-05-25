@@ -47,18 +47,26 @@ export const playFirstCardInRound = (index) => {
     renderActions.push([{ actionKey: 'setWinner', payload: state[state.winner].name }]);
   } else {
     startTurn(state, 'enemy');
-    const enemyHandRandomCardIndex = ~~(Math.random() * 3);
-    const enemyHandRandomCard = state.enemy.hand[enemyHandRandomCardIndex];
-    // add placeholder
-    state.enemy.hand[enemyHandRandomCardIndex] = {};
-    logs.push(`enemy plays: ${enemyHandRandomCard.name}`);
-    playCard(state, enemyHandRandomCard, 'enemy', 'hand', enemyHandRandomCardIndex);
-
     if (state.winner) {
       logs.push(`${state.winner} wins!`);
       renderActions.push([{ actionKey: 'setWinner', payload: state[state.winner].name }]);
     } else {
-      startTurn(state, 'you');
+      const enemyHandRandomCardIndex = ~~(Math.random() * 3);
+      const enemyHandRandomCard = state.enemy.hand[enemyHandRandomCardIndex];
+      // add placeholder
+      state.enemy.hand[enemyHandRandomCardIndex] = {};
+      logs.push(`enemy plays: ${enemyHandRandomCard.name}`);
+      playCard(state, enemyHandRandomCard, 'enemy', 'hand', enemyHandRandomCardIndex);
+      if (state.winner) {
+        logs.push(`${state.winner} wins!`);
+        renderActions.push([{ actionKey: 'setWinner', payload: state[state.winner].name }]);
+      } else {
+        startTurn(state, 'you');
+        if (state.winner) {
+          logs.push(`${state.winner} wins!`);
+          renderActions.push([{ actionKey: 'setWinner', payload: state[state.winner].name }]);
+        }
+      }
     }
   }
 

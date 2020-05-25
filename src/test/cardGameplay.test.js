@@ -209,12 +209,24 @@ test('Discard effects work (Healing Potion, Falchion)', () => {
   expect(state.you.deck.length).toBe(potion.onDiscard.heal + 1);
 });
 
-test('Player should lose if deck size hits 0 (Healing Potion, Falchion)', () => {
+test('Non-draw win conditions are working (Healing Potion, Falchion)', () => {
   state.you.deck = CardsArray(['Healing Potion', 'Sword', 'Sword', 'Sword']);
-
   const slice = cards['Falchion'];
   simulatePlayCard(slice, 'enemy');
-  expect(state.you.deck.length).toBe(0);
+  expect(state.you.deck.length).toBe(3);
+  expect(state.winner).toBe(null);
+
+  resetState();
+
+  state.you.deck = CardsArray(['Sword', 'Sword', 'Sword']);
+  simulatePlayCard(slice, 'enemy');
+  expect(state.winner).toBe('enemy');
+
+  resetState();
+
+  state.you.deck = CardsArray(['Burn', 'Burn']);
+  simulatePlayCard(slice, 'enemy');
+  expect(state.winner).toBe('enemy');
 });
 
 test('Mock cards disappear after being played', () => {
