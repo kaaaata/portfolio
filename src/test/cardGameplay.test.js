@@ -227,23 +227,9 @@ test('Non-draw win conditions are working (Healing Potion, Falchion)', () => {
   state.you.deck = CardsArray(['Burn', 'Burn']);
   simulatePlayCard(slice, 'enemy');
   expect(state.winner).toBe('enemy');
-});
 
-test('Mock cards disappear after being played', () => {
-  const card = createCard({
-    attack: 1,
-    isMockCard: true
-  });
-  simulatePlayCard(card);
-  expect(state.you.discard.length).toBe(10);
-  expect(state.you.deck.length).toBe(10);
-  expect(state.you.banish.length).toBe(10);
-  expect(state.enemy.discard.length).toBe(11);
-  expect(state.enemy.deck.length).toBe(9);
-  expect(state.enemy.banish.length).toBe(10);
-});
+  resetState();
 
-test('Dealing damage greater than deck size should be handled well', () => {
   state.enemy.deck = CardsArray(Array(5).fill('Bomb'));
   const damageCard = createCard({
     attack: 10,
@@ -261,6 +247,20 @@ test('Dealing damage greater than deck size should be handled well', () => {
   });
   simulatePlayCard(damageSelfCard);
   expect(state.you.deck.length).toBe(0);
+});
+
+test('Mock cards disappear after being played', () => {
+  const card = createCard({
+    attack: 1,
+    isMockCard: true
+  });
+  simulatePlayCard(card);
+  expect(state.you.discard.length).toBe(10);
+  expect(state.you.deck.length).toBe(10);
+  expect(state.you.banish.length).toBe(10);
+  expect(state.enemy.discard.length).toBe(11);
+  expect(state.enemy.deck.length).toBe(9);
+  expect(state.enemy.banish.length).toBe(10);
 });
 
 test('Potions can deal damage using the attack property (Explosive Potion)', () => {

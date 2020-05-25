@@ -77,25 +77,6 @@ export const playCard = (state, card, player, location, index) => {
     renderActions.push([]);
   }
 
-  if (!state.winner && customEffect) {
-    customCardEffects[name](state, card, player);
-  }
-
-  if (!state.winner && shuffleCardCopiesIntoOpponentsPiles) {
-    addCardCopiesIntoPiles(state, shuffleCardCopiesIntoOpponentsPiles, opponent);
-  }
-
-  if (!state.winner && shuffleCardCopiesIntoYourPiles) {
-    addCardCopiesIntoPiles(state, shuffleCardCopiesIntoYourPiles, player);
-  }
-
-  if (!state.winner && playCopiesOfCards) {
-    playCopiesOfCards.forEach(cardName => {
-      logs.push(`${player} plays a copy of ${cardName}`);
-      playCard(state, cards[cardName], player);
-    });
-  }
-
   if (!state.winner && typeof attack === 'number') {
     let totalDamageDealt = attack;
     if (attack && ['attack', 'magic'].includes(type)) {
@@ -212,6 +193,25 @@ export const playCard = (state, card, player, location, index) => {
         if (state.winner) break;
       }
     }
+  }
+
+  if (!state.winner && customEffect) {
+    customCardEffects[name](state, card, player);
+  }
+
+  if (!state.winner && shuffleCardCopiesIntoOpponentsPiles) {
+    addCardCopiesIntoPiles(state, shuffleCardCopiesIntoOpponentsPiles, opponent);
+  }
+
+  if (!state.winner && shuffleCardCopiesIntoYourPiles) {
+    addCardCopiesIntoPiles(state, shuffleCardCopiesIntoYourPiles, player);
+  }
+
+  if (!state.winner && playCopiesOfCards) {
+    playCopiesOfCards.forEach(cardName => {
+      logs.push(`${player} plays a copy of ${cardName}`);
+      playCard(state, cards[cardName], player);
+    });
   }
 
   if (!state.winner && statBonuses) {

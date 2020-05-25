@@ -3,7 +3,7 @@ import { genRecruitableAllies } from '../clash/town/genRecruitableAllies';
 
 const genInitialState = () => ({
   energy: 0,
-  day: 4,
+  day: 1,
   monsterWaves: genMonsterWaves(),
   canRecoverLoot: false,
   canDoRandomEvent: true,
