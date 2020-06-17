@@ -48,11 +48,11 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     monsterStats[sample('attack', 'defense', 'magic')]++;
   }
   const battleRewardGold = (
-    (monster.type === 'wave' ? 50 : 0)
-    + (isMonsterElite ? 75 : 0)
-    + 15 * monster.tier
+    (monster.type === 'wave' ? 25 : 0)
+    + (isMonsterElite ? 50 : 0)
+    + 10 * monster.tier
     + 3 * day
-    + random(0, 15)
+    + random(0, 10)
   );
 
   const battleOnClick = () => {

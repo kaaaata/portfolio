@@ -83,7 +83,9 @@ export const Shop = ({ closeModal }) => {
                     {Object.keys(pack.cards).map(rarity => !!pack.cards[rarity] && (
                       <div key={rarity}>
                         {pack.cards[rarity]}&nbsp;
-                        <Text color={rarityColors[rarity]} type='small' inline>{rarity}</Text>
+                        <Text color={rarityColors[rarity]} type='small' inline>
+                          {rarity}{pack.cards[rarity] === 1 ? '' : 's'}
+                        </Text>
                       </div>
                     ))}
                   </Text>

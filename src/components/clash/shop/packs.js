@@ -5,9 +5,9 @@ export const packs = {
       legendary: 0,
       rare: 0,
       uncommon: 0,
-      common: 5
+      common: 3
     },
-    cost: 75,
+    cost: 50,
     image: 'bronze_bar'
   },
   silver: {
@@ -16,7 +16,7 @@ export const packs = {
       legendary: 0,
       rare: 0,
       uncommon: 1,
-      common: 4
+      common: 2
     },
     cost: 100,
     image: 'silver_bar'
@@ -27,7 +27,7 @@ export const packs = {
       legendary: 0,
       rare: 1,
       uncommon: 1,
-      common: 3
+      common: 1
     },
     cost: 150,
     image: 'gold_bar'
@@ -36,9 +36,9 @@ export const packs = {
     name: 'Diamond Pack',
     cards: {
       legendary: 1,
-      rare: 1,
-      uncommon: 1,
-      common: 2
+      rare: 2,
+      uncommon: 0,
+      common: 0
     },
     cost: 250,
     image: 'ruby'
