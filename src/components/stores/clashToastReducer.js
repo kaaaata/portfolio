@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
       const cards = typeof action.payload === 'string' ? [action.payload] : action.payload;
       return {
         ...state,
-        toast: `Lost ${cards.length === 1 ? 'card' : 'cards'}: ${cards.join(', ')}`,
+        toast: `Removed ${cards.length === 1 ? 'card' : 'cards'}: ${cards.join(', ')}`,
         flipper: !state.flipper
       };
     }

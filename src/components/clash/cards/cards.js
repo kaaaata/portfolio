@@ -25,8 +25,8 @@ export const lootableCardPool = {
 export const genStartingDeck = () => [
   'Healing Potion',
   'Fire',
-  'Falchion',
-  'Saber',
+  'Fire',
+  'Mace',
   'Mace',
 
   'Cutlass',

@@ -62,11 +62,11 @@ const townActions = [
     description: 'A random event!'
   },
   {
-    name: 'Donate Cards',
-    energy: [1, 2, 3, 4],
+    name: 'Donate a Card',
+    energy: [1, 2],
     probability: 4,
     image: 'weapons_guy',
-    description: 'Remove cards from your deck.'
+    description: 'Remove a card from your deck.'
   }
 ];
 const townActionPool = [];

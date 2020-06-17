@@ -12,6 +12,7 @@ import { MonsterPreview } from '../modals/MonsterPreview';
 import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
 import { genPurchasableCards } from './genPurchasableCards';
+import { CardViewModal } from '../modals/CardViewModal';
 
 export const Town = () => {
   const {
@@ -19,12 +20,14 @@ export const Town = () => {
     day,
     townActions,
     completedTownActions,
+    deck,
     feed
   } = useSelector(state => ({
     energy: state.clashTown.energy,
     day: state.clashTown.day,
     townActions: state.clashTown.townActions,
     completedTownActions: state.clashTown.completedTownActions,
+    deck: state.clashPlayer.deck,
     feed: state.clashTown.feed
   }), shallowEqual);
   const dispatch = useDispatch();
@@ -103,8 +106,19 @@ export const Town = () => {
         />
       );
       break;
-    case 'Donate Cards':
-      modal = <PurchaseCards closeModal={() => setActiveModal(null)} />;
+    case 'Donate a Card':
+      console.log('opening cardviewmodal', deck);
+      modal = (
+        <CardViewModal
+          title='Choose a card to remove'
+          shouldShowCardCount={false}
+          cards={deck}
+          cardOnClick={(card) => {
+            dispatch(actions.removeCardsFromCollection(card));
+            setActiveModal(null);
+          }}
+        />
+      );
       break;
     default:
       break;
