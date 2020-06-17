@@ -44,7 +44,6 @@ export const BattleRewards = () => {
       : `You were defeated by: ${enemyName}`
     if (enemyType === 'wave') {
       dispatch(actions.startNewDay({ feedInitialMessage: townFeedMessage }));
-      dispatch(actions.setCanRecoverLoot(didPlayerWin ? false : true));
     } else {
       dispatch(actions.addTownFeedText(townFeedMessage));
       dispatch(actions.setScene('town'));

@@ -22,7 +22,7 @@ randomEvents.forEach(event => {
   for (let i = 0; i < event.probability; i++) {
     randomEventPool.push(event.name);
   }
-})
+});
 
 export const RandomEvent = ({ closeModal }) => {
   const rng = Math.random();

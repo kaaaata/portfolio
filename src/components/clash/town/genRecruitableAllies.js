@@ -7,27 +7,23 @@ export const genRecruitableAllies = () => {
   const recruitableAllies = [
     {
       name: sample(allies.filter(card => card.rarity === 'common')).name,
-      isPurchased: false,
-      cost: 30 + random(-10, 10)
+      cost: 0
     },
     {
       name: sample(allies.filter(card => card.rarity === 'uncommon')).name,
-      isPurchased: false,
-      cost: 70 + random(-20, 20)
+      cost: 30 + random(-10, 10)
     }
   ];
 
   if (rolledLegendaryAlly) {
     recruitableAllies.push({
       name: sample(allies.filter(card => card.rarity === 'legendary')).name,
-      isPurchased: false,
-      cost: 200 + random(-40, 40)
+      cost: 120 + random(-30, 30)
     });
   } else {
     recruitableAllies.push({
       name: sample(allies.filter(card => card.rarity === 'rare')).name,
-      isPurchased: false,
-      cost: 120 + random(-30, 30)
+      cost: 70 + random(-20, 20)
     });
   }
 

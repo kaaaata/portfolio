@@ -14,7 +14,7 @@ const townActionCardCss = css`
   }
 
   &.disabled {
-    opacity: 0.3;
+    opacity: 0.35;
     pointer-events: none;
 
     &:hover {

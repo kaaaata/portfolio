@@ -76,7 +76,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 2)));
     // dispatch(actions.setEnemyDeck(['Falchion', 'Falchion', 'Sword', 'Falchion', 'Falchion'])); // testing
     dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
-    dispatch(actions.setYourHand(['Paladin', 'Spearman', 'Falchion'])); // testing
+    // dispatch(actions.setYourHand(['Paladin', 'Spearman', 'Falchion'])); // testing
     dispatch(actions.setEnemyHand([...enemyDeck.slice(enemyDeck.length - 2), null]));
     // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur'])); // testing
     dispatch(actions.setBattleRewardCards(

@@ -1,13 +1,12 @@
 import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';
-import { genRecruitableAllies } from '../clash/town/genRecruitableAllies';
+import { genTownActions } from '../clash/town/genTownActions';
 
 const genInitialState = () => ({
-  energy: 0,
-  day: 1,
+  energy: 12,
+  day: 2,
   monsterWaves: genMonsterWaves(),
-  canRecoverLoot: false,
-  canDoRandomEvent: true,
-  recruitableAllies: genRecruitableAllies(),
+  townActions: genTownActions(),
+  completedTownActions: {},
   feed: [
     'Welcome to town!',
     'You are too tired from your long journey to do anything else today.'
@@ -29,7 +28,8 @@ export default (state = initialState, action) => {
         energy: 12,
         day: newDay,
         canDoRandomEvent: true,
-        recruitableAllies: genRecruitableAllies(),
+        townActions: genTownActions(),
+        completedTownActions: {},
         feed: [
           'It\'s a new day.',
           action.payload.feedInitialMessage,
@@ -52,29 +52,14 @@ export default (state = initialState, action) => {
         feed: newFeed
       };
     }
-    case 'SET_CAN_RECOVER_LOOT':
+    case 'SET_TOWN_ACTION_COMPLETED':
       return {
         ...state,
-        canRecoverLoot: action.payload
+        completedTownActions: {
+          ...state.completedTownActions,
+          [action.payload]: true
+        }
       };
-    case 'SET_CAN_DO_RANDOM_EVENT_FALSE':
-      return {
-        ...state,
-        canDoRandomEvent: false
-      };
-    case 'SET_RECRUITABLE_ALLY_PURCHASED': {
-      const purchasedIndex = action.payload;
-      const newRecruitableAlly = {
-        ...state.recruitableAllies[purchasedIndex],
-        isPurchased: true
-      };
-      const newRecruitableAllies = [...state.recruitableAllies];
-      newRecruitableAllies[purchasedIndex] = newRecruitableAlly;
-      return {
-        ...state,
-        recruitableAllies: newRecruitableAllies
-      };
-    }
     case 'RESET_GAME':
       return genInitialState();
     default:

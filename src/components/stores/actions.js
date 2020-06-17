@@ -30,10 +30,8 @@ export const removeCardsFromCollection = payload => ({
   type: 'REMOVE_CARDS_FROM_COLLECTION', payload
 });
 
-export const setRecruitableAllyPurchased = payload => ({ type: 'SET_RECRUITABLE_ALLY_PURCHASED', payload });
+export const setTownActionCompleted = payload => ({ type: 'SET_TOWN_ACTION_COMPLETED', payload });
 export const addTownFeedText = payload => ({ type: 'ADD_TOWN_FEED_TEXT', payload });
-export const setCanDoRandomEventFalse = payload => ({ type: 'SET_CAN_DO_RANDOM_EVENT_FALSE', payload });
-export const setCanRecoverLoot = payload => ({ type: 'SET_CAN_RECOVER_LOOT', payload });
 
 export const setScene = payload => ({ type: 'SET_SCENE', payload });
 export const startNewDay = payload => ({ type: 'START_NEW_DAY', payload });
