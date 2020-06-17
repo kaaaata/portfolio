@@ -45,14 +45,14 @@ export const potions = [
   {
     name: 'Explosive Potion',
     image: 'explosive_potion',
-    rarity: 'uncommon',
-    attack: 3,
+    rarity: 'common',
+    attack: 2,
     pierces: true,
     onDiscard: {
-      attack: 3,
+      attack: 2,
       pierces: true
     },
-    description: 'Deal 3 damage. Damage dealt pierces shields.'
+    description: 'Deal 2 damage. Damage dealt pierces shields.'
   },
   {
     name: 'Edible Slime',

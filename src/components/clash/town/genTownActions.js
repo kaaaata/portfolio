@@ -21,22 +21,29 @@ export const genTownActions = () => {
 const townActions = [
   {
     name: 'Work for Gold',
-    energy: [1, 2, 3, 4],
-    probability: 3,
+    energy: [1, 2, 3],
+    probability: 6,
     image: 'gold',
     description: 'Earn some gold.'
   },
   {
     name: 'Buy Weapons',
     energy: [4, 5, 6, 7],
-    probability: 2,
+    probability: 3,
     image: 'slice',
     description: 'Obtain attack cards.'
   },
   {
+    name: 'Learn Magic',
+    energy: [4, 5, 6, 7],
+    probability: 1,
+    image: 'double_fireball',
+    description: 'Obtain magic cards.'
+  },
+  {
     name: 'Brew Potions',
     energy: [4, 5, 6, 7],
-    probability: 2,
+    probability: 1,
     image: 'blue_potion',
     description: 'Obtain potion cards.'
   },
@@ -50,14 +57,14 @@ const townActions = [
   {
     name: 'Random Event',
     energy: [5, 6, 7, 8],
-    probability: 2,
+    probability: 4,
     image: 'map',
     description: 'A random event!'
   },
   {
     name: 'Donate Cards',
     energy: [1, 2, 3, 4],
-    probability: 2,
+    probability: 4,
     image: 'weapons_guy',
     description: 'Remove cards from your deck.'
   }

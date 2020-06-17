@@ -7,10 +7,11 @@ import { Text } from '../Text';
 import { TownActionCard } from './TownActionCard';
 import { WorkForGold } from './WorkForGold';
 import { ReceiveBlessing } from './ReceiveBlessing';
-import { RecruitAllies } from './RecruitAllies';
+import { PurchaseCards } from './PurchaseCards';
 import { MonsterPreview } from '../modals/MonsterPreview';
 import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
+import { genPurchasableCards } from './genPurchasableCards';
 
 export const Town = () => {
   const {
@@ -62,17 +63,48 @@ export const Town = () => {
     case 'Random Event':
       modal = <RandomEvent closeModal={() => setActiveModal(null)} />;
       break;
+    case 'Learn Magic':
+      modal = (
+        <PurchaseCards
+          title='Learn Magic'
+          image='double_fireball'
+          cards={genPurchasableCards('magic')}
+          closeModal={() => setActiveModal(null)}
+        />
+      );
+      break;
     case 'Brew Potions':
-      modal = <RecruitAllies closeModal={() => setActiveModal(null)} />;
+      modal = (
+        <PurchaseCards
+          title='Brew Potions'
+          image='blue_potion'
+          cards={genPurchasableCards('potions')}
+          closeModal={() => setActiveModal(null)}
+        />
+      );
       break;
     case 'Buy Weapons':
-      modal = <RecruitAllies closeModal={() => setActiveModal(null)} />;
+      modal = (
+        <PurchaseCards
+          title='Buy Weapons'
+          image='slice'
+          cards={genPurchasableCards('attacks')}
+          closeModal={() => setActiveModal(null)}
+        />
+      );
       break;
     case 'Recruit Allies':
-      modal = <RecruitAllies closeModal={() => setActiveModal(null)} />;
+      modal = (
+        <PurchaseCards
+          title='Recruit Allies'
+          image='recruiter_event'
+          cards={genPurchasableCards('allies')}
+          closeModal={() => setActiveModal(null)}
+        />
+      );
       break;
     case 'Donate Cards':
-      modal = <RecruitAllies closeModal={() => setActiveModal(null)} />;
+      modal = <PurchaseCards closeModal={() => setActiveModal(null)} />;
       break;
     default:
       break;
@@ -110,7 +142,7 @@ export const Town = () => {
                 name={i.name}
                 image={i.image}
                 energy={i.energy}
-                canAfford={energy >= i.energy}
+                canAfford={energy >= i.energy && !completedTownActions[index]}
                 isDisabled={
                   (day === 1 && i.name !== 'Next Day')
                   || completedTownActions[index]
