@@ -18,7 +18,7 @@ import { Clash } from './clash';
 import { trackStats } from './utils/graphql';
 import { appCss, appContentCss } from './appCss';
 
-const inDevelopment = process.env.NODE_ENV !== 'production'; // testing
+const inDevelopment = process.env.NODE_ENV !== 'production';
 
 const AppComponent = ({
   location // from withRouter

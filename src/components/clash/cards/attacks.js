@@ -108,7 +108,7 @@ export const attacks = [
     defense: 0
   },
   {
-    name: 'Darksteel Gladius',
+    name: 'Gladius',
     image: 'darksteel_sword',
     rarity: 'rare',
     attack: 4,

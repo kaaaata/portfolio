@@ -9,6 +9,7 @@ import { genEliteMonsterPrefix } from '../monsters/genEliteMonsterPrefix';
 import { cards } from '../cards/cards';
 import { rarityColors } from '../cards/rarity';
 import { sample } from 'lodash';
+import { controller } from '../controller';
 
 const CardsRarityString = ({ _cards }) => {
   const rarityCounts = { common: 0, uncommon: 0, rare: 0, legendary: 0 };
@@ -38,7 +39,7 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
     dispatch(actions.setCanVisitShop(false));
   });
 
-  const isMonsterElite = !monsterOverride && [4, 8].includes(day);
+  const isMonsterElite = !monsterOverride && [3, 6, 9].includes(day);
   const yourDeck = shuffle(deck);
   const enemyDeck = genMonsterDeck(monster.deck, day);
   const enemyHueRotate = isMonsterElite ? random(90, 270) : null;
@@ -71,24 +72,21 @@ export const MonsterPreview = ({ title, monsterOverride, closeModal }) => {
       player: 'enemy',
       operation: 'set'
     }));
-    dispatch(actions.setYourDeck(yourDeck.slice(0, yourDeck.length - 3)));
-    // dispatch(actions.setYourDeck([])); // testing
-    dispatch(actions.setEnemyDeck(enemyDeck.slice(0, enemyDeck.length - 2)));
-    // dispatch(actions.setEnemyDeck(['Falchion', 'Falchion', 'Sword', 'Falchion', 'Falchion'])); // testing
-    dispatch(actions.setYourHand(yourDeck.slice(yourDeck.length - 3)));
-    // dispatch(actions.setYourHand(['Paladin', 'Spearman', 'Falchion'])); // testing
-    dispatch(actions.setEnemyHand([...enemyDeck.slice(enemyDeck.length - 2), null]));
-    // dispatch(actions.setEnemyHand(['Minotaur', 'Minotaur'])); // testing
+    dispatch(actions.setYourDeck(controller.yourDeck || yourDeck.slice(0, yourDeck.length - 3)));
+    dispatch(actions.setEnemyDeck(controller.enemyDeck || enemyDeck.slice(0, enemyDeck.length - 2)));
+    dispatch(actions.setYourHand(controller.yourHand || yourDeck.slice(yourDeck.length - 3)));
+    dispatch(actions.setEnemyHand(controller.enemyHand || [...enemyDeck.slice(enemyDeck.length - 2), null]));
     dispatch(actions.setBattleRewardCards(
-      sampleSize(isMonsterElite
-        ? enemyDeck.filter(card => cards[card].rarity !== 'common')
-        : enemyDeck
-      , 3)
+      isMonsterElite
+        ? [
+          ...sampleSize(enemyDeck.filter(card => cards[card].rarity !== 'common'), 4),
+          ...sampleSize(enemyDeck.filter(card => cards[card].rarity === 'common'), 4)
+        ].slice(0, 4)
+        : sampleSize(enemyDeck, 4)
     ));
     dispatch(actions.setBattleRewardGold(battleRewardGold));
     dispatch(actions.setScene('battle'));
   };
-  // battleOnClick(); // testing
 
   const text = (
     <React.Fragment>

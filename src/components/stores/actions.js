@@ -31,6 +31,7 @@ export const removeCardsFromCollection = payload => ({
 });
 
 export const setTownActionCompleted = payload => ({ type: 'SET_TOWN_ACTION_COMPLETED', payload });
+export const setTownPurchasableCards = payload => ({ type: 'SET_TOWN_PURCHASABLE_CARDS', payload });
 export const addTownFeedText = payload => ({ type: 'ADD_TOWN_FEED_TEXT', payload });
 
 export const setScene = payload => ({ type: 'SET_SCENE', payload });

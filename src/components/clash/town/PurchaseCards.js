@@ -22,9 +22,10 @@ const purchaseCardsCss = css`
   }
 `;
 
-export const PurchaseCards = ({ title, image, cards, closeModal }) => {
-  const { gold } = useSelector(state => ({
-    gold: state.clashPlayer.gold
+export const PurchaseCards = ({ title, image, closeModal }) => {
+  const { gold, cards } = useSelector(state => ({
+    gold: state.clashPlayer.gold,
+    cards: state.clashTown.purchasableCards
   }), shallowEqual);
   const dispatch = useDispatch();
 

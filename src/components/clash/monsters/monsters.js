@@ -10,8 +10,7 @@ const monstersTier1 = [
     image: 'minotaur',
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
-      'Minotaur',
-      'Orc Blade'
+      'Minotaur'
     ]
   },
   {
@@ -19,7 +18,6 @@ const monstersTier1 = [
     image: 'goblin',
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
-      'Goblin',
       'Goblin'
     ]
   },
@@ -34,9 +32,8 @@ const monstersTier1 = [
     image: 'fire_slime',
     stats: { attack: 0, magic: 0, defense: 0 },
     deck: [
-      'Burn',
       'Fire',
-      'Fire Spear'
+      'Fire'
     ]
   },
   {

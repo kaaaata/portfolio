@@ -8,7 +8,7 @@ import { DwarvenSmith } from './DwarvenSmith';
 import { CatherineTheGreat } from './CatherineTheGreat';
 import { sample } from 'lodash';
 
-const randomEvents = [ // testing
+const randomEvents = [
   { name: 'Mysterious Potion', probability: 1 },
   { name: 'Treasure Slime', probability: 1 },
   { name: 'Robbery Wheel', probability: 2 },

@@ -1,11 +1,14 @@
 import { genMonsterWaves } from '../clash/monsters/genMonsterWaves';
 import { genTownActions } from '../clash/town/genTownActions';
+import { genPurchasableCards } from '../clash/town/genPurchasableCards';
+import { controller } from '../clash/controller';
 
 const genInitialState = () => ({
-  energy: 12,
-  day: 2,
+  energy: controller.energy || 0,
+  day: controller.day || 1,
   monsterWaves: genMonsterWaves(),
   townActions: genTownActions(),
+  purchasableCards: [],
   completedTownActions: {},
   feed: [
     'Welcome to town!',
@@ -25,7 +28,7 @@ export default (state = initialState, action) => {
       const newDay = state.day + 1;
       return {
         ...state,
-        energy: 12,
+        energy: 10,
         day: newDay,
         canDoRandomEvent: true,
         townActions: genTownActions(),
@@ -33,8 +36,8 @@ export default (state = initialState, action) => {
         feed: [
           'It\'s a new day.',
           action.payload.feedInitialMessage,
-          [4, 8].includes(newDay) && 'Tonight, a boss enemy will attack!',
-          newDay === 12 && 'Tonight, the final boss will attack!'
+          [3, 6].includes(newDay) && 'Tonight, a boss enemy will attack!',
+          newDay === 9 && 'Tonight, the final boss will attack!'
         ].filter(Boolean)
       };
     }
@@ -59,6 +62,11 @@ export default (state = initialState, action) => {
           ...state.completedTownActions,
           [action.payload]: true
         }
+      };
+    case 'SET_TOWN_PURCHASABLE_CARDS':
+      return {
+        ...state,
+        purchasableCards: genPurchasableCards(action.payload)
       };
     case 'RESET_GAME':
       return genInitialState();

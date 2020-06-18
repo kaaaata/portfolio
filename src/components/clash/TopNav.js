@@ -61,8 +61,8 @@ export const TopNav = () => {
             className='energy'
           />
           <div css={energyMeterCss}>
-            <div className='fill' css={css`width: ${100 * energy / 12}%;`} />
-            <Text type='mini' className='energy_count'>{energy} / 12</Text>
+            <div className='fill' css={css`width: ${100 * energy / 10}%;`} />
+            <Text type='mini' className='energy_count'>{energy} / 10</Text>
           </div>
         </FlexContainer>
 
@@ -109,7 +109,7 @@ export const TopNav = () => {
 
       <div css={css`display: ${activeModal === 'collection' ? 'unset' : 'none'};`}>
         <CardViewModal
-          title='Your Cards'
+          title='Your Deck'
           cards={deck}
           closeModal={() => setActiveModal(null)}
         />

@@ -11,8 +11,7 @@ import { PurchaseCards } from './PurchaseCards';
 import { MonsterPreview } from '../modals/MonsterPreview';
 import { RandomEvent } from './randomEvents/RandomEvent';
 import { townCss } from './townCss';
-import { genPurchasableCards } from './genPurchasableCards';
-import { CardViewModal } from '../modals/CardViewModal';
+import { RemoveCards } from './RemoveCards';
 
 export const Town = () => {
   const {
@@ -20,14 +19,12 @@ export const Town = () => {
     day,
     townActions,
     completedTownActions,
-    deck,
     feed
   } = useSelector(state => ({
     energy: state.clashTown.energy,
     day: state.clashTown.day,
     townActions: state.clashTown.townActions,
     completedTownActions: state.clashTown.completedTownActions,
-    deck: state.clashPlayer.deck,
     feed: state.clashTown.feed
   }), shallowEqual);
   const dispatch = useDispatch();
@@ -71,7 +68,6 @@ export const Town = () => {
         <PurchaseCards
           title='Learn Magic'
           image='double_fireball'
-          cards={genPurchasableCards('magic')}
           closeModal={() => setActiveModal(null)}
         />
       );
@@ -81,7 +77,6 @@ export const Town = () => {
         <PurchaseCards
           title='Brew Potions'
           image='blue_potion'
-          cards={genPurchasableCards('potions')}
           closeModal={() => setActiveModal(null)}
         />
       );
@@ -91,7 +86,6 @@ export const Town = () => {
         <PurchaseCards
           title='Buy Weapons'
           image='slice'
-          cards={genPurchasableCards('attacks')}
           closeModal={() => setActiveModal(null)}
         />
       );
@@ -101,24 +95,12 @@ export const Town = () => {
         <PurchaseCards
           title='Recruit Allies'
           image='recruiter_event'
-          cards={genPurchasableCards('allies')}
           closeModal={() => setActiveModal(null)}
         />
       );
       break;
     case 'Donate a Card':
-      console.log('opening cardviewmodal', deck);
-      modal = (
-        <CardViewModal
-          title='Choose a card to remove'
-          shouldShowCardCount={false}
-          cards={deck}
-          cardOnClick={(card) => {
-            dispatch(actions.removeCardsFromCollection(card));
-            setActiveModal(null);
-          }}
-        />
-      );
+      modal = <RemoveCards closeModal={() => setActiveModal(null)} />;
       break;
     default:
       break;
@@ -164,9 +146,18 @@ export const Town = () => {
                 onMouseEnter={() => setTownActionDescription(i.description) }
                 onClick={() => {
                   if (energy >= i.energy) {
-                    dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
-                    setActiveModal(i.name);
                     dispatch(actions.setTownActionCompleted(index));
+                    dispatch(actions.adjustPlayerEnergy(-1 * i.energy));
+                    if (i.name === 'Learn Magic') {
+                      dispatch(actions.setTownPurchasableCards('magic'));
+                    } else if (i.name === 'Brew Potions') {
+                      dispatch(actions.setTownPurchasableCards('potions'));
+                    } else if (i.name === 'Buy Weapons') {
+                      dispatch(actions.setTownPurchasableCards('attacks'));
+                    } else if (i.name === 'Recruit Allies') {
+                      dispatch(actions.setTownPurchasableCards('allies'));
+                    }
+                    setActiveModal(i.name);
                   }
                 }}
               />

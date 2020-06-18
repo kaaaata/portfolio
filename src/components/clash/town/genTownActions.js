@@ -21,7 +21,7 @@ export const genTownActions = () => {
 const townActions = [
   {
     name: 'Work for Gold',
-    energy: [1, 2, 3],
+    energy: [1, 2],
     probability: 6,
     image: 'gold',
     description: 'Earn some gold.'
@@ -51,13 +51,13 @@ const townActions = [
     name: 'Recruit Allies',
     energy: [4, 5, 6, 7],
     probability: 2,
-    image: 'recruiter',
+    image: 'mage',
     description: 'Obtain ally cards.'
   },
   {
     name: 'Random Event',
-    energy: [5, 6, 7, 8],
-    probability: 4,
+    energy: [1, 2, 3],
+    probability: 1,
     image: 'map',
     description: 'A random event!'
   },

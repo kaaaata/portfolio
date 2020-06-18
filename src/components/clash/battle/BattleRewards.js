@@ -64,8 +64,6 @@ export const BattleRewards = () => {
           ) : (
             <React.Fragment>
               The enemy <span className='red'>steals</span> some of your <span className='yellow'>gold.</span>
-              <br /><br />
-              {enemyType === 'wave' && 'Maybe you can recover some loot tomorrow.'}
             </React.Fragment>
           )}
           options={[{

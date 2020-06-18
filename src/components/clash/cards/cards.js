@@ -21,17 +21,3 @@ export const lootableCardPool = {
   rare: lootableCards.filter(card => cards[card].rarity === 'rare'),
   legendary: lootableCards.filter(card => cards[card].rarity === 'legendary')
 };
-
-export const genStartingDeck = () => [
-  'Healing Potion',
-  'Fire',
-  'Fire',
-  'Mace',
-  'Mace',
-
-  'Cutlass',
-  'Cutlass',
-  'Sword',
-  'Sword',
-  'Sword'
-];

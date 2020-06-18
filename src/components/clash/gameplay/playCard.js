@@ -74,7 +74,6 @@ export const playCard = (state, card, player, location, index) => {
 
   if (!state.winner) {
     renderActions.push([]);
-    renderActions.push([]);
   }
 
   if (!state.winner && typeof attack === 'number') {

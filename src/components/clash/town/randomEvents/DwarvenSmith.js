@@ -5,8 +5,8 @@ import { EventModal, EventModalPage } from '../../modals/EventModal';
 
 export const DwarvenSmith = ({ closeModal }) => {
   const { canReforge, canEnhance } = useSelector(state => ({
-    canReforge: state.clashPlayer.gold > 20 && state.clashPlayer.deck.includes('Sword'),
-    canEnhance: state.clashPlayer.gold > 40 && state.clashPlayer.deck.includes('Sword')
+    canReforge: state.clashPlayer.gold > 25 && state.clashPlayer.deck.includes('Sword'),
+    canEnhance: state.clashPlayer.gold > 50 && state.clashPlayer.deck.includes('Sword')
   }), shallowEqual);
   const dispatch = useDispatch();
 
@@ -29,11 +29,11 @@ export const DwarvenSmith = ({ closeModal }) => {
             {
               name: 'Reforge',
               isDisabled: !canReforge,
-              redText: canReforge ? 'Lose 20 gold and card: Sword.' : 'Requires 20 gold and card: Sword.',
-              greenText: canReforge ? 'Receive card: Mace.' : '',
+              redText: `${canReforge ? 'Lose' : 'Requires'} 25 gold and card: Sword.`,
+              greenText: canReforge ? 'Receive card: Longsword.' : '',
               redTextFirst: true,
               onClick: () => {
-                dispatch(actions.adjustPlayerGold(-20));
+                dispatch(actions.adjustPlayerGold(-25));
                 dispatch(actions.removeCardsFromCollection('Sword'));
                 setPage('reforge');
               }
@@ -41,11 +41,11 @@ export const DwarvenSmith = ({ closeModal }) => {
             {
               name: 'Enhance',
               isDisabled: !canEnhance,
-              redText: canEnhance ? 'Lose 40 gold and card: Sword.' : 'Requires 40 gold and card: Sword.',
-              greenText: canEnhance ? 'Receive card: Longsword.' : '',
+              redText: `${canEnhance ? 'Lose' : 'Requires'} 50 gold and card: Sword.`,
+              greenText: canEnhance ? 'Receive card: Gladius.' : '',
               redTextFirst: true,
               onClick: () => {
-                dispatch(actions.adjustPlayerGold(-40));
+                dispatch(actions.adjustPlayerGold(-50));
                 dispatch(actions.removeCardsFromCollection('Sword'));
                 setPage('enhance');
               }
@@ -66,14 +66,14 @@ export const DwarvenSmith = ({ closeModal }) => {
             <React.Fragment>
               The dwarf takes your weapon, and places it in a <span className='red'>furnace.</span>
               <br /><br />
-              He <span className='violet'>melts</span> the weapon down into molten steel, then <span className='green'>reforges</span> it into a mace!
+              He <span className='violet'>melts</span> the weapon down into molten steel, then <span className='green'>reforges</span> it into a longsword!
             </React.Fragment>
           }
           options={[{
             name: 'Continue',
-            greenText: 'Receive card: Mace.',
+            greenText: 'Receive card: Longsword.',
             onClick: () => {
-              dispatch(actions.addCardsToCollection('Mace'));
+              dispatch(actions.addCardsToCollection('Longsword'));
               closeModal();
             }
           }]}
@@ -93,9 +93,9 @@ export const DwarvenSmith = ({ closeModal }) => {
           }
           options={[{
             name: 'Continue',
-            greenText: 'Receive card: Longsword.',
+            greenText: 'Receive card: Gladius.',
             onClick: () => {
-              dispatch(actions.addCardsToCollection('Longsword'));
+              dispatch(actions.addCardsToCollection('Gladius'));
               closeModal();
             }
           }]}

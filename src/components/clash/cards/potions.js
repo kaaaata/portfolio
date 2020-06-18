@@ -2,6 +2,15 @@ import { createCard } from './createCard';
 
 export const potions = [
   {
+    name: 'Minor Healing Potion',
+    image: 'minor_healing_potion',
+    rarity: 'common',
+    heal: 2,
+    onDiscard: {
+      heal: 2
+    }
+  },
+  {
     name: 'Healing Potion',
     image: 'healing_potion',
     rarity: 'uncommon',
@@ -34,18 +43,12 @@ export const potions = [
     name: 'Freeze',
     image: 'freeze',
     rarity: 'common',
-    isToken: true,
-    damageSelf: 1,
-    dealsBanishingDamage: true,
-    onDiscard: {
-      damageSelf: 1,
-      dealsBanishingDamage: true
-    }
+    isToken: true
   },
   {
     name: 'Explosive Potion',
     image: 'explosive_potion',
-    rarity: 'common',
+    rarity: 'uncommon',
     attack: 2,
     pierces: true,
     onDiscard: {

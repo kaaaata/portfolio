@@ -7,7 +7,7 @@ import { Spacer } from '../../particles';
 import { CardViewModal } from './CardViewModal';
 import { cardsArray } from '../cards/cards';
 
-const inDevelopment = process.env.NODE_ENV !== 'production'; // testing
+const inDevelopment = process.env.NODE_ENV !== 'production';
 
 export const Settings = ({ closeModal }) => {
   const { scene, enemyName } = useSelector(state => ({
