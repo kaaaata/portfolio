@@ -1,40 +1,50 @@
 import { colors } from './colors';
 import { mq } from './mq';
 
-const ptSans = `font-family: 'PT Sans', sans-serif;`;
-const ptSerif = `font-family: 'PT Serif', serif;`;
+const patrickHandSC = `font-family: 'Patrick Hand SC', cursive;`;
+const raleway = `font-family: 'Raleway', sans-serif;`;
 
 export const fonts = {
-  ptSans,
-  ptSerif,
+  patrickHandSC,
+  raleway,
 
   typeface: `
-    ${ptSans};
+    ${raleway};
     color: ${colors.white};
+    text-shadow: 2px 2px 4px ${colors.black};
 
-    button {
-      ${ptSans};
+    h1 {
+      ${patrickHandSC}
+      font-size: 72px;
+      letter-spacing: 6px;
+      text-align: center;
+
+      ${mq.phone(`
+        font-size: 48px;
+        letter-spacing: 4px;
+      `)}
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      ${ptSans}
+    h2, h3, h4, h5 {
+      ${raleway}
       line-height: 1.5;
     }
 
-    h1 {
-      font-size: 32px;
-      line-height: 1.25;
-    }
-
     h2 {
-      font-size: 24px;
+      font-size: 36px;
+      letter-spacing: 1.4px;
     }
 
     h3 {
-      font-size: 20px;
+      font-size: 24px;
+      letter-spacing: 1.1px;
     }
 
     h4 {
+      font-size: 20px;
+    }
+
+    h5 {
       font-size: 16px;
     }
 

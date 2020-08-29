@@ -81,7 +81,7 @@ export const Algorithms = () => {
       <input
         value={searchText}
         placeholder={searchMode === 'Notation'
-          ? "ex. FRUR'U'F"
+          ? "ex. fRUR' (case matters)"
           : "ex. sune"
         }
         onChange={e => setSearchText(
@@ -92,6 +92,8 @@ export const Algorithms = () => {
         css={css`
           outline: none;
           margin-left: 10px;
+          font-size: 16px;
+          width: 200px;
         `}
       />
       <Button

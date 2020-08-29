@@ -4,7 +4,7 @@ import { colors } from '../styles';
 import { Link } from './Link';
 
 const buttonCss = (isSelected, isDisabled, _css) => css`
-  border-radius: 5px;
+  border-radius: 20px;
   border: 2px solid white;
   cursor: pointer;
   background: ${isSelected ? colors.white : 'transparent'};
@@ -12,6 +12,7 @@ const buttonCss = (isSelected, isDisabled, _css) => css`
   color: ${isSelected ? colors.black : colors.white};
   transition: all 0.25s ease-out;
   transition-property: color, background;
+  padding: 5px 20px;
 
   ${isDisabled ? '' : `
     &:hover {
@@ -40,7 +41,9 @@ export const Button = ({
       css={buttonCss(isSelected, isDisabled, _css)}
       onClick={isDisabled ? noop : onClick}
     >
-      {children}
+      {typeof children === 'string' ? (
+        <h5>{children}</h5>
+      ) : children}
     </button>
   );
 

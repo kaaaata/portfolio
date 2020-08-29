@@ -2,8 +2,7 @@ import { css, jsx } from '@emotion/core'; /** @jsx jsx */
 import { noop } from 'lodash';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { HashLink as ReactRouterHashLink } from 'react-router-hash-link';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import * as actions from '../stores/actions';
+import { useSelector, shallowEqual } from 'react-redux';
 
 const linkCss = css`
   color: inherit;
@@ -19,7 +18,6 @@ export const Link = ({ href, onClick = noop, children }) => {
   const { currentRoute } = useSelector(state => ({
     currentRoute: state.coresite.currentRoute
   }), shallowEqual);
-  const dispatch = useDispatch();
 
   if (!children) {
     return null;
@@ -38,7 +36,6 @@ export const Link = ({ href, onClick = noop, children }) => {
 
   const linkOnClick = () => {
     onClick();
-    dispatch(actions.setIsSidebarVisible(false));
 
     if (useReactRouter && !useReactRouterHashLink && isSameRoute) {
       window.scroll(0, 0);

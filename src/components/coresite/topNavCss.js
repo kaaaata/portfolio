@@ -1,29 +1,27 @@
 import { css } from '@emotion/core';
-import { colors, zIndex, layout, mq } from '../styles';
+import { zIndex, mq } from '../styles';
 
 export const topNavCss = css`
   position: fixed;
   width: 100%;
-  height: ${layout.TOP_NAV_HEIGHT}px;
+  max-width: 1200px;
+  margin: auto;
+  height: 80px;
+  left: 50%;
+  transform: translate(-50%, 0);
   z-index: ${zIndex.stickyNav};
-  background: ${colors.blackDark};
+  background: transparent;
 
-  .top_nav__content {
-    padding: 0 ${layout.MAIN_PADDING}px;
+  .content {
+    padding: 0 20px;
     height: 100%;
     z-index: ${zIndex.stickyNavContent};
-    
-    h2 {
-      margin-right: 10px;
-
-      ${mq.phone(`
-        margin-right: 5px;
-      `)}
-    }
   
     a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100%;
-      ${layout.flexCenter};
 
       .filter {
         z-index: ${zIndex.stickyNavFilter};
@@ -36,6 +34,14 @@ export const topNavCss = css`
       }
     }
   }
+
+  ${mq.phone(`
+    height: 60px;
+
+    .content {
+      padding: 0 10px;
+    }
+  `)}
 `;
 
 export const mediaIconsCss = image => css`
@@ -45,9 +51,9 @@ export const mediaIconsCss = image => css`
   height: 20px;
   filter: invert(100%);
   transition: transform 0.25s ease-out;
-  margin: 0 10px;
+  margin: 0 15px;
 
   ${mq.phone(`
-    margin: 0 5px;
+    margin: 0 10px;
   `)}
 `;

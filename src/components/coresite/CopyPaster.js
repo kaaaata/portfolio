@@ -11,7 +11,7 @@ export const CopyPaster = () => {
   const gqlSaveText = debounce(async(text) => {
     await saveText(JSON.stringify(text));
     setIsSaved(true);
-  }, 500);
+  }, 750);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -43,7 +43,7 @@ export const CopyPaster = () => {
     font-size: 16px;
     padding: 10px;
     resize: vertical;
-    margin-bottom: 1000px;
+    margin-bottom: 40px;
   `;
 
   return (

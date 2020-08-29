@@ -10,6 +10,8 @@ export const Filter = ({
     width: 100%;
     height: 100%;
     position: absolute;
+
+    transition: opacity 1s ease-out;
   `;
 
   return (
