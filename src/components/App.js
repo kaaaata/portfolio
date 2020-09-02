@@ -9,14 +9,12 @@ import { TopNav } from './coresite/TopNav';
 import { Splash } from './coresite/Splash';
 import { Projects } from './coresite/Projects';
 import { CopyPaster } from './coresite/CopyPaster';
-import { Clash } from './clash';
-// import { Xiangqi } from './xiangqi';
 import { trackStats } from './utils/graphql';
 import { appCss } from './appCss';
 import { Image, Filter } from './particles';
 import { colors } from './styles';
 
-const inDevelopment = process.env.NODE_ENV !== 'production';
+// const inDevelopment = process.env.NODE_ENV !== 'production';
 
 const AppComponent = ({
   location // from withRouter
@@ -59,12 +57,6 @@ const AppComponent = ({
               exact path='/cube'
               render={() => <Cube />}
             />
-            {inDevelopment && ( // testing
-              <Route
-                exact path='/clash'
-                render={() => <Clash />}
-              />
-            )}
             <Route render={() => <Redirect to='/' />} />
           </Switch>
         </div>
