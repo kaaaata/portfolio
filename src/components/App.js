@@ -59,7 +59,7 @@ const AppComponent = ({
             />
             <Route render={() => <Redirect to='/' />} />
           </Switch>
-        </div>
+          </div>
       </Image>
     </main>
   );

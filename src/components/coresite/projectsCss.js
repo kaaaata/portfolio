@@ -30,7 +30,7 @@ export const projectsCss = css`
       flex-direction: column;
       
       .image {
-        margin-bottom: 20px;
+        margin: 0 auto 20px auto;
       }
 
       .description {

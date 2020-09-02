@@ -7,15 +7,20 @@ export const appCss = css`
   min-width: 320px;
 
   .content_container {
-    width: 100%;
-    max-width: 1200px;
     position: absolute;
+    width: 100%;
     left: 50%;
     transform: translate(-50%, 0);
     bottom: 0;
     height: calc(100vh - 80px);
-    overflow-y: scroll;
     padding: 0 20px 40px 20px;
+    overflow-y: scroll;
+
+    & > * {
+      max-width: 1200px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
 
     ${mq.phone(`
       height: calc(100vh - 60px);

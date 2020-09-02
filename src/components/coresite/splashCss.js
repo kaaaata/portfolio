@@ -13,6 +13,10 @@ export const splashCss = css`
       &:last-child {
         margin-right: 0;
       }
+
+      ${mq.phone(`
+        margin-right: 0;
+      `)}
     }
   }
 

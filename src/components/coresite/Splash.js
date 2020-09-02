@@ -25,7 +25,7 @@ export const Splash = () => (
 
     <Spacer height={40} />
 
-    <FlexContainer justifyContent='center' className='buttons'>
+    <FlexContainer justifyContent='center' className='buttons' flexDirection={['row', 'row', 'column']}>
       <Button
         href='https://docdro.id/E7U8O0c'
         onClick={() => trackStats('viewed_resume')}
@@ -38,7 +38,7 @@ export const Splash = () => (
       </Button>
     </FlexContainer>
 
-    <Spacer height={40} />
+    <Spacer height={30} />
 
     <h5>
       Feel free to leave a message inside this <Link href='/copypaster'><span className='underline'>text box</span></Link>!
